@@ -1,7 +1,17 @@
 <?php
-include('application/conn.php');
-$idstudent = $_SESSION['idstudent'];
-echo "Select * from tbl_student where idstudent='$idstudent'";
+include('../application/conn.php');
+$idstudent = $_GET['idstudent'];
+$idresumeTypes = $_GET['resumeTypes'];
+//echo "Select * from tbl_resumekeywords where idresumetype=$idresumeTypes";
+$resumeKeywordsSql = mysql_query("Select * from tbl_resumekeywords where idresumetype=$idresumeTypes");
+while($row = mysql_fetch_assoc($resumeKeywordsSql))
+{
+    $resumeKeyWordsArray[] = $row['keywords'];
+}
+
+print_r($resumeKeyWordsArray);
+exit;
+//echo "Select * from tbl_student where idstudent='$idstudent'";
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
@@ -97,10 +107,10 @@ while($row = mysql_fetch_assoc($achievementSql))
     <title>Nanochip Solutions</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/main.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -111,7 +121,7 @@ while($row = mysql_fetch_assoc($achievementSql))
 
   <body>
    <?php include('include/header.php');?>
-    <?php include('include/nav.php');?>
+    
     <div class="container mar-t30">
     <p class="font16-sm brd-btm">Personal Information</p>
     <div class="row">
@@ -221,6 +231,6 @@ while($row = mysql_fetch_assoc($achievementSql))
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

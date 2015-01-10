@@ -87,6 +87,8 @@ if($_POST)
     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+        <p class="font16-sm brd-btm" style="align:center">Welcome to the Resume Builder, please fill all the sections for your resume to be submitted to the database 
+successfully.</p>
     <div class="row">
     <div class="form-horizontal col-sm-6">
       <div class="form-group">

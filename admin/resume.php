@@ -110,7 +110,7 @@ for($i=0;$i<count($studentArray);$i++)
   <?php include('../include/header.php');?>
     <?php //include('include/nav.php');?>
     <div class="container mar-t30">
-    <div class="clearfix brd-btm pad-b20">
+        <div class="clearfix brd-btm pad-b20" style="display:none">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
     </div>    
     <table class="table table-striped">

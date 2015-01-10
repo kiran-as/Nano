@@ -62,18 +62,27 @@ if($_POST)
     <div class="row">
     <div class="form-horizontal col-sm-6">
       <div class="form-group">
-        <div class="form-group">
-            <label class="col-sm-5 control-label">Project Title <span class="error-text">*</span></label>
-            <div class="col-sm-6">
-              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
-            </div>        
-          </div>  
-          <div class="form-group">
+           <div class="form-group">
             <label class="col-sm-5 control-label">Company Name <span class="error-text">*</span></label>
             <div class="col-sm-6">
               <input type="name" class="form-control" placeholder="" id="company" name="company">
             </div>        
           </div>
+         
+           <div class="form-group">
+            <label class="col-sm-5 control-label">Designation <span class="error-text">*</span></label>
+            <div class="col-sm-6">
+              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
+            </div>        
+          </div>  
+          
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Title <span class="error-text">*</span></label>
+            <div class="col-sm-6">
+              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
+            </div>        
+          </div>  
+         
             <div class="form-group">
             <label class="col-sm-5 control-label">Start Date <span class="error-text">*</span></label>
             <div class="col-sm-6">

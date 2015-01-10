@@ -55,7 +55,7 @@ if($_POST)
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-5 control-label">College / Institute / College <span class="error-text">*</span></label>
+            <label class="col-sm-5 control-label">Done At<span class="error-text">*</span></label>
             <div class="col-sm-6">
               <input type="name" class="form-control" placeholder="" id="college" name="college">
             </div>        
@@ -67,7 +67,7 @@ if($_POST)
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-5 control-label">Role <span class="error-text">*</span></label>
+            <label class="col-sm-5 control-label">Your Deliverables <span class="error-text">*</span></label>
             <div class="col-sm-6">
               <input type="name" class="form-control" placeholder="" id="role" name="role">
             </div>        
@@ -98,7 +98,7 @@ if($_POST)
             </div>        
           </div>
           <div class="form-group">
-            <label class="col-sm-5 control-label">Challenges</label>
+            <label class="col-sm-5 control-label">Challenges Faced</label>
             <div class="col-sm-6">
               <textarea class="form-control" rows="2" id="challenges" name="challenges"></textarea>
             </div>        

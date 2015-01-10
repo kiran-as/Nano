@@ -2,7 +2,9 @@
 include('application/conn.php');
 include('include/year.php');
 include('include/department.php');
+include('include/pgcourses.php');
 $idstudent = $_SESSION['idstudent'];
+
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
@@ -27,6 +29,7 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgpercentagetype = $row['pg_percentagetype'];
     $pgpercentage = $row['pg_percentage'];
     $pgschoolname = $row['pg_schoolname'];
+   
     $pgboard = $row['pg_university'];
      $pgdepartment = $row['pg_department'];
      
@@ -35,6 +38,10 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgdippercentagetype = $row['pgdip_percentagetype'];
     $pgdippercentage = $row['pgdip_percentage'];
     $pgdipschoolname = $row['pgdip_schoolname'];
+     if($pgdipschoolname=='')
+    {
+        $pgdipschoolname = "RV-VLSI Design Center";
+    }
     $pgdipboard = $row['pgdip_university'];
 }
 if($_POST)
@@ -153,9 +160,10 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t10">
+        
           <div class="row">
            <div class="col-sm-6">
-           <h3 class="brd-btm mar-b20">S.S.L.C Details</h3>
+           <h3 class="brd-btm mar-b20">10th (S.S.L.C Details)</h3>
             <div class="form-horizontal">
               <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -190,7 +198,7 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
             </div>
             </div>
            <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Higher Secondary</h3>
+           <h3 class="brd-btm mar-b20">Higher Secondary (Pre-University)</h3>
             <div class="form-horizontal">
              <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -225,7 +233,7 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
             </div>
             </div> 
            <div class="col-sm-6">
-           <h3 class="brd-btm mar-b20">Graduation</h3>
+           <h3 class="brd-btm mar-b20">Graduation (BE / BTech)</h3>
             <div class="form-horizontal">
               <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -263,13 +271,13 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                 </div>
               </div>
                 <div class="form-group">
-                <label class="col-sm-5 control-label">School / College <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="deg-schoolname" name="deg-schoolname" value="<?php echo $degschoolname;?>">
                 </div>               
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">Board <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="deg-board" name="deg-board" value="<?php echo $degboard;?>">
                 </div>        
@@ -277,7 +285,7 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
             </div>
             </div>
            <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Post Graduation</h3>
+           <h3 class="brd-btm mar-b20">Post Graduation (ME / MTech)</h3>
             <div class="form-horizontal">
               <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -315,13 +323,13 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                 </div>
               </div>
                 <div class="form-group">
-                <label class="col-sm-5 control-label">School / College <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pg-schoolname" name="pg-schoolname" value="<?php echo $pgschoolname;?>">
                 </div>               
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">Board <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pg-board" name="pg-board" value="<?php echo $pgboard;?>">
                 </div>        
@@ -329,19 +337,32 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
               </div>                                           
             </div>
         <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">PG Diploma & Certificate Courses</h3>
+           <h3 class="brd-btm mar-b20">PG Diploma / Certificate Courses</h3>
                 <div class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
+               <div class="form-group">
+                <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pgdip-schoolname" name="pgdip-schoolname" value="<?php echo $pgdipschoolname;?>">
+                </div>               
+              </div> 
+                 <div class="form-group">
+                <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                    <select class="form-control" id="pgdip-passoutyear" name="pgdip-passoutyear">
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pgdippassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      
+                        <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
+                      <option value="<?php echo $pgCoursesArray[$i]['pgdip_coursename'];?>" <?php if($pgCoursesArray==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
                       <?php }?>
                       
                   </select>
                 </div>        
-              </div> 
+              </div>     
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Course Duration <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pgdip-board" name="pgdip-board" value="<?php echo $pgdipboard;?>">
+                </div>        
+              </div>  
              <div class="form-group">
                 <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
                 <div class="col-sm-7">
@@ -354,25 +375,34 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                     <input type="text" class="form-control mar-t10" placeholder="" id="pgdip-percentage" name="pgdip-percentage" value="<?php echo $pgdippercentage;?>">                                                      
                 </div>
               </div>
-                <div class="form-group">
-                <label class="col-sm-5 control-label">School / College <span class="error-text">*</span></label>
+               
+              
+                    
+                     <div class="form-group">
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pgdip-schoolname" name="pgdip-schoolname" value="<?php echo $pgdipschoolname;?>">
-                </div>               
+                   <select class="form-control" id="pgdip-passoutyear" name="pgdip-passoutyear">
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pgdippassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>        
               </div> 
+             
               <div class="form-group">
-                <label class="col-sm-5 control-label">Board <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">RV-VLSI ID<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pgdip-board" name="pgdip-board" value="<?php echo $pgdipboard;?>">
                 </div>        
-              </div>                                            
+              </div> 
             </form>
             </div>                        
             </div> 
             </div>
                      
             <div class="clearfix brd-top pad-t20">
-                <button type="submit" class="btn btn-primary pull-right">NEXT</button>       
+                <button type="submit" class="btn btn-primary pull-right">Save & Continue</button>       
                 <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
             </div>                   
      
