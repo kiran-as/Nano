@@ -19,9 +19,8 @@ include('../application/conn.php');
                <div class="clearfix">
                 <ul class="nav navbar-nav header-nav">
                   <li>Welcome <?php echo $_SESSION['studentName'];?></li>
-                  <li><a href="#" class="pad-sm-t13 pad-sm-b12">Edit Resume</a></li>
-                  <li class=""><a href="#" class="pad-sm-t13 pad-sm-b12">View Resume</a></li>
-                  <li class=""><a href="#" class="pad-sm-t13 pad-sm-b12">Logout</a></li>                                  
+                  <li class=""><a href="viewResume.php" class="pad-sm-t13 pad-sm-b12">View Resume</a></li>
+                  <li class=""><a href="index.php" class="pad-sm-t13 pad-sm-b12">Logout</a></li>                                  
                 </ul>                   
                </div>                                            
             </div>    
