@@ -150,16 +150,20 @@ while($row = mysql_fetch_assoc($companyArraySql))
     <p class="font16-sm brd-btm">Personal Information</p>
     <div class="row">
       <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Name :</span><?php echo $firstName.' '.$lastName;?></label>
-      </div>
+        <label class="control-label"><span class="font-gray">
+        <input type='text' name='firstName' id='firstName' class="form-control" value='<?php echo $firstName;?>'> 
+        <input type='text' name='lastName' id='lastName' class="form-control" value='<?php echo $lastName;?>'>     </div>
       <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Email :</span><?php echo $email;?></label>
+        <label class="control-label"><span class="font-gray">Email :</span>
+        <input type='text' name='email' id='email' class="form-control" value='<?php echo $email;?>'>
       </div> 
       <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Phone Number :</span> <?php echo $mobileNumber;?></label>
+        <label class="control-label"><span class="font-gray">Phone Number :</span> 
+        <input type='text' name='mobile' id='mobile' class="form-control" value='<?php echo $mobileNumber;?>'></label>
       </div> 
       <div class="col-sm-3">
         <label class="control-label"><span class="font-gray">Address :</span> 
+        <input type='text' name='address' id='address' class="form-control" value='<?php echo $address;?>'>
 <?php echo $address;?></label>
       </div>                 
     </div> 
@@ -168,14 +172,12 @@ while($row = mysql_fetch_assoc($companyArraySql))
     <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
 <ul class="content-list">
     <?php if($achievementsArray[0]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[0]['achievements'];?></li>
+    <li><textarea  class="form-control mar-b15" rows="2"  name="achievments[]" value=''><?php echo $achievementsArray[0]['achievements'];?></textarea></li>
     <?php }?>
     <?php if($achievementsArray[1]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[1]['achievements'];?></li>
-    <?php }?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="achievments[]" value=''><?php echo $achievementsArray[1]['achievements'];?></textarea></li>    <?php }?>
     <?php if($achievementsArray[2]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[2]['achievements'];?></li>
-    <?php }?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="achievments[]" value=''><?php echo $achievementsArray[2]['achievements'];?></textarea></li>    <?php }?>
 </ul>                             
 <p class="font16-sm brd-btm pad-t10">Educational Details</p>
    <table class="table table-bordered">

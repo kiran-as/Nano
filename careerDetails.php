@@ -15,6 +15,16 @@ if($_POST)
                     . "value('$achievements','$idstudent')");
         }
     }
+
+    for($i=0;$i<5;$i++)
+    {
+        $corecompetancy = $_POST['corecompetancy'][$i];
+        if($corecompetancy!='')
+        {
+            mysql_query("Insert into tbl_corecompetancy(corecompetancy,idstudent)"
+                    . "value('$corecompetancy','$idstudent')");
+        }
+    }
 }
 
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
@@ -30,6 +40,17 @@ while($row = mysql_fetch_assoc($achievementSql))
     $achievementsArray[$i]['achievements'] = $row['achievements'];
     $i++;
 }
+
+$coreCompetancySql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
+$corecompetancyArray = array();
+$i=0;
+while($row = mysql_fetch_assoc($coreCompetancySql))
+{
+    $corecompetancyArray[$i]['corecompetancy'] = $row['corecompetancy'];
+    $i++;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +79,14 @@ while($row = mysql_fetch_assoc($achievementSql))
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
 <form name="" method="POST">
-  
+  <div class="form-group">
+    <label>Core Competancy</label>
+    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+  </div>    
   <div class="form-group brd-btm pad-b20">
     <label>Career Objective</label>
     <textarea  class="form-control" rows="3" id="career_objective" name="career_objective"><?php echo $career_objective;?></textarea>

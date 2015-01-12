@@ -43,6 +43,15 @@ while($row = mysql_fetch_assoc($profileInformationSql))
         $pgdipschoolname = "RV-VLSI Design Center";
     }
     $pgdipboard = $row['pgdip_university'];
+    $pgDipCoursename = $row['pgdip_coursename'];
+    $rvvlsiid = $row['rvvlsiid'];
+
+     $phdpassoutyear = $row['phd_passoutyear'];
+    $phdpercentagetype = $row['phd_percentagetype'];
+    $phdpercentage = $row['phd_percentage'];
+    $phdschoolname = $row['phd_schoolname'];
+     $phdboard = $row['phd_university'];
+     $phddepartment = $row['phd_department'];
 }
 if($_POST)
 {
@@ -76,35 +85,16 @@ if($_POST)
     $pgdippercentage = $_POST['pgdip-percentage'];
     $pgdipschoolname = $_POST['pgdip-schoolname'];
     $pgdipboard = $_POST['pgdip-board'];
-//
-//    echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
-//                             sslc_percentagetype = '$sslcpercentagetype',
-//                             sslc_percentage = '$sslcpercentage',
-//                             sslc_schoolname = '$sslcschoolname',
-//                             puc_passoutyear = '$pucpassoutyear', 
-//                             puc_percentagetype = '$sslcpercentagetype',
-//                             puc_percentage = '$pucpercentagetype',
-//                             puc_schoolname = '$pucschoolname',
-//                             deg_passoutyear = '$degpassoutyear', 
-//                             deg_percentagetype = '$degpercentagetype',
-//                             deg_percentage = '$degpercentage',
-//                             deg_schoolname = '$degschoolname',
-//                             deg_university = '$degboard',
-//                             deg_department = '$degdepartment',
-//                             pg_passoutyear = '$pgpassoutyear', 
-//                             pg_percentagetype = '$pgpercentagetype',
-//                             pg_percentage = '$pgpercentage',
-//                             pg_schoolname = '$pgschoolname',
-//                             pg_university = '$degboard', 
-//                             pg_department = '$pgdepartment',
-//                             pgdip_passoutyear = '$pgdippassoutyear', 
-//                             pgdip_percentagetype = '$pgdippercentagetype',
-//                             pgdip_percentage = '$pgdippercentage',
-//                             pgdip_schoolname = '$pgdipschoolname',
-//                             pgdip_university = '$pgdipboard'
-//                        where idstudent = '$idstudent'";
-//    exit;
-mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
+    $pgdipcoursename = $_POST['pgdip-coursename'];
+    $rvvlsiid = $_POST['rvvlsiid'];
+
+    $phdpassoutyear = $_POST['phd-passoutyear'];
+    $phdpercentagetype = $_POST['phd-percentagetype'];
+    $phdpercentage = $_POST['phd-percentage'];
+    $phdschoolname = $_POST['phd-schoolname'];
+    $phdboard = $_POST['phd-board'];
+     $phddepartment = $_POST['phd-department'];    
+/*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
                              sslc_schoolname = '$sslcschoolname',
@@ -128,7 +118,50 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                              pgdip_percentagetype = '$pgdippercentagetype',
                              pgdip_percentage = '$pgdippercentage',
                              pgdip_schoolname = '$pgdipschoolname',
-                             pgdip_university = '$pgdipboard'
+                             pgdip_university = '$pgdipboard',
+                             pgdip_coursename = '$pgdipcoursename',
+                             rvvlsiid = '$rvvlsiid',
+                             phd_passoutyear = '$phdpassoutyear', 
+                             phd_percentagetype = '$phdpercentagetype',
+                             phd_percentage = '$phdpercentage',
+                             phd_schoolname = '$phdschoolname',
+                             phd_university = '$phdboard',
+                             phd_department = '$phddepartment'
+                        where idstudent = '$idstudent'";
+   exit;
+*/mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
+                             sslc_percentagetype = '$sslcpercentagetype',
+                             sslc_percentage = '$sslcpercentage',
+                             sslc_schoolname = '$sslcschoolname',
+                             puc_passoutyear = '$pucpassoutyear', 
+                             puc_percentagetype = '$sslcpercentagetype',
+                             puc_percentage = '$pucpercentagetype',
+                             puc_schoolname = '$pucschoolname',
+                             deg_passoutyear = '$degpassoutyear', 
+                             deg_percentagetype = '$degpercentagetype',
+                             deg_percentage = '$degpercentage',
+                             deg_schoolname = '$degschoolname',
+                             deg_university = '$degboard',
+                             deg_department = '$degdepartment',
+                             pg_passoutyear = '$pgpassoutyear', 
+                             pg_percentagetype = '$pgpercentagetype',
+                             pg_percentage = '$pgpercentage',
+                             pg_schoolname = '$pgschoolname',
+                             pg_university = '$degboard', 
+                             pg_department = '$pgdepartment',
+                             pgdip_passoutyear = '$pgdippassoutyear', 
+                             pgdip_percentagetype = '$pgdippercentagetype',
+                             pgdip_percentage = '$pgdippercentage',
+                             pgdip_schoolname = '$pgdipschoolname',
+                             pgdip_university = '$pgdipboard',
+                             pgdip_coursename = '$pgdipcoursename',
+                             rvvlsiid = '$rvvlsiid',
+                             phd_passoutyear = '$phdpassoutyear', 
+                             phd_percentagetype = '$phdpercentagetype',
+                             phd_percentage = '$phdpercentage',
+                             phd_schoolname = '$phdschoolname',
+                             phd_university = '$phdboard',
+                             phd_department = '$phddepartment'
                         where idstudent = '$idstudent'");
   
 }
@@ -247,7 +280,7 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                 </div>        
               </div> 
                  <div class="form-group">
-            <label class="col-sm-5 control-label">Department<span class="error-text">*</span></label>
+            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
             <div class="col-sm-7">
                 <select class="form-control" id="deg-department" name="deg-department">
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
@@ -300,7 +333,7 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                 </div>        
               </div> 
             <div class="form-group">
-            <label class="col-sm-5 control-label">Department<span class="error-text">*</span></label>
+            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
             <div class="col-sm-7">
               <select class="form-control" id="pg-department" name="pg-department">
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
@@ -348,10 +381,10 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
                  <div class="form-group">
                 <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                   <select class="form-control" id="pgdip-passoutyear" name="pgdip-passoutyear">
+                   <select class="form-control" id="pgdip-coursename" name="pgdip-coursename">
                       
                         <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
-                      <option value="<?php echo $pgCoursesArray[$i]['pgdip_coursename'];?>" <?php if($pgCoursesArray==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
+                      <option value="<?php echo $pgCoursesArray[$i]['idpgdipcourses'];?>" <?php if($pgDipCoursename==$pgCoursesArray[$i]['idpgdipcourses']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
                       <?php }?>
                       
                   </select>
@@ -393,12 +426,64 @@ mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear',
               <div class="form-group">
                 <label class="col-sm-5 control-label">RV-VLSI ID<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pgdip-board" name="pgdip-board" value="<?php echo $pgdipboard;?>">
+                  <input type="name" class="form-control" placeholder="" id="rvvlsiid" name="rvvlsiid" value="<?php echo $rvvlsiid;?>">
                 </div>        
               </div> 
             </form>
             </div>                        
             </div> 
+             <div class="clearfix col-sm-6">
+           <h3 class="brd-btm mar-b20">Ph.D</h3>
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <select class="form-control" id="phd-passoutyear" name="phd-passoutyear">
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                    <label class="radio-inline">
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($phdpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>        
+              </div> 
+            <div class="form-group">
+            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <select class="form-control" id="phd-department" name="phd-department">
+                  <?php for($i=0;$i<count($departmentarray);$i++){?>
+                  <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"
+                          <?php if($phddepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";};?>><?php echo $departmentarray[$i]['department'];?></option>
+                  <?php }?>
+
+              </select>
+            </div>        
+              </div> 
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="Percentage" <?php if($phdpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="CGPA" <?php if($phdpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    </label>        
+                    <input type="text" class="form-control mar-t10" placeholder="" id="phd-percentage" name="phd-percentage" value="<?php echo $phdpercentage;?>">                                                      
+                </div>
+              </div>
+                <div class="form-group">
+                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="phd-schoolname" name="phd-schoolname" value="<?php echo $phdschoolname;?>">
+                </div>               
+              </div> 
+              <div class="form-group">
+                <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="phd-board" name="phd-board" value="<?php echo $phdboard;?>">
+                </div>        
+              </div>         
+              </div>                                           
             </div>
                      
             <div class="clearfix brd-top pad-t20">

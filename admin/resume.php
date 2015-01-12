@@ -123,10 +123,10 @@ for($i=0;$i<count($studentArray);$i++)
             Resume ID
         </th>
         <th>
-           VLSI
+           VLSI - Front End
         </th>
         <th>
-            EMBEDDED
+            VLSI - Back End
         </th>
         </tr>
       </thead>

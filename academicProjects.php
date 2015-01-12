@@ -1,19 +1,57 @@
 <?php
-include("application/conn.php");
-$idstudent=$_SESSION['idstudent'];
-$academicsql = mysql_query("Select * from tbl_academicproject where idstudent='$idstudent'");
-$i=0;
-while($row = mysql_fetch_assoc($academicsql))
-{
-    $academicArray[$i]['project_title'] = $row['project_title'];
-    $academicArray[$i]['college_name'] = $row['college_name'];
-    $academicArray[$i]['role'] = $row['role'];
-    $academicArray[$i]['tools_used'] = $row['tools_used'];
-    $academicArray[$i]['idacademicproject'] = $row['idacademicproject'];
-    $i++;
-}
+include('application/conn.php');
+include('include/year.php');
+include('include/department.php');
+include('include/pgcourses.php');
+$idstudent = $_SESSION['idstudent'];
 
+$profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
+while($row = mysql_fetch_assoc($profileInformationSql))
+{
+    $deg_projectname = $row['deg_projectname'];
+    $deg_projectdescription = $row['deg_projectdescription'];
+    $deg_projecttools = $row['deg_projecttools'];
+    $deg_projectchallenges = $row['deg_projectchallenges'];
+    
+    $pg_projectname = $row['pg_projectname'];
+    $pg_projectdescription = $row['pg_projectdescription'];
+    $pg_projecttools = $row['pg_projecttools'];
+    $pg_projectchallenges = $row['pg_projectchallenges'];
+}
+if($_POST)
+{
+     $deg_projectname = $_POST['deg_projectname'];
+    $deg_projectdescription = $_POST['deg_projectdescription'];
+    $deg_projecttools = $_POST['deg_projecttools'];
+    $deg_projectchallenges = $_POST['deg_projectchallenges'];
+    
+    $pg_projectname = $_POST['pg_projectname'];
+    $pg_projectdescription = $_POST['pg_projectdescription'];
+    $pg_projecttools = $_POST['pg_projecttools'];
+    $pg_projectchallenges = $_POST['pg_projectchallenges'];
+/*echo "Update tbl_student set deg_projectname = $deg_projectname,
+						     deg_projectdescription = $deg_projectdescription,
+						     deg_projecttools = $deg_projecttools,
+						     deg_projectchallenges = $deg_projectchallenges,
+                             pg_projectname = $pg_projectname,
+						     pg_projectdescription = $pg_projectdescription,
+						     pg_projecttools = $pg_projecttools,
+						     pg_projectchallenges = $pg_projectchallenges,
+                        where idstudent = '$idstudent'";
+   exit;*/
+mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
+						     deg_projectdescription = '$deg_projectdescription',
+						     deg_projecttools = '$deg_projecttools',
+						     deg_projectchallenges = '$deg_projectchallenges',
+                             pg_projectname = '$pg_projectname',
+						     pg_projectdescription = '$pg_projectdescription',
+						     pg_projecttools = '$pg_projecttools',
+						     pg_projectchallenges = '$pg_projectchallenges'
+                        where idstudent = '$idstudent'");
+  
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,47 +74,125 @@ while($row = mysql_fetch_assoc($academicsql))
   </head>
 
   <body>
-   <?php include('include/header.php');?>
+      <form action="" method="POST">
+     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
-    <div class="container mar-t30">
-    <div class="clearfix brd-btm pad-b20">
-        <a href="addAcademicProject.php" class="btn btn-primary pull-right">+ ADD PROJECT</a>                     
-    </div>    
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>College / Institute / College</th>
-          <th>Title</th>
-          <th>Role</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-          <?php for($i=0;$i<count($academicArray);$i++){?>
-              <tr>
-          <td><?php echo $academicArray[$i]['college_name'];?></td>
-          <td><?php echo $academicArray[$i]['project_title'];?></td>
-          <td><?php echo $academicArray[$i]['role'];?></td>
-          <td><?php echo $academicArray[$i]['tools_used'];?></td>
-          <td><a href="editAcademicProject.php?idacademicproject=<?php echo $academicArray[$i]['idacademicproject'];?>" class="icon icon--edit" >Edit</a></td>
-        </tr> 
+    <div class="container mar-t10">
+        
+          <div class="row">
+           <div class="col-sm-6">
+           <h3 class="brd-btm mar-b20">B.E Project Details</h3>
+            <div class="form-horizontal">
+             
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="deg_projectname" name="deg_projectname" value="<?php echo $deg_projectname;?>">
+                </div>               
+              </div> 
+                                              
+            
+             
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Description<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projectdescription" name="deg_projectdescription" ><?php echo $deg_projectdescription;?></textarea>
+                </div>               
+              </div> 
+                                              
+            </div>
+            </div>
+           <div class="clearfix col-sm-6">
+                     <h3 class="brd-btm mar-b20">Graduation (BE / BTech)</h3>
+
+            <div class="form-horizontal">
               
-          <?php } ?>
-                                                         
-      </tbody>
-    </table>                
-    <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">NEXT</button>                      
-    </div>                   
-    </div> 
-    
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Tools<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projecttools" name="deg_projecttools" ><?php echo $deg_projecttools;?></textarea>
+                </div>               
+              </div>                           
+           
+             
+               
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Challenges<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projectchallenges" name="deg_projectchallenges" ><?php echo $deg_projectchallenges;?></textarea>
+                </div>               
+              </div>  
+                                              
+            </div>
+            
+                                                                    
+            </div>
+            </div> 
+          <div class="row">
+           <div class="col-sm-6">
+           <h3 class="brd-btm mar-b20">B.E Project Details</h3>
+            <div class="form-horizontal">
+             
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pg_projectname" name="pg_projectname" value="<?php echo $pg_projectname;?>">
+                </div>               
+              </div> 
+                                              
+            
+             
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Description<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projectdescription" name="pg_projectdescription" ><?php echo $pg_projectdescription;?></textarea>
+                </div>               
+              </div> 
+                                              
+            </div>
+            </div>
+           <div class="clearfix col-sm-6">
+                     <h3 class="brd-btm mar-b20">Graduation (BE / BTech)</h3>
+
+            <div class="form-horizontal">
+              
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Tools<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projecttools" name="pg_projecttools" ><?php echo $pg_projecttools;?></textarea>
+                </div>               
+              </div>                           
+           
+             
+               
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Project Challenges<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projectchallenges" name="pg_projectchallenges" ><?php echo $pg_projectchallenges;?></textarea>
+                </div>               
+              </div>  
+                                              
+            </div>
+            
+                                                                    
+            </div>
+            </div> 
+                     
+            <div class="clearfix brd-top pad-t20">
+                <button type="submit" class="btn btn-primary pull-right">Save & Continue</button>       
+                <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
+            </div>                   
+     
+
     <footer class="home-footer">
           <div class="container">            
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               
           </div>          
     </footer>  
- 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.min.js"></script>
+      </form>
   </body>
 </html>
