@@ -3,6 +3,8 @@ include('application/conn.php');
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
+    mysql_query("Delete from tbl_achievements where idstudent='$idstudent'");
+    mysql_query("Delete from tbl_corecompetancy where idstudent='$idstudent'");
     $career_objective = $_POST['career_objective'];
     mysql_query("Update tbl_student set career_objective='$career_objective' where idstudent='$idstudent'");
 

@@ -5,6 +5,86 @@ echo "Select * from tbl_student where idstudent='$idstudent'";
 if($_POST)
 {
    print_r($_POST);
+   //exit;
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $mobileNumber = $_POST['mobileNumber'];
+    $address = $_POST['address'];
+   
+    mysql_query("Update tbl_student set 
+                        firstname='$firstName', 
+                        lastname='$lastName',
+                        mobile='$mobileNumber',address='$address'
+                        where idstudent='$idstudent'");
+
+  //function for updating the achievemt and core competancy//
+    mysql_query("Delete from tbl_achievements where idstudent='$idstudent'");
+    mysql_query("Delete from tbl_corecompetancy where idstudent='$idstudent'");
+    $career_objective = $_POST['career_objective'];
+    for($i=0;$i<3;$i++)
+    {
+        $achievements = $_POST['achievments'][$i];
+        if($achievements!='')
+        {
+            mysql_query("Insert into tbl_achievements(achievements,idstudent)"
+                    . "value('$achievements','$idstudent')");
+        }
+    }
+
+    for($i=0;$i<5;$i++)
+    {
+        $corecompetancy = $_POST['corecompetancy'][$i];
+        if($corecompetancy!='')
+        {
+            mysql_query("Insert into tbl_corecompetancy(corecompetancy,idstudent)"
+                    . "value('$corecompetancy','$idstudent')");
+        }
+    }
+
+    for($i=0;$i<count($_POST['academicprojectid']);$i++)
+    {
+      $projecttitle = $_POST['academicproject_name'][$i];
+      $idacademicproject = $_POST['academicprojectid'][$i];
+      $college = $_POST['academic_collegename'][$i];
+      $projectdescription = $_POST['academi_description'][$i];
+      $challenges = $_POST['academicproject_challenges'][$i];
+      $tools = $_POST['academicproject_toolsused'][$i];
+      
+      /*echo "Update tbl_academicproject set project_title='$projecttitle',"
+              . "college_name='$college',"
+              . "project_description='$projectdescription',"
+              . "tools_used='$tools',challenges='$challenges' "
+              . "where idacademicproject='$idacademicproject'";*/
+
+      mysql_query("Update tbl_academicproject set project_title='$projecttitle',"
+              . "college_name='$college',"
+              . "project_description='$projectdescription',"
+              . "tools_used='$tools',challenges='$challenges' "
+              . "where idacademicproject='$idacademicproject'");
+    }
+
+     for($i=0;$i<count($_POST['companyprojectid']);$i++)
+    {
+      $projecttitle = $_POST['companyproject_name'][$i];
+      $company = $_POST['companyproject_collegename'][$i];
+      $projectdescription = $_POST['companyproject_description'][$i];
+      $challenges = $_POST['companyproject_challenges'][$i];
+      $tools = $_POST['companyproject_toolsused'][$i];
+      $idcompanyproject = $_POST['companyprojectid'][$i];
+     
+     echo  "Update tbl_companyproject set project_title='$projecttitle',"
+            . "company_name='$company',"
+            . "project_description='$projectdescription',"
+            . "tools_used='$tools',challenges='$challenges' "
+            . "where idcompanyproject='$idcompanyproject'";
+            exit;
+      mysql_query("Update tbl_companyproject set project_title='$projecttitle',"
+            . "company_name='$company',"
+            . "project_description='$projectdescription',"
+            . "tools_used='$tools',challenges='$challenges' "
+            . "where idcompanyproject='$idcompanyproject'");
+    }
+   echo "<script>parent.location='viewResume.php'</script>";
    exit;
 }
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
@@ -127,6 +207,16 @@ while($row = mysql_fetch_assoc($companySql))
 }
 ///////
 
+$coreCompetancySql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
+$corecompetancyArray = array();
+$i=0;
+while($row = mysql_fetch_assoc($coreCompetancySql))
+{
+    $corecompetancyArray[$i]['corecompetancy'] = $row['corecompetancy'];
+    $i++;
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -186,7 +276,25 @@ while($row = mysql_fetch_assoc($companySql))
 <li><textarea  class="form-control mar-b15" rows="2"  name="achievments[]" value=''><?php echo $achievementsArray[1]['achievements'];?></textarea></li>    <?php }?>
     <?php if($achievementsArray[2]['achievements']!=''){?>
 <li><textarea  class="form-control mar-b15" rows="2"  name="achievments[]" value=''><?php echo $achievementsArray[2]['achievements'];?></textarea></li>    <?php }?>
-</ul>                             
+</ul>  
+
+ <p class="font16-sm brd-btm pad-t10">Core Competancy</p>
+<ul class="content-list">
+    <?php if($corecompetancyArray[0]['corecompetancy']!=''){?>
+    <li><textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" value=''><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea></li>
+    <?php }?>
+    <?php if($corecompetancyArray[1]['corecompetancy']!=''){?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" value=''><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea></li>    <?php }?>
+    <?php if($corecompetancyArray[2]['corecompetancy']!=''){?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" value=''><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea></li>    <?php }?>
+<?php if($corecompetancyArray[3]['corecompetancy']!=''){?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" value=''><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea></li>    <?php }?>
+<?php if($corecompetancyArray[4]['corecompetancy']!=''){?>
+<li><textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" value=''><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea></li>    <?php }?>
+    
+</ul>  
+
+
 <p class="font16-sm brd-btm pad-t10">Educational Details</p>
    <table class="table table-bordered">
       <thead>
@@ -248,7 +356,7 @@ while($row = mysql_fetch_assoc($companySql))
        
    </table>  
   <p class='font16-sm brd-btm pad-t10'>Project Details</p>";
-      <?php for($i=0;$i<count($academicArray);$i++){
+      <?php $resumeorder = 1;for($i=0;$i<count($academicArray);$i++){
            $project_title = $academicArray[$i]['project_title'];
     $college_name = $academicArray[$i]['college_name'];
     $time_duration = $academicArray[$i]['time_duration'];
@@ -257,36 +365,41 @@ while($row = mysql_fetch_assoc($companySql))
     $challenges = $academicArray[$i]['challenges'];
     $idacademicproject = $academicArray[$i]['idacademicproject'];?>
           <table class='table table-bordered'>
-      <tbody>
+      <tbody><input type='text' name='resumeorder[]' value='<?php echo 'aca-'.$resumeorder?>'/>
           <tr>
               <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'><input type='text' name='academicproject[<?php echo $idacademicproject;?>]'
+              <td width='70%'><input type='text' name='academicproject_name[]'
                value='<?php  echo $project_title;?>'></td>                           
+          </tr> 
+          <tr>
+                                      
+              <td width='70%'><input type='text' name='academicprojectid[]'
+               value='<?php  echo $idacademicproject;?>'></td>                           
           </tr>  
           <tr>
               <td><span class='font-gray'>Company Name</span></td>                           
-              <td><input type='text' name='academic_collegename[<?php echo $idacademicproject;?>]'
+              <td><input type='text' name='academic_collegename[]'
                value='<?php  echo $college_name;?>'></td>                           
           </tr>  
           <tr>
               <td><span class='font-gray'>Project Description</span></td>                           
-              <td><input type='text' name='academi_description[<?php echo $idacademicproject;?>]'
+              <td><input type='text' name='academi_description[]'
                value='<?php  echo $project_description;?>'></td>                           
           </tr> 
           <tr>
               <td><span class='font-gray'>Challenges</span></td>                           
-              <td><input type='text' name='academicproject_challenges[<?php echo $idacademicproject;?>]'
+              <td><input type='text' name='academicproject_challenges[]'
                value='<?php  echo $challenges;?>'></td>                           
           </tr> 
           <tr>
               <td><span class='font-gray'>Tools</span></td>                           
-              <td><input type='text' name='academicproject_toolsused[<?php echo $idacademicproject;?>]'
+              <td><input type='text' name='academicproject_toolsused[]'
                value='<?php  echo $tools_used;?>'></td>                           
           </tr> 
       </tbody>
        
    </table> ";
-     <?php }?>
+     <?php $resumeorder++;}?>
     
     <p class='font16-sm brd-btm pad-t10'>Project Details</p>";
       <?php for($i=0;$i<count($companyArray);$i++){
@@ -298,36 +411,41 @@ while($row = mysql_fetch_assoc($companySql))
     $challenges = $companyArray[$i]['challenges'];
     $idcompanyproject = $companyArray[$i]['idcompanyproject'];?>
           <table class='table table-bordered'>
-      <tbody>
+      <tbody><input type='text' name='resumeorder[]' value='<?php echo 'cmp-'.$idcompanyproject;?>'/>
+      <tr>
+              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='70%'><input type='text' name='companyprojectid[]'
+               value='<?php  echo $idcompanyproject;?>'></td>                           
+          </tr> 
           <tr>
               <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'><input type='text' name='companyproject[<?php echo $idcompanyproject;?>]'
+              <td width='70%'><input type='text' name='companyproject_name[]'
                value='<?php  echo $project_title;?>'></td>                           
           </tr>  
           <tr>
               <td><span class='font-gray'>Company Name</span></td>                           
-              <td><input type='text' name='companyproject_collegename[<?php echo $idcompanyproject;?>]'
+              <td><input type='text' name='companyproject_collegename[]'
                value='<?php  echo $college_name;?>'></td>                           
           </tr>  
           <tr>
               <td><span class='font-gray'>Project Description</span></td>                           
-              <td><input type='text' name='companyproject_description[<?php echo $idcompanyproject;?>]'
+              <td><input type='text' name='companyproject_description[]'
                value='<?php  echo $project_description;?>'></td>                           
           </tr> 
           <tr>
               <td><span class='font-gray'>Challenges</span></td>                           
-              <td><input type='text' name='companyproject_challenges[<?php echo $idcompanyproject;?>]'
+              <td><input type='text' name='companyproject_challenges[]'
                value='<?php  echo $challenges;?>'></td>                           
           </tr> 
           <tr>
               <td><span class='font-gray'>Tools</span></td>                           
-              <td><input type='text' name='companyproject_toolsused[<?php echo $idcompanyproject;?>]'
+              <td><input type='text' name='companyproject_toolsused[]'
                value='<?php  echo $tools_used;?>'></td>                           
           </tr> 
       </tbody>
        
    </table> ";
-     <?php }?>
+     <?php $resumeorder++;}?>
     <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
 <ul class="content-list">
     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>

@@ -106,9 +106,8 @@ while($row = mysql_fetch_assoc($academicSql))
 ///////
 ////academic profiles///
 $companySql = mysql_query("Select * from tbl_companyproject where idstudent=$idstudent");
-$companyArraySql = array($companySql);
 $i=0;
-while($row = mysql_fetch_assoc($companyArraySql))
+while($row = mysql_fetch_assoc($companySql))
 {
     $companyArray[$i]['project_title'] = $row['project_title'];
     $companyArray[$i]['company_name'] = $row['company_name'];
@@ -144,6 +143,7 @@ while($row = mysql_fetch_assoc($companyArraySql))
   </head>
 
   <body>
+  <form action='' method='POST'>
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
@@ -271,15 +271,47 @@ while($row = mysql_fetch_assoc($companyArraySql))
        
    </table> ";
      <?php }?>
+
+      <?php for($i=0;$i<count($companyArray);$i++){
+           $project_title = $companyArray[$i]['project_title'];
+    $college_name = $companyArray[$i]['company_name'];
+    $time_duration = $companyArray[$i]['time_duration'];
+    $project_description = $companyArray[$i]['project_description'];
+    $tools_used = $companyArray[$i]['tools_used'];
+    $challenges = $companyArray[$i]['challenges'];
+    $idcompanyproject = $companyArray[$i]['idcompanyproject'];?>
+          <table class='table table-bordered'>
+      <tbody>
+          <tr>
+              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='70%'> <?php  echo $project_title;?></td>                           
+          </tr>  
+          <tr>
+              <td><span class='font-gray'>Company Name</span></td>                           
+              <td><?php  echo $college_name;?></td>                           
+          </tr>  
+          <tr>
+              <td><span class='font-gray'>Project Description</span></td>                           
+              <td><?php  echo $project_description;?></td>                           
+          </tr> 
+          <tr>
+              <td><span class='font-gray'>Challenges</span></td>                           
+              <td><?php  echo $challenges;?></td>                           
+          </tr> 
+          <tr>
+              <td><span class='font-gray'>Tools</span></td>                           
+              <td><?php  echo $tools_used;?></td>                           
+          </tr> 
+      </tbody>
+       
+   </table> ";
+     <?php }?>
     
-    <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
-<ul class="content-list">
-    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-</ul>     
+      
     </div> 
-    
+    <div>
+    <a href="processResume.php">Submit Resume</a>
+    </div>
     <footer class="home-footer">
           <div class="container">            
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               
