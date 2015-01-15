@@ -3,6 +3,7 @@ include('application/conn.php');
 include('include/year.php');
 include('include/department.php');
 include('include/pgcourses.php');
+include('include/traininginstitute.php');
 $idstudent = $_SESSION['idstudent'];
 
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
@@ -38,10 +39,7 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgdippercentagetype = $row['pgdip_percentagetype'];
     $pgdippercentage = $row['pgdip_percentage'];
     $pgdipschoolname = $row['pgdip_schoolname'];
-     if($pgdipschoolname=='')
-    {
-        $pgdipschoolname = "RV-VLSI Design Center";
-    }
+    
     $pgdipboard = $row['pgdip_university'];
     $pgDipCoursename = $row['pgdip_coursename'];
     $rvvlsiid = $row['rvvlsiid'];
@@ -147,7 +145,7 @@ if($_POST)
                              pg_percentagetype = '$pgpercentagetype',
                              pg_percentage = '$pgpercentage',
                              pg_schoolname = '$pgschoolname',
-                             pg_university = '$degboard', 
+                             pg_university = '$pgboard', 
                              pg_department = '$pgdepartment',
                              pgdip_passoutyear = '$pgdippassoutyear', 
                              pgdip_percentagetype = '$pgdippercentagetype',
@@ -375,7 +373,12 @@ if($_POST)
                <div class="form-group">
                 <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pgdip-schoolname" name="pgdip-schoolname" value="<?php echo $pgdipschoolname;?>">
+                 <select class="form-control" id="pgdip-schoolname" name="pgdip-schoolname">
+                      <?php for($i=0;$i<count($trainingInstituteArray);$i++){?>
+                      <option value="<?php echo $trainingInstituteArray[$i]['idtraininginstitute'];?>" <?php if($pgdipschoolname==$trainingInstituteArray[$i]['idtraininginstitute']){ echo "selected=selected";}?>><?php echo $trainingInstituteArray[$i]['traininginstitute'];?></option>
+                      <?php }?>
+                      
+                  </select>
                 </div>               
               </div> 
                  <div class="form-group">

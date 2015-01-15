@@ -95,7 +95,7 @@ for($i=0;$i<count($studentResumeType);$i++)
 }
 
 
-
+mysql_query("Delete from tbl_studentresumekeywords where idstudent='$idstudent'");
 for($k=0;$k<count($studentResumeProcess);$k++)
 {
     $idresumetype = $studentResumeProcess[$k]['idresumetype'];
