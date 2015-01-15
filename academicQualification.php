@@ -492,7 +492,10 @@ if($_POST)
             <div class="clearfix brd-top pad-t20">
                 <button type="submit" class="btn btn-primary pull-right">Save & Continue</button>       
                 <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
-            </div>                   
+            </div>          
+
+             </div>   
+             </div>             
      
 
     <footer class="home-footer">

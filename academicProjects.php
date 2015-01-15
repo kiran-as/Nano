@@ -80,13 +80,13 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
     <div class="container mar-t10">
         
           <div class="row">
-           <div class="col-sm-6">
+           <div class="col-sm-12">
            <h3 class="brd-btm mar-b20">B.E Project Details</h3>
             <div class="form-horizontal">
              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Name<span class="error-text">*</span></label>
-                <div class="col-sm-7">
+                <label class="col-sm-2 control-label">Project Name<span class="error-text">*</span></label>
+                <div class="col-sm-10">
                   <input type="name" class="form-control" placeholder="" id="deg_projectname" name="deg_projectname" value="<?php echo $deg_projectname;?>">
                 </div>               
               </div> 
@@ -94,48 +94,39 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
             
              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Description<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projectdescription" name="deg_projectdescription" ><?php echo $deg_projectdescription;?></textarea>
+                <label class="col-sm-2 control-label">Project Description<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="deg_projectdescription" name="deg_projectdescription" ><?php echo $deg_projectdescription;?></textarea>
                 </div>               
               </div> 
-                                              
-            </div>
-            </div>
-           <div class="clearfix col-sm-6">
-                     <h3 class="brd-btm mar-b20">Graduation (BE / BTech)</h3>
 
-            <div class="form-horizontal">
-              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Tools<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projecttools" name="deg_projecttools" ><?php echo $deg_projecttools;?></textarea>
+                <label class="col-sm-2 control-label">Project Tools<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="deg_projecttools" name="deg_projecttools" ><?php echo $deg_projecttools;?></textarea>
                 </div>               
               </div>                           
            
              
                
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Challenges<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="deg_projectchallenges" name="deg_projectchallenges" ><?php echo $deg_projectchallenges;?></textarea>
+                <label class="col-sm-2 control-label">Project Challenges<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="deg_projectchallenges" name="deg_projectchallenges" ><?php echo $deg_projectchallenges;?></textarea>
                 </div>               
-              </div>  
+              </div>                
                                               
             </div>
-            
-                                                                    
             </div>
             </div> 
           <div class="row">
-           <div class="col-sm-6">
+           <div class="col-sm-12">
            <h3 class="brd-btm mar-b20">B.E Project Details</h3>
             <div class="form-horizontal">
              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Name<span class="error-text">*</span></label>
-                <div class="col-sm-7">
+                <label class="col-sm-2 control-label">Project Name<span class="error-text">*</span></label>
+                <div class="col-sm-10">
                   <input type="name" class="form-control" placeholder="" id="pg_projectname" name="pg_projectname" value="<?php echo $pg_projectname;?>">
                 </div>               
               </div> 
@@ -143,44 +134,36 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
             
              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Description<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projectdescription" name="pg_projectdescription" ><?php echo $pg_projectdescription;?></textarea>
+                <label class="col-sm-2 control-label">Project Description<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="pg_projectdescription" name="pg_projectdescription" ><?php echo $pg_projectdescription;?></textarea>
                 </div>               
               </div> 
-                                              
-            </div>
-            </div>
-           <div class="clearfix col-sm-6">
-                     <h3 class="brd-btm mar-b20">Graduation (BE / BTech)</h3>
 
-            <div class="form-horizontal">
-              
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Tools<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projecttools" name="pg_projecttools" ><?php echo $pg_projecttools;?></textarea>
+                <label class="col-sm-2 control-label">Project Tools<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="pg_projecttools" name="pg_projecttools" ><?php echo $pg_projecttools;?></textarea>
                 </div>               
               </div>                           
            
              
                
               <div class="form-group">
-                <label class="col-sm-5 control-label">Project Challenges<span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                 <textarea class="form-control" rows="7"  placeholder="" id="pg_projectchallenges" name="pg_projectchallenges" ><?php echo $pg_projectchallenges;?></textarea>
+                <label class="col-sm-2 control-label">Project Challenges<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                 <textarea class="form-control" rows="3"  placeholder="" id="pg_projectchallenges" name="pg_projectchallenges" ><?php echo $pg_projectchallenges;?></textarea>
                 </div>               
-              </div>  
+              </div>                
                                               
             </div>
-            
-                                                                    
             </div>
             </div> 
                      
             <div class="clearfix brd-top pad-t20">
                 <button type="submit" class="btn btn-primary pull-right">Save & Continue</button>       
                 <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
+            </div> 
             </div>                   
      
 

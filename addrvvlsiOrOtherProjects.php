@@ -49,31 +49,29 @@ if($_POST)
     <div class="form-horizontal col-sm-6">
       <div class="form-group">
         <div class="form-group">
-            <label class="col-sm-5 control-label">Project Title <span class="error-text">*</span></label>
-            <div class="col-sm-6">
+            <label class="col-sm-4 control-label">Project Title <span class="error-text">*</span></label>
+            <div class="col-sm-8">
               <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-5 control-label">Done At<span class="error-text">*</span></label>
-            <div class="col-sm-6">
-              <input type="name" class="form-control" placeholder="" id="college" name="college">
-            </div>        
-          </div>
-          <div class="form-group">
-            <label class="col-sm-5 control-label">Duration(in months) <span class="error-text">*</span></label>
+            <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
             <div class="col-sm-3">
               <input type="name" class="form-control" placeholder="" id="months" name="months">
             </div>        
+          </div>                                           
+    </div>    
+    </div> 
+
+    <div class="form-horizontal col-sm-6">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Done At<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="name" class="form-control" placeholder="" id="college" name="college">
+            </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-5 control-label">Your Deliverables <span class="error-text">*</span></label>
-            <div class="col-sm-6">
-              <input type="name" class="form-control" placeholder="" id="role" name="role">
-            </div>        
-          </div> 
-          <div class="form-group">
-            <label class="col-sm-5 control-label">Team Size <span class="error-text">*</span></label>
+            <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
             <div class="col-sm-3">
               <select class="form-control" id="teamsize" name="teamsize">
                   <option value="1">1</option>
@@ -84,32 +82,46 @@ if($_POST)
                   <option value="6">6</option>
               </select>
             </div>                                 
-          </div>                   
+          </div>                                                                     
+    </div>          
+    </div> 
+    <div class="row">
+      <div class="col-xs-12">
+      <div class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-5 control-label">Project Description</label>
-            <div class="col-sm-6">
+            <label class="col-sm-2 control-label">Your Deliverables <span class="error-text">*</span></label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="" id="role" name="role">
+            </div>        
+          </div> 
+                  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Project Description</label>
+            <div class="col-sm-10">
               <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription"></textarea>
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-5 control-label">Tools Used</label>
-            <div class="col-sm-6">
+            <label class="col-sm-2 control-label">Tools Used</label>
+            <div class="col-sm-10">
               <textarea class="form-control" rows="2" id="tools" name="tools"></textarea>
             </div>        
           </div>
           <div class="form-group">
-            <label class="col-sm-5 control-label">Challenges Faced</label>
-            <div class="col-sm-6">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
               <textarea class="form-control" rows="2" id="challenges" name="challenges"></textarea>
             </div>        
-          </div>                                           
-    </div>    
-    </div> 
+          </div>          
+      </div>
+        
+      </div>
+    </div>
+
     <div class="clearfix brd-top pad-t20">
         <button type="submit" class="btn btn-primary pull-right">SAVE & CONTINUE</button>       
         <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
-    </div>       
-    </div> 
+    </div>     
       </form>   
     <footer class="home-footer">
           <div class="container">            

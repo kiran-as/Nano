@@ -127,82 +127,46 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
 
   <body>
   <?php include('../include/header.php');?>
-    <?php //include('include/nav.php');?>
+    <?php include('include/nav.php');?>
     <div class="container mar-t30">
-        <div class="clearfix brd-btm pad-b20" style="display:none">
-        <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
-    </div>    
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            Freshers
-        </th>
-        <th>
-            RV-VLSI
-        </th>
-        <th>
-           Experience
-        </th>
-        <th>
-            Other Schools
-        </th>
-        </tr>
-      </thead>
-      <tbody>
-           
-        <tr>
-        <th>
-            <?php echo $fresherResumeCount;?>
-        </th>
-        <th>
-            <?php echo $rvvlsiDesignCenterCount;?>
-        </th>
-        <th>
-            <?php echo $experienceResumeCount;?>
-        </th>
-        <th>
-            <?php echo $otherCenterCount;?>
-        </th>
-    </tr>
-  
-                                                             
-      </tbody>
-    </table>  
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            BE
-        </th>
-        <th>
-            ME
-        </th>
-        <th>
-           Ph.D
-        </th>
-        
-        </tr>
-      </thead>
-      <tbody>
-           
-        <tr>
-        <th>
-            <?php echo $BEResumeCount;?>
-        </th>
-        <th>
-            <?php echo $MEResumeCount;?>
-        </th>
-        <th>
-            <?php echo $PhdResumeCount;?>
-        </th>
-        
-    </tr>
-   
-                                                             
-      </tbody>
-    </table>  
+    <div class="row txtc">
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"><?php echo $fresherResumeCount;?></div>
+            <p class="font20">Freshers</p>
+            </div>
+        </div>  
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"><?php echo $rvvlsiDesignCenterCount;?></div>
+            <p class="font20">RV-VLSI</p>
+            </div>
+        </div> 
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"> <?php echo $experienceResumeCount;?></div>
+            <p class="font20">experience</p>
+            </div>
+        </div> 
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"><?php echo $otherCenterCount;?></div>
+            <p class="font20">Other Schools</p>
+            </div>
+        </div> 
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"><?php echo $BEResumeCount;?></div>
+            <p class="font20">B.E</p>
+            </div>
+        </div> 
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="font48"><?php echo $MEResumeCount;?></div>
+            <p class="font20">M.E</p>
+            </div>
+        </div>                                                      
+    </div> 
 
 
  <table class="table table-striped">

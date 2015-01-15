@@ -32,7 +32,7 @@ while($row = mysql_fetch_assoc($recruitementSql))
 
 if($_POST)
 {
-    print_r($_POST);
+   // print_r($_POST);
     //exit;
     if($_POST['recruitmentPosition']!='')
     {
@@ -123,86 +123,64 @@ $(document).ready(function() {
   <?php include('../include/header.php');?>
     <?php include('include/nav.php');?>
         <form name='' method="POST" action="">
-    <div class="container mar-t30">
-       <div class="row">
-        <div class="form-horizontal col-sm-6">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Course Name</label>
-            <div class="col-sm-8">
-              <select class="form-control" id='idpgdipcourses' name='idpgdipcourses' value=''>
-                  <?php for($i=0;$i<count($pgDipCoursesArray);$i++){ 
-                    $idpgdipcourses = $pgDipCoursesArray[$i]['idpgdipcourses'];?>
-                  <option value='<?php echo $idpgdipcourses;?>'>
-                  <?php echo $pgDipCoursesArray[$i]['pgdip_coursename'];?></option>
-              <?php }?>
-                  </select> 
-            </div>        
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Degree</label>
-            <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='degPercentage' id='degPercentage'>
-            </div>        
-          </div>  
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Student Type</label>
-            <div class="col-sm-8">
-                <label class="radio-inline">
-                  <input type="radio" name='studentType' id='studentType' value='1'> RV - VLSI
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name='studentType' id='studentType' value='0'> ALL
-                </label>                
-            </div>        
-          </div>                                                                                                                                    
-        </div>  
-        <div class="form-horizontal col-sm-6">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">PUC</label>
-            <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='pucPercentage' id='pucPercentage'>
-            </div>        
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Degree Passedout</label>
-            <div class="col-sm-8">
-              <select class="form-control" id='degPassoutyear' name='degPassoutyear'>
-                  <?php for($i=2005;$i<=date('Y');$i++){ ?>
-                <option value='<?php echo $i;?>'><?php echo $i;?></option>
-            <?php }?>
-              </select>                               
-            </div>        
-          </div>  
-          <div class="form-group">
-            <label class="col-sm-4 control-label">&nbsp;</label>
-            <div class="col-sm-8">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>        
-          </div>                                                                                                                                    
-        </div>           
-        </div>   
-    <table id="example" class="table table-striped" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>ResumeId</th>
+        <select id='idpgdipcourses' name='idpgdipcourses' value=''>
+        <?php for($i=0;$i<count($pgDipCoursesArray);$i++){ 
+        	$idpgdipcourses = $pgDipCoursesArray[$i]['idpgdipcourses'];?>
+    		<option value='<?php echo $idpgdipcourses;?>'>
+    		<?php echo $pgDipCoursesArray[$i]['pgdip_coursename'];?></option>
+		<?php }?>
+        </select>                    
+   
+        <table>
+             <tr>
+                 <td>PUC</td>
+                 <td><input type='text' name='pucPercentage' id='pucPercentage' value=''></td>
+             </tr>
+             <tr>
+                 <td>Deg</td>
+                 <td><input type='text' name='degPercentage' id='degPercentage' value=''></td>
+             </tr>
+			 <tr>
+                 <td>Deg Passout</td>
+                 <td><select id='degPassoutyear' name='degPassoutyear'>
+                 		<?php for($i=2005;$i<=date('Y');$i++){ ?>
+    						<option value='<?php echo $i;?>'><?php echo $i;?></option>
+						<?php }?>
+					</select>
+				</td>
+             </tr>
+              <tr>
+                 <td>Student Type</td>
+                 <td>Rv-VLSI<input type='radio' name='studentType' id='studentType' value='1'>
+                 All<input type='radio' name='studentType' id='studentType' value='0'></td>
+             </tr>
+             <tr>
+                 <input type='submit' name='Search' id='Search' value='Search'>
+             </tr>
+        </table>
+       
+			<table id="example" class="table table-striped" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Mobile</th>
+						<th>ResumeId</th>
  <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){?>
                         <th><?php echo $resumeTypesArray[$resumetype]['resumetypename'];?></th>
  <?php }?>
-            <th>Edit</th>
-          </tr>
-        </thead>
+						<th>Edit</th>
+					</tr>
+				</thead>
 
-        <tbody>
-        <?php for($i=0;$i<count($studentArray);$i++){
-           $idstudent = $studentArray[$i]['idstudent'];?>
-          <tr>
-            <td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'><?php echo $studentArray[$i]['studentname'];?></td>
-            <td><?php echo $studentArray[$i]['email'];?></td>
-            <td><?php echo $studentArray[$i]['mobile'];?></td>
-            <td><?php echo $studentArray[$i]['resumeid'];?></td>
+				<tbody>
+				<?php for($i=0;$i<count($studentArray);$i++){
+					 $idstudent = $studentArray[$i]['idstudent'];?>
+					<tr>
+						<td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'><?php echo $studentArray[$i]['studentname'];?></td>
+						<td><?php echo $studentArray[$i]['email'];?></td>
+						<td><?php echo $studentArray[$i]['mobile'];?></td>
+						<td><?php echo $studentArray[$i]['resumeid'];?></td>
                          <?php
                          $resumeKeyWordsSql = mysql_query("Select * from tbl_studentresumekeywords where idstudent='$idstudent' order by idresumetype asc");
                          while($row = mysql_fetch_assoc($resumeKeyWordsSql))
@@ -210,13 +188,13 @@ $(document).ready(function() {
 
                          <td><?php echo $row['noofkeywords'];?></td>
                          <?php } ?>
-            <td><a href='editResume.php?idstudent=<?php echo $idstudent;?>'>Edit</a></td>
-          </tr>
-          <?php }?>
-          
-        </tbody>
-      </table>
-              <table>
+						<td><a href='editResume.php?idstudent=<?php echo $idstudent;?>'>Edit</a></td>
+					</tr>
+					<?php }?>
+					
+				</tbody>
+			</table>
+            <table>
              <tr>
                 <td>
                 <select id='recruitmentPosition' name='recruitmentPosition'>
@@ -231,15 +209,9 @@ $(document).ready(function() {
                     
                 </td>
              </tr>
-            </table>     
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-        <button type="button" class="btn btn-primary">SAVE</button>
-      </div>
-  </div>
-  </form>
+            </table>
+</div>
+ </form>
+</body>
 
-  </body>
-</html>
+			

@@ -48,7 +48,7 @@ $(document).ready(function() {
 
   <body>
   <?php include('../include/header.php');?>
-    <?php //include('include/nav.php');?>
+    <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:none">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
