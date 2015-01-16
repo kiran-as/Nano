@@ -52,11 +52,16 @@ for($i=0;$i<count($studentArray);$i++)
             $noOfKeyFound = 0;
             $keyWordsFound = '';
             $keyfound = 'no';
+            echo "SELECT * FROM `tbl_academicproject` 
+                WHERE challenges like '%$keyname%' OR 
+                tools_used like '%$keyname%'  OR
+                project_description like '%$keyname%' 
+                and idstudent=$idstudent ";
             $studentAcademicSql = mysql_query("SELECT * FROM `tbl_academicproject` 
                 WHERE challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
                 project_description like '%$keyname%' 
-                and idstudent=$idstudent");
+                and idstudent=$idstudent ");
             while($row = mysql_fetch_assoc($studentAcademicSql))
             {
                 $noOfKeyFound++;
@@ -94,7 +99,7 @@ for($i=0;$i<count($studentResumeType);$i++)
     //$resumeTypeId = $studentResumeType[$i]['idresumetype'];
 }
 
-
+print_r($studentResumeProcess);
 mysql_query("Delete from tbl_studentresumekeywords where idstudent='$idstudent'");
 for($k=0;$k<count($studentResumeProcess);$k++)
 {

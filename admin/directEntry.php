@@ -102,7 +102,7 @@ $(document).ready(function() {
 						<td><?php echo $studentArray[$i]['email'];?></td>
 						<td><?php echo $studentArray[$i]['mobile'];?></td>
 						<td><?php echo $studentArray[$i]['resumeid'];?></td>
-						<td><a href='#'>Edit</a></td>
+            <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
 					</tr>
 					<?php }?>
 					

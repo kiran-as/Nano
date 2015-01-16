@@ -30,8 +30,59 @@ $(document).ready(function() {
 		"order": [[ 3, "desc" ]]
 	} );
 } );
-
 	</script>
+<script type="text/javascript">
+
+function fnChangeApprove(approvestatus)
+{
+	approvestatus = approvestatus.split('--');
+	if(approvestatus[0]=='Yes')
+	{
+		cnfStatus = confirm('Do you really want to make it as UnApprove?');
+		if(cnfStatus==true)
+		{
+			 formData='idrecruitement='+approvestatus[1]+'&type=Approve&Status=UnApprove';   
+			$.ajax({
+			url : "ajax/ajax_recruitementupdates.php",
+			type: "POST",
+			data : formData,
+			success: function(data, textStatus, jqXHR)
+			{
+                parent.location='recruitementList.php';
+                exit;
+			},
+			error: function (jqXHR, textStatus, errorThrown)
+			{
+		  
+			}
+		   });
+		}
+	}
+
+	if(approvestatus[0]=='No')
+	{
+		cnfStatus = confirm('Do you really want to make it as Approve?');
+		if(cnfStatus==true)
+		{
+			 formData='idrecruitement='+approvestatus[1]+'&type=Approve&Status=Approve';   
+			$.ajax({
+			url : "ajax/ajax_recruitementupdates.php",
+			type: "POST",
+			data : formData,
+			success: function(data, textStatus, jqXHR)
+			{
+                parent.location='recruitementList.php';
+                exit;
+			},
+			error: function (jqXHR, textStatus, errorThrown)
+			{
+		  
+			}
+		   });
+		}
+	}
+}
+</script>
 <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -67,7 +118,8 @@ $(document).ready(function() {
 
 				<tbody>
 				<?php for($i=0;$i<count($recruitementArray);$i++){
-					$idrecruitement = $recruitementArray[$i]['idrecruitement'];?>
+					$idrecruitement = $recruitementArray[$i]['idrecruitement'];
+					$approved = $recruitementArray[$i]['approved'];?>
 					<tr>
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
@@ -82,7 +134,8 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 ?>
 						<td><?php echo $totalResumesAttached;?></td>
 						<td><?php echo $recruitementArray[$i]['status'];?></td>
-						<td><?php echo $recruitementArray[$i]['approved'];?></td>
+						<td><a href="javascript:fnChangeApprove('<?php echo $approved.'--'.$idrecruitement;?>');">
+						<?php echo $recruitementArray[$i]['approved'];?></a></td>
 						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
 					</tr>
 					<?php }?>

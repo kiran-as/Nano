@@ -32,7 +32,7 @@ while($row = mysql_fetch_assoc($recruitementSql))
 
 if($_POST)
 {
-    print_r($_POST);
+   // print_r($_POST);
     //exit;
     if($_POST['recruitmentPosition']!='')
     {
@@ -210,7 +210,7 @@ $(document).ready(function() {
 
                          <td><?php echo $row['noofkeywords'];?></td>
                          <?php } ?>
-            <td><a href='editResume.php?idstudent=<?php echo $idstudent;?>'>Edit</a></td>
+            <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
           </tr>
           <?php }?>
           

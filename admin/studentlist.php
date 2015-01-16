@@ -1,5 +1,6 @@
 <?php
 include('../application/conn.php');
+include('include/resumeType.php');
 error_reporting(-1);
 
 $studentSql = mysql_query("Select * from tbl_student");
@@ -61,7 +62,10 @@ $(document).ready(function() {
 						<th>Email</th>
 						<th>Mobile</th>
 						<th>ResumeId</th>
-						<th>Edit</th>
+						 <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){?>
+                        <th><?php echo $resumeTypesArray[$resumetype]['resumetypename'];?></th>
+ <?php }?>
+            <th>View Resume</th>
 					</tr>
 				</thead>
 
@@ -73,7 +77,14 @@ $(document).ready(function() {
 						<td><?php echo $studentArray[$i]['email'];?></td>
 						<td><?php echo $studentArray[$i]['mobile'];?></td>
 						<td><?php echo $studentArray[$i]['resumeid'];?></td>
-						<td><a href='editResume.php?idstudent=<?php echo $idstudent;?>'>Edit</a></td>
+						 <?php
+                         $resumeKeyWordsSql = mysql_query("Select * from tbl_studentresumekeywords where idstudent='$idstudent' order by idresumetype asc");
+                         while($row = mysql_fetch_assoc($resumeKeyWordsSql))
+                         { ?>
+
+                         <td><?php echo $row['noofkeywords'];?></td>
+                         <?php } ?>
+            <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
 					</tr>
 					<?php }?>
 					

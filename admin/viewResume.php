@@ -1,9 +1,8 @@
 <?php
 include('../application/conn.php');
 $idstudent = $_GET['idstudent'];
-$idresumeTypes = $_GET['resumeTypes'];
 //echo "Select * from tbl_resumekeywords where idresumetype=$idresumeTypes";
-$resumeKeywordsSql = mysql_query("Select * from tbl_resumekeywords where idresumetype=$idresumeTypes");
+$resumeKeywordsSql = mysql_query("Select * from tbl_resumekeywords ");
 while($row = mysql_fetch_assoc($resumeKeywordsSql))
 {
     $resumeKeyWordsArray[] = $row['keywords'];
@@ -295,7 +294,7 @@ $address      </div>
         
         //$replacement = "<table><tr><td>kiran php </td></tr></table>";
         $one = $resumeKeyWordsArray[$k];
-        $html =  str_replace($one, "<font color='red'>$one</font>", $html);
+        $html =  str_ireplace($one, "<font color='red'>$one</font>", $html);
 
     }
 echo $html;
