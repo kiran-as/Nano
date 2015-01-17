@@ -32,8 +32,8 @@ while($row = mysql_fetch_assoc($recruitementSql))
 
 if($_POST)
 {
-   // print_r($_POST);
-    //exit;
+    /*print_r($_POST);
+    exit;*/
     if($_POST['recruitmentPosition']!='')
     {
         for($i=0;$i<count($_POST['studentName']);$i++)
@@ -78,7 +78,8 @@ if($_POST)
          $idStudent = $idStudent.','.$row['idstudent'];
 	}
 	
-	$studentDetailsSql = mysql_query("Select * from tbl_student where idstudent in ($idStudent)");
+	$studentDetailsSql = mysql_query("Select * from tbl_student where idstudent in ($idStudent)
+                        and pgdip_coursename='$idpgdipcourses'");
 	$i=0;
 	while($row = mysql_fetch_assoc($studentDetailsSql))
 	{
@@ -139,7 +140,7 @@ $(document).ready(function() {
             </div>        
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Degree</label>
+            <label class="col-sm-4 control-label">Degree % Cut off</label>
             <div class="col-sm-8">
                 <input type="name" class="form-control" placeholder="" name='degPercentage' id='degPercentage'>
             </div>        
@@ -158,7 +159,7 @@ $(document).ready(function() {
         </div>  
         <div class="form-horizontal col-sm-6">
           <div class="form-group">
-            <label class="col-sm-4 control-label">PUC</label>
+            <label class="col-sm-4 control-label">PUC % Cut off</label>
             <div class="col-sm-8">
                 <input type="name" class="form-control" placeholder="" name='pucPercentage' id='pucPercentage'>
             </div>        
@@ -230,14 +231,18 @@ $(document).ready(function() {
                     </select>
                     
                 </td>
+                <td>
+                <div class="form-group">
+            <label class="col-sm-4 control-label">&nbsp;</label>
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary">Assign</button>
+            </div>        
+          </div>  
+                </td>
              </tr>
-            </table>     
+            </table>
       </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-        <button type="button" class="btn btn-primary">SAVE</button>
-      </div>
+     
   </div>
   </form>
 
