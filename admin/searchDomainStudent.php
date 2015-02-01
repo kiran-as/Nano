@@ -20,12 +20,14 @@ while($row = mysql_fetch_assoc($resumeTypesSql))
     $resume++;
 }
 
-$recruitementSql = mysql_query("Select * from tbl_recruitement");
+$recruitementSql = mysql_query("Select a.*,b.* 
+                              from tbl_recruitement as a, tbl_recruiter as b
+                              where a.idrecruiter=b.idrecruiter and a.status='Open'");
 $resume=0;
 while($row = mysql_fetch_assoc($recruitementSql))
 {
     $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['recruitementposition'];
+    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
     $resume++;
 }
 
@@ -139,12 +141,25 @@ $(document).ready(function() {
                   </select> 
             </div>        
           </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Degree % Cut off</label>
+           <div class="form-group">
+            <label class="col-sm-4 control-label">PUC % Cut off</label>
             <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='degPercentage' id='degPercentage'>
+                <input type="name" class="form-control" placeholder="" name='pucPercentage' id='pucPercentage'>
             </div>        
-          </div>  
+          </div>
+          
+           <div class="form-group">
+            <label class="col-sm-4 control-label">Domain Name</label>
+            <div class="col-sm-8">
+              <select class="form-control" id='resumeTypes' name='resumeTypes' value=''>
+                  <?php for($i=0;$i<count($resumeTypesArray);$i++){ 
+                    $idresumetype = $resumeTypesArray[$i]['idresumetype'];?>
+                  <option value='<?php echo $idresumetype;?>'>
+                  <?php echo $resumeTypesArray[$i]['resumetypename'];?></option>
+              <?php }?>
+                  </select>                              
+            </div>        
+          </div>   
           <div class="form-group">
             <label class="col-sm-4 control-label">Student Type</label>
             <div class="col-sm-8">
@@ -158,22 +173,31 @@ $(document).ready(function() {
           </div>                                                                                                                                    
         </div>  
         <div class="form-horizontal col-sm-6">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">PUC % Cut off</label>
+         <div class="form-group">
+            <label class="col-sm-4 control-label">SSLC cut off</label>
             <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='pucPercentage' id='pucPercentage'>
+                <input type="name" class="form-control" placeholder="" name='sslcPercentage' id='sslcPercentage'>
             </div>        
           </div>
           <div class="form-group">
+            <label class="col-sm-4 control-label">Degree % Cut off</label>
+            <div class="col-sm-8">
+                <input type="name" class="form-control" placeholder="" name='degPercentage' id='degPercentage'>
+            </div>        
+          </div>  
+         <div class="form-group">
             <label class="col-sm-4 control-label">Degree Passedout</label>
             <div class="col-sm-8">
-              <select class="form-control" id='degPassoutyear' name='degPassoutyear'>
-                  <?php for($i=2005;$i<=date('Y');$i++){ ?>
-                <option value='<?php echo $i;?>'><?php echo $i;?></option>
+              <select class="form-control" id='resumeTypes' name='resumeTypes'>
+              <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){?>
+                        <option value='<?php echo $i;?>'>
+                        <?php echo $resumeTypesArray[$resumetype]['resumetypename'];?>
+                        </option>
+             
             <?php }?>
               </select>                               
             </div>        
-          </div>  
+          </div>   
           <div class="form-group">
             <label class="col-sm-4 control-label">&nbsp;</label>
             <div class="col-sm-8">

@@ -167,7 +167,7 @@ while($row = mysql_fetch_assoc($companyArraySql))
 $address      </div>                 
     </div> 
     <p class='font16-sm brd-btm'>Profile Summary</p>
-    <p>04+ years of experience as Web/Graphic Designer with a passion for designing beautiful and functional user experiences. A perfectionist and minimalist who follows the best practices & trends in the field. Designing and planning of corporate websites, web applications, mobile applications (iPhone/iPad), Branding(Logos), Cartoon and Characters. Expertise and efficient in web designing using Photoshop, Illustrator, Flash, Dreamweaver and front-end technologies using HTML5, XHTML, CSS3, Javascript and jQuery. Excellent working knowledge of semantic and accessible coding standards along with great attention to details and page optimization. </p>   
+    <p>$career_objective</p>   
     <p class='font16-sm brd-btm pad-t10'>Technical Skills</p>
 <ul class='content-list'>";
  if($achievementsArray[0]['achievements']!=''){

@@ -1,14 +1,17 @@
 <?php
 include('../application/conn.php');
 error_reporting(-1);
-$recruitementSql = mysql_query("Select * from tbl_recruitement");
+$recruitementSql = mysql_query("Select a.*,b.* 
+                              from tbl_recruitement as a, tbl_recruiter as b
+                              where a.idrecruiter=b.idrecruiter and a.status='Open'");
 $resume=0;
 while($row = mysql_fetch_assoc($recruitementSql))
 {
     $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['recruitementposition'];
+    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
     $resume++;
 }
+
 
 
 $studentSql = mysql_query("Select * from tbl_student");
