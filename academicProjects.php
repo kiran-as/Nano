@@ -101,7 +101,7 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
               </div> 
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">Project Tools<span class="error-text">*</span></label>
+                <label class="col-sm-2 control-label">Software / Hardware Used<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <textarea class="form-control" rows="3"  placeholder="" id="deg_projecttools" name="deg_projecttools" ><?php echo $deg_projecttools;?></textarea>
                 </div>               
@@ -121,7 +121,7 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
             </div> 
           <div class="row">
            <div class="col-sm-12">
-           <h3 class="brd-btm mar-b20">B.E Project Details</h3>
+           <h3 class="brd-btm mar-b20">ME Project Details</h3>
             <div class="form-horizontal">
              
               <div class="form-group">
@@ -141,7 +141,7 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
               </div> 
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">Project Tools<span class="error-text">*</span></label>
+                <label class="col-sm-2 control-label">Software / Hardware Used<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <textarea class="form-control" rows="3"  placeholder="" id="pg_projecttools" name="pg_projecttools" ><?php echo $pg_projecttools;?></textarea>
                 </div>               

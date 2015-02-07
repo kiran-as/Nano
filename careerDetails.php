@@ -27,6 +27,8 @@ if($_POST)
                     . "value('$corecompetancy','$idstudent')");
         }
     }
+    echo "<script>parent.location='viewResume.php'</script>";
+    exit;
 }
 
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
@@ -94,7 +96,7 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
     <textarea  class="form-control" rows="3" id="career_objective" name="career_objective"><?php echo $career_objective;?></textarea>
   </div>  
   <div class="form-group">
-    <label>Achivevement Details</label>
+    <label>Significant Achievement</label>
     <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[0]['achievements'];?></textarea>
     <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[1]['achievements'];?></textarea>
     <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[2]['achievements'];?></textarea>
@@ -115,7 +117,6 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+  
   </body>
 </html>

@@ -11,7 +11,9 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['idrecruitement'] = $row['idrecruitement'];
     $recruitementArray[$i]['company'] = $row['company'];
     $recruitementArray[$i]['recruitementdate'] = $row['recruitementdate'];
-    $recruitementArray[$i]['status'] = $row['status'];    
+    $recruitementArray[$i]['status'] = $row['status'];   
+    $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
+    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];         
     $i++;
 }
 
@@ -106,8 +108,9 @@ function fnChangeApprove(approvestatus)
 					<tr>
 						<th>Position</th>
 						<th>Recruitment Date</th>
-						<th>Company</th>
-						<th>No of Resumes</th>
+						<th>No of Openings</th>
+						<th>Interview Date</th>
+						<th>No of Resumes Tagged</th>
 						<th>View Candidates</th>
 					</tr>
 				</thead>
@@ -119,7 +122,9 @@ function fnChangeApprove(approvestatus)
 					<tr>
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
-						<td><?php echo $recruitementArray[$i]['company'];?></td>
+						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
+						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
+
 						<?php 
 $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount 
 	from tbl_recruitementresumes where idrecruitement='$idrecruitement'");
@@ -133,7 +138,7 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 						<?php if($recruitementArray[$i]['status']=='Close'){?>
 						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
 					    <?php } else {?>
-                        <td>Process</td>
+                        <td>In-Process</td>
                         <?php }?>					    	
  
 					</tr>

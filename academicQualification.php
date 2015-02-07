@@ -50,6 +50,8 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $phdschoolname = $row['phd_schoolname'];
      $phdboard = $row['phd_university'];
      $phddepartment = $row['phd_department'];
+
+     $pgdip_otherschools = $row['pgdip_otherschools'];
 }
 if($_POST)
 {
@@ -92,6 +94,8 @@ if($_POST)
     $phdschoolname = $_POST['phd-schoolname'];
     $phdboard = $_POST['phd-board'];
      $phddepartment = $_POST['phd-department'];    
+     $pgdip_otherschools = $_POST['pgdip_otherschools'];
+     $pgdip_otherschoolscity = $_POST['pgdip_otherschoolscity'];
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -159,7 +163,9 @@ if($_POST)
                              phd_percentage = '$phdpercentage',
                              phd_schoolname = '$phdschoolname',
                              phd_university = '$phdboard',
-                             phd_department = '$phddepartment'
+                             phd_department = '$phddepartment',
+                             pgdip_otherschools = '$pgdip_otherschools',
+                             pgdip_otherschoolscity = '$pgdip_otherschoolscity'
                         where idstudent = '$idstudent'");
   
 }
@@ -178,15 +184,34 @@ if($_POST)
 
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script type='text/JavaScript'>
+function fnPgdipSchool(id)
+{
+   //alert(id);
+  if(id==1)
+  {
+      $('#divrvvlsiid').show();
+      $('#otherschoolnamelabelid').hide();
+      $('#otherschoolcitynamelabelid').hide();
+  }
+  else
+  {
+      $('#divrvvlsiid').hide();
+      $('#otherschoolnamelabelid').show();
+      $('#otherschoolcitynamelabelid').show();
+      $('#rvvlsiid').val('');
+  }
+}
+</script>    
   </head>
 
-  <body>
+  <body onload='fnPgdipSchool(<?php echo $pgdipschoolname;?>)'>
       <form action="" method="POST">
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
@@ -208,13 +233,13 @@ if($_POST)
                 </div>        
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Percentage<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                    <label class="radio-inline">
-                      <input type="radio" name="sslc-percentagetype" id="sslc-percentagetype" value="Percentage" <?php if($sslcpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    <label class="radio-inline" style='display:none'>
+                      <input type="radio" name="sslc-percentagetype" id="sslc-percentagetype" value="Percentage" checked > Percentage
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="sslc-percentagetype" id="sslc-percentagetype" value="CGPA" <?php if($sslcpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    <label class="radio-inline" style='display:none'>
+                        <input type="radio" name="sslc-percentagetype" id="sslc-percentagetype" value="CGPA"> CGPA(out of 10 points)
                     </label>        
                     <input type="text" class="form-control mar-t10" placeholder="" id="sslc-percentage" name="sslc-percentage" value="<?php echo $sslcpercentage;?>">                                                      
                 </div>
@@ -243,13 +268,13 @@ if($_POST)
                 </div>        
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Percentage<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                    <label class="radio-inline">
-                      <input type="radio" name="puc-percentagetype" id="puc-percentagetype" value="Percentage" <?php if($pucpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    <label class="radio-inline" style='display:none'>
+                      <input type="radio" name="puc-percentagetype" id="puc-percentagetype" value="Percentage" checked="checked"> Percentage
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="puc-percentagetype" id="puc-percentagetype" value="CGPA" <?php if($pucpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    <label class="radio-inline" style='display:none'>
+                        <input type="radio" name="puc-percentagetype" id="puc-percentagetype" value="CGPA" > CGPA(out of 10 points)
                     </label>        
                     <input type="text" class="form-control mar-t10" placeholder="" id="puc-percentage" name="puc-percentage" value="<?php echo $pucpercentage;?>">                                                      
                 </div>
@@ -334,6 +359,7 @@ if($_POST)
             <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
             <div class="col-sm-7">
               <select class="form-control" id="pg-department" name="pg-department">
+
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
                   <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"><?php echo $departmentarray[$i]['department'];?></option>
                   <?php }?>
@@ -368,12 +394,14 @@ if($_POST)
               </div>                                           
             </div>
         <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">PG Diploma / Certificate Courses</h3>
+           <h3 class="brd-btm mar-b20">Skill Development/ Vocational Training</h3>
                 <div class="form-horizontal">
                <div class="form-group">
                 <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                 <select class="form-control" id="pgdip-schoolname" name="pgdip-schoolname">
+
+                 <select class="form-control" id="pgdip-schoolname" name="pgdip-schoolname" onchange='fnPgdipSchool(this.value);'>
+                   <option value='0'>Select</option> 
                       <?php for($i=0;$i<count($trainingInstituteArray);$i++){?>
                       <option value="<?php echo $trainingInstituteArray[$i]['idtraininginstitute'];?>" <?php if($pgdipschoolname==$trainingInstituteArray[$i]['idtraininginstitute']){ echo "selected=selected";}?>><?php echo $trainingInstituteArray[$i]['traininginstitute'];?></option>
                       <?php }?>
@@ -381,11 +409,25 @@ if($_POST)
                   </select>
                 </div>               
               </div> 
+               <div class="form-group" id='otherschoolnamelabelid'>
+                <label class="col-sm-5 control-label">School Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pgdip_otherschools" name="pgdip_otherschools" value="<?php echo $pgdip_otherschools;?>">
+                </div>        
+              </div> 
+
+              <div class="form-group" id='otherschoolcitynamelabelid'>
+                <label class="col-sm-5 control-label">City<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pgdip_otherschoolscity" name="pgdip_otherschoolscity" value="<?php echo $pgdip_otherschoolscity;?>">
+                </div>        
+              </div> 
                  <div class="form-group">
                 <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                    <select class="form-control" id="pgdip-coursename" name="pgdip-coursename">
-                      
+                                         <option value='0'>Select</option> 
+
                         <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
                       <option value="<?php echo $pgCoursesArray[$i]['idpgdipcourses'];?>" <?php if($pgDipCoursename==$pgCoursesArray[$i]['idpgdipcourses']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
                       <?php }?>
@@ -426,7 +468,7 @@ if($_POST)
                 </div>        
               </div> 
              
-              <div class="form-group">
+              <div class="form-group" id='divrvvlsiid' style='display:none'>
                 <label class="col-sm-5 control-label">RV-VLSI ID<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="rvvlsiid" name="rvvlsiid" value="<?php echo $rvvlsiid;?>">
@@ -506,7 +548,6 @@ if($_POST)
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/bootstrap.min.js"></script>
-      </form>
+    </form>
   </body>
 </html>

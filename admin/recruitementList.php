@@ -108,11 +108,11 @@ function fnChangeApprove(approvestatus)
 				<thead>
 					<tr>
 						<th>Position</th>
-						<th>Recruitment Date</th>
+						<th>Posted On</th>
 						<th>Company</th>
-						<th>No of Resumes</th>
-						<th>Status</th>
-						<th>Approved</th><th>View Candidates</th>
+						<th>No of Resumes shortlisted</th>
+						<th>Tag Status</th>
+						<th>Approved</th><th>Candidates Shortlisted</th>
 					</tr>
 				</thead>
 
