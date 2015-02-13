@@ -52,6 +52,7 @@ while($row = mysql_fetch_assoc($profileInformationSql))
      $phddepartment = $row['phd_department'];
 
      $pgdip_otherschools = $row['pgdip_otherschools'];
+ $pgdip_otherschoolscity = $row['pgdip_otherschoolscity'];     
 }
 if($_POST)
 {

@@ -1,5 +1,6 @@
 <?php
 include('../application/conn.php');
+include('../include/year.php');
 error_reporting(-1);
 
 $studentSql = mysql_query("Select * from tbl_pgdipcourses");
@@ -188,14 +189,12 @@ $(document).ready(function() {
          <div class="form-group">
             <label class="col-sm-4 control-label">Degree Passedout</label>
             <div class="col-sm-8">
-              <select class="form-control" id='resumeTypes' name='resumeTypes'>
-              <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){?>
-                        <option value='<?php echo $i;?>'>
-                        <?php echo $resumeTypesArray[$resumetype]['resumetypename'];?>
-                        </option>
-             
-            <?php }?>
-              </select>                               
+              <select class="form-control" id="puc-passoutyear" name="puc-passoutyear">
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>                              
             </div>        
           </div>   
           <div class="form-group">

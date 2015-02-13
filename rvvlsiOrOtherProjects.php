@@ -1,6 +1,13 @@
 <?php
 include("application/conn.php");
 $idstudent=$_SESSION['idstudent'];
+
+$profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
+while($row = mysql_fetch_assoc($profileInformationSql))
+{
+    $pgdip_schoolname = $row['pgdip_schoolname'];
+}
+
 $academicsql = mysql_query("Select * from tbl_academicproject where idstudent='$idstudent'");
 $i=0;
 while($row = mysql_fetch_assoc($academicsql))
@@ -39,13 +46,27 @@ while($row = mysql_fetch_assoc($academicsql))
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+<?php if($pgdip_schoolname=='0'){?>
+     <p class="alert alert-success txtc font16-sm-reg"> 
+<br/>
+
+This section does not apply to you.<br/>
+
+     <strong>Tip:</strong> The quality of your resume
+     will significantly improve if you can add any skill development courses which involve
+     using industry standard tools and exposure to technology. These skills are
+     highly desirable for prospective employers. Contact RV-VLSI to add industry relevant skills
+     to your resume.
+<br/> 
+</p>
+<?php } else {?>
     <div class="clearfix brd-btm pad-b20">
         <a href="addrvvlsiOrOtherProjects.php" class="btn btn-primary pull-right">+ ADD PROJECT</a>                     
     </div>    
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>College / Institute / College</th>
+          <th>Institue Name & Place</th>
           <th>Title</th>
           <th>Role</th>
           <th>Description</th>
@@ -65,7 +86,8 @@ while($row = mysql_fetch_assoc($academicsql))
           <?php } ?>
                                                          
       </tbody>
-    </table>                
+    </table>   
+<?php }?>             
     <div class="clearfix brd-top pad-t20">
         <button type="submit" class="btn btn-primary pull-right">NEXT</button>                      
     </div>                   
@@ -77,6 +99,5 @@ while($row = mysql_fetch_assoc($academicsql))
           </div>          
     </footer>  
  
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

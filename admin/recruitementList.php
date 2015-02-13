@@ -11,10 +11,10 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['idrecruitement'] = $row['idrecruitement'];
     $recruitementArray[$i]['company'] = $row['company'];
     $recruitementArray[$i]['recruitementdate'] = $row['recruitementdate'];
-        $recruitementArray[$i]['approved'] = $row['approved'];
-
+    $recruitementArray[$i]['approved'] = $row['approved'];
     $recruitementArray[$i]['status'] = $row['status'];
-
+    $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
+    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];  
     $i++;
 }
 
@@ -110,9 +110,11 @@ function fnChangeApprove(approvestatus)
 						<th>Position</th>
 						<th>Posted On</th>
 						<th>Company</th>
-						<th>No of Resumes shortlisted</th>
+						<th style="width:100px">No of Resumes shortlisted</th>
 						<th>Tag Status</th>
-						<th>Approved</th><th>Candidates Shortlisted</th>
+						<th>No of Openings</th>
+						<th>Interview Date</th>
+						<th>Candidates Shortlisted</th>
 					</tr>
 				</thead>
 
@@ -134,8 +136,9 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 ?>
 						<td><?php echo $totalResumesAttached;?></td>
 						<td><?php echo $recruitementArray[$i]['status'];?></td>
-						<td><a href="javascript:fnChangeApprove('<?php echo $approved.'--'.$idrecruitement;?>');">
-						<?php echo $recruitementArray[$i]['approved'];?></a></td>
+						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
+						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
+
 						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
 					</tr>
 					<?php }?>

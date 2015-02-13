@@ -122,7 +122,7 @@ $(document).ready(function() {
             <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
             <td><a href='downloadResumeWithoutContact.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download Resume</a></td>
             <td><input type='checkbox' class='studentforinterview' name='studentName[]' id="<?php echo $i.'-reasonarraycheckbox';?>" checked="checked" onchange="fnselectreason('<?php echo $i;?>')">
-            <input type='text' class="form-control" name='reasonarray[]' value='' style='display:none' id="<?php echo $i.'-reasonarray';?>"></td>
+            <input type='text' placeholder="Please specify the Reason" class="form-control" name='reasonarray[]' value='' style='display:none' id="<?php echo $i.'-reasonarray';?>"></td>
 
 					</tr>
 					<?php }?>
@@ -131,7 +131,7 @@ $(document).ready(function() {
 			</table>
       <table width="100%">
        <tr>
-         <td><label>Submit the section for email</label><br/><textarea class="form-control mar-b15" rows="3" name="corecompetancy[]"></textarea></td>
+         <td><label>Please type the matter to be sent to the shortlisted candidates</label><br/><textarea class="form-control mar-b15" rows="3" name="corecompetancy[]"></textarea></td>
        </tr>
          <tr><td><br/><input type='submit' name='Submit' value='Submit' onclick="return fnvalidateresume();"></td></tr>
       </table>
