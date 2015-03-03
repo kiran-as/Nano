@@ -147,13 +147,17 @@ exit;*/
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-     <p class="alert alert-success txtc font16-sm-reg">Thank you for submitting the Resume.
-</p>
- <div class="clearfix brd-top pad-t20">
-        <button type="button" class="btn btn-primary pull-right" onclick="fnNextClick();">NEXT</button>                      
-    </div>                   
-    </div> 
     
+ <div class="login-container">
+            <form class="form-login" role="form" action="" method="POST">                
+                <label for="inputPassword" class="sr-only" >Password</label>
+                <input type="text" name="password" id="password" value="" placeholder="Password" required="" class="form-control clear--top clr-brdradius"><br/>
+                                <input type="text" name="cnfpassword" id="cnfpassword" placeholder="Confirm Password" value="" required="" class="form-control clear--top clr-brdradius"><br/>
+
+                <button class="btn btn-lg btn-primary btn-block clr-brdradius" type="submit" onclick="return validateNewUser()">LOGIN</button>
+               
+              </form>            
+        </div>
     <footer class="home-footer">
           <div class="container">            
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               

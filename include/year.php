@@ -1,6 +1,6 @@
 <?php
 include("application/conn.php");
-$yearsql = mysql_query("Select * from tbl_year");
+$yearsql = mysql_query("Select * from tbl_year order by years desc");
 $i=0;
 while($row = mysql_fetch_assoc($yearsql))
 {

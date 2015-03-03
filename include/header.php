@@ -20,6 +20,7 @@ include('../application/conn.php');
                 <ul class="nav navbar-nav header-nav">
                   <li>Welcome <?php echo $_SESSION['studentName'];?></li>
                   <li class=""><a href="viewResume.php" class="pad-sm-t13 pad-sm-b12">View Resume</a></li>
+                  <li class=""><a href="changepassword.php" class="pad-sm-t13 pad-sm-b12">Change Password</a></li>
                   <li class=""><a href="index.php" class="pad-sm-t13 pad-sm-b12">Logout</a></li>                                  
                 </ul>                   
                </div>                                            

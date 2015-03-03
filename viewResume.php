@@ -1,7 +1,7 @@
 <?php
 include('application/conn.php');
 $idstudent = $_SESSION['idstudent'];
-echo "Select * from tbl_student where idstudent='$idstudent'";
+//echo "Select * from tbl_student where idstudent='$idstudent'";
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
@@ -78,12 +78,12 @@ while($row = mysql_fetch_assoc($achievementSql))
 
 
 ////academic profiles///
-$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
+$achievementSql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
 $achievementsArray = array();
 $i=0;
 while($row = mysql_fetch_assoc($achievementSql))
 {
-    $achievementsArray[$i]['achievements'] = $row['achievements'];
+    $achievementsArray[$i]['achievements'] = $row['corecompetancy'];
     $i++;
 }
 ///////
@@ -171,7 +171,8 @@ while($row = mysql_fetch_assoc($companySql))
             </div>                           
           </div>
         </div>      
-    </header> <!--/Header Ends-->    <?php //include('include/nav.php');?>
+    </header> <!--/Header Ends-->   
+     <?php include('include/nav.php');?>
     <div class="container mar-t30">
     <p class="font16-sm brd-btm">Personal Information</p>
     <div class="row">
@@ -191,7 +192,7 @@ while($row = mysql_fetch_assoc($companySql))
     </div> 
     <p class="font16-sm brd-btm">Profile Summary</p>
     <p><?php echo $career_objective;?></p>   
-    <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
+    <p class="font16-sm brd-btm pad-t10">Core Competancy</p>
 <ul class="content-list">
     <?php if($achievementsArray[0]['achievements']!=''){?>
     <li><?php echo $achievementsArray[0]['achievements'];?></li>
@@ -201,6 +202,12 @@ while($row = mysql_fetch_assoc($companySql))
     <?php }?>
     <?php if($achievementsArray[2]['achievements']!=''){?>
     <li><?php echo $achievementsArray[2]['achievements'];?></li>
+    <?php }?>
+    <?php if($achievementsArray[3]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[3]['achievements'];?></li>
+    <?php }?>
+    <?php if($achievementsArray[4]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[4]['achievements'];?></li>
     <?php }?>
 </ul>                             
 <p class="font16-sm brd-btm pad-t10">Educational Details</p>
@@ -221,7 +228,7 @@ while($row = mysql_fetch_assoc($companySql))
               <td>PG Diploma</td>
               <td>Embedded Systems</td>
               <td>RV_VLSI Deisgn Center</td>
-              <td>2010</td>
+              <td>2014</td>
               <td>50%</td>                            
           </tr>
           <?php }?>
@@ -278,21 +285,29 @@ while($row = mysql_fetch_assoc($companySql))
               <td width='70%'> <?php  echo $project_title;?></td>                           
           </tr>  
           <tr>
-              <td><span class='font-gray'>Company Name</span></td>                           
+              <td><span class='font-gray'>Institute Name</span></td>                           
               <td><?php  echo $college_name;?></td>                           
           </tr>  
+          <?php if($project_description!=''){?>
           <tr>
               <td><span class='font-gray'>Project Description</span></td>                           
               <td><?php  echo $project_description;?></td>                           
           </tr> 
+          <?php }?>
+
+           <?php if($challenges!=''){?>
           <tr>
               <td><span class='font-gray'>Challenges</span></td>                           
               <td><?php  echo $challenges;?></td>                           
           </tr> 
+          <?php }?>
+
+           <?php if($tools_used!=''){?>
           <tr>
               <td><span class='font-gray'>Tools</span></td>                           
               <td><?php  echo $tools_used;?></td>                           
           </tr> 
+          <?php }?>
       </tbody>
        
    </table>

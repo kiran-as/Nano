@@ -7,6 +7,7 @@ if($_POST)
    
   
     $projecttitle = $_POST['projecttitle'];
+    $designation = $_POST['designation'];
     $company = $_POST['company'];
     $months = $_POST['months'];
     $role = $_POST['role'];
@@ -14,12 +15,13 @@ if($_POST)
     $projectdescription = $_POST['projectdescription'];
     $tools = $_POST['tools'];
     $challenges = $_POST['challenges'];
+     $designation = $_POST['designation'];
     $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
     $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
 
-    mysql_query("Insert into tbl_companyproject(project_title,company_name ,"
+    mysql_query("Insert into tbl_companyproject(designation,project_title,company_name ,"
             . "time_duration,role,team_size,tools_used,"
-            . "challenges,idstudent,start_date,end_date,project_description) Values ('$projecttitle','$company',"
+            . "challenges,idstudent,start_date,end_date,project_description) Values ('$designation','$projecttitle','$company',"
             . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$start_date','$end_date','$projectdescription')");
     echo "<script>parent.location='companyProjects.php'</script>" ;
     exit;
@@ -44,20 +46,51 @@ if($_POST)
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
- 
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+   
    <script>
   $(function() {
     $( "#start_date" ).datepicker();
     $( "#end_date" ).datepicker();
   });
   </script>
+<script>
+ 
+ $(document).ready(function() {
+   $('#saveAndContinue').click(function() {
+                
+                $('#academicProject').submit();
+            });
+            $("#academicProject").validate({
+                // Specify the validation rules
+                rules: {
+                    start_date: "required",
+                    company:"required",
+                    projecttitle: "required",
+                    role:"required",
+                    end_date: "required",
+                    designation:"required",                                        
+                },
+                // Specify the validation error messages
+                 // Specify the validation error messages
+                messages: {
+                    start_date: "<p class='error-class'>Please enter start Date</p>",
+                    projecttitle: "<p class='error-class'>Please enter Project Title </p>",
+                    role: "<p class='error-class'>Please enter Role</p>",
+                    end_date: "<p class='error-class'>Please enter End Date</p>",
+                    company: "<p class='error-class'>Please enter Company Name</p>",
+                    designation: "<p class='error-class'>Please enter Designation</p>"
+                }
+            });
+ });
+  </script>
   </head>
 
   <body>
-      <form action="" method="POST"> 
+      <form action="" method="POST" id="academicProject" name="academicProject"> 
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
@@ -84,7 +117,7 @@ if($_POST)
              <div class="form-group">
             <label class="col-sm-4 control-label">Designation <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
+              <input type="name" class="form-control" placeholder="" id="designation" name="designation">
             </div>        
           </div> 
           <div class="form-group">
@@ -157,8 +190,7 @@ if($_POST)
     </div>
 
     <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">SAVE & CONTINUE</button>       
-        <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
+        <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">SAVE & CONTINUE</button>       
     </div>     
       </form>   
     <footer class="home-footer">
@@ -170,7 +202,6 @@ if($_POST)
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="js/bootstrap.min.js"></script>
     
   </body>
 </html>

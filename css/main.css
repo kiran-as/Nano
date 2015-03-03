@@ -132,3 +132,6 @@ footer{ background-color: #333238; margin-top: 30px; padding: 15px 0px 5px 0px; 
 .lhs-list li{ padding-bottom: 10px;}
 .lhs-list li a{ color: #000; font-family: 'source_sans_prosemibold';}
 .lhs-list li.active a{ color: #1e88e5;}
+.error-class {color:red;}
+.error{color:red;}
+.info-text{font-size: 11px;}

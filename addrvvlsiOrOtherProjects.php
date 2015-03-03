@@ -4,19 +4,21 @@ $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
    
-    $projecttitle = $_POST['projecttitle'];
-    $college = $_POST['college'];
-    $months = $_POST['months'];
-    $role = $_POST['role'];
-    $teamsize = $_POST['teamsize'];
-    $projectdescription = $_POST['projectdescription'];
-    $tools = $_POST['tools'];
-    $challenges = $_POST['challenges'];
+    $projecttitle = str_replace("'","&#39;",$_POST['projecttitle']);
+    $college = str_replace("'","&#39;",$_POST['college']);
+    $months = str_replace("'","&#39;",$_POST['months']);
+    $role = str_replace("'","&#39;",$_POST['role']);
+    $teamsize = str_replace("'","&#39;",$_POST['teamsize']);
+    $projectdescription = str_replace("'","&#39;",$_POST['projectdescription']);
+    $tools = str_replace("'","&#39;",$_POST['tools']);
+    $challenges = str_replace("'","&#39;",$_POST['challenges']);
+
     mysql_query("Insert into tbl_academicproject(project_title,college_name ,"
             . "time_duration,role,team_size,tools_used,"
             . "challenges,idstudent) Values ('$projecttitle','$college',"
             . "'$months','$role','$teamsize','$tools','$challenges','$idstudent')");
-     
+   echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
+        exit;   
 }
 ?>
 <!DOCTYPE html>
@@ -38,10 +40,37 @@ if($_POST)
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+ <script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/jquery.validation.js"></script>
+<script src="js/customised_validation.js"></script>
+ <script>
+ $(document).ready(function() {
+
+                
+                
+            $("#rvvlsiorotherprojects").validate({
+
+                rules: {
+                    projecttitle: "required",
+                    months: "required",
+                    college: "required",
+                    role: "required", 
+                },
+                // Specify the validation error messages
+                messages: {
+                    projecttitle: "Please enter Project Name",
+                    months: "Please enter no of Months",
+                    college: "Please enter the place",
+                    role: "Please enter your Deliverables",
+                   
+                }
+            });
+ });
+  </script>  
   </head>
 
   <body>
-      <form action="" method="POST"> 
+      <form action="" method="POST" id="rvvlsiorotherprojects"> 
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
@@ -51,13 +80,13 @@ if($_POST)
         <div class="form-group">
             <label class="col-sm-4 control-label">Project Title <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
+              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
-            <div class="col-sm-3">
-              <input type="name" class="form-control" placeholder="" id="months" name="months">
+            <div class="col-sm-4">
+              <input type="name" class="form-control" placeholder="Enter duration" id="months" name="months">
             </div>        
           </div>                                           
     </div>    
@@ -67,7 +96,7 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-4 control-label">Done At<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="college" name="college">
+              <input type="name" class="form-control" placeholder="Enter the institute name" id="college" name="college">
             </div>        
           </div>  
           <div class="form-group">
@@ -91,26 +120,30 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Your Deliverables <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="name" class="form-control" placeholder="" id="role" name="role">
+              <input type="name" class="form-control" placeholder="Enter your role in this project" id="role" name="role" onkeyup="countCharbannertext(this,'role_countlabel','150')"  ;>
+               <span class='info-text' id='role_countlabel'>Maximum 150 Chars (with spaces)
             </div>        
           </div> 
                   
           <div class="form-group">
             <label class="col-sm-2 control-label">Project Description</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription"></textarea>
+              <textarea class="form-control" Placeholder="Describe the unique feature of your project" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')"  ;></textarea>
+               <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Tools Used</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="tools" name="tools"></textarea>
+              <textarea class="form-control" rows="2" id="tools" Placeholder="Specify the software and hardware boards used"  name="tools" onkeyup="countCharbannertext(this,'tools_countlabel','250')"  ;></textarea>
+               <span class='info-text' id='tools_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" name="challenges"></textarea>
+              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;></textarea>
+               <span class='info-text' id='challenges_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>          
       </div>
@@ -131,8 +164,6 @@ if($_POST)
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    
-    <script src="js/bootstrap.min.js"></script>
-    
+ 
   </body>
 </html>

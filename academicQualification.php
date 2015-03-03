@@ -4,11 +4,16 @@ include('include/year.php');
 include('include/department.php');
 include('include/pgcourses.php');
 include('include/traininginstitute.php');
+include('include/sessioncheck.php');
+include('include/settingmessage.php');
+
+
 $idstudent = $_SESSION['idstudent'];
 
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
+  
       $sslcpassoutyear = $row['sslc_passoutyear'];
     $sslcpercentagetype = $row['sslc_percentagetype'];
     $sslcpercentage = $row['sslc_percentage'];
@@ -47,30 +52,34 @@ while($row = mysql_fetch_assoc($profileInformationSql))
      $phdpassoutyear = $row['phd_passoutyear'];
     $phdpercentagetype = $row['phd_percentagetype'];
     $phdpercentage = $row['phd_percentage'];
-    $phdschoolname = $row['phd_schoolname'];
+    $phdschoolname = $row['phd-schoolname'];
      $phdboard = $row['phd_university'];
      $phddepartment = $row['phd_department'];
 
      $pgdip_otherschools = $row['pgdip_otherschools'];
- $pgdip_otherschoolscity = $row['pgdip_otherschoolscity'];     
+ $pgdip_otherschoolscity = $row['pgdip_otherschoolscity']; 
+
+  $phdstate = $row['phd_state']; 
+  $pgstate = $row['pg_state']; 
+  $degstate = $row['deg_state'];     
 }
 if($_POST)
 {
     $sslcpassoutyear = $_POST['sslc-passoutyear'];
     $sslcpercentagetype = $_POST['sslc-percentagetype'];
-    $sslcpercentage = $_POST['sslc-percentage'];
-    $sslcschoolname = $_POST['sslc-schoolname'];
+    $sslcpercentage = $_POST['sslc_percentage'];
+    $sslcschoolname = $_POST['sslc_schoolname'];
     
     $pucpassoutyear = $_POST['puc-passoutyear'];
     $pucpercentagetype = $_POST['puc-percentagetype'];
-    $pucpercentage = $_POST['puc-percentage'];
-    $pucschoolname = $_POST['puc-schoolname'];
+    $pucpercentage = $_POST['puc_percentage'];
+    $pucschoolname = $_POST['puc_schoolname'];
     
     $degpassoutyear = $_POST['deg-passoutyear'];
     $degpercentagetype = $_POST['deg-percentagetype'];
-    $degpercentage = $_POST['deg-percentage'];
-    $degschoolname = $_POST['deg-schoolname'];
-     $degboard = $_POST['deg-board'];
+    $degpercentage = $_POST['deg_percentage'];
+    $degschoolname = $_POST['deg_schoolname'];
+     $degboard = $_POST['deg_board'];
      $degdepartment = $_POST['deg-department'];
      
     $pgpassoutyear = $_POST['pg-passoutyear'];
@@ -83,9 +92,9 @@ if($_POST)
      
     $pgdippassoutyear = $_POST['pgdip-passoutyear'];
     $pgdippercentagetype = $_POST['pgdip-percentagetype'];
-    $pgdippercentage = $_POST['pgdip-percentage'];
+    $pgdippercentage = $_POST['pgdip_percentage'];
     $pgdipschoolname = $_POST['pgdip-schoolname'];
-    $pgdipboard = $_POST['pgdip-board'];
+    $pgdipboard = $_POST['pgdip_board'];
     $pgdipcoursename = $_POST['pgdip-coursename'];
     $rvvlsiid = $_POST['rvvlsiid'];
 
@@ -97,6 +106,10 @@ if($_POST)
      $phddepartment = $_POST['phd-department'];    
      $pgdip_otherschools = $_POST['pgdip_otherschools'];
      $pgdip_otherschoolscity = $_POST['pgdip_otherschoolscity'];
+
+$phd_state = $_POST['phd_state']; 
+  $pg_state = $_POST['pg_state']; 
+  $deg_state = $_POST['deg_state'];      
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -138,7 +151,7 @@ if($_POST)
                              sslc_schoolname = '$sslcschoolname',
                              puc_passoutyear = '$pucpassoutyear', 
                              puc_percentagetype = '$sslcpercentagetype',
-                             puc_percentage = '$pucpercentagetype',
+                             puc_percentage = '$pucpercentage',
                              puc_schoolname = '$pucschoolname',
                              deg_passoutyear = '$degpassoutyear', 
                              deg_percentagetype = '$degpercentagetype',
@@ -166,8 +179,13 @@ if($_POST)
                              phd_university = '$phdboard',
                              phd_department = '$phddepartment',
                              pgdip_otherschools = '$pgdip_otherschools',
-                             pgdip_otherschoolscity = '$pgdip_otherschoolscity'
+                             phd_state = '$phd_state',
+                             pg_state = '$pg_state',
+                             pgdip_otherschoolscity = '$pgdip_otherschoolscity',
+                             deg_state = '$deg_state'
                         where idstudent = '$idstudent'");
+   echo "<script>parent.location='academicProjects.php'</script>";
+   exit;
   
 }
 ?>
@@ -191,15 +209,64 @@ if($_POST)
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type='text/JavaScript'>
+ 
+ $(document).ready(function() {
+   $('#saveAndContinue').click(function() {
+                
+                $('#academicQualification').submit();
+            });
+            $("#academicQualification").validate({
+                // Specify the validation rules
+                rules: {
+                    sslc_percentage: "required",
+                    sslc_schoolname: "required",
+                    puc_percentage: "required",
+                    puc_schoolname: "required",
+                    deg_percentage: "required",
+                    deg_schoolname: "required",
+                    deg_board: "required",       
+                    pgdip_otherschools: "required",
+                    pgdip_otherschoolscity: "required",
+                    pgdip_board: "required",                                   
+                    pgdip_percentage: "required",                                   
+                },
+                // Specify the validation error messages
+                messages: {
+                    sslc_percentage: "<p class='error-class'>Please enter a Percentage</p>",                  
+                    sslc_schoolname: "<p class='error-class'>Please enter School Name</p>",
+                    puc_percentage: "<p class='error-class'>Please enter a Puc Percentage</p>",
+                    puc_schoolname: "<p class='error-class'>Please enter PUC College Name</p>",
+                    deg_percentage: "<p class='error-class'>Please enter Percentage</p>",
+                    deg_schoolname: "<p class='error-class'>Please enter College Name</p>",
+                    deg_board: "<p class='error-class'>Please enter University</p>",
+                    pgdip_otherschools: "<p class='error-class'>Please enter Institute Name</p>",
+                    pgdip_otherschoolscity: "<p class='error-class'>Please enter College Name</p>",
+                    pgdip_board: "<p class='error-class'>Please enter University</p>",                   
+                    pgdip_percentage: "<p class='error-class'>Please enter University</p>",                   
+                }
+            });
+ });
+
 function fnPgdipSchool(id)
 {
-   //alert(id);
+
+   if(id=='0')
+   {
+      $('#institudedetails').hide();
+   }
+   else
+   {
+      $('#institudedetails').show();
+   }
   if(id==1)
   {
       $('#divrvvlsiid').show();
       $('#otherschoolnamelabelid').hide();
       $('#otherschoolcitynamelabelid').hide();
+      $('#percentagelabel').html('TTP');
   }
   else
   {
@@ -207,15 +274,21 @@ function fnPgdipSchool(id)
       $('#otherschoolnamelabelid').show();
       $('#otherschoolcitynamelabelid').show();
       $('#rvvlsiid').val('');
+      
+      $('#percentagelabel').html('Aggregate Marks');
   }
 }
 </script>    
   </head>
 
   <body onload='fnPgdipSchool(<?php echo $pgdipschoolname;?>)'>
-      <form action="" method="POST">
+      <form action="" method="POST" id="academicQualification">
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
+        <div class="container mar-t30">
+                    <p class="alert alert-success txtc font16-sm-reg"><?php echo $academicqualificationpage;?></p>
+
+    </div>
     <div class="container mar-t10">
         
           <div class="row">
@@ -242,13 +315,13 @@ function fnPgdipSchool(id)
                     <label class="radio-inline" style='display:none'>
                         <input type="radio" name="sslc-percentagetype" id="sslc-percentagetype" value="CGPA"> CGPA(out of 10 points)
                     </label>        
-                    <input type="text" class="form-control mar-t10" placeholder="" id="sslc-percentage" name="sslc-percentage" value="<?php echo $sslcpercentage;?>">                                                      
+                    <input type="text" class="form-control mar-t10" placeholder="" id="sslc_percentage" name="sslc_percentage" value="<?php echo $sslcpercentage;?>">                                                      
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">School / College <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">School / College Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="sslc-schoolname" name="sslc-schoolname" value="<?php echo $sslcschoolname;?>">
+                  <input type="name" class="form-control" placeholder="College Name" id="sslc_schoolname" name="sslc_schoolname" value="<?php echo $sslcschoolname;?>">
                 </div>               
               </div> 
                                               
@@ -277,16 +350,16 @@ function fnPgdipSchool(id)
                     <label class="radio-inline" style='display:none'>
                         <input type="radio" name="puc-percentagetype" id="puc-percentagetype" value="CGPA" > CGPA(out of 10 points)
                     </label>        
-                    <input type="text" class="form-control mar-t10" placeholder="" id="puc-percentage" name="puc-percentage" value="<?php echo $pucpercentage;?>">                                                      
+                    <input type="text" class="form-control mar-t10" placeholder="" id="puc_percentage" name="puc_percentage" value="<?php echo $pucpercentage;?>">                                                      
                 </div>
               </div>
                 <div class="form-group">
-                <label class="col-sm-5 control-label">School / College <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">School / College Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="puc-schoolname" name="puc-schoolname" value="<?php echo $pucschoolname;?>">
+                  <input type="name" class="form-control" placeholder="College Name" id="puc_schoolname" name="puc_schoolname" value="<?php echo $pucschoolname;?>">
                 </div>               
               </div> 
-                                                                    
+                                                           
             </div>
             </div> 
            <div class="col-sm-6">
@@ -324,19 +397,26 @@ function fnPgdipSchool(id)
                     <label class="radio-inline">
                         <input type="radio" name="deg-percentagetype" id="deg-percentagetype" value="CGPA" <?php if($degpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
                     </label>        
-                    <input type="text" class="form-control mar-t10" placeholder="" id="deg-percentage" name="deg-percentage" value="<?php echo $degpercentage;?>">                                                      
+                    <input type="text" class="form-control mar-t10" placeholder="" id="deg_percentage" name="deg_percentage" value="<?php echo $degpercentage;?>">                                                      
                 </div>
               </div>
                 <div class="form-group">
                 <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="deg-schoolname" name="deg-schoolname" value="<?php echo $degschoolname;?>">
+                  <input type="name" class="form-control" placeholder="College Name" id="deg_schoolname" name="deg_schoolname" value="<?php echo $degschoolname;?>">
                 </div>               
               </div> 
               <div class="form-group">
                 <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="deg-board" name="deg-board" value="<?php echo $degboard;?>">
+                  <input type="name" class="form-control" placeholder="University" id="deg_board" name="deg_board" value="<?php echo $degboard;?>">
+                </div>  
+
+              </div>  
+              <div class="form-group">
+                <label class="col-sm-5 control-label">State <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="State Name" id="deg_state" name="deg_state" value="<?php echo $degstate;?>">
                 </div>        
               </div>                                           
             </div>
@@ -345,9 +425,10 @@ function fnPgdipSchool(id)
            <h3 class="brd-btm mar-b20">Post Graduation (ME / MTech)</h3>
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text"></span></label>
                 <div class="col-sm-7">
                   <select class="form-control" id="pg-passoutyear" name="pg-passoutyear">
+                      <option value=''>Select</option>
                       <?php for($i=0;$i<count($yeararray);$i++){?>
                     <label class="radio-inline">
                       <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pgpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
@@ -357,10 +438,10 @@ function fnPgdipSchool(id)
                 </div>        
               </div> 
             <div class="form-group">
-            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
+            <label class="col-sm-5 control-label">Branch<span class="error-text"></span></label>
             <div class="col-sm-7">
               <select class="form-control" id="pg-department" name="pg-department">
-
+                  <option value=''>Select</option>
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
                   <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"><?php echo $departmentarray[$i]['department'];?></option>
                   <?php }?>
@@ -369,7 +450,7 @@ function fnPgdipSchool(id)
             </div>        
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text"></span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="pg-percentagetype" id="pg-percentagetype" value="Percentage" <?php if($pgpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
@@ -381,24 +462,93 @@ function fnPgdipSchool(id)
                 </div>
               </div>
                 <div class="form-group">
-                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">College <span class="error-text"></span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pg-schoolname" name="pg-schoolname" value="<?php echo $pgschoolname;?>">
+                  <input type="name" class="form-control" placeholder="College Name" id="pg-schoolname" name="pg-schoolname" value="<?php echo $pgschoolname;?>">
                 </div>               
               </div> 
               <div class="form-group">
-                <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">University <span class="error-text"></span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pg-board" name="pg-board" value="<?php echo $pgboard;?>">
+                  <input type="name" class="form-control" placeholder="University Name" id="pg-board" name="pg-board" value="<?php echo $pgboard;?>">
+                </div>        
+              </div> 
+               <div class="form-group">
+                <label class="col-sm-5 control-label">State <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="State Name" id="pg_state" name="pg_state" value="<?php echo $pgstate;?>">
                 </div>        
               </div>         
               </div>                                           
             </div>
-        <div class="clearfix col-sm-6">
+        
+             <div class="clearfix col-sm-6">
+           <h3 class="brd-btm mar-b20">Ph.D</h3>
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <select class="form-control" id="phd-passoutyear" name="phd-passoutyear">
+                      <option value=''>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                    <label class="radio-inline">
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($phdpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>        
+              </div> 
+            <div class="form-group">
+            <label class="col-sm-5 control-label">Branch<span class="error-text"></span></label>
+            <div class="col-sm-7">
+              <select class="form-control" id="phd-department" name="phd-department">
+                  <option value=''>Select</option>
+                  <?php for($i=0;$i<count($departmentarray);$i++){?>
+                  <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"
+                          <?php if($phddepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";};?>><?php echo $departmentarray[$i]['department'];?></option>
+                  <?php }?>
+
+              </select>
+            </div>        
+              </div> 
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="Percentage" <?php if($phdpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="CGPA" <?php if($phdpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    </label>        
+                    <input type="text" class="form-control mar-t10" placeholder="" id="phd-percentage" name="phd-percentage" value="<?php echo $phdpercentage;?>">                                                      
+                </div>
+              </div>
+                <div class="form-group">
+                <label class="col-sm-5 control-label">College <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="College Name" id="phd-schoolname" name="phd-schoolname" value="<?php echo $phdschoolname;?>">
+                </div>               
+              </div> 
+              <div class="form-group">
+                <label class="col-sm-5 control-label">University <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="University Name" id="phd-board" name="phd-board" value="<?php echo $phdboard;?>">
+                </div>        
+              </div> 
+               <div class="form-group">
+                <label class="col-sm-5 control-label">State <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="State Name" id="phd_state" name="phd_state" value="<?php echo $phdstate;?>">
+                </div>        
+              </div>  
+                              
+              </div>                                           
+            </div>
+               <div class="clearfix col-sm-6">
            <h3 class="brd-btm mar-b20">Skill Development/ Vocational Training</h3>
                 <div class="form-horizontal">
                <div class="form-group">
-                <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Institute Name<span class="error-text"></span></label>
                 <div class="col-sm-7">
 
                  <select class="form-control" id="pgdip-schoolname" name="pgdip-schoolname" onchange='fnPgdipSchool(this.value);'>
@@ -410,7 +560,8 @@ function fnPgdipSchool(id)
                   </select>
                 </div>               
               </div> 
-               <div class="form-group" id='otherschoolnamelabelid'>
+              <div id="institudedetails" style='display:none'>
+               <div class="form-group" id='otherschoolnamelabelid' >
                 <label class="col-sm-5 control-label">School Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pgdip_otherschools" name="pgdip_otherschools" value="<?php echo $pgdip_otherschools;?>">
@@ -427,8 +578,6 @@ function fnPgdipSchool(id)
                 <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                    <select class="form-control" id="pgdip-coursename" name="pgdip-coursename">
-                                         <option value='0'>Select</option> 
-
                         <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
                       <option value="<?php echo $pgCoursesArray[$i]['idpgdipcourses'];?>" <?php if($pgDipCoursename==$pgCoursesArray[$i]['idpgdipcourses']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
                       <?php }?>
@@ -439,19 +588,19 @@ function fnPgdipSchool(id)
               <div class="form-group">
                 <label class="col-sm-5 control-label">Course Duration <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="pgdip-board" name="pgdip-board" value="<?php echo $pgdipboard;?>">
+                  <input type="name" class="form-control" placeholder="" id="pgdip_board" name="pgdip_board" value="<?php echo $pgdipboard;?>">
                 </div>        
               </div>  
              <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label" id='percentagelabel'></label>
                 <div class="col-sm-7">
-                    <label class="radio-inline">
+                    <label class="radio-inline" style='display:none'>
                       <input type="radio" name="pgdip-percentagetype" id="pgdip-percentagetype" value="Percentage" <?php if($pgdippercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
                     </label>
-                    <label class="radio-inline">
+                    <label class="radio-inline" style='display:none'>
                         <input type="radio" name="pgdip-percentagetype" id="pgdip-percentagetype" value="CGPA" <?php if($pgdippercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
                     </label>        
-                    <input type="text" class="form-control mar-t10" placeholder="" id="pgdip-percentage" name="pgdip-percentage" value="<?php echo $pgdippercentage;?>">                                                      
+                    <input type="text" class="form-control mar-t10" placeholder="" id="pgdip_percentage" name="pgdip_percentage" value="<?php echo $pgdippercentage;?>">                                                      
                 </div>
               </div>
                
@@ -475,66 +624,12 @@ function fnPgdipSchool(id)
                   <input type="name" class="form-control" placeholder="" id="rvvlsiid" name="rvvlsiid" value="<?php echo $rvvlsiid;?>">
                 </div>        
               </div> 
+              </div>
             </form>
             </div>                        
-            </div> 
-             <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Ph.D</h3>
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                  <select class="form-control" id="phd-passoutyear" name="phd-passoutyear">
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                    <label class="radio-inline">
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($phdpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>
-                </div>        
-              </div> 
-            <div class="form-group">
-            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
-            <div class="col-sm-7">
-              <select class="form-control" id="phd-department" name="phd-department">
-                  <?php for($i=0;$i<count($departmentarray);$i++){?>
-                  <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"
-                          <?php if($phddepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";};?>><?php echo $departmentarray[$i]['department'];?></option>
-                  <?php }?>
-
-              </select>
-            </div>        
-              </div> 
-              <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                    <label class="radio-inline">
-                      <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="Percentage" <?php if($phdpercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="phd-percentagetype" id="phd-percentagetype" value="CGPA" <?php if($phdpercentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
-                    </label>        
-                    <input type="text" class="form-control mar-t10" placeholder="" id="phd-percentage" name="phd-percentage" value="<?php echo $phdpercentage;?>">                                                      
-                </div>
-              </div>
-                <div class="form-group">
-                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="phd-schoolname" name="phd-schoolname" value="<?php echo $phdschoolname;?>">
-                </div>               
-              </div> 
-              <div class="form-group">
-                <label class="col-sm-5 control-label">University <span class="error-text">*</span></label>
-                <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="" id="phd-board" name="phd-board" value="<?php echo $phdboard;?>">
-                </div>        
-              </div>         
-              </div>                                           
-            </div>
-                     
+            </div>       
             <div class="clearfix brd-top pad-t20">
-                <button type="submit" class="btn btn-primary pull-right">Save & Continue</button>       
-                <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
+                <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">Save & Continue</button>       
             </div>          
 
              </div>   

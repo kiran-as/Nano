@@ -1,7 +1,7 @@
 <?php
 include('application/conn.php');
 $idstudent = $_SESSION['idstudent'];
-echo "Select * from tbl_student where idstudent='$idstudent'";
+//echo "Select * from tbl_student where idstudent='$idstudent'";
 if($_POST)
 {
   // print_r($_POST);
@@ -400,7 +400,6 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
    </table>
      <?php $resumeorder++;}?>
     
-    <p class='font16-sm brd-btm pad-t10'>Project Details</p>
       <?php for($i=0;$i<count($companyArray);$i++){
            $project_title = $companyArray[$i]['project_title'];
     $college_name = $companyArray[$i]['college_name'];
@@ -411,13 +410,10 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
     $idcompanyproject = $companyArray[$i]['idcompanyproject'];?>
           <table class='table table-bordered'>
       <tbody><input type='hidden' name='resumeorder[]' value='<?php echo 'cmp-'.$idcompanyproject;?>'/>
-      <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'><input type='text' class="form-control"  name='companyprojectid[]'
-               value='<?php  echo $idcompanyproject;?>'></td>                           
-          </tr> 
+     
           <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='15%'><input type='hidden' class="form-control"  name='companyprojectid[]'
+               value='<?php  echo $idcompanyproject;?>'><span class='font-gray'>Project Name</span></td>                           
               <td width='70%'><input type='text' class="form-control"  name='companyproject_name[]'
                value='<?php  echo $project_title;?>'></td>                           
           </tr>  
@@ -445,12 +441,12 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
        
    </table>
      <?php $resumeorder++;}?>
-    <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
+   <!--  <p class="font16-sm brd-btm pad-t10">Technical Skills</p>
 <ul class="content-list">
     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-</ul>     
+</ul>      -->
     </div> 
     <div class="clearfix brd-top pad-t20">
     <input type="submit" name="Save" id="Save" class="btn btn-primary pull-right">

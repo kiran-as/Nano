@@ -57,10 +57,37 @@ if($_POST)
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+ <script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/jquery.validation.js"></script>
+<script src="js/customised_validation.js"></script>
+ <script>
+ $(document).ready(function() {
+
+                
+                
+            $("#rvvlsiorotherprojects").validate({
+
+                rules: {
+                    projecttitle: "required",
+                    months: "required",
+                    college: "required",
+                    role: "required", 
+                },
+                // Specify the validation error messages
+                messages: {
+                    projecttitle: "Please enter Project Name",
+                    months: "Please enter no of Months",
+                    college: "Please enter the place",
+                    role: "Please enter your Deliverables",
+                   
+                }
+            });
+ });
+  </script>  
   </head>
 
   <body>
-      <form action="" method="POST"> 
+      <form action="" method="POST" id="rvvlsiorotherprojects"> 
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
@@ -110,26 +137,34 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Your Deliverables <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="name" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>">
+              <input type="name" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>" onkeyup="countCharbannertext(this,'role_countlabel','150')";>
+                           <span class='info-text' id='role_countlabel'>Maximum 150 Chars (with spaces)
+
             </div>        
           </div> 
                   
           <div class="form-group">
             <label class="col-sm-2 control-label">Project Description</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription"><?php echo $projectdescription;?></textarea>
+              <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')";><?php echo $projectdescription;?></textarea>
+                           <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
+
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Tools Used</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="tools" name="tools"><?php echo $tools;?></textarea>
+              <textarea class="form-control" rows="2" id="tools" name="tools" onkeyup="countCharbannertext(this,'tools_countlabel','250')";><?php echo $tools;?></textarea>
+               <span class='info-text' id='tools_countlabel'>Maximum 250 Chars (with spaces)            
+           
             </div>        
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" name="challenges"><?php echo $challenges;?></textarea>
+              <textarea class="form-control" rows="2" id="challenges" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;><?php echo $challenges;?></textarea>
+               <span class='info-text' id='challenges_countlabel'>Maximum 250 Chars (with spaces)            
+           
             </div>        
           </div>          
       </div>
@@ -151,7 +186,6 @@ if($_POST)
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="js/bootstrap.min.js"></script>
-    
+
   </body>
 </html>

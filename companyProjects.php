@@ -1,5 +1,8 @@
 <?php
 include("application/conn.php");
+include('include/sessioncheck.php');
+include('include/settingmessage.php');
+
 $idstudent=1;
 $companysql = mysql_query("Select * from tbl_companyproject where idstudent='$idstudent'");
 $i=0;
@@ -33,19 +36,27 @@ while($row = mysql_fetch_assoc($companysql))
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+    function nextButtonClick()
+    {
+      parent.location='careerDetails.php';
+    }
+    </script>
   </head>
 
   <body>
   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+    <p class="alert alert-success txtc font16-sm-reg"><?php echo $companypage;?></p>
+
     <div class="clearfix brd-btm pad-b20">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
     </div>    
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>College / Institute / College</th>
+          <th>Company Name</th>
           <th>Title</th>
           <th>Role</th>
           <th>Description</th>
@@ -67,7 +78,7 @@ while($row = mysql_fetch_assoc($companysql))
       </tbody>
     </table>                
     <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">NEXT</button>                      
+        <button type="button" class="btn btn-primary pull-right" onclick="nextButtonClick();">NEXT</button>                      
     </div>                   
     </div> 
     

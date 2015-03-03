@@ -5,6 +5,7 @@ $studentListClass = '';
 $searchDomainStudentClass = '';
 $recruitementListClass = '';
 $directEntryClass = '';
+$domainKeywordClass='';
 $processResumeClass = '';
 if($urlname[1]=='dashboard.php')
 {
@@ -26,6 +27,10 @@ else if($urlname[1]=='directEntry.php')
 {
   $directEntryClass = 'active';
 }
+else if($urlname[1]=='domainKeyword.php')
+{
+  $domainKeywordClass = 'active';
+}
 else 
 {
    $processResumeClass = 'active';
@@ -40,6 +45,8 @@ else
                 <li class="<?php echo $recruitementListClass;?>"><a href="recruitementList.php">Recruitement List</a></li>
                <li class="<?php echo $processResumeClass;?>"><a href="processResume.php">Refresh Dashboard</a></li>
                <li class="<?php echo $directEntryClass;?>"><a href="directEntry.php">Direct Entry</a></li>
+               <li class="<?php echo $domainKeywordClass;?>"><a href="domainKeyword.php">Domain Keyword</a></li>
+           
            </ul>
        </nav>
     </div><!--/Main Nav Ends-->

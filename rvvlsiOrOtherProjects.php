@@ -1,5 +1,9 @@
 <?php
 include("application/conn.php");
+include('include/sessioncheck.php');
+include('include/settingmessage.php');
+
+
 $idstudent=$_SESSION['idstudent'];
 
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
@@ -40,14 +44,21 @@ while($row = mysql_fetch_assoc($academicsql))
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+    function nextClickButton()
+    {
+         parent.location='companyProjects.php';
+    }
+    </script>
   </head>
 
   <body>
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+
 <?php if($pgdip_schoolname=='0'){?>
-     <p class="alert alert-success txtc font16-sm-reg"> 
+     <p class="alert alert-success txtc font16-sm-reg">
 <br/>
 
 This section does not apply to you.<br/>
@@ -60,6 +71,8 @@ This section does not apply to you.<br/>
 <br/> 
 </p>
 <?php } else {?>
+     <p class="alert alert-success txtc font16-sm-reg"><?php echo $traininginstitutepage;?>
+
     <div class="clearfix brd-btm pad-b20">
         <a href="addrvvlsiOrOtherProjects.php" class="btn btn-primary pull-right">+ ADD PROJECT</a>                     
     </div>    
@@ -69,7 +82,7 @@ This section does not apply to you.<br/>
           <th>Institue Name & Place</th>
           <th>Title</th>
           <th>Role</th>
-          <th>Description</th>
+          <th>Tool</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -89,7 +102,7 @@ This section does not apply to you.<br/>
     </table>   
 <?php }?>             
     <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">NEXT</button>                      
+        <button type="button" class="btn btn-primary pull-right" onclick='nextClickButton()'>NEXT</button>                      
     </div>                   
     </div> 
     

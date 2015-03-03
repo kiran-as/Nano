@@ -1,5 +1,8 @@
 <?php
 include('application/conn.php');
+include('include/sessioncheck.php');
+include('include/settingmessage.php');
+
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
@@ -75,31 +78,42 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+     <![endif]-->
+ <script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/customised_validation.js"></script>
   </head>
 
   <body>
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+     <p class="alert alert-success txtc font16-sm-reg"><?php echo $otherdetailpage;?></p>
 <form name="" method="POST">
   <div class="form-group">
     <label>Core Competancy</label>
-    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+  
   </div>    
   <div class="form-group brd-btm pad-b20">
     <label>Career Objective</label>
-    <textarea  class="form-control" rows="3" id="career_objective" name="career_objective"><?php echo $career_objective;?></textarea>
+    <textarea  class="form-control" rows="3" id="career_objective" name="career_objective" Placeholder="Describe the career objective" onkeyup="countCharbannertext(this,'career_objective_countlabel','150')"  ;><?php echo $career_objective;?></textarea>
+                     <span class='info-text' id='career_objective_countlabel'>Maximum 150 Chars (with spaces)
   </div>  
   <div class="form-group">
     <label>Significant Achievement</label>
-    <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[0]['achievements'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[1]['achievements'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="2"  name="achievments[]" ><?php echo $achievementsArray[2]['achievements'];?></textarea>
+    (120 characters per line)
+    <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="List IEEE publication or paper public"  Maxlength="120"><?php echo $achievementsArray[0]['achievements'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="Any patents in your name"  Maxlength="120"><?php echo $achievementsArray[1]['achievements'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="LIst Additional skill development courses taken by you" Maxlength="120"><?php echo $achievementsArray[2]['achievements'];?></textarea>
   </div>    
                         
     <div class="clearfix brd-top pad-t20">

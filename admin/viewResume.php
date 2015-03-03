@@ -75,22 +75,15 @@ function departmentname($idDepartment)
   return $departmentName;
 }
 /////////////////$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
-$achievementsArray = array();
-$i=0;
-while($row = mysql_fetch_assoc($achievementSql))
-{
-    $achievementsArray[$i]['achievements'] = $row['achievements'];
-    $i++;
-}
 
 
 ////academic profiles///
-$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
+$achievementSql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
 $achievementsArray = array();
 $i=0;
 while($row = mysql_fetch_assoc($achievementSql))
 {
-    $achievementsArray[$i]['achievements'] = $row['achievements'];
+    $achievementsArray[$i]['achievements'] = $row['corecompetancy'];
     $i++;
 }
 ///////
@@ -168,7 +161,7 @@ $address      </div>
     </div> 
     <p class='font16-sm brd-btm'>Profile Summary</p>
     <p>$career_objective</p>   
-    <p class='font16-sm brd-btm pad-t10'>Technical Skills</p>
+    <p class='font16-sm brd-btm pad-t10'>Core Competancy</p>
 <ul class='content-list'>";
  if($achievementsArray[0]['achievements']!=''){
      $achievements = $achievementsArray[0]['achievements'];
@@ -182,7 +175,14 @@ $address      </div>
     $achievements = $achievementsArray[2]['achievements'];
     $html.="<li>$achievements</li>";
      }
-    
+     if($achievementsArray[3]['achievements']!=''){
+    $achievements = $achievementsArray[3]['achievements'];
+    $html.="<li>$achievements</li>";
+     }
+      if($achievementsArray[4]['achievements']!=''){
+    $achievements = $achievementsArray[4]['achievements'];
+    $html.="<li>$achievements</li>";
+     }
     $html.="
 </ul>                             
 <p class='font16-sm brd-btm pad-t10'>Educational Details</p>
@@ -262,7 +262,7 @@ $address      </div>
               <td width='70%'>$project_title</td>                           
           </tr>  
           <tr>
-              <td><span class='font-gray'>Company Name</span></td>                           
+              <td><span class='font-gray'>Institute Name</span></td>                           
               <td>$college_name</td>                           
           </tr>  
           <tr>
@@ -283,11 +283,7 @@ $address      </div>
       }
     
      
-    $html.="<p class='font16-sm brd-btm pad-t10'>Technical Skills</p>
-<ul class='content-list'>
-    <li>Declare statement wants to discuss with Venky sir</li>
-</ul>     
-    </div>";
+    $html.="</div>";
     for($k=0;$k<count($resumeKeyWordsArray);$k++)
     {
         
