@@ -100,13 +100,13 @@ if($_POST)
         <div class="form-group">
             <label class="col-sm-4 control-label">Company Name <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="company" name="company">
+              <input type="name" class="form-control" placeholder="Enter Company Name" id="company" name="company">
             </div>        
           </div> 
           <div class="form-group">
             <label class="col-sm-4 control-label">Project Title<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle">
+              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
             </div>        
           </div> 
                                                    
@@ -117,7 +117,7 @@ if($_POST)
              <div class="form-group">
             <label class="col-sm-4 control-label">Designation <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="designation" name="designation">
+              <input type="name" class="form-control" placeholder="Enter Designation" id="designation" name="designation">
             </div>        
           </div> 
           <div class="form-group">
@@ -141,13 +141,13 @@ if($_POST)
         <div class="form-group">
             <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="start_date" name="start_date">
+              <input type="name" class="form-control" placeholder="Start date of project" id="start_date" name="start_date">
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-4 control-label">Role<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="role" name="role">            </div>        
+              <input type="name" class="form-control" placeholder="Enter your role on the project" id="role" name="role">            </div>        
           </div>                                           
       </div>    
     </div> 
@@ -156,7 +156,7 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-4 control-label">End Date<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="end_date" name="end_date">
+              <input type="name" class="form-control" placeholder="End date of the project" id="end_date" name="end_date">
             </div>        
           </div>  
                                                                              
@@ -169,19 +169,19 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Project Description</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription"></textarea>
+              <textarea class="form-control" rows="2" Placeholder="Describe the unique feature of project" id="projectdescription" name="projectdescription"></textarea>
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Tools Used</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="tools" name="tools"></textarea>
+              <textarea class="form-control" rows="2" Placeholder="Specify the software and hardware boards used" id="tools" name="tools"></textarea>
             </div>        
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" name="challenges"></textarea>
+              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges"></textarea>
             </div>        
           </div>          
       </div>

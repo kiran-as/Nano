@@ -111,7 +111,7 @@ exit;
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-                    <p class="alert alert-success txtc font16-sm-reg"><?php echo $beprojectspage;?></p>
+                    <p class="alert alert-success txtc font16-sm-reg label-info"><?php echo $beprojectspage;?></p>
 
     
     <div class="container mar-t10">

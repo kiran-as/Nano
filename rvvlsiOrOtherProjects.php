@@ -58,7 +58,7 @@ while($row = mysql_fetch_assoc($academicsql))
     <div class="container mar-t30">
 
 <?php if($pgdip_schoolname=='0'){?>
-     <p class="alert alert-success txtc font16-sm-reg">
+     <p class="alert alert-success txtc font16-sm-reg  label-info">
 <br/>
 
 This section does not apply to you.<br/>
@@ -71,7 +71,7 @@ This section does not apply to you.<br/>
 <br/> 
 </p>
 <?php } else {?>
-     <p class="alert alert-success txtc font16-sm-reg"><?php echo $traininginstitutepage;?>
+     <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $traininginstitutepage;?>
 
     <div class="clearfix brd-btm pad-b20">
         <a href="addrvvlsiOrOtherProjects.php" class="btn btn-primary pull-right">+ ADD PROJECT</a>                     

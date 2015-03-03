@@ -48,7 +48,7 @@ while($row = mysql_fetch_assoc($companysql))
   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-    <p class="alert alert-success txtc font16-sm-reg"><?php echo $companypage;?></p>
+    <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $companypage;?></p>
 
     <div class="clearfix brd-btm pad-b20">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     

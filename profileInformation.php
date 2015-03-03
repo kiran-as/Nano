@@ -109,7 +109,7 @@ if($_POST)
     $( "#datepicker" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      yearRange: "1950:2015"
+      yearRange: "1940:2015"
     });
 
 
@@ -195,7 +195,7 @@ if($_POST)
     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-        <p class="alert alert-success txtc font16-sm-reg"><?php echo $profileinformationpage;?></p>
+        <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $profileinformationpage;?></p>
     <div class="row">
     <div class="form-horizontal col-sm-6">
       <div class="form-group">

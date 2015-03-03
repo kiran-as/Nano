@@ -286,7 +286,7 @@ function fnPgdipSchool(id)
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
         <div class="container mar-t30">
-                    <p class="alert alert-success txtc font16-sm-reg"><?php echo $academicqualificationpage;?></p>
+                    <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $academicqualificationpage;?></p>
 
     </div>
     <div class="container mar-t10">
