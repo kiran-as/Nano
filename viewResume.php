@@ -19,6 +19,10 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $address = $row['address']; 
     $email = $row['email'];
     $career_objective = $row['career_objective']; 
+    $addressdoorno = $row['addressdoorno'];
+    $addresslineone = $row['addresslineone']; 
+    $addresslinetwo = $row['addresslinetwo'];
+ $state = $row['state'];
 }
 
 
@@ -68,14 +72,6 @@ function departmentname($idDepartment)
   return $departmentName;
 }
 /////////////////$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
-$achievementsArray = array();
-$i=0;
-while($row = mysql_fetch_assoc($achievementSql))
-{
-    $achievementsArray[$i]['achievements'] = $row['achievements'];
-    $i++;
-}
-
 
 ////academic profiles///
 $achievementSql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
@@ -187,7 +183,32 @@ while($row = mysql_fetch_assoc($companySql))
       </div> 
       <div class="col-sm-3">
         <label class="control-label"><span class="font-gray">Address :</span> 
-<?php echo $address;?></label>
+ <?php 
+ if($addressdoorno!=''){
+ echo '#'.$addressdoorno."<br/>";
+ }
+ if($addresslineone!=''){
+ echo $addresslineone."<br/>";
+ }
+ if($addresslinetwo!=''){
+ echo $addresslinetwo."<br/>";
+ }
+ if($city!=''){
+ echo $city."<br/>";
+ }
+ if($state!=''){
+  if($pincode!=''){
+ echo $state."-".$pincode."<br/>";
+ }
+ else
+ {
+ echo $state."<br/>";
+}
+ }
+ 
+ ?>
+
+</label>
       </div>                 
     </div> 
     <p class="font16-sm brd-btm">Profile Summary</p>
@@ -209,6 +230,21 @@ while($row = mysql_fetch_assoc($companySql))
     <?php if($achievementsArray[4]['achievements']!=''){?>
     <li><?php echo $achievementsArray[4]['achievements'];?></li>
     <?php }?>
+    <?php if($achievementsArray[6]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[6]['achievements'];?></li>
+    <?php }?>
+            <?php if($achievementsArray[5]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[5]['achievements'];?></li>
+    <?php }?>
+    <?php if($achievementsArray[7]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[7]['achievements'];?></li>
+    <?php }?>
+    <?php if($achievementsArray[8]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[8]['achievements'];?></li>
+    <?php }?>
+    <?php if($achievementsArray[9]['achievements']!=''){?>
+    <li><?php echo $achievementsArray[9]['achievements'];?></li>
+    <?php }?>            
 </ul>                             
 <p class="font16-sm brd-btm pad-t10">Educational Details</p>
    <table class="table table-bordered">

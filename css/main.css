@@ -135,3 +135,5 @@ footer{ background-color: #333238; margin-top: 30px; padding: 15px 0px 5px 0px; 
 .error-class {color:red;}
 .error{color:red;}
 .info-text{font-size: 11px;}
+.label-info{font-weight: bold;
+font-size: 15px;}

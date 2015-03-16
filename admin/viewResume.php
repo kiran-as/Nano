@@ -63,6 +63,16 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgdippercentage = $row['pgdip_percentage'];
     $pgdipschoolname = $row['pgdip_schoolname'];
     $pgdipboard = $row['pgdip_university'];
+    $pgdipcourse = pgDipCourse($row['pgdip_coursename']);
+
+    if($pgdipschoolname=='1')
+    {
+      $pgdipschoolname = 'RV-VLSI Design Center';
+    }
+    else
+    {
+      $pgdipschoolname = $row['pgdip_otherschools'];
+    }
 }
 
 function departmentname($idDepartment)
@@ -73,6 +83,16 @@ function departmentname($idDepartment)
       $departmentName = $row['department'];
   }
   return $departmentName;
+}
+
+function pgDipCourse($idpgdipcourses)
+{
+  $departmentSql = mysql_query("Select * from tbl_pgdipcourses where idpgdipcourses=$idpgdipcourses");
+  while($row = mysql_fetch_assoc($departmentSql))
+  {
+      $pgdip_coursename = $row['pgdip_coursename'];
+  }
+  return $pgdip_coursename;
 }
 /////////////////$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
 
@@ -118,7 +138,28 @@ while($row = mysql_fetch_assoc($companyArraySql))
     $i++;
 }
 ///////
-
+$address = "";
+if($addressdoorno!=''){
+ $address.= '#'.$addressdoorno."<br/>";
+ }
+ if($addresslineone!=''){
+  $address.= $addresslineone."<br/>";
+ }
+ if($addresslinetwo!=''){
+ $address.= $addresslinetwo."<br/>";
+ }
+ if($city!=''){
+ $address.=$city."<br/>";
+ }
+ if($state!=''){
+  if($pincode!=''){
+ $address.= $state."-".$pincode."<br/>";
+ }
+ else
+ {
+ $address.=$state."<br/>";
+}
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,7 +198,8 @@ while($row = mysql_fetch_assoc($companyArraySql))
       </div> 
       <div class='col-sm-3'>
         <label class='control-label'><span class='font-gray'>Address :</span> 
-$address      </div>                 
+$address      
+</div>                 
     </div> 
     <p class='font16-sm brd-btm'>Profile Summary</p>
     <p>$career_objective</p>   
@@ -201,10 +243,10 @@ $address      </div>
           {
            $html.="<tr>
               <td>PG Diploma</td>
-              <td>Embedded Systems</td>
-              <td>RV_VLSI Deisgn Center</td>
-              <td>2010</td>
-              <td>50%</td>                            
+              <td>$pgdipcourse</td>
+              <td>$pgdipschoolname</td>
+              <td>$pgdippassoutyear</td>
+              <td>-</td>                            
           </tr>";
            }
           
@@ -244,7 +286,7 @@ $address      </div>
               <td>$sslcpercentage</td>                            
           </tr>";
           }
-      $html.="</tbody>
+      $htmls="</tbody>
        
    </table>  
    <p class='font16-sm brd-btm pad-t10'>Project Details</p>";
@@ -255,7 +297,7 @@ $address      </div>
     $project_description = $academicArray[$i]['project_description'];
     $tools_used = $academicArray[$i]['tools_used'];
     $challenges = $academicArray[$i]['challenges'];
-          $html.="<table class='table table-bordered'>
+          $htmls.="<table class='table table-bordered'>
       <tbody>
           <tr>
               <td width='15%'><span class='font-gray'>Project Name</span></td>                           
@@ -264,34 +306,40 @@ $address      </div>
           <tr>
               <td><span class='font-gray'>Institute Name</span></td>                           
               <td>$college_name</td>                           
-          </tr>  
-          <tr>
+          </tr>";
+           if($project_description!=''){
+          $htmls.="<tr>
               <td><span class='font-gray'>Project Description</span></td>                           
               <td>$project_description</td>                           
-          </tr> 
-          <tr>
+          </tr>";
+          }
+             if($challenges!=''){
+          $htmls.="<tr>
               <td><span class='font-gray'>Challenges</span></td>                           
               <td>$challenges</td>                           
-          </tr> 
-          <tr>
+          </tr>";
+          } 
+             if($tools_used!=''){
+          $htmls.="<tr>
               <td><span class='font-gray'>Tools</span></td>                           
               <td>$tools_used</td>                           
-          </tr> 
-      </tbody>
+          </tr>";
+          } 
+      $htmls.="</tbody>
        
    </table> ";
       }
     
      
-    $html.="</div>";
+    $htmls.="</div>";
     for($k=0;$k<count($resumeKeyWordsArray);$k++)
     {
         
         
         //$replacement = "<table><tr><td>kiran php </td></tr></table>";
         $one = $resumeKeyWordsArray[$k];
-        $html =  str_ireplace($one, "<font color='red'>$one</font>", $html);
+        $htmls =  str_ireplace($one, "<font color='red'>$one</font>", $htmls);
 
     }
-echo $html;
+echo $html.$htmls;
 ?>

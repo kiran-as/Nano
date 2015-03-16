@@ -67,49 +67,49 @@ if($_POST)
 {
     $sslcpassoutyear = $_POST['sslc-passoutyear'];
     $sslcpercentagetype = $_POST['sslc-percentagetype'];
-    $sslcpercentage = $_POST['sslc_percentage'];
-    $sslcschoolname = $_POST['sslc_schoolname'];
+    $sslcpercentage = str_replace("'","&#39;",$_POST['sslc_percentage']);
+    $sslcschoolname = str_replace("'","&#39;",$_POST['sslc_schoolname']);
     
     $pucpassoutyear = $_POST['puc-passoutyear'];
     $pucpercentagetype = $_POST['puc-percentagetype'];
-    $pucpercentage = $_POST['puc_percentage'];
-    $pucschoolname = $_POST['puc_schoolname'];
+    $pucpercentage = str_replace("'","&#39;",$_POST['puc_percentage']);
+    $pucschoolname = str_replace("'","&#39;",$_POST['puc_schoolname']);
     
     $degpassoutyear = $_POST['deg-passoutyear'];
     $degpercentagetype = $_POST['deg-percentagetype'];
     $degpercentage = $_POST['deg_percentage'];
-    $degschoolname = $_POST['deg_schoolname'];
-     $degboard = $_POST['deg_board'];
+    $degschoolname = str_replace("'","&#39;",$_POST['deg_schoolname']);
+     $degboard = str_replace("'","&#39;",$_POST['deg_board']);
      $degdepartment = $_POST['deg-department'];
      
     $pgpassoutyear = $_POST['pg-passoutyear'];
     $pgpercentagetype = $_POST['pg-percentagetype'];
     $pgpercentage = $_POST['pg-percentage'];
-    $pgschoolname = $_POST['pg-schoolname'];
-    $pgboard = $_POST['pg-board'];
+    $pgschoolname = str_replace("'","&#39;",$_POST['pg-schoolname']);
+    $pgboard = str_replace("'","&#39;",$_POST['pg-board']);
      $pgdepartment = $_POST['pg-department'];
      
      
     $pgdippassoutyear = $_POST['pgdip-passoutyear'];
     $pgdippercentagetype = $_POST['pgdip-percentagetype'];
     $pgdippercentage = $_POST['pgdip_percentage'];
-    $pgdipschoolname = $_POST['pgdip-schoolname'];
-    $pgdipboard = $_POST['pgdip_board'];
+    $pgdipschoolname = str_replace("'","&#39;",$_POST['pgdip-schoolname']);
+    $pgdipboard = str_replace("'","&#39;",$_POST['pgdip_board']);
     $pgdipcoursename = $_POST['pgdip-coursename'];
     $rvvlsiid = $_POST['rvvlsiid'];
 
     $phdpassoutyear = $_POST['phd-passoutyear'];
     $phdpercentagetype = $_POST['phd-percentagetype'];
     $phdpercentage = $_POST['phd-percentage'];
-    $phdschoolname = $_POST['phd-schoolname'];
-    $phdboard = $_POST['phd-board'];
+    $phdschoolname = str_replace("'","&#39;",$_POST['phd-schoolname']);
+    $phdboard = str_replace("'","&#39;",$_POST['phd-board']);
      $phddepartment = $_POST['phd-department'];    
-     $pgdip_otherschools = $_POST['pgdip_otherschools'];
-     $pgdip_otherschoolscity = $_POST['pgdip_otherschoolscity'];
+     $pgdip_otherschools = str_replace("'","&#39;",$_POST['pgdip_otherschools']);
+     $pgdip_otherschoolscity = str_replace("'","&#39;",$_POST['pgdip_otherschoolscity']);
 
-$phd_state = $_POST['phd_state']; 
-  $pg_state = $_POST['pg_state']; 
-  $deg_state = $_POST['deg_state'];      
+$phd_state = str_replace("'","&#39;",$_POST['phd_state']); 
+  $pg_state = str_replace("'","&#39;",$_POST['pg_state']); 
+  $deg_state = str_replace("'","&#39;",$_POST['deg_state']);      
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -443,7 +443,7 @@ function fnPgdipSchool(id)
               <select class="form-control" id="pg-department" name="pg-department">
                   <option value=''>Select</option>
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
-                  <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"><?php echo $departmentarray[$i]['department'];?></option>
+                  <option value="<?php echo $departmentarray[$i]['iddepartment'];?>" <?php if($pgdepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";}?>><?php echo $departmentarray[$i]['department'];?></option>
                   <?php }?>
 
               </select>
@@ -548,7 +548,7 @@ function fnPgdipSchool(id)
            <h3 class="brd-btm mar-b20">Skill Development/ Vocational Training</h3>
                 <div class="form-horizontal">
                <div class="form-group">
-                <label class="col-sm-5 control-label">Institute Name<span class="error-text"></span></label>
+                <label class="col-sm-5 control-label">Select Institute<span class="error-text"></span></label>
                 <div class="col-sm-7">
 
                  <select class="form-control" id="pgdip-schoolname" name="pgdip-schoolname" onchange='fnPgdipSchool(this.value);'>
@@ -562,7 +562,7 @@ function fnPgdipSchool(id)
               </div> 
               <div id="institudedetails" style='display:none'>
                <div class="form-group" id='otherschoolnamelabelid' >
-                <label class="col-sm-5 control-label">School Name<span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pgdip_otherschools" name="pgdip_otherschools" value="<?php echo $pgdip_otherschools;?>">
                 </div>        

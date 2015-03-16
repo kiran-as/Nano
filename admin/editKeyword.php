@@ -13,6 +13,23 @@ while($row = mysql_fetch_assoc($studentSql))
 
 $idresumetypekeyword = $_GET['idresumekeywords'];
 
+$domainKeywordSql = mysql_query("Select * 
+                                 from tbl_resumekeywords 
+                                 where idresumekeywords=$idresumetypekeyword");
+while($row = mysql_fetch_assoc($domainKeywordSql))
+{
+   $idresumetypeselected = $row['idresumetype'];
+   $keyWord = $row['keywords'];
+}
+$i=0;
+while($row = mysql_fetch_assoc($studentSql))
+{
+    $pgDipCoursesArray[$i]['idresumetype'] = $row['idresumetype'];
+    $pgDipCoursesArray[$i]['resumetypename'] = $row['resumetypename'];
+    $i++;
+}
+
+
 if($_POST)
 {
    
@@ -74,7 +91,7 @@ $(document).ready(function() {
            <div class="form-group">
             <label class="col-sm-4 control-label">Domain Keyword</label>
             <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord'>
+                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord' value="<?php echo $keyWord;?>">
             </div>        
           </div>
            <div class="form-group">

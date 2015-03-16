@@ -29,7 +29,7 @@ for($i=0;$i<count($studentArray);$i++)
     //function for academic project
      $studentArray[$i]['vlsi']='No';
      $studentArray[$i]['Embedded']='No';
-
+$studentResumeType = array();
      for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){
 
          $idresumetype = $studentResumeType[$resumetype]['idresumetype'] =  $resumeTypesArray[$resumetype]['idresumetype'];
@@ -53,15 +53,16 @@ for($i=0;$i<count($studentArray);$i++)
             $keyWordsFound = '';
             $keyfound = 'no';
             echo "SELECT * FROM `tbl_academicproject` 
-                WHERE challenges like '%$keyname%' OR 
+                WHERE (challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
-                project_description like '%$keyname%' 
-                and idstudent=$idstudent ";
+                project_description like '%$keyname%') and idstudent=$idstudent 
+                 ";
             $studentAcademicSql = mysql_query("SELECT * FROM `tbl_academicproject` 
-                WHERE challenges like '%$keyname%' OR 
+                WHERE (challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
-                project_description like '%$keyname%' 
-                and idstudent=$idstudent ");
+                 project_title like '%$keyname%'  OR
+                project_description like '%$keyname%') and idstudent=$idstudent 
+                 ");
             while($row = mysql_fetch_assoc($studentAcademicSql))
             {
                 $noOfKeyFound++;
@@ -78,8 +79,7 @@ for($i=0;$i<count($studentArray);$i++)
 
      }
  
- /* print_R($studentResumeType);
-  exit;*/
+  
 
     for($s=0;$s<count($studentResumeType);$s++)
     {
@@ -101,8 +101,7 @@ for($i=0;$i<count($studentArray);$i++)
         //$resumeTypeId = $studentResumeType[$i]['idresumetype'];
     }
 
-   /* print_r($studentResumeProcess);
-    exit;*/
+   
     mysql_query("Delete from tbl_studentresumekeywords where idstudent='$idstudent'");
     for($k=0;$k<count($studentResumeProcess);$k++)
     {

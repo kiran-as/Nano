@@ -16,10 +16,22 @@ if($_POST)
 {
    
   $idresumetype = $_POST['idresumetype'];
-  $keyWord = $_POST['keyWord'];
 
-  mysql_query("Insert into tbl_resumekeywords (idresumetype,keywords)
+  $keyWordsArray = explode(",", $_POST['keyWord']);
+  for($i=0;$i<count($keyWordsArray);$i++)
+  {
+      $keyWord = trim($keyWordsArray[$i]);
+      if($keyWord=='')
+      {
+
+      }
+      else
+      {
+     mysql_query("Insert into tbl_resumekeywords (idresumetype,keywords)
           values ('$idresumetype','$keyWord')");
+   }
+  }
+ 
   echo "<script>parent.location='domainKeyword.php'</script>";
   exit;
 }
@@ -72,7 +84,7 @@ $(document).ready(function() {
            <div class="form-group">
             <label class="col-sm-4 control-label">Domain Keyword</label>
             <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord'>
+                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord'> <p class="help-block">Enter comma(",") seperated for multiple keywords, Eg: abc,def</p>
             </div>        
           </div>
            <div class="form-group">

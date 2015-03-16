@@ -86,7 +86,7 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
             <div class="col-sm-4">
-              <input type="name" class="form-control" placeholder="Enter duration" id="months" name="months">
+              <input type="name" class="form-control" placeholder="Enter project duration" id="months" name="months">
             </div>        
           </div>                                           
     </div>    
@@ -96,7 +96,7 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-4 control-label">Done At<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter the institute name" id="college" name="college">
+              <input type="name" class="form-control" placeholder="Enter the institute name / Industry name" id="college" name="college">
             </div>        
           </div>  
           <div class="form-group">
@@ -118,9 +118,9 @@ if($_POST)
       <div class="col-xs-12">
       <div class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-2 control-label">Your Deliverables <span class="error-text">*</span></label>
+            <label class="col-sm-2 control-label">Your Contribution to the project <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="name" class="form-control" placeholder="Enter your role in this project" id="role" name="role" onkeyup="countCharbannertext(this,'role_countlabel','150')"  ;>
+              <input type="name" class="form-control" placeholder="List the key design aspects you worked on for the project" id="role" name="role" onkeyup="countCharbannertext(this,'role_countlabel','150')"  ;>
                <span class='info-text' id='role_countlabel'>Maximum 150 Chars (with spaces)
             </div>        
           </div> 
@@ -128,21 +128,21 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Project Description</label>
             <div class="col-sm-10">
-              <textarea class="form-control" Placeholder="Describe the unique feature of your project" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')"  ;></textarea>
+              <textarea class="form-control" Placeholder="Describe the project functionality and its features" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')"  ;></textarea>
                <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Tools Used</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="tools" Placeholder="Specify the software and hardware boards used"  name="tools" onkeyup="countCharbannertext(this,'tools_countlabel','250')"  ;></textarea>
+              <textarea class="form-control" rows="2" id="tools" Placeholder="Specify the software tools and hardware boards used"  name="tools" onkeyup="countCharbannertext(this,'tools_countlabel','250')"  ;></textarea>
                <span class='info-text' id='tools_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;></textarea>
+              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the major challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;></textarea>
                <span class='info-text' id='challenges_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>          

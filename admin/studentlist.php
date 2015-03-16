@@ -82,7 +82,11 @@ $(document).ready(function() {
                          while($row = mysql_fetch_assoc($resumeKeyWordsSql))
                          { ?>
 
-                         <td><?php echo $row['noofkeywords'];?></td>
+                         <td>
+                           <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $row['keywords'];?>">
+                         <?php echo $row['noofkeywords'];?>
+                         </div>
+                         </td>
                          <?php } ?>
             <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
 					</tr>

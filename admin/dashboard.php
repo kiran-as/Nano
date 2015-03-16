@@ -4,7 +4,8 @@ include('../application/conn.php');
 //function to fetch freshers resume
 $fresherResumeCount=0;
 $fresherResume = mysql_query("Select * from tbl_student where 
-    deg_percentage !=''  and pg_percentage='0' and pgdip_percentage!='0' and phd_percentage='0'");
+    deg_percentage !=''  and pg_percentage='0' and pgdip_percentage!='0' and phd_percentage='0'
+    and pgdip_schoolname='0'");
 while($row = mysql_fetch_assoc($fresherResume))
 {
     $fresherResumeCount++;
@@ -132,38 +133,50 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
     <div class="row txtc">
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">
             <div class="font48"><?php echo $fresherResumeCount;?></div>
             <p class="font20">Freshers</p>
+            </div>
             </div>
         </div>  
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
+                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">
             <div class="font48"><?php echo $rvvlsiDesignCenterCount;?></div>
             <p class="font20">RV-VLSI</p>
             </div>
+            </div>
         </div> 
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
+                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">
             <div class="font48"> <?php echo $experienceResumeCount;?></div>
             <p class="font20">experience</p>
             </div>
+            </div>
         </div> 
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
             <div class="font48"><?php echo $otherCenterCount;?></div>
             <p class="font20">Other Schools</p>
             </div>
-        </div> 
-        <div class="col-sm-2 mar-b30">
-           <div class="primary-box">
-            <div class="font48"><?php echo $BEResumeCount;?></div>
-            <p class="font20">B.E</p>
             </div>
         </div> 
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
+            <div class="font48"><?php echo $BEResumeCount;?></div>
+            <p class="font20">B.E</p>
+            </div>
+            </div>
+        </div> 
+        <div class="col-sm-2 mar-b30">
+           <div class="primary-box">
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
             <div class="font48"><?php echo $MEResumeCount;?></div>
             <p class="font20">M.E</p>
+            </div>
             </div>
         </div>                                                      
     </div> 
@@ -212,7 +225,12 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               
           </div>          
     </footer>  
- 
-    <script src="js/bootstrap.min.js"></script>
+ <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script> 
   </body>
 </html>

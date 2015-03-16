@@ -258,7 +258,7 @@ if($_POST)
         </div>        
       </div>
        <div class="form-group" id="radioButtonForNationality" style='display:none'>
-        <label class="col-sm-5 control-label">Have Eligibility to work in India <span class="error-text"></span></label>
+        <label class="col-sm-5 control-label">Do you have a work permit to work in India <span class="error-text"></span></label>
         <div class="col-sm-7">
             <label class="radio-inline">
               <input type="radio" name="eligibleIndianNationality" id="eligibleIndianNationalityes" value="Yes" <?php if($eligibleIndianNationality=='Yes') {echo "checked=checked";};?>> Yes
@@ -312,7 +312,11 @@ if($_POST)
         <label class="col-sm-5 control-label">State <span class="error-text">*</span></label>
         <div class="col-sm-7">
           <select class="form-control" id="state" name="state">
-              <option value="Karnataka">Karnataka</option>
+              <option value="Karnataka" <?php if($state=='Karnataka'){echo "Selected=Selected";}?>>Karnataka</option>
+                   <option value="Andra Pradesh" <?php if($state=='Andra Pradesh'){echo "Selected=Selected";}?>>Andra Pradesh</option>
+                        <option value="Tamilnadu" <?php if($state=='Tamilnadu'){echo "Selected=Selected";}?>>Tamilnadu</option>
+                             <option value="Kerala" <?php if($state=='Kerala'){echo "Selected=Selected";}?>>Kerala</option>
+
           </select>
         </div>        
       </div> 

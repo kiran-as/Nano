@@ -104,11 +104,12 @@ if($_POST)
             </div>        
           </div> 
           <div class="form-group">
-            <label class="col-sm-4 control-label">Project Title<span class="error-text">*</span></label>
+            <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
+              <input type="name" class="form-control" placeholder="Start date of project" id="start_date" name="start_date">
             </div>        
           </div> 
+         
                                                    
       </div>    
     </div> 
@@ -117,10 +118,38 @@ if($_POST)
              <div class="form-group">
             <label class="col-sm-4 control-label">Designation <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter Designation" id="designation" name="designation">
+              <input type="name" class="form-control" placeholder="Enter your Designation" id="designation" name="designation">
+            </div>        
+          </div> 
+            <div class="form-group">
+            <label class="col-sm-4 control-label">End Date<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="name" class="form-control" placeholder="End date of the project" id="end_date" name="end_date">
+            </div>        
+          </div>  
+                                                                              
+     </div>      
+    </div> 
+    <div class="row">
+    <div class="form-horizontal col-sm-6">
+      <div class="form-group">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Project Title<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
             </div>        
           </div> 
           <div class="form-group">
+            <label class="col-sm-4 control-label">Your Contribution to the project<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="name" class="form-control" placeholder="List the key design aspect you worked on this project" id="role" name="role">            </div>        
+          </div>                                           
+      </div>    
+    </div> 
+
+    <div class="form-horizontal col-sm-6">
+        
+              <div class="form-group">
             <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
             <div class="col-sm-3">
               <select class="form-control" id="teamsize" name="teamsize">
@@ -132,34 +161,7 @@ if($_POST)
                   <option value="6">6</option>
               </select>
             </div>                                 
-          </div>                                                                     
-     </div>      
-    </div> 
-    <div class="row">
-    <div class="form-horizontal col-sm-6">
-      <div class="form-group">
-        <div class="form-group">
-            <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
-            <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Start date of project" id="start_date" name="start_date">
-            </div>        
-          </div>  
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Role<span class="error-text">*</span></label>
-            <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter your role on the project" id="role" name="role">            </div>        
-          </div>                                           
-      </div>    
-    </div> 
-
-    <div class="form-horizontal col-sm-6">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">End Date<span class="error-text">*</span></label>
-            <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="End date of the project" id="end_date" name="end_date">
-            </div>        
-          </div>  
-                                                                             
+          </div>                                                                
      </div>      
     </div> 
     <div class="row">

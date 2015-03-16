@@ -21,7 +21,7 @@ if($_POST)
         }
     }
 
-    for($i=0;$i<5;$i++)
+    for($i=0;$i<10;$i++)
     {
         $corecompetancy = $_POST['corecompetancy'][$i];
         if($corecompetancy!='')
@@ -87,7 +87,7 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-     <p class="alert alert-success txtc font16-sm-reg"><?php echo $otherdetailpage;?></p>
+     <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $otherdetailpage;?></p>
 <form name="" method="POST">
   <div class="form-group">
     <label>Core Competancy</label>
@@ -111,7 +111,7 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
   <div class="form-group">
     <label>Significant Achievement</label>
     (120 characters per line)
-    <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="List IEEE publication or paper public"  Maxlength="120"><?php echo $achievementsArray[0]['achievements'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="List IEEE publication or paper publications"  Maxlength="120"><?php echo $achievementsArray[0]['achievements'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="Any patents in your name"  Maxlength="120"><?php echo $achievementsArray[1]['achievements'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="LIst Additional skill development courses taken by you" Maxlength="120"><?php echo $achievementsArray[2]['achievements'];?></textarea>
   </div>    
