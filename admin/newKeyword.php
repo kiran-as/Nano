@@ -84,7 +84,7 @@ $(document).ready(function() {
            <div class="form-group">
             <label class="col-sm-4 control-label">Domain Keyword</label>
             <div class="col-sm-8">
-                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord'> <p class="help-block">Enter comma(",") seperated for multiple keywords, Eg: abc,def</p>
+                <input type="name" class="form-control" placeholder="" name='keyWord' id='keyWord'> <p class="help-block">Enter comma(",") seperated for multiple keywords, Eg: macros,timing violation,drc/lvs,drc,lvs</p>
             </div>        
           </div>
            <div class="form-group">

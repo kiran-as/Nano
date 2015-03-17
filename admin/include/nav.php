@@ -46,44 +46,44 @@ else
            <ul class="main-nav clearfix">
 
                <li class="<?php echo $dashboardClass;?>">
-                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="List the summary of all Resumes by categories">
                      <a href="dashboard.php">Dashboard</a>
                  </div>
                </li>
                <li class="<?php echo $studentListClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="List of all Resumes present in Database">
 
                <a href="studentlist.php">Student List</a>
                </div>
                </li>
                <li class="<?php echo $searchDomainStudentClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to shortlist the resume based on %, keywords etc">
 
                <a href="searchDomainStudent.php">Search</a>
                 </div>
                </li>
                 <li class="<?php echo $recruitementListClass;?>">
-                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jobs posted by Recruiter is listed under this section">
 
-                <a href="recruitementList.php">Recruitement List</a>
+                <a href="recruitementList.php">Current Openings</a>
                  </div>
                 </li>
                <li class="<?php echo $processResumeClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to search resumes for new keywords that have been added under the domain search">
 
                <a href="processResume.php">Refresh Dashboard</a>
                 </div>
                </li>
                <li class="<?php echo $directEntryClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tag Resumes by bypassing all search options">
 
-               <a href="directEntry.php">Direct Entry</a>
+               <a href="directEntry.php">Tag Resumes</a>
                 </div>
                </li>
                <li class="<?php echo $domainKeywordClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to add a new domain keyword">
 
-               <a href="domainKeyword.php">Domain Keyword</a>
+               <a href="domainKeyword.php">Add Domain Keyword</a>
                 </div>
                </li>
                <li class="<?php echo $settingClass;?>">
