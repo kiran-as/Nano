@@ -13,6 +13,7 @@ while($row = mysql_fetch_assoc($studentSql))
     $traininginstitutepage = $row['traininginstitutepage'];
     $companypage = $row['companypage'];
     $otherdetailpage = $row['otherdetailpage'];
+    $thankyoupage = $row['thankyoupage'];    
 }
 
 
@@ -24,6 +25,7 @@ if($_POST)
     $traininginstitutepage = $_POST['traininginstitutepage'];
     $companypage = $_POST['companypage'];
     $otherdetailpage = $_POST['otherdetailpage'];
+    $thankyoupage = $_POST['thankyoupage'];
 
 mysql_query("Update tbl_settings set 
                  profileinformationpage = '$profileinformationpage',
@@ -31,7 +33,8 @@ mysql_query("Update tbl_settings set
 						     beprojectspage = '$beprojectspage',
 						     traininginstitutepage = '$traininginstitutepage',
                   companypage = '$companypage',
-						     otherdetailpage = '$otherdetailpage'
+						     otherdetailpage = '$otherdetailpage',
+                 thankyoupage = '$thankyoupage'
 
                         where idsettings = '1'");
 
@@ -76,7 +79,8 @@ exit;
                     beprojectspage: "required",
                     traininginstitutepage: "required", 
                     companypage: "required",
-                    otherdetailpage: "required", 
+                    otherdetailpage: "required",
+                    thankyoupage: "required",  
                 },
                 // Specify the validation error messages
                 messages: {
@@ -86,7 +90,7 @@ exit;
                     traininginstitutepage: "Please enter",
                     companypage: "Please enter",
                     otherdetailpage: "Please enter",
-                   
+                    thankyoupage: "Please enter",
                 }
             });
  });
@@ -141,7 +145,13 @@ exit;
                 <div class="col-sm-10">
                   <input type="name" class="form-control" placeholder="Company Page Content" id="companypage" name="companypage" value="<?php echo $companypage;?>">
                 </div>               
-              </div>   
+              </div>  
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Thankyou Page<span class="error-text">*</span></label>
+                <div class="col-sm-10">
+                  <input type="name" class="form-control" placeholder="Thank you Page Content" id="thankyoupage" name="thankyoupage" value="<?php echo $thankyoupage;?>">
+                </div>               
+              </div>  
               <div class="form-group">
                 <label class="col-sm-2 control-label">Other Detail Page<span class="error-text">*</span></label>
                 <div class="col-sm-10">

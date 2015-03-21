@@ -3,52 +3,22 @@ include('../application/conn.php');
 include('include/resumeType.php');
 error_reporting(-1);
 
-$recruitementSql = mysql_query("Select a.*,b.* 
-                              from tbl_recruitement as a, tbl_recruiter as b
-                              where a.idrecruiter=b.idrecruiter and a.status='Open'");
-$resume=0;
-while($row = mysql_fetch_assoc($recruitementSql))
-{
-    $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
-    $resume++;
-}
-
-
-$studentSql = mysql_query("Select * from tbl_student");
-$i=0;
-while($row = mysql_fetch_assoc($studentSql))
-{
-    $studentArray[$i]['idstudent'] = $row['idstudent'];
-    $studentArray[$i]['studentname'] = $row['firstname'].' - '.$row['lastname'];
-        $studentArray[$i]['idstudent'] = $row['idstudent'];
-
-    $studentArray[$i]['email'] = $row['email'];
-
-    $studentArray[$i]['mobile'] = $row['mobile'];
-
-    $studentArray[$i]['resumeid'] = $row['resumeid'];
-
-    $i++;
-}
-
 if($_POST)
 {
-	//print_R($_POST);
-	//exit;
-	 if($_POST['recruitmentPosition']!='')
-    {
-        for($i=0;$i<count($_POST['studentName']);$i++)
-        {
-            $idStudent = $_POST['studentName'][$i];
-            $idrecruitement = $_POST['recruitmentPosition'];
-             mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
-                and idrecruitement='$idrecruitement'");
-
-            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
-                ('$idStudent','$idrecruitement')");
-        }
-    }
+   
+   $query = '';
+  for($i=0;$i<count($_POST['searchparam']);$i++)
+  {
+     $parameter = $_POST['searchparam'][$i];
+     $idsearchval = $_POST['idsearchval'][$i];
+     $searchparamoption = $_POST['searchparamoption'][$i];
+     $query.=$parameter.$idsearchval.' '.$searchparamoption.' ';
+  }
+  $studetnsql = "Select * from tbl_student where $query";
+  echo $studetnsql;
+ // echo $query;
+  print_R($_POST);
+  exit;
 }
 
 ?>
@@ -104,7 +74,44 @@ $('.pagination').click(function () {
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+<script>
+function fnAddSearchCriteria()
+{
 
+                $.ajax({
+                url : "ajax/ajax_addsearch.php",
+                type: "POST",
+                data : '',
+                success: function(data, textStatus, jqXHR)
+                {
+                   //document.getElementById('ajaxsearch').innerHTML= data;
+                    $('#ajaxsearch').append(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+              
+                }
+            });
+}
+
+function fnajax()
+{
+     $.ajax({
+                url : "ajax/ajax_addsearch.php",
+                type: "POST",
+                data : '',
+                success: function(data, textStatus, jqXHR)
+                {
+                   //document.getElementById('ajaxsearch').innerHTML= data;
+                    $('#ajaxsearch').append(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+              
+                }
+            });
+}
+</script>
   <body>
   <?php include('../include/header.php');?>
     <?php include('include/nav.php');?>
@@ -112,7 +119,28 @@ $('.pagination').click(function () {
         <div class="clearfix brd-btm pad-b20" style="display:none">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
     </div>    
-  
+  <form action="" method="POST">
+  <table>
+        <tr>
+             <td>
+                <select name='searchparam[]' id='searchparam[]'>
+            <option value='sslc_percentage > '>SSLC</option>
+        <option value='puc_percentage > '>PUC</option>
+        <option value='deg_percentage >'>DEG</option>                 
+            </select>
+             <input type='text' name="idsearchval[]" id="idsearchval[]">
+            </td>
+            <td  id="ajaxsearch"></td>
+            </tr>
+           <tr>
+     <td>
+         <input type="Button" id="Add" name="Add" value="ADD" onclick="fnAddSearchCriteria()">
+         <input type="Submit" id="Search" name="Search" value="Search">
+         </td>
+   </tr>
+
+   </table>
+   </form>
 			<table id="example" class="table table-striped" cellspacing="0" width="100%">
 				<thead>
 					<tr>

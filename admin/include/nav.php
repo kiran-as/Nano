@@ -74,12 +74,7 @@ else
                <a href="processResume.php">Refresh Dashboard</a>
                 </div>
                </li>
-               <li class="<?php echo $directEntryClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tag Resumes by bypassing all search options">
 
-               <a href="directEntry.php">Tag Resumes</a>
-                </div>
-               </li>
                <li class="<?php echo $domainKeywordClass;?>">
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to add a new domain keyword">
 
@@ -96,7 +91,7 @@ else
            </ul>
        </nav>
     </div><!--/Main Nav Ends-->
-    <script src="../js/jquery.min.js"></script>
+
     <script src="../js/bootstrap.min.js"></script>
     <script>
         $(function() {
