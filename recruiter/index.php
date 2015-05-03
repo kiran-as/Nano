@@ -14,7 +14,7 @@ if($_POST)
         $username = $row['usename'];
         $company = $row['company'];
     }
-    $_SESSION['idrecruiter'] = $idrecruiter = 2;
+    $_SESSION['idrecruiter'] = $idrecruiter;
     $_SESSION['username'] = $username;
 
     if($idrecruiter=='0')

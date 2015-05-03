@@ -27,7 +27,7 @@ if($_POST)
              values('$email','$password')");
           $_SESSION['idstudent'] = mysql_insert_id();
          $_SESSION['studentName'] = '';
-        echo "<script>parent.location='welcome.php'</script>";
+        echo "<script>parent.location='profileInformation.php'</script>";
         exit;
     }
 }
@@ -46,6 +46,7 @@ if($_POST)
 
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
+  <script src="js/jquery-1.11.0.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -56,18 +57,27 @@ if($_POST)
     function validateNewUser()
     {
         pwd = $('#password').val();
-            cnfpwd = $('#cnfpassword').val();
-            if(pwd!=cnfpwd)
+        cnfpwd = $('#cnfpassword').val();
+        if(pwd!=cnfpwd)
+        {
+            alert('There is an mismatch in the password, Please try again');
+            $('#password').val('');
+            $('#cnfpassword').val('');
+            return false;
+        }
+        else
+        {
+            var termsandconditionss = $('#termsandconditions').is(':checked');;
+            if(termsandconditionss==false)
             {
-                alert('There is an mismatch in the password, Please try again');
-                $('#password').val('');
-                $('#cnfpassword').val('');
+                alert('Please Accept the Terms and Condition by clicking on the checkbox');
                 return false;
             }
             else
             {
                 return true;
             }
+        }
     }
     </script>
   </head>
@@ -75,16 +85,19 @@ if($_POST)
   <body>
        <section class="login-wrapper">
         <div class="login-container">
-            <a href="#" class="logo logo--small mar-b30">Book Your Ground</a>
+            <a href="#" class="logo logo--small mar-b30"></a>
             <form class="form-login" role="form" action="" method="POST">                
                 <label for="inputEmail" class="sr-only">Login ID</label>
                 <input type="text" name="email" id="email" value="" class="form-control clear--top clr-brdradius" placeholder="Email Address" required="" autofocus=""> <br/>
                 <label for="inputPassword" class="sr-only" >Password</label>
                 <input type="password" name="password" id="password" value="" placeholder="Password" required="" class="form-control clear--top clr-brdradius"><br/>
-                                <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm Password" value="" required="" class="form-control clear--top clr-brdradius"><br/>
+                <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm Password" value="" required="" class="form-control clear--top clr-brdradius"><br/>
 
                 <button class="btn btn-lg btn-primary btn-block clr-brdradius" type="submit" onclick="return validateNewUser()">LOGIN</button>
-                <div class="mar-t30"><a href="#">Forgot Password?</a> &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="termsandconditions" checked="checked">Terms and Conditions
+                <div class="mar-t30">
+
+                <a href="#">Forgot Password?</a> &nbsp;&nbsp;&nbsp;
                 <a href="index.php">Sign In?</a></div>
               </form>            
         </div>

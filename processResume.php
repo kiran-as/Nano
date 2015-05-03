@@ -1,5 +1,6 @@
 <?php
 include('application/conn.php');
+include('include/settingmessage.php');
 error_reporting(-1);
 $idstudent = $_SESSION['idstudent'];
 $studentSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
@@ -57,11 +58,12 @@ for($i=0;$i<count($studentArray);$i++)
                 tools_used like '%$keyname%'  OR
                 project_description like '%$keyname%' 
                 and idstudent=$idstudent ";*/
-            $studentAcademicSql = mysql_query("SELECT * FROM `tbl_academicproject` 
-                WHERE challenges like '%$keyname%' OR 
+             $studentAcademicSql = mysql_query("SELECT * FROM `tbl_academicproject` 
+                WHERE (challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
-                project_description like '%$keyname%' 
-                and idstudent=$idstudent ");
+                 project_title like '%$keyname%'  OR
+                project_description like '%$keyname%') and idstudent=$idstudent 
+                 ");
             while($row = mysql_fetch_assoc($studentAcademicSql))
             {
                 $noOfKeyFound++;
@@ -147,11 +149,9 @@ exit;*/
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-     <p class="alert alert-success txtc font16-sm-reg">Thank you for submitting the Resume.
+     <p class="alert alert-success txtc font16-sm-reg"><?php echo $thankyoupage;?>
 </p>
- <div class="clearfix brd-top pad-t20">
-        <button type="button" class="btn btn-primary pull-right" onclick="fnNextClick();">NEXT</button>                      
-    </div>                   
+                
     </div> 
     
     <footer class="home-footer">

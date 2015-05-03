@@ -106,12 +106,12 @@ function fnChangeApprove(approvestatus)
 			<table id="example" class="table table-striped" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th>Position</th>
-						<th>Recruitment Date</th>
+						<th>Job Position</th>
+						<th>Position Created Date</th>
 						<th>No of Openings</th>
 						<th>Interview Date</th>
 						<th>No of Resumes Tagged</th>
-						<th>View Candidates</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 

@@ -3,7 +3,13 @@ include("application/conn.php");
 include('include/sessioncheck.php');
 include('include/settingmessage.php');
 
-$idstudent=1;
+$idstudent=$_SESSION['idstudent'];
+$profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
+while($row = mysql_fetch_assoc($profileInformationSql))
+{ 
+    $experience = $row['experience'];                           
+}
+
 $companysql = mysql_query("Select * from tbl_companyproject where idstudent='$idstudent'");
 $i=0;
 while($row = mysql_fetch_assoc($companysql))
@@ -47,9 +53,10 @@ while($row = mysql_fetch_assoc($companysql))
   <body>
   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
+    <?php if($experience=='Experience'){?>
     <div class="container mar-t30">
     <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $companypage;?></p>
-
+   
     <div class="clearfix brd-btm pad-b20">
         <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
     </div>    
@@ -81,7 +88,18 @@ while($row = mysql_fetch_assoc($companysql))
         <button type="button" class="btn btn-primary pull-right" onclick="nextButtonClick();">NEXT</button>                      
     </div>                   
     </div> 
-    
+    <?php } else {?>
+    <div class="container mar-t30">   
+        <p class="alert alert-success txtc font16-sm-reg  label-info"> 
+          This section does not apply to the fresher, since in the Profile information page you have selected
+          as fresher.
+        </p>
+ 
+     <div class="clearfix brd-top pad-t20">
+        <button type="button" class="btn btn-primary pull-right" onclick="nextButtonClick();">NEXT</button>                      
+    </div>                   
+    </div> 
+    <?php }?>
     <footer class="home-footer">
           <div class="container">            
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               

@@ -135,7 +135,7 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
            <div class="primary-box">
             <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of resumes with BE and or ME qualifications and no experience, there resumes will have work experience section empty and no skill development courses">
             <div class="font48"><?php echo $fresherResumeCount;?></div>
-            <p class="font20">Freshers</p>
+            <p class="font20">Freshers No skill devleopment</p>
             </div>
             </div>
         </div>  
@@ -167,7 +167,7 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
            <div class="primary-box">
             <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
             <div class="font48"><?php echo $BEResumeCount;?></div>
-            <p class="font20">B.E</p>
+            <p class="font20">B.E + Skill development</p>
             </div>
             </div>
         </div> 
@@ -175,7 +175,7 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
            <div class="primary-box">
             <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
             <div class="font48"><?php echo $MEResumeCount;?></div>
-            <p class="font20">M.E</p>
+            <p class="font20">M.E + Skill development</p>
             </div>
             </div>
         </div>                                                      

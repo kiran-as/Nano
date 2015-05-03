@@ -61,7 +61,10 @@ while($row = mysql_fetch_assoc($profileInformationSql))
 
   $phdstate = $row['phd_state']; 
   $pgstate = $row['pg_state']; 
-  $degstate = $row['deg_state'];     
+  $degstate = $row['deg_state']; 
+$pgdip_othercoursename = $row['pgdip_othercoursename'];  
+$deg_othercoursename = $row['deg_othercoursename'];   
+$pg_othercoursename = $row['pg_othercoursename'];  
 }
 if($_POST)
 {
@@ -109,7 +112,11 @@ if($_POST)
 
 $phd_state = str_replace("'","&#39;",$_POST['phd_state']); 
   $pg_state = str_replace("'","&#39;",$_POST['pg_state']); 
-  $deg_state = str_replace("'","&#39;",$_POST['deg_state']);      
+  $deg_state = str_replace("'","&#39;",$_POST['deg_state']); 
+  $pgdip_othercoursename = str_replace("'","&#39;",$_POST['pgdip_othercoursename']);   
+  $deg_othercoursename = str_replace("'","&#39;",$_POST['deg_othercoursename']);   
+  $pg_othercoursename = str_replace("'","&#39;",$_POST['pg_othercoursename']);   
+
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -182,7 +189,11 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                              phd_state = '$phd_state',
                              pg_state = '$pg_state',
                              pgdip_otherschoolscity = '$pgdip_otherschoolscity',
-                             deg_state = '$deg_state'
+                             deg_state = '$deg_state',
+                             pgdip_othercoursename = '$pgdip_othercoursename',
+                             deg_othercoursename = '$deg_othercoursename',
+                             pg_othercoursename = '$pg_othercoursename'
+
                         where idstudent = '$idstudent'");
    echo "<script>parent.location='academicProjects.php'</script>";
    exit;
@@ -209,8 +220,8 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
 <script type='text/JavaScript'>
  
  $(document).ready(function() {
@@ -231,21 +242,27 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                     pgdip_otherschools: "required",
                     pgdip_otherschoolscity: "required",
                     pgdip_board: "required",                                   
-                    pgdip_percentage: "required",                                   
+                    pgdip_percentage: "required", 
+                    deg_othercoursename: "required", 
+                    pgdip_othercoursename : "required", 
+                    rvvlsiid : "required",                                  
                 },
                 // Specify the validation error messages
                 messages: {
-                    sslc_percentage: "<p class='error-class'>Please enter a Percentage</p>",                  
-                    sslc_schoolname: "<p class='error-class'>Please enter School Name</p>",
-                    puc_percentage: "<p class='error-class'>Please enter a Puc Percentage</p>",
-                    puc_schoolname: "<p class='error-class'>Please enter PUC College Name</p>",
-                    deg_percentage: "<p class='error-class'>Please enter Percentage</p>",
-                    deg_schoolname: "<p class='error-class'>Please enter College Name</p>",
-                    deg_board: "<p class='error-class'>Please enter University</p>",
-                    pgdip_otherschools: "<p class='error-class'>Please enter Institute Name</p>",
-                    pgdip_otherschoolscity: "<p class='error-class'>Please enter College Name</p>",
-                    pgdip_board: "<p class='error-class'>Please enter University</p>",                   
-                    pgdip_percentage: "<p class='error-class'>Please enter University</p>",                   
+                    sslc_percentage: "Please enter a Percentage",                  
+                    sslc_schoolname: "Please enter School Name",
+                    puc_percentage: "Please enter a Puc Percentage",
+                    puc_schoolname: "Please enter PUC College Name",
+                    deg_percentage: "Please enter Percentage",
+                    deg_schoolname: "Please enter College Name",
+                    deg_board: "Please enter University",
+                    pgdip_otherschools: "Please enter Institute Name",
+                    pgdip_otherschoolscity: "Please enter College Name",
+                    pgdip_board: "Please enter University",                   
+                    pgdip_percentage: "Please enter University",                   
+                    deg_othercoursename: "Please enter Course Name",                   
+                    pgdip_othercoursename: "Please enter Course Name",                   
+                    rvvlsiid : "Enter RV-VLSI Id",
                 }
             });
  });
@@ -276,6 +293,47 @@ function fnPgdipSchool(id)
       $('#rvvlsiid').val('');
       
       $('#percentagelabel').html('Aggregate Marks');
+  }
+
+ othercoureseshideshow("<?php echo $pgDipCoursename;?>");
+ otherdegcoureseshideshow("<?php echo $degdepartment;?>");
+ otherpgcoureseshideshow("<?php echo $pgdepartment;?>");
+}
+
+function othercoureseshideshow(othercoursename)
+{
+  if(othercoursename=='999')
+  {
+    $('#otherschoolcoursename').show();
+  }
+  else
+  {
+    $('#otherschoolcoursename').hide();
+  }
+}
+
+function otherdegcoureseshideshow(degothercoursename)
+{
+  if(degothercoursename=='999')
+  {
+    $('#degotherschoolcoursename').show();
+  }
+  else
+  {
+    $('#deg_othercoursename').val(' ');
+    $('#degotherschoolcoursename').hide();
+  }
+}
+function otherpgcoureseshideshow(pgothercoursename)
+{
+  if(pgothercoursename=='999')
+  {
+    $('#pgotherschoolcoursename').show();
+  }
+  else
+  {
+    $('#pg_othercoursename').val(' ');
+    $('#pgotherschoolcoursename').hide();
   }
 }
 </script>    
@@ -379,7 +437,7 @@ function fnPgdipSchool(id)
                  <div class="form-group">
             <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
             <div class="col-sm-7">
-                <select class="form-control" id="deg-department" name="deg-department">
+                <select class="form-control" id="deg-department" name="deg-department" onchange="otherdegcoureseshideshow(this.value)">
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
                   <option value="<?php echo $departmentarray[$i]['iddepartment'];?>"
                           <?php if($degdepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";};?>><?php echo $departmentarray[$i]['department'];?></option>
@@ -387,6 +445,12 @@ function fnPgdipSchool(id)
 
               </select>
             </div>        
+              </div> 
+ <div class="form-group" id="degotherschoolcoursename">
+                <label class="col-sm-5 control-label">Course Name <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Course Name" id="deg_othercoursename" name="deg_othercoursename" value="<?php echo $deg_othercoursename;?>">
+                </div>               
               </div> 
                <div class="form-group">
                 <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
@@ -400,7 +464,8 @@ function fnPgdipSchool(id)
                     <input type="text" class="form-control mar-t10" placeholder="" id="deg_percentage" name="deg_percentage" value="<?php echo $degpercentage;?>">                                                      
                 </div>
               </div>
-                <div class="form-group">
+               
+              <div class="form-group">
                 <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="College Name" id="deg_schoolname" name="deg_schoolname" value="<?php echo $degschoolname;?>">
@@ -440,7 +505,7 @@ function fnPgdipSchool(id)
             <div class="form-group">
             <label class="col-sm-5 control-label">Branch<span class="error-text"></span></label>
             <div class="col-sm-7">
-              <select class="form-control" id="pg-department" name="pg-department">
+              <select class="form-control" id="pg-department" name="pg-department" onchange="otherpgcoureseshideshow(this.value)">
                   <option value=''>Select</option>
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
                   <option value="<?php echo $departmentarray[$i]['iddepartment'];?>" <?php if($pgdepartment==$departmentarray[$i]['iddepartment']){ echo "selected=selected";}?>><?php echo $departmentarray[$i]['department'];?></option>
@@ -448,6 +513,12 @@ function fnPgdipSchool(id)
 
               </select>
             </div>        
+              </div> 
+               <div class="form-group" id="pgotherschoolcoursename">
+                <label class="col-sm-5 control-label">Course Name <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Course Name" id="pg_othercoursename" name="pg_othercoursename" value="<?php echo $pg_othercoursename;?>">
+                </div>               
               </div> 
               <div class="form-group">
                 <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text"></span></label>
@@ -466,7 +537,13 @@ function fnPgdipSchool(id)
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="College Name" id="pg-schoolname" name="pg-schoolname" value="<?php echo $pgschoolname;?>">
                 </div>               
-              </div> 
+              </div>
+              <div class="form-group" style="display:none">
+                <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="College Name" id="deg_schoolname" name="deg_schoolname" value="<?php echo $degschoolname;?>">
+                </div>               
+              </div>  
               <div class="form-group">
                 <label class="col-sm-5 control-label">University <span class="error-text"></span></label>
                 <div class="col-sm-7">
@@ -476,7 +553,7 @@ function fnPgdipSchool(id)
                <div class="form-group">
                 <label class="col-sm-5 control-label">State <span class="error-text"></span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="State Name" id="pg_state" name="pg_state" value="<?php echo $pgstate;?>">
+                  <input type="name" class="form-control" placeholder="State Name" id="pg_state" name="pg_state" value="<?php echo $pgstate;?>"><br/>
                 </div>        
               </div>         
               </div>                                           
@@ -560,7 +637,7 @@ function fnPgdipSchool(id)
                   </select>
                 </div>               
               </div> 
-              <div id="institudedetails" style='display:none'>
+              <div id="institudedetails" style='display:none'></div>
                <div class="form-group" id='otherschoolnamelabelid' >
                 <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
@@ -575,18 +652,24 @@ function fnPgdipSchool(id)
                 </div>        
               </div> 
                  <div class="form-group">
-                <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Select Course Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                   <select class="form-control" id="pgdip-coursename" name="pgdip-coursename">
+                   <select class="form-control" id="pgdip-coursename" name="pgdip-coursename" onchange="othercoureseshideshow(this.value)">
                         <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
                       <option value="<?php echo $pgCoursesArray[$i]['idpgdipcourses'];?>" <?php if($pgDipCoursename==$pgCoursesArray[$i]['idpgdipcourses']){ echo "selected=selected";}?>><?php echo $pgCoursesArray[$i]['pgdip_coursename'];?></option>
                       <?php }?>
-                      
+             
                   </select>
                 </div>        
-              </div>     
+              </div>  
+                <div class="form-group" id='otherschoolcoursename'>
+                <label class="col-sm-5 control-label">Specify Course Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="" id="pgdip_othercoursename" name="pgdip_othercoursename" value="<?php echo $pgdip_othercoursename;?>">
+                </div>        
+              </div>    
               <div class="form-group">
-                <label class="col-sm-5 control-label">Course Duration <span class="error-text">*</span></label>
+                <label class="col-sm-5 control-label">Course Duration (In Months)<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="" id="pgdip_board" name="pgdip_board" value="<?php echo $pgdipboard;?>">
                 </div>        

@@ -73,6 +73,16 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     {
       $pgdipschoolname = $row['pgdip_otherschools'];
     }
+
+    $deg_projectname = $row['deg_projectname'];
+    $deg_projectdescription = $row['deg_projectdescription'];
+    $deg_projecttools = $row['deg_projecttools'];
+    $deg_projectchallenges = $row['deg_projectchallenges'];
+    
+    $pg_projectname = $row['pg_projectname'];
+    $pg_projectdescription = $row['pg_projectdescription'];
+    $pg_projecttools = $row['pg_projecttools'];
+    $pg_projectchallenges = $row['pg_projectchallenges'];
 }
 
 function departmentname($idDepartment)
@@ -325,6 +335,38 @@ $address
               <td>$tools_used</td>                           
           </tr>";
           } 
+
+ if($deg_projectname!=''){
+$htmls.="<table class='table table-bordered'>
+      <tbody>
+          <tr>
+              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='70%'>$deg_projectname</td>                           
+          </tr>  
+          <tr>
+              <td><span class='font-gray'>Institute Name</span></td>                           
+              <td>$degschoolname</td>                           
+          </tr>";
+           if($deg_projectdescription!=''){
+          $htmls.="<tr>
+              <td><span class='font-gray'>Project Description</span></td>                           
+              <td>$deg_projectdescription</td>                           
+          </tr>";
+          }
+             if($deg_projectchallenges!=''){
+          $htmls.="<tr>
+              <td><span class='font-gray'>Challenges</span></td>                           
+              <td>$deg_projectchallenges</td>                           
+          </tr>";
+          } 
+             if($deg_projecttools!=''){
+          $htmls.="<tr>
+              <td><span class='font-gray'>Tools</span></td>                           
+              <td>$deg_projecttools</td>                           
+          </tr>";
+          } 
+}
+
       $htmls.="</tbody>
        
    </table> ";

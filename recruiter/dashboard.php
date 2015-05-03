@@ -126,7 +126,7 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
   </head>
 
   <body>
-  <?php include('../include/header.php');?>
+  <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
     <div class="row txtc">

@@ -25,10 +25,9 @@ for($i=0;$i<count($studentArray);$i++)
      echo "<pre/>";
     $foundEmbedded=0;
     $foundvlsi=0;    
-    //echo $idstudent = $studentArray[$i]['idstudent'];
+    echo $idstudent = $studentArray[$i]['idstudent'];
     //function for academic project
-     $studentArray[$i]['vlsi']='No';
-     $studentArray[$i]['Embedded']='No';
+
 $studentResumeType = array();
      for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){
 
@@ -52,11 +51,11 @@ $studentResumeType = array();
             $noOfKeyFound = 0;
             $keyWordsFound = '';
             $keyfound = 'no';
-            /*echo "SELECT * FROM `tbl_academicproject` 
+            echo "SELECT * FROM `tbl_academicproject` 
                 WHERE (challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
                 project_description like '%$keyname%') and idstudent=$idstudent 
-                 ";*/
+                 ";
             $studentAcademicSql = mysql_query("SELECT * FROM `tbl_academicproject` 
                 WHERE (challenges like '%$keyname%' OR 
                 tools_used like '%$keyname%'  OR
@@ -112,9 +111,9 @@ $studentResumeType = array();
         mysql_query("Insert into tbl_studentresumekeywords (idstudent,idresumetype,noofkeywords,keywords)
             values ('$idstudent','$idresumetype','$noOfKeyWords','$keyWordsfound')");
 
-       /* echo "Insert into tbl_studentresumekeywords (idstudent,idresumetype,noofkeywords,keywords)
+       echo "Insert into tbl_studentresumekeywords (idstudent,idresumetype,noofkeywords,keywords)
             values ('$idstudent','$idresumetype','$noOfKeyWords','$keyWordsfound')";
-*/
+
     }
 }
 

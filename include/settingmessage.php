@@ -10,7 +10,8 @@ while($row = mysql_fetch_assoc($yearsql))
     $beprojectspage = $row['beprojectspage'];
     $traininginstitutepage = $row['traininginstitutepage'];
     $companypage = $row['companypage'];
-    $otherdetailpage = $row['otherdetailpage'];                        
+    $otherdetailpage = $row['otherdetailpage'];  
+ $thankyoupage = $row['thankyoupage'];                            
 }
 
 

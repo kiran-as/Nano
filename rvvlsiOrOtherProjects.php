@@ -16,6 +16,7 @@ $academicsql = mysql_query("Select * from tbl_academicproject where idstudent='$
 $i=0;
 while($row = mysql_fetch_assoc($academicsql))
 {
+    $academicArray[$i]['idacademicproject'] = $row['idacademicproject'];
     $academicArray[$i]['project_title'] = $row['project_title'];
     $academicArray[$i]['college_name'] = $row['college_name'];
     $academicArray[$i]['role'] = $row['role'];
@@ -39,15 +40,34 @@ while($row = mysql_fetch_assoc($academicsql))
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script>
     function nextClickButton()
     {
          parent.location='companyProjects.php';
+    }
+    function fndeleteProject(id)
+    {
+      var cnf = confirm('Do you really want to Delete');
+      if(cnf==true)
+      {
+        formData='idacademicproject='+id;   
+        $.ajax({
+        url : "delete_academicproject.php",
+        type: "POST",
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+         
+          parent.location='rvvlsiOrOtherProjects.php';
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+        
+        }
+      });
+      }
     }
     </script>
   </head>
@@ -84,16 +104,19 @@ This section does not apply to you.<br/>
           <th>Role</th>
           <th>Tool</th>
           <th>Actions</th>
+           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-          <?php for($i=0;$i<count($academicArray);$i++){?>
+          <?php for($i=0;$i<count($academicArray);$i++){
+              $idacademicproject = $academicArray[$i]['idacademicproject'];?>
               <tr>
           <td><?php echo $academicArray[$i]['college_name'];?></td>
           <td><?php echo $academicArray[$i]['project_title'];?></td>
           <td><?php echo $academicArray[$i]['role'];?></td>
           <td><?php echo $academicArray[$i]['tools_used'];?></td>
           <td><a href="editrvvlsiOrOtherProjects.php?idacademicproject=<?php echo $academicArray[$i]['idacademicproject'];?>" class="icon icon--edit" >Edit</a></td>
+           <td onclick="fndeleteProject(<?php echo $idacademicproject;?>)">Delete</td>
         </tr> 
               
           <?php } ?>

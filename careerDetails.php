@@ -6,6 +6,25 @@ include('include/settingmessage.php');
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
+     $currentdesignation = str_replace("'","&#39;",$_POST['currentdesignation']);
+     $currentcompany = str_replace("'","&#39;",$_POST['currentcompany']);
+     $currentsalary = str_replace("'","&#39;",$_POST['currentsalary']);
+     $currentlocation = str_replace("'","&#39;",$_POST['currentlocation']);
+     $expecteddesignation = str_replace("'","&#39;",$_POST['expecteddesignation']);
+     $expectedsalary = str_replace("'","&#39;",$_POST['expectedsalary']);
+     $expectedlocation = str_replace("'","&#39;",$_POST['expectedlocation']);
+
+     mysql_query("Update tbl_student set 
+      current_salary='$currentsalary', 
+      current_designation='$currentdesignation',
+      current_company='$currentcompany',
+      current_location='$currentlocation',
+      expected_salary='$expectedsalary',
+      expected_designation='$expecteddesignation',
+      expected_location='$expectedlocation'
+
+      where idstudent='$idstudent'");
+
     mysql_query("Delete from tbl_achievements where idstudent='$idstudent'");
     mysql_query("Delete from tbl_corecompetancy where idstudent='$idstudent'");
     $career_objective = $_POST['career_objective'];
@@ -38,6 +57,14 @@ $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
     $career_objective = $row['career_objective'];
+    $currentsalary = $row['current_salary'];
+    $currentdesignation = $row['current_designation'];
+    $currentcompany = $row['current_company'];
+    $currentlocation = $row['current_location'];
+    $expectedsalary = $row['expected_salary'];
+    $expectedlocation = $row['expected_location'];
+    $expecteddesignation = $row['expected_designation'];   
+    $experience = $row['experience'];                           
 }
 $achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
 $achievementsArray = array();
@@ -81,14 +108,107 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
      <![endif]-->
  <script src="js/jquery-1.11.0.min.js"></script>
 <script src="js/customised_validation.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script type='text/JavaScript'>
+ 
+ $(document).ready(function() {
+   var experience = "<?php echo $experience;?>";
+   if(experience=='Fresher')
+   {
+      $('#experienceform').hide();
+   }
+      $('#saveAndContinue').click(function() {
+                
+                $('#careerdetails').submit();
+            });
+            $("#careerdetails").validate({
+                // Specify the validation rules
+                rules: {
+                     currentcompany: "required",
+                     currentsalary: "required",
+                    currentdesignation: "required",
+                    currentlocation: "required",
+                    expecteddesignation: "required",
+                    expectedsalary: "required",
+                    expectedlocation: "required",       
+                                                  
+                },
+                // Specify the validation error messages
+                messages: {
+                     currentcompany: "Please enter Current Company Name",                  
+                     currentsalary: "Please enter Current Salary",
+                    currentdesignation: "Please enter Current Designation",
+                    currentlocation: "Please enter Current Location",
+                    expecteddesignation: "Please enter Expected Designation",
+                    expectedsalary: "Please enter Expected Salary",
+                    expectedlocation: "Please enter Expected Location",
+                   
+                }
+            });
+ });
+</script>
   </head>
 
   <body>
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
-    <div class="container mar-t30">
+    
+<form name="" method="POST" id='careerdetails'>
+<div class="container mar-t30">
      <p class="alert alert-success txtc font16-sm-reg  label-info"><?php echo $otherdetailpage;?></p>
-<form name="" method="POST">
+
+      <div class="row" id='experienceform'>
+        <div class="form-horizontal col-sm-6">
+                   <h3 class="brd-btm mar-b20">Current Company Details</h3>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Current Company<span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Current Company" id="currentcompany" name="currentcompany" value="<?php echo $currentcompany;?>">
+            </div>        
+          </div>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Current Designation <span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Current Designation" id="currentdesignation" name="currentdesignation" value="<?php echo $currentdesignation;?>">
+            </div>        
+          </div>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Current CTC(Lacks/Annum) <span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Current Package" id="currentsalary" name="currentsalary" value="<?php echo $currentsalary;?>">
+            </div>        
+          </div>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Current Location <span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Current Location" id="currentlocation" name="currentlocation" value="<?php echo $currentlocation;?>">
+            </div>        
+          </div>
+        </div>
+       <div class="form-horizontal col-sm-6">
+                  <h3 class="brd-btm mar-b20">Expected Company Details</h3>
+<div class="form-group">
+          <label class="col-sm-5 control-label">Prefered work Location<span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Expected Location" id="expectedlocation" name="expectedlocation" value="<?php echo $expectedlocation;?>">
+            </div>        
+          </div>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Prefered Designation<span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Expected Desigantion" id="expecteddesignation" name="expecteddesignation" value="<?php echo $expecteddesignation;?>">
+            </div>        
+          </div>
+          <div class="form-group">
+          <label class="col-sm-5 control-label">Expected CTC(Lacks/Annum)<span class="error-text">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" placeholder="Expected Salary" id="expectedsalary" name="expectedsalary" value="<?php echo $expectedsalary;?>">
+            </div>        
+          </div>
+          
+        </div>
+      </div>
+
   <div class="form-group">
     <label>Core Competancy</label>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
@@ -117,7 +237,7 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
   </div>    
                         
     <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">SUBMIT</button>                      
+        <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">SUBMIT</button>                      
     </div>                   
     </div> 
 </form>           

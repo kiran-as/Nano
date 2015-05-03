@@ -20,19 +20,39 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $languages = $row['languages'];
     $address = $row['address']; 
     $email = $row['email'];
+$state = $row['state'];
     $placeofbirth = $row['placeofbirth'];
     $eligibleIndianNationality = $row['eligibleIndianNationality']; 
     $addressdoorno = $row['addressdoorno'];   
     $addresslineone = $row['addresslineone'];   
-    $addresslinetwo = $row['addresslinetwo'];   
+    $addresslinetwo = $row['addresslinetwo']; 
+    $profilepic = $row['profilepic'];
+    $experience = $row['experience'];
+    $experience_years = $row['experience_years'];
+
+}
+if($experience!='Experience')
+{
+  $experience = 'Fresher';
 }
 if($eligibleIndianNationality=='')
 {
   $eligibleIndianNationality = 'Yes';
 }
 if($_POST)
-{
-  
+{ 
+     
+   if(!empty($_FILES['profilepic']['name']))
+   {
+   $target_dir = "img/profilepic/";
+   $file_name = $_SESSION['idstudent'].basename($_FILES["profilepic"]["name"]);
+$target_file = $target_dir .$_SESSION['idstudent'].basename($_FILES["profilepic"]["name"]);
+move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file);
+  }
+  else
+  {
+   $file_name =  $profilepic;
+  }
     $firstName = str_replace("'","&#39;",$_POST['firstName']);
     $lastName = str_replace("'","&#39;",$_POST['lastName']);
     $city = str_replace("'","&#39;",$_POST['city']);
@@ -51,7 +71,10 @@ if($_POST)
     $addresslinetwo = str_replace("'","&#39;",$_POST['addresslinetwo']);
     $placeofbirth = str_replace("'","&#39;",$_POST['placeofbirth']);
     $eligibleIndianNationality = str_replace("'","&#39;",$_POST['eligibleIndianNationality']);
+    $profilepic = $file_name;
 
+    $experience = str_replace("'","&#39;",$_POST['experience']);
+    $experience_years = str_replace("'","&#39;",$_POST['experience_years']);
     mysql_query("Update tbl_student set 
       firstname='$firstName', 
       lastname='$lastName',
@@ -70,7 +93,10 @@ if($_POST)
       addresslineone='$addresslineone', 
       addresslinetwo='$addresslinetwo',
       eligibleIndianNationality='$eligibleIndianNationality',
-      placeofbirth='$placeofbirth' 
+      placeofbirth='$placeofbirth',
+      profilepic='$file_name',
+      experience = '$experience',
+      experience_years = '$experience_years'
 
       where idstudent='$idstudent'");
     
@@ -128,8 +154,23 @@ if($_POST)
       {
           $('#radioButtonForNationality').hide();
       }
+
  }  
+ function fnExperienceType(id)
+ {
+      if(id=='Fresher')
+      {
+          $('#Experiencelevel').hide();
+      }
+      else
+      {
+          $('#Experiencelevel').show();
+      }
+
+ }   
  $(document).ready(function() {
+
+    fnExperienceType('<?php echo $experience;?>');
    $('#saveAndContinue').click(function() {
                 
                 $('#profileinformation').submit();
@@ -143,6 +184,11 @@ if($_POST)
                        city: "required",
                     address: "required",
                     placeofbirth:"required",
+                    experience_years:{
+                       required: true,
+                        number: true,
+                         maxlength: 2
+                    },
                     mobileNumber: {
                         required: true,
                         number: true,
@@ -163,6 +209,10 @@ if($_POST)
                 },
                 // Specify the validation error messages
                 messages: {
+                  experience_years: {
+                        required: "Please enter Years of experience",
+                         number: "Please enter only numbers"
+                    },  
                     firstName: "Please enter a First Name",
                     lastName :"Please enter Last Name",
                     fatherName:"Please enter Father Name",
@@ -191,7 +241,7 @@ if($_POST)
   </head>
 
   <body onload="fnSelectNationality('<?php echo $nationality;?>')">
-      <form action="" method="POST" id="profileinformation"> 
+      <form action="" method="POST" id="profileinformation" enctype="multipart/form-data"> 
     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
@@ -274,7 +324,13 @@ if($_POST)
           <input type="text" class="form-control" placeholder="Father Name" id="fatherName" name="fatherName" value="<?php echo $fatherName;?>">
         </div>        
       </div>
-              
+      <div class="form-group">
+        <label class="col-sm-5 control-label">Profile Pic</label>
+        <div class="col-sm-7">
+           <img src='img/profilepic/<?php echo $profilepic;?>' height='100px' width='150px'>
+          <input type="file"  placeholder="Father Name" id="profilepic" name="profilepic" value="<?php echo $fatherName;?>">
+        </div>        
+      </div>       
     </div>
     <div class="form-horizontal col-sm-6">
     
@@ -313,10 +369,33 @@ if($_POST)
         <div class="col-sm-7">
           <select class="form-control" id="state" name="state">
               <option value="Karnataka" <?php if($state=='Karnataka'){echo "Selected=Selected";}?>>Karnataka</option>
-                   <option value="Andra Pradesh" <?php if($state=='Andra Pradesh'){echo "Selected=Selected";}?>>Andra Pradesh</option>
-                        <option value="Tamilnadu" <?php if($state=='Tamilnadu'){echo "Selected=Selected";}?>>Tamilnadu</option>
-                             <option value="Kerala" <?php if($state=='Kerala'){echo "Selected=Selected";}?>>Kerala</option>
-
+              <option value="Andra Pradesh" <?php if($state=='Andra Pradesh'){echo "Selected=Selected";}?>>Andra Pradesh</option>
+              <option value="Tamilnadu" <?php if($state=='Tamilnadu'){echo "Selected=Selected";}?>>Tamilnadu</option>
+              <option value="Kerala" <?php if($state=='Kerala'){echo "Selected=Selected";}?>>Kerala</option>
+              <option value="Arunachal Pradesh" <?php if($state=='Arunachal Pradesh'){echo "Selected=Selected";}?>>Arunachal Pradesh</option>
+              <option value="Assam" <?php if($state=='Assam'){echo "Selected=Selected";}?>>Assam</option>
+              <option value="Bihar" <?php if($state=='Bihar'){echo "Selected=Selected";}?>>Bihar</option>
+              <option value="Chhattisgarh" <?php if($state=='Chhattisgarh'){echo "Selected=Selected";}?>>Chhattisgarh</option>
+              <option value="Goa" <?php if($state=='Goa'){echo "Selected=Selected";}?>>Goa</option>
+              <option value="Gujarat" <?php if($state=='Gujarat'){echo "Selected=Selected";}?>>Gujarat</option>
+              <option value="Haryana" <?php if($state=='Haryana'){echo "Selected=Selected";}?>>Haryana</option>
+              <option value="Himachal Pradesh" <?php if($state=='Himachal Pradesh'){echo "Selected=Selected";}?>>Himachal Pradesh</option>
+              <option value="Jammu and Kashmir" <?php if($state=='Jammu and Kashmir'){echo "Selected=Selected";}?>>Jammu and Kashmir</option>
+              <option value="Jharkhand" <?php if($state=='Jharkhand'){echo "Selected=Selected";}?>>Jharkhand</option>
+              <option value="Madhya Pradesh" <?php if($state=='Madhya Pradesh'){echo "Selected=Selected";}?>>Madhya Pradesh</option>
+              <option value="Maharashtra" <?php if($state=='Maharashtra'){echo "Selected=Selected";}?>>Maharashtra</option>
+              <option value="Meghalaya" <?php if($state=='Meghalaya'){echo "Selected=Selected";}?>>Meghalaya</option>
+              <option value="Mizoram" <?php if($state=='Mizoram'){echo "Selected=Selected";}?>>Mizoram</option>
+<option value="Nagaland" <?php if($state=='Nagaland'){echo "Selected=Selected";}?>>Nagaland</option>
+<option value="Odisha" <?php if($state=='Odisha'){echo "Selected=Selected";}?>>Odisha</option>
+<option value="Punjab" <?php if($state=='Punjab'){echo "Selected=Selected";}?>>Punjab</option>
+<option value="Rajasthan" <?php if($state=='Rajasthan'){echo "Selected=Selected";}?>>Rajasthan</option>
+<option value="Sikkim" <?php if($state=='Sikkim'){echo "Selected=Selected";}?>>Sikkim</option>
+<option value="Telangana" <?php if($state=='Telangana'){echo "Selected=Selected";}?>>Telangana</option>
+<option value="Tripura" <?php if($state=='Tripura'){echo "Selected=Selected";}?>>Tripura</option>
+<option value="Uttar Pradesh" <?php if($state=='Uttar Pradesh'){echo "Selected=Selected";}?>>Uttar Pradesh</option>
+<option value="Uttarakhand" <?php if($state=='Uttarakhand'){echo "Selected=Selected";}?>>Uttarakhand</option>
+<option value="West Bengal" <?php if($state=='West Bengal'){echo "Selected=Selected";}?>>West Bengal</option>        
           </select>
         </div>        
       </div> 
@@ -341,7 +420,23 @@ if($_POST)
           <p class="help-block" style='display:none'>eg. English, Kannada, Hindi, etc...</p>
         </div>        
       </div> 
-                                                     
+          <div class="form-group">
+        <label class="col-sm-5 control-label">Work Experience <span class="error-text">*</span></label>
+        <div class="col-sm-7">
+            <label class="radio-inline">
+              <input type="radio" name="experience" value="Fresher" <?php if($experience=='Fresher') {echo "checked=checked";};?> onClick="fnExperienceType('Fresher')";> Fresher
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="experience" value="experience" <?php if($experience=='Experience') {echo "checked=checked";};?>  onClick="fnExperienceType('Experience')";> Experience
+            </label>
+        </div>        
+      </div> 
+      <div class="form-group" id='Experiencelevel'>
+        <label class="col-sm-5 control-label">No of Years<span class="error-text">*</span></label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" maxlength="2" placeholder="No of Years" id="experience_years" name="experience_years" value="<?php echo $experience_years;?>">
+        </div>        
+      </div>                                          
     </div>    
     </div> 
     <div class="clearfix brd-top pad-t20">

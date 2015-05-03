@@ -55,11 +55,31 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgdepartment = departmentname($row['pg_department']);
      
      
-    $pgdippassoutyear = $row['pgdip_passoutyear'];
+   $pgdippassoutyear = $row['pgdip_passoutyear'];
     $pgdippercentagetype = $row['pgdip_percentagetype'];
     $pgdippercentage = $row['pgdip_percentage'];
     $pgdipschoolname = $row['pgdip_schoolname'];
     $pgdipboard = $row['pgdip_university'];
+    $pgdipcourse = pgDipCourse($row['pgdip_coursename']);
+
+    if($pgdipschoolname=='1')
+    {
+      $pgdipschoolname = 'RV-VLSI Design Center';
+    }
+    else
+    {
+      $pgdipschoolname = $row['pgdip_otherschools'];
+    }
+
+    $deg_projectname = $row['deg_projectname'];
+    $deg_projectdescription = $row['deg_projectdescription'];
+    $deg_projecttools = $row['deg_projecttools'];
+    $deg_projectchallenges = $row['deg_projectchallenges'];
+    
+    $pg_projectname = $row['pg_projectname'];
+    $pg_projectdescription = $row['pg_projectdescription'];
+    $pg_projecttools = $row['pg_projecttools'];
+    $pg_projectchallenges = $row['pg_projectchallenges'];
 }
 
 function departmentname($idDepartment)
@@ -71,7 +91,18 @@ function departmentname($idDepartment)
   }
   return $departmentName;
 }
+
+function pgDipCourse($idpgdipcourses)
+{
+  $departmentSql = mysql_query("Select * from tbl_pgdipcourses where idpgdipcourses=$idpgdipcourses");
+  while($row = mysql_fetch_assoc($departmentSql))
+  {
+      $pgdip_coursename = $row['pgdip_coursename'];
+  }
+  return $pgdip_coursename;
+}
 /////////////////$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
+
 
 ////academic profiles///
 $achievementSql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
@@ -83,7 +114,6 @@ while($row = mysql_fetch_assoc($achievementSql))
     $i++;
 }
 ///////
-
 
 ////academic profiles///
 //echo "Select * from tbl_academicproject where idstudent=$idstudent";
@@ -102,8 +132,9 @@ while($row = mysql_fetch_assoc($academicSql))
 ///////
 ////academic profiles///
 $companySql = mysql_query("Select * from tbl_companyproject where idstudent=$idstudent");
+$companyArraySql = array($companySql);
 $i=0;
-while($row = mysql_fetch_assoc($companySql))
+while($row = mysql_fetch_assoc($companyArraySql))
 {
     $companyArray[$i]['project_title'] = $row['project_title'];
     $companyArray[$i]['company_name'] = $row['company_name'];
@@ -113,8 +144,6 @@ while($row = mysql_fetch_assoc($companySql))
     $companyArray[$i]['challenges'] = $row['challenges'];
     $i++;
 }
-///////
-
 
 ?>
 <!DOCTYPE html>
@@ -260,12 +289,12 @@ while($row = mysql_fetch_assoc($companySql))
       <tbody>
           <?php if($pgdipschoolname!='')
           {?>
-          <tr>
+         <tr>
               <td>PG Diploma</td>
-              <td>Embedded Systems</td>
-              <td>RV_VLSI Deisgn Center</td>
-              <td>2014</td>
-              <td>50%</td>                            
+              <td><?php echo $pgdipcourse;?></td>
+              <td><?php echo $pgdipschoolname;?></td>
+              <td><?php echo $pgdippassoutyear;?></td>
+              <td><?php echo $pgdippercentage;?></td>                            
           </tr>
           <?php }?>
           
@@ -348,6 +377,66 @@ while($row = mysql_fetch_assoc($companySql))
        
    </table>
      <?php } ?>
+
+
+ <?php if($pg_projectname!=''){ ?>
+<table class='table table-bordered'>
+      <tbody>
+          <tr>
+              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='70%'><?php  echo $pg_projectname;?></td>                           
+          </tr>  
+          <tr>
+              <td><span class='font-gray'>Institute Name</span></td>                           
+              <td><?php  echo $pgschoolname;?></td>                           
+          </tr>
+           <tr>
+              <td><span class='font-gray'>Project Description</span></td>                           
+              <td><?php  echo $pg_projectdescription;?></td>                           
+          </tr>
+          <tr>
+              <td><span class='font-gray'>Challenges</span></td>                           
+              <td><?php  echo $pg_projectchallenges;?></td>                           
+          </tr>
+          
+           <tr>
+              <td><span class='font-gray'>Tools</span></td>                           
+              <td><?php  echo $pg_projecttools;?></td>                           
+          </tr>
+    </tbody>
+    </table>
+         <?php  } 
+
+?>
+ <?php if($deg_projectname!=''){ ?>
+<table class='table table-bordered'>
+      <tbody>
+          <tr>
+              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
+              <td width='70%'><?php  echo $deg_projectname;?></td>                           
+          </tr>  
+          <tr>
+              <td><span class='font-gray'>Institute Name</span></td>                           
+              <td><?php  echo $degschoolname;?></td>                           
+          </tr>
+           <tr>
+              <td><span class='font-gray'>Project Description</span></td>                           
+              <td><?php  echo $deg_projectdescription;?></td>                           
+          </tr>
+          <tr>
+              <td><span class='font-gray'>Challenges</span></td>                           
+              <td><?php  echo $deg_projectchallenges;?></td>                           
+          </tr>
+          
+           <tr>
+              <td><span class='font-gray'>Tools</span></td>                           
+              <td><?php  echo $deg_projecttools;?></td>                           
+          </tr>
+    </tbody>
+    </table>
+         <?php  } 
+
+?>
 
       <?php for($i=0;$i<count($companyArray);$i++){
            $project_title = $companyArray[$i]['project_title'];

@@ -59,7 +59,7 @@ else
                <li class="<?php echo $searchDomainStudentClass;?>">
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to shortlist the resume based on %, keywords etc">
 
-               <a href="searchDomainStudent.php">Search</a>
+               <a href="advancedSearch.php">Search</a>
                 </div>
                </li>
                 <li class="<?php echo $recruitementListClass;?>">
@@ -82,7 +82,7 @@ else
                 </div>
                </li>
                <li class="<?php echo $settingClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolltip Content">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder">
 
                <a href="settings.php">Settings</a>
                 </div>
