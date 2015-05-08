@@ -4,7 +4,7 @@ include('include/resumeType.php');
 $councellorId = $_SESSION['idcouncellor'];
 error_reporting(-1);
 
-$studentSql = mysql_query("Select a.idrvstudent, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
+$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
 	 where a.pgdip_coursename=b.idpgdipcourses 
 	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
@@ -12,6 +12,7 @@ $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
     $studentArray[$i]['idrvstudent'] = $row['idrvstudent'];
+    $studentArray[$i]['assignedto'] = getCouncellorName($row['idcouncellor']);
     $studentArray[$i]['name'] = $row['name'];
     $councellorArrayDetails = getDetailsOfLastReview($row['idrvstudent']);
     $studentArray[$i]['email'] = $row['email'];
@@ -24,6 +25,19 @@ while($row = mysql_fetch_assoc($studentSql))
     $i++;
 }
 
+function getCouncellorName($id)
+{
+	 $councellorSql = mysql_query("Select a.* 
+                              from tbl_councellor as a
+                              where a.idcouncellor = $id");
+$i=0;
+while($row = mysql_fetch_assoc($councellorSql))
+{
+   $councellorName = $row['firstname'].' '.$row['lastname'];
+   return $councellorName;
+}
+
+}
 function getDetailsOfLastReview($id)
 {
    $councellorSql = mysql_query("Select a.* , b.*, c.*
@@ -84,6 +98,7 @@ $(document).ready(function() {
 						<th>Email</th>
 						<th>Mobile</th>
 						<th>Course Opted</th>
+						<th>Assigned To</th>
 						<th>Latest Review</th>
 						<th>Latest Review By</th>
 						<th>Latest Revied On</th>
@@ -101,6 +116,7 @@ $(document).ready(function() {
 						<td><?php echo $studentArray[$i]['email'];?></td>
 						<td><?php echo $studentArray[$i]['phone'];?></td>
 						<td><?php echo $studentArray[$i]['pgdip_coursename'];?></td>
+						<td><?php echo $studentArray[$i]['assignedto'];?></td>
 						<td><?php echo $studentArray[$i]['reviewname'];?></td>
 						<td><?php echo $studentArray[$i]['reviewby'];?></td>
 						<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['reviewon']));?></td>          

@@ -2,10 +2,12 @@
 include('application/conn.php');
 include('include/sessioncheck.php');
 include('include/settingmessage.php');
+include('include/year.php');
 
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
+    
      $currentdesignation = str_replace("'","&#39;",$_POST['currentdesignation']);
      $currentcompany = str_replace("'","&#39;",$_POST['currentcompany']);
      $currentsalary = str_replace("'","&#39;",$_POST['currentsalary']);
@@ -13,7 +15,7 @@ if($_POST)
      $expecteddesignation = str_replace("'","&#39;",$_POST['expecteddesignation']);
      $expectedsalary = str_replace("'","&#39;",$_POST['expectedsalary']);
      $expectedlocation = str_replace("'","&#39;",$_POST['expectedlocation']);
-
+     $previousCmpExp = $_POST['previousCmpExp'];
      mysql_query("Update tbl_student set 
       current_salary='$currentsalary', 
       current_designation='$currentdesignation',
@@ -21,12 +23,16 @@ if($_POST)
       current_location='$currentlocation',
       expected_salary='$expectedsalary',
       expected_designation='$expecteddesignation',
-      expected_location='$expectedlocation'
+      expected_location='$expectedlocation',
+      previousexp='$previousCmpExp',
+       updated_date = '$updated_date'
 
       where idstudent='$idstudent'");
 
     mysql_query("Delete from tbl_achievements where idstudent='$idstudent'");
     mysql_query("Delete from tbl_corecompetancy where idstudent='$idstudent'");
+        mysql_query("Delete from tbl_companies where idstudent='$idstudent'");
+
     $career_objective = $_POST['career_objective'];
     mysql_query("Update tbl_student set career_objective='$career_objective' where idstudent='$idstudent'");
 
@@ -49,6 +55,42 @@ if($_POST)
                     . "value('$corecompetancy','$idstudent')");
         }
     }
+   
+    for($i=0;$i<count($_POST['oldCompanyName']);$i++)
+    {
+
+      $oldCompanyName = $_POST['oldCompanyName'][$i];
+      $oldDesignation = $_POST['oldDesignation'][$i];
+      $oldToYear = $_POST['oldToYear'][$i];
+      $oldFromYear = $_POST['oldFromYear'][$i];
+      $oldFromMonth = $_POST['oldFromMonth'][$i];
+      $oldToMonth = $_POST['oldToMonth'][$i];
+      if(!empty($oldCompanyName))
+      {
+      mysql_query("Insert into tbl_companies (companyname,designation,
+          frommonth,tomonth,fromyear,
+          toyear,idstudent) values ('$oldCompanyName','$oldDesignation',
+          '$oldFromMonth','$oldToMonth','$oldFromYear',
+          '$oldToYear','$idstudent')");
+      }
+    }
+
+
+      $oldCompanyName = $_POST['oldCompanyName0'];
+      $oldDesignation = $_POST['oldDesignation0'];
+      $oldToYear = $_POST['oldToYear0'];
+      $oldFromYear = $_POST['oldFromYear0'];
+      $oldFromMonth = $_POST['oldFromMonth0'];
+      $oldToMonth = $_POST['oldToMonth0'];
+      if(!empty($oldCompanyName) && (!empty($oldDesignation))  && (!empty($oldCompanyName))  && (!empty($oldCompanyName)) && (!empty($oldCompanyName))  && (!empty($oldCompanyName)))
+      {
+      mysql_query("Insert into tbl_companies (companyname,designation,
+          frommonth,tomonth,fromyear,
+          toyear,idstudent) values ('$oldCompanyName','$oldDesignation',
+          '$oldFromMonth','$oldToMonth','$oldFromYear',
+          '$oldToYear','$idstudent')");
+      }
+
     echo "<script>parent.location='viewResume.php'</script>";
     exit;
 }
@@ -64,7 +106,12 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $expectedsalary = $row['expected_salary'];
     $expectedlocation = $row['expected_location'];
     $expecteddesignation = $row['expected_designation'];   
-    $experience = $row['experience'];                           
+    $experience = $row['experience'];     
+    $previousexp = $row['previousexp'];                       
+}
+if($previousexp!='Yes')
+{
+  $previousexp = 'No';
 }
 $achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
 $achievementsArray = array();
@@ -117,6 +164,15 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
    {
       $('#experienceform').hide();
    }
+   var previousCmpExp = "<?php echo $previousexp;?>";
+   if(previousCmpExp=='Yes')
+   {
+      $('#previousCompanyDetailsId').show();
+   }
+   else
+   {
+      $('#previousCompanyDetailsId').hide();
+   }
       $('#saveAndContinue').click(function() {
                 
                 $('#careerdetails').submit();
@@ -146,10 +202,133 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
                 }
             });
  });
+
+
+</script>
+
+<script type="text/JavaScript">
+function fnDeleteCompanyDetails(id)
+{
+  var cnf = confirm("Do you really want to delete?");
+  if(cnf==true)
+    {
+    formData +='&idcompanies='+id; 
+    $.ajax({
+        url : "ajax/ajax_addToCompany.php",
+        type: "POST",
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+          
+          document.getElementById('ajaxDataOfCompanies').innerHTML = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+        
+        }
+      });
+  }
+}
+
+function fnAddCompanyDetails()
+{
+   var oldCompanyName = $('#oldCompanyName').val();
+   flag = 0;
+   if(oldCompanyName=='')
+   {
+      alert('Enter Company Name');
+      flag =1;
+   }
+
+   var oldDesignation = $('#oldDesignation').val();
+   if(oldDesignation=='')
+   {
+      alert('Enter Designation Name');
+      flag =1;
+   }
+
+   var oldFromYear = $('#oldFromYear').val();
+   if(oldFromYear=='')
+   {
+      alert('Enter From Month , Year');
+      flag =1;
+   }
+
+   var oldToYear = $('#oldToYear').val();
+   if(oldToYear=='')
+   {
+      alert('Enter To Month , Name');
+      flag =1;
+   }
+var oldFromMonth = $('#oldFromMonth').val();
+var oldToMonth = $('#oldToMonth').val();
+
+   if(flag==0)
+   {
+      
+        formData='oldCompanyName='+oldCompanyName;
+        formData +='&oldDesignation='+oldDesignation;  
+        formData +='&oldToYear='+oldToYear; 
+        formData +='&oldFromYear='+oldFromYear; 
+        formData +='&oldFromMonth='+oldFromMonth; 
+        formData +='&oldToMonth='+oldToMonth;  
+        $.ajax({
+        url : "ajax/ajax_addToCompany.php",
+        type: "POST",
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+         
+          document.getElementById('ajaxDataOfCompanies').innerHTML = data;
+          $('#oldCompanyName').val(' ');
+          $('#oldDesignation').val(' ');
+          $('#oldFromMonth').val(' ');
+          $('#oldFromYear').val(' ');
+          $('#oldToMonth').val(' ');
+          $('#oldToYear').val(' ');
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+        
+        }
+      });
+   }
+}
+
+function fnDisplay()
+{
+  formData ="";  
+        $.ajax({
+        url : "ajax/ajax_addToCompany.php",
+        type: "POST",
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+
+          document.getElementById('ajaxDataOfCompanies').innerHTML = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+        
+        }
+      });
+}
+function fnShowOldCompanyDetails(id)
+{
+   if(id=='No')
+   {
+     $('#previousCompanyDetailsId').hide();
+   }
+   else
+   {
+    $('#previousCompanyDetailsId').show();
+   }
+}
 </script>
   </head>
 
-  <body>
+  <body onload="fnDisplay();">
    <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     
@@ -188,6 +367,7 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
        <div class="form-horizontal col-sm-6">
                   <h3 class="brd-btm mar-b20">Expected Company Details</h3>
 <div class="form-group">
+
           <label class="col-sm-5 control-label">Prefered work Location<span class="error-text">*</span></label>
             <div class="col-sm-7">
               <input type="text" class="form-control" placeholder="Expected Location" id="expectedlocation" name="expectedlocation" value="<?php echo $expectedlocation;?>">
@@ -209,20 +389,121 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
         </div>
       </div>
 
+      <h3 class="brd-btm mar-b20">Overview of Previous Company Details</h3>
+      <div class="form-group">
+    <label class="radio-inline pad-l0">
+      Overview of previous company details if applicable?
+    </label>      
+        <label class="radio-inline">
+              <input type="radio" name="previousCmpExp" id="previousCmpExp" value="Yes" onclick="fnShowOldCompanyDetails(this.value)" <?php if($previousexp=='Yes'){ echo "checked=checked";};?>> Yes
+    </label>      
+    <label class="radio-inline">
+              <input type="radio" name="previousCmpExp" id="previousCmpExp" value="No" onclick="fnShowOldCompanyDetails(this.value);"  <?php if($previousexp=='No'){ echo "checked=checked";};?>> No
+    </label>
+  </div>
+  <div class="clearfix row">
+   <div id='previousCompanyDetailsId'>
+<div class="form-group col-sm-3">
+ <label >
+     Company Name
+    </label>             </div>
+             <div class="form-group col-sm-3">
+<label >
+     Designation as on last day
+    </label>              </div>
+             <div class="form-group col-sm-2">
+<label >
+     From - Month &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Year
+    </label>             </div>
+            
+            <div class="form-group col-sm-2">
+<label >
+     To - Month &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Year
+    </label>             </div>
+            
+              <div class='clearfix row'>
+                          <div id="ajaxDataOfCompanies"></div>
+             <div class="form-group col-sm-3">
+               <input type="text" class="form-control" placeholder="Company Name" id="oldCompanyName" name="oldCompanyName0" value="">
+             </div>
+             <div class="form-group col-sm-3">
+               <input type="text" class="form-control" placeholder="Designation" id="oldDesignation" name="oldDesignation0" value="">
+             </div>
+             <div class="form-group col-sm-1">
+               <select class="form-control" placeholder="From Year" style="width:84px;"id="oldFromMonth" name="oldFromMonth0">
+                  <option value=" ">Select</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">Aug</option>
+                  <option value="9">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
+               </select>
+             </div>
+             <div class="form-group col-sm-1">
+                <select class="form-control" id="oldFromYear" style="width:84px;" name="oldFromYear0">
+                      <option value="">Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($degpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+             </div>
+             <div class="form-group col-sm-1">
+                <select class="form-control" placeholder="From Year" style="width:84px;"id="oldToMonth" name="oldToMonth0">
+                  <option value=" ">Select</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">Aug</option>
+                  <option value="9">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
+               </select>
+             </div>
+             <div class="form-group col-sm-1">
+              <select class="form-control" id="oldToYear" style="width:84px;" name="oldToYear0">
+                      <option value="">Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($degpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+             </div>
+             <div>
+              <button type="button" id="addButton" class="btn btn-primary" onclick="fnAddCompanyDetails();">Add</button>                      
+
+             </div>
+   </div>
+   </div>
+
+ 
   <div class="form-group">
-    <label>Core Competancy</label>
+                    <h3 class="brd-btm mar-b20">Core Competancy</h3>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[5]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[6]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[7]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[8]['corecompetancy'];?></textarea>
+    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[9]['corecompetancy'];?></textarea>
   
-  </div>    
+  </div>  
+ 
   <div class="form-group brd-btm pad-b20">
     <label>Career Objective</label>
     <textarea  class="form-control" rows="3" id="career_objective" name="career_objective" Placeholder="Describe the career objective" onkeyup="countCharbannertext(this,'career_objective_countlabel','150')"  ;><?php echo $career_objective;?></textarea>

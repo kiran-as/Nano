@@ -110,6 +110,7 @@ function fnChangeApprove(approvestatus)
 						<th>Position Created Date</th>
 						<th>No of Openings</th>
 						<th>Interview Date</th>
+						<th>Search Resume</th>
 						<th>No of Resumes Tagged</th>
 						<th>Status</th>
 					</tr>
@@ -124,6 +125,7 @@ function fnChangeApprove(approvestatus)
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
 						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
 						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
+						<td><a href='advancedSearch.php?idrecruitement=<?php echo $idrecruitement;?>' target='_blank'>Search Resumes</a></td>
 
 						<?php 
 $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount 

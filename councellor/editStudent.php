@@ -4,6 +4,8 @@ include('../include/year.php');
 include('../include/department.php');
 include('../include/pgcourses.php');
 include('../include/reviewstatus.php');
+include('../include/councellor.php');
+
 $studentId = $_GET['idstudent'];
 $councellorId = $_SESSION['idcouncellor'];
 
@@ -60,8 +62,9 @@ while($row = mysql_fetch_assoc($councellorSql))
 $councellorId = $_SESSION['idcouncellor'];
 if($_POST)
 {
-  
-  
+   $assignCouncellor = $_POST['idcouncellor'];
+   mysql_query("Update tbl_rvstudent set idcouncellor='$assignCouncellor' where
+    idrvstudent='$studentId'");
    $review_status = $_POST['review_status'];
   $review_reason = $_POST['reason'];
    $created_date = date('Y-m-d H:i:s');
@@ -444,6 +447,18 @@ $('#reviewreason').hide();
                 <div class="col-sm-10">
                  <input type="text" class="form-control" rows="3"  placeholder="" id="reason" name="reason"/>
                 </div>               
+              </div> 
+              <div class="form-group">
+            <label class="col-sm-2 control-label">Assign To<span class="error-text">*</span></label>
+            <div class="col-sm-5">
+                <select class="form-control" id="idcouncellor" name="idcouncellor">
+                  <?php for($i=0;$i<count($councellorarray);$i++){?>
+                  <option value="<?php echo $councellorarray[$i]['idcouncellor'];?>"
+                          ><?php echo $councellorarray[$i]['name'];?></option>
+                  <?php }?>
+
+              </select>
+            </div>        
               </div> 
             </div>
             </div>

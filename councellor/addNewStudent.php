@@ -4,6 +4,7 @@ include('../include/year.php');
 include('../include/department.php');
 include('../include/pgcourses.php');
 include('../include/reviewstatus.php');
+include('../include/councellor.php');
 $councellorId = $_SESSION['idcouncellor'];
 if($_POST)
 {
@@ -39,6 +40,7 @@ if($_POST)
   $timeduration = $_POST['timeduration'];
   $embedded_rate = $_POST['embedded_rate'];
   $income = $_POST['income'];
+  $assignCouncellor = $_POST['idcouncellor'];
   $created_date = date('Y-m-d H:i:s');
 
                       
@@ -50,7 +52,7 @@ if($_POST)
       pg_department,pg_othercoursename,othercourses,
       other_coursename,other_institutename,other_courseduration,
       primary_reason,vlsi_rate,joboffer,
-      timeduration,embedded_rate,income,created_date)
+      timeduration,embedded_rate,income,created_date,idcouncellor)
 
     Values ('$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
       '$deg_passoutyear','$deg_department','$deg_othercoursename',
@@ -59,7 +61,7 @@ if($_POST)
       '$pg_department','$pg_othercoursename','$othercourses',
       '$other_coursename','$other_institutename','$other_courseduration',
       '$primary_reason','$vlsi_rate','$joboffer',
-      '$timeduration','$embedded_rate','$income','$created_date')");
+      '$timeduration','$embedded_rate','$income','$created_date','$assignCouncellor')");
 
   $student_id = mysql_insert_id();
   
@@ -320,7 +322,7 @@ $('#reviewreason').hide();
                 </div>        
               </div>  
 
-                   <h3 class="brd-btm mar-b20">12th / PUC  Details</h3>
+                   <h3 class="brd-btm mar-b20">12th / PUC  Details / Diploma</h3>
 
       <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -450,6 +452,18 @@ ntrol-label">Reason<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <input type="text" class="form-control" rows="3"  placeholder="" id="reason" name="reason"/>
                 </div>               
+              </div> 
+              <div class="form-group">
+            <label class="col-sm-2 control-label">Assign To<span class="error-text">*</span></label>
+            <div class="col-sm-5">
+                <select class="form-control" id="idcouncellor" name="idcouncellor">
+                  <?php for($i=0;$i<count($councellorarray);$i++){?>
+                  <option value="<?php echo $councellorarray[$i]['idcouncellor'];?>"
+                          ><?php echo $councellorarray[$i]['name'];?></option>
+                  <?php }?>
+
+              </select>
+            </div>        
               </div> 
             </div>
             </div>

@@ -3,7 +3,7 @@ include('../application/conn.php');
 include('../include/year.php');
 include('../include/department.php');
 error_reporting(-1);
-
+$idrecruitement = $_GET['idrecruitement'];
 $studentSql = mysql_query("Select * from tbl_pgdipcourses");
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
@@ -33,25 +33,42 @@ while($row = mysql_fetch_assoc($recruitementSql))
     $resume++;
 }
 
-
-if($_POST)
+$recruitmentSql = mysql_query("Select * from tbl_recruitement where idrecruitement='$idrecruitement'");
+$row=0;
+while($row = mysql_fetch_assoc($recruitmentSql))
 {
- 
+    $sslccutoff = $row['sslccutoff'];
+    $puccutoff = $row['puccutoff'];
+    $pucpassoutyear = $row['pucpassoutyear'];
+    $degcutoff = $row['degcutoff'];
+    $degpassoutyear = $row['degpassoutyear'];
+    $pgcutoff = $row['pgcutoff'];
+    $pgpassoutyear = $row['pgpassoutyear'];
+    $departments = '0'.$row['discipline'];
+    $sslcpassoutyear = $row['sslcpassoutyear'];
+}
+
+if($pgpassoutyear=='0')
+{
+   $pgpassoutyear = '';
+}
+ $_POST['domainNames'] = '';
 
     $idStudent=0;
     $idStudentSelected = 0;
-    $sslcPercentage = $_POST['sslcPercentage'];
-    $pucPercentage = $_POST['pucPercentage'];
-    $degPercentage = $_POST['degPercentage'];
-    $pgPercentage = $_POST['pgPercentage'];
-    $sslc_passoutyear = $_POST['sslc_passoutyear'];
-    $puc_passoutyear = $_POST['puc_passoutyear'];
-    $deg_passoutyear = $_POST['deg_passoutyear'];
-    $pg_passoutyear = $_POST['pg_passoutyear'];
-    $flexiblefield = $_POST['flexiblefield'];
-    $searchBox = $_POST['searchBox'];
-    $degUniversity = $_POST['degUniversity'];
-    $daterange = $_POST['daterange'];
+    $sslcPercentage = $sslccutoff;
+    $pucPercentage = $puccutoff;
+    $degPercentage = $degcutoff;
+    $pgPercentage = $pgcutoff;
+    $sslc_passoutyear = $sslcpassoutyear;
+    $puc_passoutyear = $pucpassoutyear;
+    $deg_passoutyear = $degpassoutyear;
+    $pg_passoutyear = $pgpassoutyear;
+    $flexiblefield = '';
+    $searchBox = '';
+    $degUniversity = '';
+    $daterange = '360';
+
 
 $dateSql = mysql_query("SELECT DATE_SUB( NOW( ) , INTERVAL $daterange 
 DAY ) as updateddate");
@@ -68,30 +85,7 @@ $updatedSql = " and date(updated_date)>='$updated_date'";
     $pgCgpa = $degreePercentage/10;
 
 
-    for($i=0;$i<count($_POST['domainNames']);$i++)
-    {
-      if($i==0)
-      {
-        $domainnames = $_POST['domainNames'][$i];
-      }
-      else
-      {
-        $domainnames = $domainnames.','.$_POST['domainNames'][$i];
-      }
-    }
-
-    for($i=0;$i<count($_POST['departments']);$i++)
-    {
-      if($i==0)
-      {
-        $departments = $_POST['departments'][$i];
-      }
-      else
-      {
-        $departments = $departments.','.$_POST['departments'][$i];
-      }
-    }
-    
+   
     if(empty($departments))
     {
       $departmentssql = ' ';
@@ -262,7 +256,7 @@ while($row = mysql_fetch_assoc($studentSql))
         $i++;
     }
   }
-}
+
 ?>
 	<link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
@@ -312,116 +306,29 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   <body>
   <?php include('../include/header.php');?>
     <?php include('include/nav.php');?>
-        <form name='' method="POST" action="">
-    <table width='100%' border='2' cellpadding="10px" cellspacing="10px" >
-          <tr>
-               <td width='25%'>               
-                   SSLC Cut Off &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="name" class="searchbox"  placeholder="" name='sslcPercentage' id='sslcPercentage' style='width:140px;'>
-               </td>
-               <td  width='25%'>
-                  PUC Cut Off &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="name"  class="searchbox" placeholder="" name='pucPercentage' id='pucPercentage' style='width:140px;' >
-               </td>
-               <td width='25%'>
-                B.E / B.Tech Cut Off<input type="name"  class="searchbox" placeholder="" name='degPercentage' id='degPercentage' style='width:140px;' >
-               </td>
-               <td width='25%'>
-                  ME / M.Tech Cut Off<input type="name"  class="searchbox" placeholder="" name='pgPercentage' id='pgPercentage' style='width:140px;' >
-               </td>
-          </tr>
-          <tr>
-              <td width='25%'>               
-SSLC Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="sslc_passoutyear" class="searchbox" name="sslc_passoutyear">
-<option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-               <td  width='25%'>
-PUC Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  id="puc_passoutyear" class="searchbox" name="puc_passoutyear">
-<option value=''>Not Applicable</option>
-                      <option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-             <td width='25%'>
-B.E Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  id="deg_passoutyear" class="searchbox" name="deg_passoutyear">
-<option value=''>Not Applicable</option>
+        The shortlisted resumes are based on the Parameter which you have entered while creatng the job position,
+        They are as follows,
+         <div class="container mar-t30">
+    <div class="row">
+        <div class="form-horizontal">
+        <div class="form-group">
+              <label class="col-sm-2 control-label">SSLC Cut Off - <?php echo $sslccutoff;?></label>
+              <label class="col-sm-2 control-label">PUC Cut Off - <?php echo $puccutoff;?></label>
+              <label class="col-sm-2 control-label">Deg Cut Off - <?php echo $degcutoff;?></label>
+              <label class="col-sm-2 control-label">PG Cut Off - <?php echo $pgcutoff;?></label>
 
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-               <td width='25%'>
-M.E Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="pg_passoutyear" class="searchbox" name="pg_passoutyear">
-<option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-          </tr>
-          <tr>
-               <td width='25%' height='30%' style="vertical-align:top">               
- Domain Expertise<p class="help-block">(Domain keywords for the selected domain will be search
-for to shortlist the resumes
-) </p>
-                  <?php for($i=0;$i<count($resumeTypesArray);$i++){
-                   $resumestypes = $resumeTypesArray[$i]['idresumetype']; ?>
-<input type='checkbox' id='domainNames[]' name="domainNames[]" value="<?php echo $resumestypes;?>">
-<?php echo $resumeTypesArray[$i]['resumetypename'];?><br/>
+        </div>
+        <div class="form-group">
+              <label class="col-sm-2 control-label">SSLC Cut Off - <?php echo $sslcpassoutyear;?></label>
+              <label class="col-sm-2 control-label">PUC Cut Off - <?php echo $pucpassoutyear;?></label>
+              <label class="col-sm-2 control-label">Deg Cut Off - <?php echo $degpassoutyear;?></label>
+              <label class="col-sm-2 control-label">PG Cut Off - <?php echo $pgpassoutyear;?></label>
 
-                  <?php }?>
-                  </td>
-               <td  width='25%'>
- Degree Department<br/>
+        </div>
+              </div>
+              </div>
+              </div>
 
-                  <?php for($i=0;$i<count($departmentarray);$i++){
-                   $iddepartment = $departmentarray[$i]['iddepartment']; ?>
-<input type='checkbox' id='departments[]' name="departments[]" value="<?php echo $iddepartment;?>">
-<?php echo $departmentarray[$i]['department'];?><br/>
-
-                  <?php }?>
-
-              </td>
-               <td width='25%' style="vertical-align:top">
-                  Degree University Name <br/><input type="name"  class="searchbox" placeholder="" name='degUniversity' id='degUniversity'>
-               <br/>
-                 Select Candidates type<br/>
-                 <select class="searchbox" name="rvvlsi" id="rvvlsi">
-                 <option value="only">Only RV-VLSI</option>
-                 <option value="all">All</option>
-                 </select>
-
-                  <br/>
-                 Select Date Range<br/>
-                 <select class="searchbox" name="daterange" id="daterange">
-                 <option value="30">30 Days</option>
-                 <option value="60">60 Days</option>
-                  <option value="90">90 Days</option>
-                 <option value="100">Above 90 Days</option>
-                 </select>
-
-               </td>
-               <td width='25%' style="vertical-align:top">
-                 Custom Keyword<p class="help-block">With (In the independent field will search for the pattern listed below along with all the search criteria selected by you or without the pattern 
-listed below plus the search criteria selected by you)</p>
-                 <select class="searchbox" name="flexiblefield" id="flexiblefield">
-                 <option value="With">With</option>
-                 <option value="Without">Without</option>
-                 </select>
-                 <br/><input type="name"  class="searchbox" placeholder="" name='searchBox' id='searchBox'>
-               </td>
-          </tr>
-          <tr>
-             <td colspan="4" align="Center">                <button type="submit" class="btn btn-primary">Search</button>
-</td>
-          </tr>
-    </table>
-    </form>
     <table id="example" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>

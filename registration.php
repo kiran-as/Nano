@@ -22,9 +22,9 @@ if($_POST)
     }
     else
     {
-        
-         mysql_query("Insert into tbl_student (email,password)
-             values('$email','$password')");
+         $date = date('Y-m-d H:i:s');
+         mysql_query("Insert into tbl_student (email,password,created_date)
+             values('$email','$password','$date')");
           $_SESSION['idstudent'] = mysql_insert_id();
          $_SESSION['studentName'] = '';
         echo "<script>parent.location='profileInformation.php'</script>";

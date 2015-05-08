@@ -1,11 +1,13 @@
 <?php
 include("../application/conn.php");
 include('../include/department.php');
+include('../include/domainlist.php');
+include('../include/documentlist.php');
+include('../include/year.php');
 
 $idrecruiter = $_SESSION['idrecruiter'];
 if($_POST)
 {
-  
     $job_description = $_POST['jobDescription'];
     $job_title = $_POST['jobTitle'];
     $minqualification = $_POST['minqualification'];
@@ -100,6 +102,30 @@ if($_POST)
     $( "#datepicker" ).datepicker({ minDate: -00, maxDate: "+1M +10D" });
     $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
   });
+
+  function showInternshipDisplay(id)
+  {
+    if(id=='Yes')
+    {
+       $('#internshipIdOptions').show();
+    }
+    else
+    {
+       $('#internshipIdOptions').hide();
+    }
+  }
+  function agreementbonds(id)
+  {
+    
+    if(id=='Yes')
+    {
+       $('#agreementId').show();
+    }
+    else
+    {
+       $('#agreementId').hide();
+    }
+  }
   </script>
   </head>
 
@@ -137,11 +163,12 @@ if($_POST)
             <div class="form-group">
               <label class="col-sm-2 control-label">Select Discipline</label>
               <div class="col-sm-10">
-              <?php for($i=0;$i<count($departmentarray);$i++){?>
+              <?php for($i=0;$i<count($departmentarray);$i++){
+                if($departmentarray[$i]['iddepartment']!='999'){?>
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="discipline[]" value="discipline[<?php echo $departmentarray[$i]['iddepartment'];?>]"> <?php echo $departmentarray[$i]['department'];?>
+                        <input type="checkbox" name="discipline" value="discipline[<?php echo $departmentarray[$i]['iddepartment'];?>]"> <?php echo $departmentarray[$i]['department'];?>
                       </label>
-                    <?php }?>
+                    <?php }}?>
                     
               </div>          
             </div>
@@ -153,9 +180,13 @@ if($_POST)
            
               <label class="col-sm-2 control-label">No of Openings</label>
               <div class="col-sm-3">
-                    <input type='text' class="form-control" id="noofopenings" name="noofopenings" 
-                        value="">
-              </div>          
+                 <select class="form-control" id="noofopenings" name="noofopenings">
+                 <option value=''>Select</option>
+                      <?php for($i=1;$i<100;$i++){?>
+                      <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                      <?php }?>
+                  </select>
+                </div>          
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">SSLC CUT OFF</label>
@@ -164,22 +195,35 @@ if($_POST)
                         value="">
               </div>  
               <label class="col-sm-2 control-label">SSLC Passout Year</label>
+              
               <div class="col-sm-3">
-                    <input type='text' class="form-control" id="sslcpassoutyear" name="sslcpassoutyear" 
-                        value="">
-              </div>          
+                 <select class="form-control" id="sslcpassoutyear" name="sslcpassoutyear">
+<option value='0'>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>           
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">PUC CUT OFF</label>
               <div class="col-sm-3">
                     <input type='text' class="form-control" id="puccutoff" name="puccutoff" 
                         value="">
-              </div>  
+              </div> 
+
               <label class="col-sm-2 control-label">PUC Passout Year</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="pucpassoutyear" name="pucpassoutyear" 
-                        value="">
-              </div>          
+                <div class="col-sm-3">
+                 <select class="form-control" id="pucpassoutyear" name="pucpassoutyear">
+                 <option value=''>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
+
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">DEG CUT OFF</label>
@@ -188,10 +232,17 @@ if($_POST)
                         value="">
               </div>  
               <label class="col-sm-2 control-label">DEG Passout Year</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="degpassoutyear" name="degpassoutyear" 
-                        value="">
-              </div>          
+               
+                <div class="col-sm-3">
+                 <select class="form-control" id="degpassoutyear" name="degpassoutyear">
+                 <option value=''>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
+
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">PG CUT OFF</label>
@@ -199,34 +250,18 @@ if($_POST)
                     <input type='text' class="form-control" id="pgcutoff" name="pgcutoff" 
                         value="">
               </div>  
-              <label class="col-sm-2 control-label">PG Passout Year</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="pgpassoutyear" name="pgpassoutyear" 
-                        value="">
-              </div>          
+              <label class="col-sm-2 control-label">PG Passout Year</label>  
+               <div class="col-sm-3">
+                 <select class="form-control" id="pgpassoutyear" name="pgpassoutyear">
+                 <option value=''>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>         
             </div>
-            <div class="form-group">
-              <label class="col-sm-4 control-label">IS SUBJECT CARRY FORWARD ALLOWED?</label>
-              <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="carryforward" id="carryforward" value="Yes" checked=checked> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="carryforward" id="carryforward" value="No" >No
-                      </label>        
-              </div> 
-            </div>
-            <div class="form-group"> 
-              <label class="col-sm-4 control-label">IS LOSS OF 1 YEAR/ SEMESTER ALLOWED?</label>
-              <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="lossofoneyear" id="lossofoneyear" value="Yes" checked=checked> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="lossofoneyear" id="lossofoneyear" value="No" >No
-                      </label>        
-              </div>          
-            </div>  
+         
             <div class="form-group">
               <label class="col-sm-2 control-label">Suggested Reading(If any Specify)</label>
               <div class="col-sm-10">
@@ -256,20 +291,20 @@ if($_POST)
                <label class="col-sm-4 control-label">IS THE HIRING FOR INTERNSHIP POSITIONS?</label>
               <div class="col-sm-2">
                       <label class="radio-inline">
-                        <input type="radio" name="internshipposition" id="internshipposition" value="Yes"> Yes
+                        <input type="radio" name="internshipposition" id="internshipposition" value="Yes" onclick='showInternshipDisplay(this.value);'> Yes
                       </label>
                       <label class="radio-inline">
-                          <input type="radio" name="internshipposition" id="internshipposition" value="No" >No
+                          <input type="radio" name="internshipposition" id="internshipposition" value="No" onclick='showInternshipDisplay(this.value);' checked="checked">No
                       </label>        
               </div>
 
             </div>
-
+<div id='internshipIdOptions' style='display:none'>
             <div class="form-group">
               <label class="col-sm-4 control-label">WHAT IS THE DURATION OF INTERNSHIP?</label>
               <div class="col-sm-3">
                       <label class="radio-inline">
-                        <input type="radio" name="internshipduration" id="internshipduration" value="3_Months"> 3 Months
+                        <input type="radio" name="internshipduration" id="internshipduration" value="3_Months" checked="checked"> 3 Months
                       </label>
                       <label class="radio-inline">
                           <input type="radio" name="internshipduration" id="internshipduration" value="6_Months" >6 Months
@@ -284,13 +319,14 @@ if($_POST)
               <label class="col-sm-4 control-label">ARE PLACEMENTS ASSURED AFTER INTERNSHIP?</label>
               <div class="col-sm-2">
                       <label class="radio-inline">
-                        <input type="radio" name="placementassured" id="placementassured" value="Yes"> Yes
+                        <input type="radio" name="placementassured" id="placementassured" value="Yes" checked="checked"> Yes
                       </label>
                       <label class="radio-inline">
                           <input type="radio" name="placementassured" id="placementassured" value="No" >No
                       </label>        
               </div> 
               </div>
+            </div>
             <div class="form-group">  
                <label class="col-sm-4 control-label">IS THE HIRING FOR REGULAR POSITIONS?</label>
               <div class="col-sm-2">
@@ -307,66 +343,109 @@ if($_POST)
               <label class="col-sm-4 control-label">IS THERE ANY SERVICE AGREEMENT/BOND?</label>
               <div class="col-sm-2">
                       <label class="radio-inline">
-                        <input type="radio" name="agreementbond" id="agreementbond" value="Yes"> Yes
+                        <input type="radio" name="agreementbond" id="agreementbond" value="Yes" onclick='agreementbonds(this.value);'> Yes
                       </label>
                       <label class="radio-inline">
-                          <input type="radio" name="agreementbond" id="agreementbond" value="No" >No
+                          <input type="radio" name="agreementbond" id="agreementbond" value="No" checked="checked" onclick='agreementbonds(this.value);'>No
                       </label>        
               </div> 
+              <div id='agreementId' style='display:none'>
               <label class="col-sm-2 control-label">No of Years</label>
    
                <div class="col-sm-2">
-                    <input type='text' class="form-control" id="degpassoutyear" name="degpassoutyear" 
+                    <input type='text' class="form-control" id="agreementbondyears" name="agreementbondyears" 
                         value="">
-              </div>         
+              </div>  
+              </div>       
             </div>             
 
 
 
 
-
+            <div class="form-group"> 
+               <label class="col-sm-4 control-label">WRITTEN TEST (APTITUDE):</label>
+                  <div class="col-sm-2">
+                      <label class="radio-inline">
+                        <input type="radio" name="writtentestaptitude" id="writtentestaptitude" value="Yes" checked="checked"> Yes
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="writtentestaptitude" id="writtentestaptitude" value="No" >No
+                      </label>        
+                  </div>
+            </div>
+            <div class="form-group"> 
+               <label class="col-sm-4 control-label">WRITTEN TEST (TECHNICAL):</label>
+                  <div class="col-sm-2">
+                      <label class="radio-inline">
+                        <input type="radio" name="writtentesttechnical" id="writtentesttechnical" value="Yes" checked="checked"> Yes
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="writtentesttechnical" id="writtentesttechnical" value="No" >No
+                      </label>        
+                  </div>
+            </div>
+             <div class="form-group"> 
+               <label class="col-sm-4 control-label">TECHNICAL INTERVIEW</label>
+                  <div class="col-sm-2">
+                      <label class="radio-inline">
+                        <input type="radio" name="technicalinterview" id="technicalinterview" value="Yes" checked="checked"> Yes
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="technicalinterview" id="technicalinterview" value="No" >No
+                      </label>        
+                  </div>
+            </div>
+             <div class="form-group"> 
+               <label class="col-sm-4 control-label">GENERAL HR INTERVIEW:</label>
+                  <div class="col-sm-2">
+                      <label class="radio-inline">
+                        <input type="radio" name="generalhrinterview" id="generalhrinterview" value="Yes" checked="checked"> Yes
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="generalhrinterview" id="generalhrinterview" value="No" >No
+                      </label>        
+                  </div>
+            </div>
+<div style='background-color:Gainsboro;' onmouseover="">
             <div class="form-group">
-                        <h3 class="brd-btm mar-b20" style="font-size:16px;font-style:bold;">PLEASE  SPECIFY  SELECTION PROCEDURE</h3>
-
-              <label class="col-sm-2 control-label">WRITTEN TEST (APTITUDE):</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="writtentestaptitude" name="writtentestaptitude" 
-                        value="">
-              </div>  
-           
-              <label class="col-sm-2 control-label">WRITTEN TEST (TECHNICAL)</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="writtentesttechnical" name="writtentesttechnical" 
-                        value="">
-              </div>          
-          </div> 
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label">TECHNICAL INTERVIEW</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="technicalinterview" name="technicalinterview" 
-                        value="">
-              </div>          
-           
-              <label class="col-sm-2 control-label">GENERAL HR INTERVIEW:</label>
-              <div class="col-sm-3">
-                    <input type='text' class="form-control" id="generalhrinterview" name="generalhrinterview" 
-                        value="">
+              <label class="col-sm-2 control-label">Select Discipline</label>
+              <div class="col-sm-10">
+              <?php for($i=0;$i<count($resumetypearray);$i++){
+               ?>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="resumetype[]" value="discipline[<?php echo $resumetypearray[$i]['idresumetype'];?>]"> <?php echo $resumetypearray[$i]['resumetypename'];?>
+                      </label>
+                    <?php }?>
+                    
               </div>          
             </div>
+              <div class="form-group">
+              <label class="col-sm-2 control-label">Select Discipline</label>
+              <div class="col-sm-10">
+              <?php for($i=0;$i<count($departmentarray);$i++){
+                if($departmentarray[$i]['iddepartment']!='999'){?>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="discipline[]" value="<?php echo $departmentarray[$i]['iddepartment'];?>"> <?php echo $departmentarray[$i]['department'];?>
+                      </label>
+                    <?php }}?>
+                    
+              </div>          
+            </div>
+</div>
  <div class="form-group">
-                <label class="col-sm-2 control-label">ANY SPECIFIC SKILL AREA OF TEST (SPECIFY)</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="2" id="specificskill" name="specificskill"></textarea>
-                </div>        
-              </div>
-
-            <div class="form-group">
               <label class="col-sm-2 control-label">DOCUMENTS REQUIRED TO BE SUBMITTED</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="2" id="documentsrequired" name="documentsrequired"></textarea>
-              </div>        
-            </div> 
+              <?php for($i=0;$i<count($documentarray);$i++){
+               ?>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="documentsrequired[]" value="documentsrequired[<?php echo $documentarray[$i]['iddocuments'];?>]"> <?php echo $documentarray[$i]['documentname'];?>
+                      </label>
+                    <?php }?>
+                    
+              </div>          
+            </div>
+
+            
             </div>
             <div class="form-group">
             <h3 class="brd-btm mar-b20" style="font-size:16px;font-style:bold;">COMPENSATION/COST TO COMPANY (CTC)(INFORMATION WILL BE TREATED AS CONFIDENTIAL)</h3>

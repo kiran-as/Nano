@@ -192,7 +192,8 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                              deg_state = '$deg_state',
                              pgdip_othercoursename = '$pgdip_othercoursename',
                              deg_othercoursename = '$deg_othercoursename',
-                             pg_othercoursename = '$pg_othercoursename'
+                             pg_othercoursename = '$pg_othercoursename',
+                              updated_date = '$updated_date'
 
                         where idstudent = '$idstudent'");
    echo "<script>parent.location='academicProjects.php'</script>";

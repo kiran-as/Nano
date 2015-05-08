@@ -96,7 +96,8 @@ move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file);
       placeofbirth='$placeofbirth',
       profilepic='$file_name',
       experience = '$experience',
-      experience_years = '$experience_years'
+      experience_years = '$experience_years',
+      updated_date = '$updated_date'
 
       where idstudent='$idstudent'");
     

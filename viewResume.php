@@ -53,8 +53,10 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $pgschoolname = $row['pg_schoolname'];
     $pgboard = $row['pg_university'];
     $pgdepartment = departmentname($row['pg_department']);
-     
-     
+    if($pgdepartment=='Others')
+    {
+       $pgdepartment = $row['pg_othercoursename'];
+     }
    $pgdippassoutyear = $row['pgdip_passoutyear'];
     $pgdippercentagetype = $row['pgdip_percentagetype'];
     $pgdippercentage = $row['pgdip_percentage'];

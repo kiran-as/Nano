@@ -49,8 +49,10 @@ mysql_query("Update tbl_student set deg_projectname = '$deg_projectname',
                              pg_projectname = '$pg_projectname',
 						     pg_projectdescription = '$pg_projectdescription',
 						     pg_projecttools = '$pg_projecttools',
-						     pg_projectchallenges = '$pg_projectchallenges'
+						     pg_projectchallenges = '$pg_projectchallenges',
+                  updated_date = '$updated_date'
                         where idstudent = '$idstudent'");
+
 
 echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
 exit;
