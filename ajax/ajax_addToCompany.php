@@ -82,7 +82,7 @@ for($i=0;$i<count($companyArray);$i++)
                </select>
     </div>
     <div class='form-group col-sm-1'>
-<select class='form-control' id='oldFromYear[]' style='width:84px;' name='oldFromYear[]'>
+<select class='form-control'  style='width:84px;' name='oldFromYear[$i]'>
                       <option value=''>Select</option>";
                      for($j=0;$j<count($yeararray);$j++){
                         $valueYear = $yeararray[$j]['years']; 

@@ -19,6 +19,7 @@ while($row = mysql_fetch_assoc($studentSql))
     $studentArray[$i]['reviewname'] = $councellorArrayDetails[0]['reviewname'];
     $studentArray[$i]['reviewby'] = $councellorArrayDetails[0]['name'];
     $studentArray[$i]['reviewon'] = $councellorArrayDetails[0]['created_date'];    
+    $studentArray[$i]['councelling_date'] = $councellorArrayDetails[0]['councelling_date'];     
     $studentArray[$i]['phone'] = $row['phone'];
     $studentArray[$i]['pgdip_coursename'] = $row['pgdip_coursename'];
     $studentArray[$i]['created_date'] = $row['created_date'];
@@ -52,6 +53,8 @@ while($row = mysql_fetch_assoc($councellorSql))
    $councellorArray[$i]['name'] = $row['firstname'].' '.$row['lastname'];
    $councellorArray[$i]['created_date'] = $row['created_date'];
    $councellorArray[$i]['review_status'] = $row['review_status'];
+      $councellorArray[$i]['councelling_date'] = $row['councelling_date'];
+
    return $councellorArray;
 }
 }
@@ -99,6 +102,7 @@ $(document).ready(function() {
 						<th>Mobile</th>
 						<th>Course Opted</th>
 						<th>Assigned To</th>
+						<th>Next Councelling</th>
 						<th>Latest Review</th>
 						<th>Latest Review By</th>
 						<th>Latest Revied On</th>
@@ -117,6 +121,7 @@ $(document).ready(function() {
 						<td><?php echo $studentArray[$i]['phone'];?></td>
 						<td><?php echo $studentArray[$i]['pgdip_coursename'];?></td>
 						<td><?php echo $studentArray[$i]['assignedto'];?></td>
+						<td><?php echo $studentArray[$i]['councelling_date'];?></td>
 						<td><?php echo $studentArray[$i]['reviewname'];?></td>
 						<td><?php echo $studentArray[$i]['reviewby'];?></td>
 						<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['reviewon']));?></td>          

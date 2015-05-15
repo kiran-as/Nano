@@ -41,7 +41,12 @@ while($row = mysql_fetch_assoc($studentdetails))
   $joboffer = $row['joboffer'];
   $timeduration = $row['timeduration'];
   $embedded_rate = $row['embedded_rate'];
-  $income = $row['income'];        
+  $income = $row['income'];  
+
+  $deg_percentagetype = $row['deg_percentagetype'];
+  $deg_percentage = $row['deg_percentage'];
+  $pg_percentagetype = $row['pg_percentagetype'];
+  $pg_percentage = $row['pg_percentage'];        
 }
 
 $councellorSql = mysql_query("Select a.* , b.*, c.*
@@ -69,9 +74,15 @@ if($_POST)
   $review_reason = $_POST['reason'];
    $created_date = date('Y-m-d H:i:s');
      $councellor = $_POST['councellor'];
+     if($_POST['datepicker']=='')
+     {
+      $_POST['datepicker'] = date('Y-m-d');
+     }
+     
+     $councelling_date = date('Y-m-d',strtotime($_POST['datepicker']));
   mysql_query("Insert into tbl_rvstudentcouncellor (idstudent,
-    councellor_review,councellor_id,created_date,review_status,review_reason) values 
-    ('$studentId','$councellor','$councellorId','$created_date','$review_status','$review_reason')");
+    councellor_review,councellor_id,created_date,review_status,review_reason,councelling_date) values 
+    ('$student_id','$councellor','$councellorId','$created_date','$review_status','$review_reason','$councelling_date')");
 
 echo "<script>parent.location='studentDetails.php'</script>";
         exit;
@@ -101,10 +112,20 @@ echo "<script>parent.location='studentDetails.php'</script>";
  <script src="../js/jquery-1.11.0.min.js"></script>
 <script src="../js/jquery.validation.js"></script>
 <script src="../js/customised_validation.js"></script>
- <script>
- $(document).ready(function() {
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({ minDate: -00, maxDate: "+1M +10D" });
+    $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
 
- });
+
+
+  });
+
+
 
 
  function onReviewStatus(id)
@@ -118,10 +139,59 @@ echo "<script>parent.location='studentDetails.php'</script>";
 $('#reviewreason').hide();
   }
  }
+
+   function hidedepartment()
+   {
+     otherdegcoureseshideshow();
+     otherpgcoureseshideshow();
+     fnothercourses();
+   }
+
+
+function fnothercourses()
+{
+   var id = '<?php echo $othercourses;?>';
+  if(id=='Yes')
+  {
+    $('#othercoursesoptions').show();
+  }
+  else
+  {
+    $('#othercoursesoptions').hide();
+  }
+}
+
+
+    function otherdegcoureseshideshow()
+    {
+      
+       var id ='<?php echo $deg_department;?>';
+      if(id=='999')
+      {
+        $('#degotherschoolcoursename').show();
+      }
+      else
+      {
+    $('#degotherschoolcoursename').hide();
+      }
+    }
+
+    function otherpgcoureseshideshow()
+    {
+      var id ='<?php echo $pg_department;?>';
+      if(id=='999')
+      {
+        $('#pgotherschoolcoursename').show();
+      }
+      else
+      {
+        $('#pgotherschoolcoursename').hide();
+      }
+    }
   </script>    
   </head>
 
-  <body>
+  <body onload='hidedepartment();'>
 
      <form action="" method="POST" id="academicProject">
      <?php include('include/header.php');?>
@@ -204,6 +274,18 @@ $('#reviewreason').hide();
                 </div>               
               </div> 
 
+ <div class="form-group">
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="deg-percentagetype" id="deg-percentagetype" value="Percentage" <?php if($deg_percentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="deg-percentagetype" id="deg-percentagetype" value="CGPA" <?php if($deg_percentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    </label>        
+                    <input type="text" class="form-control mar-t10" placeholder="" id="deg_percentage" name="deg_percentage" value="<?php echo $deg_percentage;?>">                                                      
+                </div>
+              </div>
                <h3 class="brd-btm mar-b20">Basic Details</h3>
       <div class="form-group">
         <label class="col-sm-5 control-label">Have you taken any other course?<span class="error-text">*</span></label>
@@ -212,7 +294,8 @@ $('#reviewreason').hide();
           <input type="radio" name="othercourses" id="othercourses" value="No"  <?php if($othercourses=='No'){ echo "checked=checked";}?>>No
         </div>        
       </div>
-       <div class="form-group">
+       <div id="othercoursesoptions">
+        <div class="form-group">
         <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Course Name" id="other_coursename" name="other_coursename" value="<?php echo $other_coursename;?>">
@@ -229,6 +312,7 @@ $('#reviewreason').hide();
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Duration" id="other_courseduration" name="other_courseduration" value="<?php echo $other_courseduration;?>">
         </div>        
+      </div>
       </div>
           <div class="form-group">
         <label class="col-sm-5 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
@@ -335,6 +419,20 @@ $('#reviewreason').hide();
                   <input type="name" class="form-control" readonly=readonly placeholder="Course Name" id="pg_othercoursename" name="pg_othercoursename" value="<?php echo $pg_othercoursename;?>">
                 </div>               
               </div> 
+
+               <div class="form-group">
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text"></span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="pg-percentagetype" id="pg-percentagetype" value="Percentage" <?php if($pg_percentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="pg-percentagetype" id="pg-percentagetype" value="CGPA" <?php if($pg_percentagetype=='CGPA'){ echo "checked=checked";};?>> CGPA(out of 10 points)
+                    </label>        
+                    <input type="text" class="form-control mar-t10" placeholder="" id="pg-percentage" name="pg-percentage" value="<?php echo $pg_percentage;?>">                                                      
+                </div>
+              </div>
+
                <h3 class="brd-btm mar-b20">Basic Details</h3>
       <div class="form-group">
         <label class="col-sm-5 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
@@ -392,7 +490,7 @@ $('#reviewreason').hide();
       </div>
     </div>
 
-           <div class="form-horizontal col-sm-12">
+           <div class="form-horizontal">
            <div class="col-sm-12">
             <h3 class="brd-btm mar-b20">Councellor Review</h3>
 
@@ -424,7 +522,7 @@ $('#reviewreason').hide();
               </div>
                               <h3 class="brd-btm mar-b20">&nbsp;</h3>
 
-              <div class="form-group">
+              <div class="row">
                 <label class="col-sm-2 control-label">Councellor Review<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <textarea class="form-control" rows="3"  placeholder="" id="councellor" name="councellor"></textarea>
@@ -460,6 +558,14 @@ $('#reviewreason').hide();
               </select>
             </div>        
               </div> 
+
+              <div class="form-group">
+              <label class="col-sm-2 control-label">Next Councelling Date</label>
+              <div class="col-sm-5">
+                         <input  class="form-control" type="text" name='datepicker' id="datepicker"> 
+              </div> 
+            </div>
+
             </div>
             </div>
             </div> 

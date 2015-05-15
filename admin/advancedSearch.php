@@ -29,15 +29,29 @@ $resume=0;
 while($row = mysql_fetch_assoc($recruitementSql))
 {
     $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
+    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'].'-'.$row['recruitementposition'];
     $resume++;
 }
 
+if($_POST['recruitmentPosition']!='')
+    {
+        for($i=0;$i<count($_POST['studentName']);$i++)
+        {
+            $idStudent = $_POST['studentName'][$i];
+            $idrecruitement = $_POST['recruitmentPosition'];
+             mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
+                and idrecruitement='$idrecruitement'");
 
+            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
+                ('$idStudent','$idrecruitement')");
+        }
+        echo "<script>alert('Candidates has been assigned to this job');</script>";
+         echo "<script>parent.location='advancedSearch.php'</script>";
+   exit;
+        
+    }
 if($_POST)
 {
- 
-
     $idStudent=0;
     $idStudentSelected = 0;
     $sslcPercentage = $_POST['sslcPercentage'];
@@ -263,6 +277,10 @@ while($row = mysql_fetch_assoc($studentSql))
     }
   }
 }
+
+
+
+
 ?>
 	<link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
@@ -421,7 +439,7 @@ listed below plus the search criteria selected by you)</p>
 </td>
           </tr>
     </table>
-    </form>
+  
     <table id="example" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>

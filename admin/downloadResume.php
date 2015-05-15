@@ -195,9 +195,7 @@ if($addressdoorno!=''){
 
 /**/
 $table="<table width='100%'>
-<tr>
-              <td colspan='2' align='right'><img src='http://nanochipsolutions.com/college/img/logo_small.png'></td>
-          </tr>
+
           <tr>
               <th align='left'>Profile Information</th>
           </tr>
@@ -216,10 +214,11 @@ $table.="<br/>  <table>
           <tr>
               <th align='left'>Career Objective</th>
           </tr>
-          <tr>
-              <td>$career_objective</td>
-          </tr>
-        </table>";
+          </table>
+          <ul style='list-style-type:disc'>
+              <li>$career_objective</li>
+          </ul>
+        ";
 
     
 if(count($achievementsArray)>0){
@@ -228,8 +227,8 @@ $table.="<br/><table>
           <tr>
               <th align='left'>Core Competancy</th>
           </tr>
-          <tr>
-              <td>";
+          </table>
+         <ul style='list-style-type:disc'>";
               for($i=0;$i<count($achievementsArray);$i++){
                 
                 if(!empty($achievementsArray[$i]['achievements']))
@@ -239,10 +238,7 @@ $table.="<br/><table>
                   $table.="<li>$achievementstitle</li>";
                 }
               }
-              $table.="</td>
-          </tr>
-         
-        </table>"; 
+              $table.="</ul>"; 
       }
 $table.="<br/>  <table width='100%' border='1'>
           <tr>

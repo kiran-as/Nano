@@ -27,7 +27,7 @@ $resume=0;
 while($row = mysql_fetch_assoc($recruitementSql))
 {
     $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
+    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'].'-'.$row['recruitementposition'];
     $resume++;
 }
 
@@ -47,6 +47,10 @@ if($_POST)
             mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
                 ('$idStudent','$idrecruitement')");
         }
+           echo "<script>alert('Candidates has been assigned to this job');</script>";
+         echo "<script>parent.location='studentlist.php'</script>";
+   exit;
+        
     }
 }
 
@@ -64,7 +68,17 @@ $(document).ready(function() {
        "order": [[ 3, "desc" ]],
                 "fnDrawCallback": function() {
                     $('[data-toggle="tooltip"]').tooltip()
-                    
+
+  $('.simple-ajax-popup-align-top').magnificPopup({
+          type: 'ajax',
+          alignTop: true,
+          overflowY: 'scroll' // as we know that popup content is tall we set scroll overflow by default to avoid jump
+        });
+
+        $('.simple-ajax-popup').magnificPopup({
+          type: 'ajax'
+        });
+
 $('.image-popup-vertical-fit').magnificPopup({
     type: 'image',
     closeOnContentClick: true,
@@ -157,7 +171,7 @@ $('.image-popup-vertical-fit').magnificPopup({
     <![endif]-->
   </head>
 
-  <body>
+  <body >
   <form action='' method="POST">
   <?php include('../include/header.php');?>
     <?php include('include/nav.php');?>
@@ -173,6 +187,7 @@ $('.image-popup-vertical-fit').magnificPopup({
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>ResumeId</th>
+                        <th>Placement</th>
                          <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){                          ?>
 
                         <th><?php echo $resumeTypesArray[$resumetype]['resumetypename'];?></br>
@@ -188,12 +203,14 @@ $('.image-popup-vertical-fit').magnificPopup({
                     $idstudent = $studentArray[$i]['idstudent'];
                     $profilepic = $studentArray[$i]['profilepic'];?>
                     <tr>
-                        <td><input type='checkbox' name='studentName[]'>
+            <td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'>
                         <a class="image-popup-vertical-fit" href='../img/profilepic/<?php echo $profilepic;?>'>
 <?php echo $studentArray[$i]['studentname'];?></a></td>
                         <td><?php echo $studentArray[$i]['email'];?></td>
                         <td><?php echo $studentArray[$i]['mobile'];?></td>
                         <td><?php echo $studentArray[$i]['resumeid'];?></td>
+                            <td><a class="simple-ajax-popup-align-top" href='placementiframe.php?idStudent=<?php echo $idstudent;?>'>
+<?php echo $studentArray[$i]['studentname'];?></a><?php echo $studentArray[$i]['resumeid'];?></td>
                          <?php
                          $resumeKeyWordsSql = mysql_query("Select * from tbl_studentresumekeywords where idstudent='$idstudent' order by idresumetype asc");
                          while($row = mysql_fetch_assoc($resumeKeyWordsSql))
