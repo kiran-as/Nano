@@ -152,6 +152,7 @@ $('.image-popup-vertical-fit').magnificPopup({
 } );
 
     </script>
+
 <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -210,7 +211,7 @@ $('.image-popup-vertical-fit').magnificPopup({
                         <td><?php echo $studentArray[$i]['mobile'];?></td>
                         <td><?php echo $studentArray[$i]['resumeid'];?></td>
                             <td><a class="simple-ajax-popup-align-top" href='placementiframe.php?idStudent=<?php echo $idstudent;?>'>
-<?php echo $studentArray[$i]['studentname'];?></a><?php echo $studentArray[$i]['resumeid'];?></td>
+Placement Details</a></td>
                          <?php
                          $resumeKeyWordsSql = mysql_query("Select * from tbl_studentresumekeywords where idstudent='$idstudent' order by idresumetype asc");
                          while($row = mysql_fetch_assoc($resumeKeyWordsSql))

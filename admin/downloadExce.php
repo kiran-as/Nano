@@ -24,7 +24,7 @@ if($_POST)
   if(isset($_POST['rvvlsi']))
   {
     $studentSql = " Select $sql,a.rvvlsiid,b.department from tbl_student as a, tbl_department as b
-                  where a.deg_department=b.iddepartment and a. rvvlsiid!=''";
+                  where a.deg_department=b.iddepartment and a. rvvlsiid!='' order by rvvlsiid desc";
   }
   else
   {
@@ -32,7 +32,7 @@ if($_POST)
     
   }
   $result = mysql_query($studentSql);
-$xls_filename = 'export_'.date('Y-m-d').'.xls'; // Define Excel (.xls) file name
+$xls_filename = 'export_'.date('Y-m-d').'.xls'; // Defzne Excel (.xls) file name
 header("Content-Type: application/xls");
 header("Content-Disposition: attachment; filename=$xls_filename");
 header("Pragma: no-cache");
@@ -157,7 +157,7 @@ exit;
 
           <div class="row">
            <div class="col-sm-12">
-           <h3 class="brd-btm mar-b20">Message Settings</h3>
+           <h3 class="brd-btm mar-b20">Download Options</h3>
             <div class="form-horizontal">
              
               <div class="col-sm-12">
@@ -170,17 +170,20 @@ exit;
                     </label>  
 
                      <label class="radio-inline">
-                      <input type="checkbox" name="student[]" id="student[]" value="mobile" checked="checked" > mobile
+                      <input type="checkbox" name="student[]" id="student[]" value="mobile" checked="checked" > Mobile
                     </label>  
 
                      <label class="radio-inline">
-                      <input type="checkbox" name="student[]" id="student[]" value="email" checked="checked" > email
+                      <input type="checkbox" name="student[]" id="student[]" value="email" checked="checked" > Email
                     </label> 
 
                     <label class="radio-inline">
-                      <input type="checkbox" name="student[]" id="student[]" value="dob" checked="checked" > dob
+                      <input type="checkbox" name="student[]" id="student[]" value="dob" checked="checked" > Dob
                     </label> 
-
+                    <label class="radio-inline">
+                      <input type="checkbox" name="rvvlsi" id="rvvlsi" value="only" checked="checked" > Only RV-VLSI
+                    </label> 
+         
                     <label class="radio-inline">
                       <input type="checkbox" name="student[]" id="student[]" value="sslc_passoutyear" checked="checked" > sslc_passoutyear
                     </label> 
@@ -198,7 +201,7 @@ exit;
                     </label> 
 
                     <label class="radio-inline">
-                      <input type="checkbox" name="student[]" id="student[]" value="puc_percentagetype" checked="checked" > puc_percentagetype
+                      <input type="checkbox" name="student[]" id="student[]" value="puc_percentage" checked="checked" > puc_percentage
                     </label> 
 
                     <label class="radio-inline">
@@ -222,12 +225,14 @@ exit;
                     </label> 
 
                     <label class="radio-inline">
+                      <input type="checkbox" name="student[]" id="student[]" value="deg_state" checked="checked" > deg_state
+                    </label> 
+
+
+                    <label class="radio-inline">
                       <input type="checkbox" name="student[]" id="student[]" value="deg_department" checked="checked" > deg_department
                     </label> 
-                    <label class="radio-inline">
-                      <input type="checkbox" name="rvvlsi" id="rvvlsi" value="only" checked="checked" > Only RV-VLSI
-                    </label> 
-         
+
 
                 </div> 
                                               

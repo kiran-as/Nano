@@ -36,9 +36,14 @@ else if($urlname[1]=='domainKeyword.php')
 {
   $domainKeywordClass = 'active';
 }
+
+else if($urlname[1]=='downloadExce.php')
+{
+  $downloadExceClass = 'active';
+}
 else 
 {
-   $processResumeClass = 'active';
+   $downloadExceClass = 'active';
 }
 ?>
 <div class="main-nav-wrapper">
@@ -68,7 +73,7 @@ else
                 <a href="recruitementList.php">Current Openings</a>
                  </div>
                 </li>
-               <li class="<?php echo $processResumeClass;?>">
+               <li class="<?php echo $processResumeClass;?>" style='display:none'>
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to search resumes for new keywords that have been added under the domain search">
 
                <a href="processResume.php">Refresh Dashboard</a>
@@ -85,6 +90,13 @@ else
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder">
 
                <a href="settings.php">Settings</a>
+                </div>
+               </li>
+
+               <li class="<?php echo $downloadExceClass;?>">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder">
+
+               <a href="downloadExce.php">Create Excel</a>
                 </div>
                </li>
            
