@@ -9,6 +9,7 @@ while($row = mysql_fetch_assoc($studentSql))
 {
     $recruitementArray[$i]['recruitementposition'] = $row['recruitementposition'];
     $recruitementArray[$i]['idrecruitement'] = $row['idrecruitement'];
+    $recruitementArray[$i]['username'] = $row['username'];
     $recruitementArray[$i]['company'] = $row['company'];
     $recruitementArray[$i]['recruitementdate'] = $row['recruitementdate'];
     $recruitementArray[$i]['status'] = $row['status'];   

@@ -44,8 +44,8 @@ if($_POST)
              mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
                 and idrecruitement='$idrecruitement'");
 
-            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
-                ('$idStudent','$idrecruitement')");
+            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement,resume_shortlisted) Values 
+                ('$idStudent','$idrecruitement','Yes')");
         }
            echo "<script>alert('Candidates has been assigned to this job');</script>";
          echo "<script>parent.location='studentlist.php'</script>";
@@ -174,7 +174,7 @@ $('.image-popup-vertical-fit').magnificPopup({
 
   <body >
   <form action='' method="POST">
-  <?php include('../include/header.php');?>
+  <?php //include('../include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:none">

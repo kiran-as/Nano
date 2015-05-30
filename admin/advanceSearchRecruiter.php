@@ -1,7 +1,31 @@
-  <?php
-include('../application/conn.php');
-include('../include/year.php');
+<?php
+include("../application/conn.php");
 include('../include/department.php');
+include('../include/domainlist.php');
+include('../include/documentlist.php');
+include('../include/year.php');
+include('../include/domain_type.php');
+
+$idrecruitement = $_GET['idrecruitement'];
+if($idrecruitement>0)
+{
+  $requiterSql = mysql_query("Select * from tbl_recruitement where idrecruitement=$idrecruitement");
+  while($row = mysql_fetch_assoc($requiterSql))
+  {
+    $sslccutoff = $row['sslccutoff'];
+    $sslcpassoutyear = $row['sslcpassoutyear'];
+    $puccutoff = $row['puccutoff'];
+    $pucpassoutyear = $row['pucpassoutyear'];
+    $degcutoff = $row['degcutoff'];
+    $degpassoutyearFrom = $row['degpassoutyearFrom'];
+    $degpassoutyearTo = $row['degpassoutyearTo'];
+    $pgcutoff = $row['pgcutoff'];
+    $pgpassoutyearFrom = $row['pgpassoutyearFrom'];
+    $pgpassoutyearTo = $row['pgpassoutyearTo'];
+    $resume_type = $row['resume_type'];
+     $discipline = $row['discipline'];
+  }
+}
 error_reporting(-1);
 
 $studentSql = mysql_query("Select * from tbl_pgdipcourses");
@@ -42,8 +66,8 @@ if($_POST['recruitmentPosition']!='')
              mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
                 and idrecruitement='$idrecruitement'");
 
-                        mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement,resume_shortlisted) Values 
-                ('$idStudent','$idrecruitement','Yes')");
+            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
+                ('$idStudent','$idrecruitement')");
         }
         echo "<script>alert('Candidates has been assigned to this job');</script>";
          echo "<script>parent.location='advancedSearch.php'</script>";
@@ -296,39 +320,16 @@ while($row = mysql_fetch_assoc($studentSql))
 
 
 ?>
-	<link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
-	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
-	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" language="javascript" class="init">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nanochip Solutions</title>
 
-$(document).ready(function() {
-	$('#example').dataTable( {
-		"order": [[ 3, "desc" ]]
-	} );
-} );
-
-	</script>
-  <style>
-  .searchbox{
-height: 34px;
-padding: 6px 12px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #fff;
-background-image: none;
-border: 1px solid #ccc;
-border-radius: 4px;
--webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
--webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
--o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-
-  </style>
-<!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -339,122 +340,195 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+  
+
   </head>
 
   <body>
-  <?php include('../include/header.php');?>
+      <form action="" method="POST"> 
+     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
-        <form name='' method="POST" action="">
-    <table width='100%' border='2' cellpadding="10px" cellspacing="10px" >
-          <tr>
-               <td width='25%'>               
-                   SSLC Cut Off &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="name" class="searchbox"  placeholder="" name='sslcPercentage' id='sslcPercentage' style='width:140px;'>
-               </td>
-               <td  width='25%'>
-                  PUC Cut Off &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="name"  class="searchbox" placeholder="" name='pucPercentage' id='pucPercentage' style='width:140px;' >
-               </td>
-               <td width='25%'>
-                B.E / B.Tech Cut Off<input type="name"  class="searchbox" placeholder="" name='degPercentage' id='degPercentage' style='width:140px;' >
-               </td>
-               <td width='25%'>
-                  ME / M.Tech Cut Off<input type="name"  class="searchbox" placeholder="" name='pgPercentage' id='pgPercentage' style='width:140px;' >
-               </td>
-          </tr>
-          <tr>
-              <td width='25%'>               
-SSLC Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="sslc_passoutyear" class="searchbox" name="sslc_passoutyear">
-<option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+    <div class="container mar-t30">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">SSLC Cut-off (%)</label>
+              <div class="col-sm-2">
+                    <input type='text' class="form-control" id="sslcPercentage" name="sslcPercentage" 
+                        value="<?php echo $sslccutoff;?>">
+              </div>  
+              <label class="col-sm-2 control-label">SSLC Passout Year</label>
+              
+              <div class="col-sm-2">
+                 <select class="form-control" id="sslc_passoutyear" name="sslc_passoutyear">
+<option value='0'>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){
+                           $years = $yeararray[$i]['years'];?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($sslcpassoutyear==$years) { echo "selected=selected";}?> >
+                      <?php echo $yeararray[$i]['years'];?></option>
                       <?php }?>
                       
-                  </select>                </td>
-               <td  width='25%'>
-PUC Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  id="puc_passoutyear" class="searchbox" name="puc_passoutyear">
-<option value=''>Not Applicable</option>
-                      <option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-             <td width='25%'>
-B.E Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  id="deg_passoutyear" class="searchbox" name="deg_passoutyear">
-<option value=''>Not Applicable</option>
-
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-               <td width='25%'>
-M.E Pass out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="pg_passoutyear" class="searchbox" name="pg_passoutyear">
-<option value=''>Not Applicable</option>
-                      <?php for($i=0;$i<count($yeararray);$i++){?>
-                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
-                      <?php }?>
-                      
-                  </select>                </td>
-          </tr>
-          <tr>
-               <td width='25%' height='30%' style="vertical-align:top">               
- Domain Expertise<p class="help-block">(Domain keywords for the selected domain will be search
-for to shortlist the resumes
-) </p>
-                  <?php for($i=0;$i<count($resumeTypesArray);$i++){
-                   $resumestypes = $resumeTypesArray[$i]['idresumetype']; ?>
-<input type='checkbox' id='domainNames[]' name="domainNames[]" value="<?php echo $resumestypes;?>">
-<?php echo $resumeTypesArray[$i]['resumetypename'];?><br/>
-
-                  <?php }?>
-                  </td>
-               <td  width='25%'>
- Degree Department<br/>
-
-                  <?php for($i=0;$i<count($departmentarray);$i++){
-                   $iddepartment = $departmentarray[$i]['iddepartment']; ?>
-<input type='checkbox' id='departments[]' name="departments[]" value="<?php echo $iddepartment;?>">
-<?php echo $departmentarray[$i]['department'];?><br/>
-
-                  <?php }?>
-
-              </td>
-               <td width='25%' style="vertical-align:top">
-                  Degree University Name <br/><input type="name"  class="searchbox" placeholder="" name='degUniversity' id='degUniversity'>
-               <br/>
-                 Select Candidates type<br/>
-                 <select class="searchbox" name="rvvlsi" id="rvvlsi">
+                  </select>
+                </div>   
+                <label class="col-sm-2 control-label">Candidates type</label>
+               
+                <div class="col-sm-2">
+                 <select class="form-control" name="rvvlsi" id="rvvlsi">
                  <option value="only">Only RV-VLSI</option>
                  <option value="all">All</option>
                  </select>
+                </div>         
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">PUC Cut-off (%)</label>
+              <div class="col-sm-2">
+                    <input type='text' class="form-control" id="pucPercentage" name="pucPercentage" 
+                        value="<?php echo $puccutoff;?>">
+              </div> 
 
-                  <br/>
-                 Select Resumes which are updated in the last..<br/>
-                 <select class="searchbox" name="daterange" id="daterange">
+              <label class="col-sm-2 control-label">PUC Passout Year</label>
+                <div class="col-sm-2">
+                 <select class="form-control" id="puc_passoutyear" name="puc_passoutyear">
+                 <option value=''>Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" 
+                       <?php if($pucpassoutyear==$yeararray[$i]['years']) { echo "Selected=selected";}?>
+                      ><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
+ <label class="col-sm-2 control-label">Resumes which are updated in the last</label>
+               
+                <div class="col-sm-2">
+                 <select class="form-control" name="daterange" id="daterange">
                  <option value="30">30 Days</option>
                  <option value="60">60 Days</option>
                   <option value="90">90 Days</option>
                  <option value="100">Above 90 Days</option>
                  </select>
+                </div> 
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">BE Cut-off (%)</label>
+              <div class="col-sm-2">
+                    <input type='text' class="form-control" id="degPercentage" name="degPercentage" 
+                        value="<?php echo $degcutoff;?>">
+              </div>  
+              <label class="col-sm-2 control-label">BE Passout Year From</label>
+               
+                <div class="col-sm-2">
+                 <select class="form-control" id="degpassoutyearFrom" name="degpassoutyearFrom">
+                 <option value=''>Not Applicable</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"<?php if($degpassoutyearFrom==$yeararray[$i]['years']) { echo "Selected=selected";}?>
+                      ><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
+                <label class="col-sm-2 control-label">BE Passout Year To</label>
+               
+                <div class="col-sm-2">
+                 <select class="form-control" id="degpassoutyearTo" name="degpassoutyearTo">
+                 <option value=''>Not Applicable</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"<?php if($degpassoutyearTo==$yeararray[$i]['years']) { echo "Selected=selected";}?>
+                      ><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
 
-               </td>
-               <td width='25%' style="vertical-align:top">
-                 Custom Keyword<p class="help-block">With (In the independent field will search for the pattern listed below along with all the search criteria selected by you or without the pattern 
-listed below plus the search criteria selected by you)</p>
-                 <select class="searchbox" name="flexiblefield" id="flexiblefield">
-                 <option value="With">With</option>
-                 <option value="Without">Without</option>
-                 </select>
-                 <br/><input type="name"  class="searchbox" placeholder="" name='searchBox' id='searchBox'>
-               </td>
-          </tr>
-          <tr>
-             <td colspan="4" align="Center">                <button type="submit" class="btn btn-primary">Search</button>
-</td>
-          </tr>
-    </table>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">ME Cut-off (%)</label>
+              <div class="col-sm-2">
+                    <input type='text' class="form-control" id="pgPercentage" name="pgPercentage" 
+                        value="<?php echo $pgcutoff;?>">
+              </div>  
+              <label class="col-sm-2 control-label">ME From Year</label>  
+               <div class="col-sm-2">
+                 <select class="form-control" id="pgpassoutyearFrom" name="pgpassoutyearFrom">
+                 <option value=''>Not Applicable</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"<?php if($pgpassoutyearFrom==$yeararray[$i]['years']) { echo "Selected=selected";}?>
+                      ><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>  
+                <label class="col-sm-2 control-label">ME To Year</label>  
+               <div class="col-sm-2">
+                 <select class="form-control" id="pgpassoutyearTo" name="pgpassoutyearTo">
+                 <option value=''>Not Applicable</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>"<?php if($pgpassoutyearTo==$yeararray[$i]['years']) { echo "Selected=selected";}?>
+                      ><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+                </div>        
+            </div>
   
-    <table id="example" class="table table-striped" cellspacing="0" width="100%">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Select Domain</label>
+              <div class="col-sm-10">
+              <?php for($i=0;$i<count($resumetypearray);$i++){
+                 $findme   = $resumetypearray[$i]['idresumetype'];
+                 $resume_type;
+                $pos =  strpos($resume_type, $findme);
+                 if($pos==false)
+                 {
+                   $checked="";
+                 }
+                 else
+                 {
+                   $checked = "checked=checked";
+                 }
+               //exit;
+               ?>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id='domainNames[]' name="domainNames[]" 
+                        value="domainNames[<?php echo $resumetypearray[$i]['idresumetype'];?>]"
+                        <?php echo $checked;?>
+                       > <?php echo $resumetypearray[$i]['resumetypename'];?>
+                      </label>
+                    <?php }?>
+                    
+              </div>          
+            </div>
+              <div class="form-group">
+              <label class="col-sm-2 control-label">Select Discipline</label>
+              <div class="col-sm-10">
+              <?php for($i=0;$i<count($departmentarray);$i++){
+                $findme   = $departmentarray[$i]['iddepartment'];
+                                $pos =  strpos($discipline, $findme);
+                 if($pos==false)
+                 {
+                   $checked="";
+                 }
+                 else
+                 {
+                   $checked = "checked=checked";
+                 }
+                if($departmentarray[$i]['iddepartment']!='999'){?>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id='departments[]' name="departments[]" value="<?php echo $departmentarray[$i]['iddepartment'];?>"  <?php echo $checked;?>> <?php echo $departmentarray[$i]['department'];?>
+                      </label>
+                    <?php }}?>
+                    
+              </div>          
+            </div>
+
+           
+
+    </div>
+
+    <div class="clearfix brd-top pad-t20">
+        <button type="submit" class="btn btn-primary pull-right">Search</button>       
+    </div> 
+     <table id="example" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th>Name</th>
@@ -515,11 +589,18 @@ listed below plus the search criteria selected by you)</p>
           </div>  
                 </td>
              </tr>
-            </table>
-      </div>
-     
-  </div>
-  </form>
-
+            </table>    
+      </form>   
+    <footer class="home-footer">
+          <div class="container">            
+            <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               
+          </div>          
+    </footer>  
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src="js/bootstrap.min.js"></script>
+    
   </body>
 </html>

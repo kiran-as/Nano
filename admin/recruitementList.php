@@ -10,11 +10,12 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['recruitementposition'] = $row['recruitementposition'];
     $recruitementArray[$i]['idrecruitement'] = $row['idrecruitement'];
     $recruitementArray[$i]['company'] = $row['company'];
+    $recruitementArray[$i]['username'] = $row['username'];
     $recruitementArray[$i]['recruitementdate'] = $row['recruitementdate'];
     $recruitementArray[$i]['approved'] = $row['approved'];
     $recruitementArray[$i]['status'] = $row['status'];
     $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
-    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];  
+    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];
     $i++;
 }
 
@@ -110,11 +111,14 @@ function fnChangeApprove(approvestatus)
 						<th>Position</th>
 						<th>Posted On</th>
 						<th>Company</th>
+						<th>Recruiter Name</th>
+						<th>No of Openings</th>
 						<th style="width:100px">No of Resumes shortlisted</th>
 						<th>Tag Status</th>
-						<th>No of Openings</th>
+						
 						<th>Interview Date</th>
 						<th>Candidates Shortlisted</th>
+						<th>Search Candidates</th>
 					</tr>
 				</thead>
 
@@ -126,6 +130,8 @@ function fnChangeApprove(approvestatus)
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
 						<td><?php echo $recruitementArray[$i]['company'];?></td>
+						<td><?php echo $recruitementArray[$i]['username'];?></td>
+						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
 						<?php 
 $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount 
 	from tbl_recruitementresumes where idrecruitement='$idrecruitement'");
@@ -136,10 +142,16 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 ?>
 						<td><?php echo $totalResumesAttached;?></td>
 						<td><?php echo $recruitementArray[$i]['status'];?></td>
-						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
+						
 						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
 
 						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
+						 <?php if($recruitementArray[$i]['status']=='Close') { ?>
+						<td>Search Candidates</td>
+                         <?php } else {?> 
+                         						<td><a href="advanceSearchRecruiter.php?idrecruitement=<?php echo $idrecruitement;?>" target="_blank">Search Candidates</a></td>
+
+                         <?php }?>
 					</tr>
 					<?php }?>
 					

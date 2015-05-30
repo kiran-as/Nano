@@ -7,7 +7,8 @@ include('include/sessioncheck.php');
 if($_POST)
 {
    //print_r($_POST);
-
+$rvpattern = $_POST['rvpattern'];
+$sqllike = " and rvvlsiid like '%$rvpattern%'";
   for($i=0;$i<count($_POST['student']);$i++)
   {
 
@@ -24,13 +25,14 @@ if($_POST)
   if(isset($_POST['rvvlsi']))
   {
     $studentSql = " Select $sql,a.rvvlsiid,b.department from tbl_student as a, tbl_department as b
-                  where a.deg_department=b.iddepartment and a. rvvlsiid!='' order by rvvlsiid desc";
+                  where a.deg_department=b.iddepartment and a. rvvlsiid!='' $sqllike order by rvvlsiid desc";
   }
   else
   {
-    $studentSql = "Select $sql from tbl_student";
+    $studentSql = "Select $sql from tbl_student where idstudent>0 $sqllike";
     
   }
+
   $result = mysql_query($studentSql);
 $xls_filename = 'export_'.date('Y-m-d').'.xls'; // Defzne Excel (.xls) file name
 header("Content-Type: application/xls");
@@ -232,8 +234,12 @@ exit;
                     <label class="radio-inline">
                       <input type="checkbox" name="student[]" id="student[]" value="deg_department" checked="checked" > deg_department
                     </label> 
-
-
+ <label class="radio-inline">
+                      <input type="checkbox" name="student[]" id="student[]" value="placed" checked="checked" > Placement
+                    </label> 
+  <label class="radio-inline">
+                      RV_VLSIID<input type="text" name="rvpattern" id="rvpattern" value="" > 
+                    </label> 
                 </div> 
                                               
             
@@ -244,7 +250,7 @@ exit;
           
                      
             <div class="clearfix brd-top pad-t20">
-                <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">Save & Continue</button>       
+                <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">Download</button>       
             </div> 
             </div>                   
    
