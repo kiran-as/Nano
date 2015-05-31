@@ -288,7 +288,7 @@ $('#backlogAttempDivME').hide();
         </div>        
       </div>
            <div class="form-group" id="keywordsDiv" style="display:none">
-        <label class="col-sm-5 control-label">Key Words<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">Key Words used to search<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Keywords" id="keywords" name="keywords">
         </div>        
@@ -445,7 +445,7 @@ $('#backlogAttempDivME').hide();
               </div>        
       </div>
  <div class="form-group">
-        <label class="col-sm-5 control-label">Have you interested in VLSI or Embedded?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">Are you interested in VLSI or Embedded course?<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="radio" name="interested_in" id="interested_in" value="VLSI">VLSI
           <input type="radio" name="interested_in" id="interested_in" value="EMBEDDED">EMBEDDED
@@ -465,7 +465,7 @@ $('#backlogAttempDivME').hide();
       </div>
 <h3>EMBEDDED</h3>
 <div class="form-group">
-        <label class="col-sm-5 control-label">C?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in C?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="embedded_C" name="embedded_C">
                   <option value=''>Select</option>
@@ -479,7 +479,7 @@ $('#backlogAttempDivME').hide();
       </div>
       
       <div class="form-group">
-        <label class="col-sm-5 control-label">C++?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in C++?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="embedded_CCP" name="embedded_CCP">
                   <option value=''>Select</option>
@@ -492,7 +492,7 @@ $('#backlogAttempDivME').hide();
               </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">Linux?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in Linux?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="embedded_Linux" name="embedded_Linux">
                   <option value=''>Select</option>
@@ -505,7 +505,7 @@ $('#backlogAttempDivME').hide();
               </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">RTOS?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in RTOS?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="embedded_RTOS" name="embedded_RTOS">
                   <option value=''>Select</option>
@@ -762,7 +762,7 @@ $('#backlogAttempDivME').hide();
 <div class="clearfix"></div>
       <h3 class="brd-btm mar-b20">&nbsp;VLSI</h3>
 <div class="form-group">
-        <label class="col-sm-5 control-label">Logic Design?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in Logic Design?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="vlsi_logic_design" name="vlsi_logic_design">
                   <option value=''>Select</option>
@@ -776,7 +776,7 @@ $('#backlogAttempDivME').hide();
       </div>
       
       <div class="form-group">
-        <label class="col-sm-5 control-label">Transistor theory?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in Transistor theory?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="vlsi_transistor_theory" name="vlsi_transistor_theory">
                   <option value=''>Select</option>
@@ -789,7 +789,7 @@ $('#backlogAttempDivME').hide();
               </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">network analysis?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in network analysis?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="vlsi_network_analysis" name="vlsi_network_analysis">
                   <option value=''>Select</option>
@@ -802,7 +802,7 @@ $('#backlogAttempDivME').hide();
               </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">HDL Progrmming using verilog?<span class="error-text">*</span></label>
+        <label class="col-sm-5 control-label">How do you rate yourself in HDL Progrmming using verilog?<span class="error-text">*</span></label>
         <div class="col-sm-7">
               <select class="form-control" id="vlsi_hdl" name="vlsi_hdl">
                   <option value=''>Select</option>
