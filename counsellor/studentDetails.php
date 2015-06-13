@@ -3,11 +3,20 @@ include('../application/conn.php');
 include('include/resumeType.php');
 $councellorId = $_SESSION['idcouncellor'];
 error_reporting(-1);
-
+if($councellorId==2 || $councellorId==3)
+{
 $studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
+	 from tbl_rvstudent as a, tbl_pgdipcourses as b
+	 where a.pgdip_coursename=b.idpgdipcourses and idcouncellor=$councellorId 
+	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
+}
+else
+{
+	$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
 	 where a.pgdip_coursename=b.idpgdipcourses 
 	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
+}
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {

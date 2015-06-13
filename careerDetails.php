@@ -7,7 +7,8 @@ include('include/year.php');
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
-    
+     $currentcompanyfromyear = $_POST['currentcompanyfromyear'];
+     $currentcompanyfrommonth = $_POST['currentcompanyfrommonth'];
      $currentdesignation = str_replace("'","&#39;",$_POST['currentdesignation']);
      $currentcompany = str_replace("'","&#39;",$_POST['currentcompany']);
      $currentsalary = str_replace("'","&#39;",$_POST['currentsalary']);
@@ -25,7 +26,9 @@ if($_POST)
       expected_designation='$expecteddesignation',
       expected_location='$expectedlocation',
       previousexp='$previousCmpExp',
-       updated_date = '$updated_date'
+       updated_date = '$updated_date',
+       currentcompanyfrommonth = '$currentcompanyfrommonth',
+       currentcompanyfromyear = '$currentcompanyfromyear'
 
       where idstudent='$idstudent'");
 
@@ -107,7 +110,9 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $expectedlocation = $row['expected_location'];
     $expecteddesignation = $row['expected_designation'];   
     $experience = $row['experience'];     
-    $previousexp = $row['previousexp'];                       
+    $previousexp = $row['previousexp']; 
+     $currentcompanyfromyear = $row['currentcompanyfromyear'];
+     $currentcompanyfrommonth = $row['currentcompanyfrommonth'];                         
 }
 if($previousexp!='Yes')
 {
@@ -362,6 +367,36 @@ function fnShowOldCompanyDetails(id)
             <div class="col-sm-7">
               <input type="text" class="form-control" placeholder="Current Location" id="currentlocation" name="currentlocation" value="<?php echo $currentlocation;?>">
             </div>        
+          </div>
+          <div class="form-group">
+                    <label class="col-sm-5 control-label">Working From<span class="error-text">*</span></label>
+
+          <div class="col-sm-2">
+               <select class="form-control" placeholder="From Year" style="width:84px;"id="currentcompanyfrommonth" name="currentcompanyfrommonth">
+                  <option value=" ">Select</option>
+                  <option value="1" <?php if($currentcompanyfrommonth=='1'){ echo "selected=selected";}?>>Jan</option>
+                  <option value="2" <?php if($currentcompanyfrommonth=='2'){ echo "selected=selected";}?>>Feb</option>
+                  <option value="3" <?php if($currentcompanyfrommonth=='3'){ echo "selected=selected";}?>>March</option>
+                  <option value="4" <?php if($currentcompanyfrommonth=='4'){ echo "selected=selected";}?>>April</option>
+                  <option value="5" <?php if($currentcompanyfrommonth=='5'){ echo "selected=selected";}?>>May</option>
+                  <option value="6" <?php if($currentcompanyfrommonth=='6'){ echo "selected=selected";}?>>June</option>
+                  <option value="7" <?php if($currentcompanyfrommonth=='7'){ echo "selected=selected";}?>>July</option>
+                  <option value="8" <?php if($currentcompanyfrommonth=='8'){ echo "selected=selected";}?>>Aug</option>
+                  <option value="9" <?php if($currentcompanyfrommonth=='9'){ echo "selected=selected";}?>>Sep</option>
+                  <option value="10" <?php if($currentcompanyfrommonth=='10'){ echo "selected=selected";}?>>Oct</option>
+                  <option value="11" <?php if($currentcompanyfrommonth=='11'){ echo "selected=selected";}?>>Nov</option>
+                  <option value="12" <?php if($currentcompanyfrommonth=='12'){ echo "selected=selected";}?>>Dec</option>
+               </select>
+             </div>
+             <div class="col-sm-2">
+                <select class="form-control" id="currentcompanyfromyear" style="width:84px;" name="currentcompanyfromyear">
+                      <option value="">Select</option>
+                      <?php for($i=0;$i<count($yeararray);$i++){?>
+                      <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($currentcompanyfromyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
+                      <?php }?>
+                      
+                  </select>
+             </div>
           </div>
         </div>
        <div class="form-horizontal col-sm-6">

@@ -64,7 +64,8 @@ while($row = mysql_fetch_assoc($profileInformationSql))
   $degstate = $row['deg_state']; 
 $pgdip_othercoursename = $row['pgdip_othercoursename'];  
 $deg_othercoursename = $row['deg_othercoursename'];   
-$pg_othercoursename = $row['pg_othercoursename'];  
+$pg_othercoursename = $row['pg_othercoursename']; 
+ $ttp = $row['ttp'];
 }
 if($_POST)
 {
@@ -116,7 +117,7 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
   $pgdip_othercoursename = str_replace("'","&#39;",$_POST['pgdip_othercoursename']);   
   $deg_othercoursename = str_replace("'","&#39;",$_POST['deg_othercoursename']);   
   $pg_othercoursename = str_replace("'","&#39;",$_POST['pg_othercoursename']);   
-
+   $ttp = $_POST['ttp'];
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -193,7 +194,8 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                              pgdip_othercoursename = '$pgdip_othercoursename',
                              deg_othercoursename = '$deg_othercoursename',
                              pg_othercoursename = '$pg_othercoursename',
-                              updated_date = '$updated_date'
+                              updated_date = '$updated_date',
+                              ttp='$ttp'
 
                         where idstudent = '$idstudent'");
    echo "<script>parent.location='academicProjects.php'</script>";
@@ -285,6 +287,8 @@ function fnPgdipSchool(id)
       $('#otherschoolnamelabelid').hide();
       $('#otherschoolcitynamelabelid').hide();
       $('#percentagelabel').html('TTP');
+      $('#ttdDiv').show();
+      $('#pgOtherPercentageDiv').hide();
   }
   else
   {
@@ -294,6 +298,8 @@ function fnPgdipSchool(id)
       $('#rvvlsiid').val('');
       
       $('#percentagelabel').html('Aggregate Marks');
+           $('#ttdDiv').hide();
+           $('#pgOtherPercentageDiv').show();
   }
 
  othercoureseshideshow("<?php echo $pgDipCoursename;?>");
@@ -638,7 +644,7 @@ function otherpgcoureseshideshow(pgothercoursename)
                   </select>
                 </div>               
               </div> 
-              <div id="institudedetails" style='display:none'></div>
+              <div id="institudedetails" style='display:none'>
                <div class="form-group" id='otherschoolnamelabelid' >
                 <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
@@ -675,8 +681,9 @@ function otherpgcoureseshideshow(pgothercoursename)
                   <input type="name" class="form-control" placeholder="" id="pgdip_board" name="pgdip_board" value="<?php echo $pgdipboard;?>">
                 </div>        
               </div>  
+              <div id="pgOtherPercentageDiv">
              <div class="form-group">
-                <label class="col-sm-5 control-label" id='percentagelabel'></label>
+                <label class="col-sm-5 control-label">Percentage</label>
                 <div class="col-sm-7">
                     <label class="radio-inline" style='display:none'>
                       <input type="radio" name="pgdip-percentagetype" id="pgdip-percentagetype" value="Percentage" <?php if($pgdippercentagetype=='Percentage'){ echo "checked=checked";};?>> Percentage
@@ -687,8 +694,21 @@ function otherpgcoureseshideshow(pgothercoursename)
                     <input type="text" class="form-control mar-t10" placeholder="" id="pgdip_percentage" name="pgdip_percentage" value="<?php echo $pgdippercentage;?>">                                                      
                 </div>
               </div>
-               
-              
+              </div>
+              <div id="ttdDiv" style="display:none;">
+                <div class="form-group">
+                <label class="col-sm-5 control-label">TTP<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                   <select class="form-control" id="ttp" name="ttp" >
+                   <option value='0'>Results Awaited</option>
+                        <?php for($i=1;$i<=10;$i++){?>
+                      <option value="<?php echo $i?>" <?php if($i==$ttp){ echo "selected=selected";}?>><?php echo $i;?></option>
+                      <?php }?>
+             
+                  </select>
+                </div>        
+              </div> 
+              </div>
                     
                      <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>

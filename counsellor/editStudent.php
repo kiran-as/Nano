@@ -6,7 +6,7 @@ include('../include/pgcourses.php');
 include('../include/reviewstatus.php');
 include('../include/councellor.php');
 
-$studentId = $_GET['idstudent'];
+$student_id = $studentId = $_GET['idstudent'];
 $councellorId = $_SESSION['idcouncellor'];
 
 $studentdetails = mysql_query(("Select * from tbl_rvstudent
@@ -46,7 +46,38 @@ while($row = mysql_fetch_assoc($studentdetails))
   $deg_percentagetype = $row['deg_percentagetype'];
   $deg_percentage = $row['deg_percentage'];
   $pg_percentagetype = $row['pg_percentagetype'];
-  $pg_percentage = $row['pg_percentage'];        
+  $pg_percentage = $row['pg_percentage']; 
+  $be_seatquota = $row['be_seatquota'];
+$be_attempt = $row['be_attempt'];
+$be_subject = $row['be_subject'];
+$me_seatquota = $row['me_seatquota'];
+$me_attempt = $row['me_attempt'];
+$me_subject = $row['me_subject'];
+      $interested_in = $row['interested_in'];
+      $vlsi_logic_design = $row['vlsi_logic_design'];
+      $vlsi_transistor_theory = $row['vlsi_transistor_theory'];
+      $vlsi_network_analysis= $row['vlsi_network_analysis'];
+      
+      $vlsi_hdl = $row['vlsi_hdl'];
+      $embedded_C = $row['embedded_C'];
+      $embedded_Linux = $row['embedded_Linux'];
+      $embedded_RTOS= $row['embedded_RTOS'];
+      
+      $embedded_Microcontroller = $row['embedded_Microcontroller'];
+      $education_gap = $row['education_gap'];
+      $education_gap_reason= $row['education_gap_reason'];
+      
+      $joboffer_company_name = $row['joboffer_company_name'];
+      $joboffer_joining_date = $row['joboffer_joining_date'];
+      $joboffer_ctc= $row['joboffer_ctc'];
+      
+      $expectingjob = $row['expectingjob'];
+      $expecting_joboffer_company_name = $row['expecting_joboffer_company_name'];
+      $me_college_name = $row['me_college_name'];
+      $me_university_name= $row['me_university_name'];
+      
+      $be_college_name = $row['be_college_name'];
+      $be_university_name = $row['be_university_name'];   
 }
 
 $councellorSql = mysql_query("Select a.* , b.*, c.*
@@ -273,8 +304,19 @@ function fnothercourses()
                   <input type="name" class="form-control" readonly=readonly placeholder="Course Name" id="deg_othercoursename" name="deg_othercoursename" value="<?php echo $deg_othercoursename;?>">
                 </div>               
               </div> 
-
- <div class="form-group">
+  <div class="form-group">
+                <label class="col-sm-5 control-label">College Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Course Name" id="be_college_name" name="be_college_name" value="">
+                </div>               
+              </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">University Name <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Course Name" id="be_university_name" name="be_university_name" value="">
+                </div>               
+              </div>
+               <div class="form-group">
                 <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
@@ -286,60 +328,35 @@ function fnothercourses()
                     <input type="text" class="form-control mar-t10" placeholder="" id="deg_percentage" name="deg_percentage" value="<?php echo $deg_percentage;?>">                                                      
                 </div>
               </div>
-               <h3 class="brd-btm mar-b20">Basic Details</h3>
-      <div class="form-group">
-        <label class="col-sm-5 control-label">Have you taken any other course?<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-          <input type="radio" name="othercourses" id="othercourses" value="Yes" <?php if($othercourses=='Yes'){ echo "checked=checked";}?>>Yes
-          <input type="radio" name="othercourses" id="othercourses" value="No"  <?php if($othercourses=='No'){ echo "checked=checked";}?>>No
-        </div>        
-      </div>
-       <div id="othercoursesoptions">
-        <div class="form-group">
-        <label class="col-sm-5 control-label">Course Name<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Course Name" id="other_coursename" name="other_coursename" value="<?php echo $other_coursename;?>">
-        </div>        
-      </div>
-       <div class="form-group">
-        <label class="col-sm-5 control-label">Institute Name<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Institute Name" id="other_institutename" name="other_institutename" value="<?php echo $other_institutename;?>">
-        </div>        
-      </div>
-        <div class="form-group">
-        <label class="col-sm-5 control-label">Duration<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Duration" id="other_courseduration" name="other_courseduration" value="<?php echo $other_courseduration;?>">
-        </div>        
-      </div>
-      </div>
-          <div class="form-group">
-        <label class="col-sm-5 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-<select class="form-control" id="primary_reason" name="primary_reason">
-                  <option value=''>Select</option>
-                  <option value='Highter studies India' <?php if($primary_reason=='Highter studies India'){ echo "selected=selected";}?>>Highter studies India</option>
-                  <option value='Higher studies Abroad' <?php if($primary_reason=='Higher studies Abroad'){ echo "selected=selected";}?>>Higher studies Abroad</option>
-                  <option value='other Technical services exams' <?php if($primary_reason=='other Technical services exams'){ echo "selected=selected";}?>>other Technical services exams</option>
-                  <option value='Job in core industry.'  <?php if($primary_reason=='Job in core industry.'){ echo "selected=selected";}?>>Job in core industry.</option>
-
-              </select>        
-              </div>        
-      </div>
-      <div class="form-group">
-        <label class="col-sm-5 control-label">How do you rate yourself on basic concepts of VLSI?<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-<select class="form-control" id="vlsi_rate" name="vlsi_rate">
-                  <option value=''>Select</option>
-                  <option value='Excellent' <?php if($vlsi_rate=='Excellent'){echo "selected=selected";}?>>Excellent</option>
-                  <option value='Good' <?php if($vlsi_rate=='Good'){echo "selected=selected";}?>>Good</option>
-                  <option value='Good but need help' <?php if($vlsi_rate=='Good but need help'){echo "selected=selected";}?>>Good but need help</option>
-                  <option value='Average' <?php if($vlsi_rate=='Average'){echo "selected=selected";}?>>Average</option>
-
-              </select>        
-              </div>        
-      </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Seat Type<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="be_seatquota" id="be_seatquota" value="Merit" <?php if($be_seatquota == 'Merit'){ echo "checked=checked";}?>> Merit
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="be_seatquota" id="be_seatquota" <?php if($be_seatquota == 'Payment'){ echo "checked=checked";}?> value="Payment" > Payment/Management
+                    </label>        
+                                    </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Attempts in BE<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="be_attempt" id="be_attempt" value="Single" <?php if($be_attempt == 'Single'){ echo "checked=checked";}?>checked="checked" onclick="beAttempt('Single')"> Single Attempt
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="be_attempt" id="be_attempt" value="Backlog" <?php if($be_attempt == 'Backlog'){ echo "checked=checked";}?>onclick="beAttempt('Backlog')"> Backlog
+                    </label>        
+                                    </div>
+              </div>
+              <div class="form-group" id="backlogAttempDiv" style='display:'>
+                <label class="col-sm-5 control-label">Subjects<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Subject1, Subject2..." id="be_subject" name="be_subject" value="<?php echo $be_subject;?>">
+                </div>               
+              </div>
+     
 
     </div>
     <div class="form-horizontal col-sm-6">
@@ -385,7 +402,9 @@ function fnothercourses()
         <div class="col-sm-7">
           <input type="text" class="form-control" readonly=readonly placeholder="First Name" id="puc_percentage" name="puc_percentage" value="<?php echo $puc_percentage;?>">
         </div>        
-      </div>
+      </div> 
+     
+     
                    <h3 class="brd-btm mar-b20">M.Tech / M.E  Details</h3>
 
        <div class="form-group">
@@ -419,7 +438,18 @@ function fnothercourses()
                   <input type="name" class="form-control" readonly=readonly placeholder="Course Name" id="pg_othercoursename" name="pg_othercoursename" value="<?php echo $pg_othercoursename;?>">
                 </div>               
               </div> 
-
+ <div class="form-group">
+                <label class="col-sm-5 control-label">College Name<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="College Name" id="me_college_name" name="me_college_name" value="<?php echo $me_college_name;?>">
+                </div>               
+              </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">University Name <span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="University Name" id="me_university_name" name="me_university_name" value="<?php echo $me_university_name;?>">
+                </div>               
+              </div>
                <div class="form-group">
                 <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text"></span></label>
                 <div class="col-sm-7">
@@ -432,64 +462,263 @@ function fnothercourses()
                     <input type="text" class="form-control mar-t10" placeholder="" id="pg-percentage" name="pg-percentage" value="<?php echo $pg_percentage;?>">                                                      
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Seat Type<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="me_seatquota" id="me_seatquota" <?php if($me_seatquota == 'Merit'){ echo "checked=checked";}?> value="Merit" checked="checked"> Merit
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="me_seatquota" id="me_seatquota" <?php if($me_seatquota == 'Payment'){ echo "checked=checked";}?> value="Payment" > Payment/Management
+                    </label>        
+                                    </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-5 control-label">Attempts in ME<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="me_attempt" id="me_attempt" value="Single" <?php if($me_attempt == 'Single'){ echo "checked=checked";}?> onclick="meAttempt('Single')"> Single Attempt
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="me_attempt" id="me_attempt" value="Backlog" <?php if($me_attempt == 'Backlog'){ echo "checked=checked";}?> onclick="meAttempt('Backlog')"> Backlog
+                    </label>        
+                                    </div>
+              </div>
+              <div class="form-group" id="backlogAttempDivME" style='display:'>
+                <label class="col-sm-5 control-label">Subjects<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                  <input type="name" class="form-control" placeholder="Subject1, Subject2..." id="me_subject" name="me_subject" value="<?php echo $me_subject;?>">
+                </div>               
+              </div>
 
-               <h3 class="brd-btm mar-b20">Basic Details</h3>
+    </div>
+     
+<div class="row">
+           <div class="col-sm-12">
+                              <h3 class="brd-btm mar-b20">Councellor Questions</h3>
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Have you taken any other skill development courses?<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+          <input type="radio" name="othercourses" id="othercourses" value="Yes" <?php if($othercourses=='Yes'){ echo "checked=checked";}?>onclick="fnothercourses(this.value)">Yes
+          <input type="radio" name="othercourses" id="othercourses" value="No" <?php if($othercourses=='No'){ echo "checked=checked";}?>onclick="fnothercourses(this.value)">No
+                </div>               
+              </div> 
+              <div id="othercoursesoptions" style="display:">
+       <div class="form-group">
+        <label class="col-sm-4 control-label">Course Name<span class="error-text">*</span></label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Course Name" id="other_coursename" name="other_coursename" value="<?php echo $other_coursename;?>">
+        </div>        
+      </div>
+       <div class="form-group">
+        <label class="col-sm-4 control-label">Institute Name<span class="error-text">*</span></label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Institute Name" id="other_institutename" name="other_institutename" value="<?php echo $other_institutename;?>">
+        </div>        
+      </div>
+        <div class="form-group">
+        <label class="col-sm-4 control-label">Duration<span class="error-text">*</span></label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Duration" id="other_courseduration" name="other_courseduration" value="<?php echo $other_courseduration;?>">
+        </div>        
+      </div>
+ </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-<select class="form-control" id="primary_reason" name="primary_reason">
-                  <option value=''>Select</option>
-                  <option value='Highter studies India' <?php if($primary_reason=='Highter studies India'){ echo "Selected=selected";}?>>Highter studies India</option>
-                  <option value='Higher studies Abroad' <?php if($primary_reason=='Higher studies Abroad'){ echo "Selected=selected";}?>>Higher studies Abroad</option>
-                  <option value='other Technical services exams' <?php if($primary_reason=='other Technical services exams'){ echo "Selected=selected";}?>>other Technical services exams</option>
-                  <option value='Job in core industry.' <?php if($primary_reason=='Job in core industry.'){ echo "Selected=selected";}?>>Job in core industry.</option>
-
-              </select>        
-              </div>        
+        <label class="col-sm-4 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
+        <div class="col-sm-8">
+                  <input type="radio" name="primary_reason" id="primary_reason" value="Job in core industry" >Job in core industry 
+          <input type="radio" name="primary_reason" <?php if($primary_reason=='Highter studies India') { echo  "checked=checked";}?> id="primary_reason" value="Highter studies India" >Highter studies in India
+          <input type="radio" name="primary_reason" <?php if($primary_reason=='Higher studies Abroad') { echo  "checked=checked";}?> id="primary_reason" value="Higher studies Abroad" >Preparing for heigher studies Abroad
+          <input type="radio" name="primary_reason" <?php if($primary_reason=='other Technical services exams') { echo  "checked=checked";}?> id="primary_reason" value="other Technical services exams" >Preparing for other Technical exams
+             
+        </div>       
       </div>
-       <div class="form-group">
-        <label class="col-sm-5 control-label">Are you expecting any job offer shortly?<span class="error-text">*</span></label>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Do you know the domain you are interested in?<span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="radio" name="joboffer" id="joboffer" value="Yes (Core Job)" <?php if($joboffer=='Yes (Core Job)'){ echo "checked=checked";}?>>Yes (Core Job)
-          <input type="radio" name="joboffer" id="joboffer" value="Yes (Non Core Job)" <?php if($joboffer=='Yes (Non Core Job)'){ echo "checked=checked";}?>>Yes (Non Core Job)
-          <input type="radio" name="joboffer" id="joboffer" value="No" <?php if($joboffer=='No'){ echo "checked=checked";}?>>No
+          <input type="radio" name="interested_in" <?php if($interested_in=='VLSI') { echo  "checked=checked";}?> id="interested_in" value="VLSI">VLSI
+          <input type="radio" name="interested_in" <?php if($interested_in=='EMBEDDED') { echo  "checked=checked";}?>  id="interested_in" value="EMBEDDED">EMBEDDED
+          <input type="radio" name="interested_in" <?php if($interested_in=='Both') { echo  "checked=checked";}?> id="interested_in" value="Both">Not Sure/ Both
+
         </div>        
       </div>
-       <div class="form-group">
-        <label class="col-sm-5 control-label">Are you looking for Monday to Friday full time or Weekend parttime course?<span class="error-text">*</span></label>
+     <div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in Logic Design?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" <?php if($vlsi_logic_design=='Excellent') { echo  "checked=checked";}?> value='Excellent'>Excellent
+                  <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" <?php if($vlsi_logic_design=='Good') { echo  "checked=checked";}?> value='Good'>Good
+                  <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" <?php if($vlsi_logic_design=='Good but need help') { echo  "checked=checked";}?> value='Good but need help'>Good but need help
+                  <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" <?php if($vlsi_logic_design=='Average') { echo  "checked=checked";}?> value='Average'>Average
+              </div>        
+      </div>
+
+<div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in Transistor theory?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" <?php if($vlsi_transistor_theory=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" <?php if($vlsi_transistor_theory=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" <?php if($vlsi_transistor_theory=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" <?php if($vlsi_transistor_theory=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in network analysis?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" <?php if($vlsi_network_analysis=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" <?php if($vlsi_network_analysis=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" <?php if($vlsi_network_analysis=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" <?php if($vlsi_network_analysis=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in HDL Progrmming using verilog?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="vlsi_hdl" id="vlsi_hdl" <?php if($vlsi_hdl=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="vlsi_hdl" id="vlsi_hdl" <?php if($vlsi_hdl=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="vlsi_hdl" id="vlsi_hdl" <?php if($vlsi_hdl=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="vlsi_hdl" id="vlsi_hdl" <?php if($vlsi_hdl=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+        <div class="form-group">
+        <label class="col-sm-4 control-label">Microcontroller / Microprocess Basics?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" <?php if($embedded_Microcontroller=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" <?php if($embedded_Microcontroller=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" <?php if($embedded_Microcontroller=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" <?php if($embedded_Microcontroller=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+<div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in C?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="embedded_C" id="embedded_C" <?php if($embedded_C=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="embedded_C" id="embedded_C" <?php if($embedded_C=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="embedded_C" id="embedded_C" <?php if($embedded_C=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="embedded_C" id="embedded_C" <?php if($embedded_C=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+
+<div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in Linux?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="embedded_Linux" id="embedded_Linux" <?php if($embedded_Linux=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="embedded_Linux" id="embedded_Linux" <?php if($embedded_Linux=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="embedded_Linux" id="embedded_Linux" <?php if($embedded_Linux=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="embedded_Linux" id="embedded_Linux" <?php if($embedded_Linux=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+<div class="form-group">
+        <label class="col-sm-4 control-label">How do you rate yourself in RTOS?<span class="error-text">*</span></label>
+        <div class="col-sm-5">
+                  <input type="radio" name="embedded_RTOS" id="embedded_RTOS" <?php if($embedded_RTOS=='Excellent') { echo  "checked=checked";}?>value='Excellent'>Excellent
+                  <input type="radio" name="embedded_RTOS" id="embedded_RTOS" <?php if($embedded_RTOS=='Good') { echo  "checked=checked";}?>value='Good'>Good
+                  <input type="radio" name="embedded_RTOS" id="embedded_RTOS" <?php if($embedded_RTOS=='Good but need help') { echo  "checked=checked";}?>value='Good but need help'>Good but need help
+                  <input type="radio" name="embedded_RTOS" id="embedded_RTOS" <?php if($embedded_RTOS=='Average') { echo  "checked=checked";}?>value='Average'>Average
+              </div>        
+      </div>
+    
+      <div class="form-group">
+        <label class="col-sm-4 control-label">How many weeks can you spare?<span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="radio" name="timeduration" id="timeduration" value="Monday to Friday" <?php if($timeduration=='Monday to Friday') { echo "Checked=checked";}?>>Monday to Friday
-          <input type="radio" name="timeduration" id="timeduration" value="Weekend Part Time" <?php if($timeduration=='Weekend Part Time') { echo "Checked=checked";}?>>Weekend Part Time
+                  <input type="radio" name="weeks_spare" id="weeks_spare"  <?php if($weeks_spare=='4') { echo  "checked=checked";}?> value='4'>4 Weeks
+                  <input type="radio" name="weeks_spare" id="weeks_spare"  <?php if($weeks_spare=='12') { echo  "checked=checked";}?> value='12'>12 Weeks
+                  <input type="radio" name="weeks_spare" id="weeks_spare"  <?php if($weeks_spare=='16') { echo  "checked=checked";}?> value='16'>16 Weeks
+                  <input type="radio" name="weeks_spare" id="weeks_spare"  <?php if($weeks_spare=='24') { echo  "checked=checked";}?> value='24'>24 Weeks
+              </div>        
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Are you looking Weekday or Weekend Courses?<span class="error-text">*</span></label>
+        <div class="col-sm-7">
+          <input type="radio" name="timeduration" id="timeduration" <?php if($timeduration=='Monday to Friday') { echo  "checked=checked";}?>  value="Monday to Friday">Monday to Friday
+          <input type="radio" name="timeduration" id="timeduration" <?php if($timeduration=='Weekend Part Time') { echo  "checked=checked";}?>  value="Weekend Part Time">Weekend Part Time
         </div>        
       </div>
-          <div class="form-group">
-        <label class="col-sm-5 control-label">How do you rate yourself on basic concepts of Embedded?<span class="error-text">*</span></label>
-        <div class="col-sm-7">
-<select class="form-control" id="embedded_rate" name="embedded_rate">
-                  <option value=''>Select</option>
-                        <option value=''>Select</option>
-                  <option value='Excellent' <?php if($embedded_rate=='Excellent'){echo "selected=selected";}?>>Excellent</option>
-                  <option value='Good' <?php if($embedded_rate=='Good'){echo "selected=selected";}?>>Good</option>
-                  <option value='Good but need help' <?php if($embedded_rate=='Good but need help'){echo "selected=selected";}?>>Good but need help</option>
-                  <option value='Average' <?php if($embedded_rate=='Average'){echo "selected=selected";}?>>Average</option>
 
-              </select>        
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Approximate income of Family?<span class="error-text">*</span></label>
+        <div class="col-sm-7">
+                  <input type="radio" name="income" id="income"   <?php if($income=='less than 3 Lack') { echo  "checked=checked";}?>  value='less than 3 Lack'>Less than 3 Lack
+                  <input type="radio" name="income" id="income"   <?php if($income=='3 to 5 Lack') { echo  "checked=checked";}?>  value='3 to 5 Lack'>3 to 5 Lack
+                  <input type="radio" name="income" id="income"   <?php if($income=='greater than 5 Lack') { echo  "checked=checked";}?>  value='greater than 5 Lack'>Greater than 5 Lack
               </div>        
       </div>
-       <div class="form-group">
-        <label class="col-sm-5 control-label">Approximately income of Family?<span class="error-text">*</span></label>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Any gap in education<span class="error-text">*</span></label>
         <div class="col-sm-7">
-<select class="form-control" id="income" name="income">
-                  <option value=''>Select</option>
-                  <option value='less than 3 Lack' <?php if($income=='less than 3 Lack'){ echo "selected=selected";}?>>Less than 3 Lack</option>
-                  <option value='3 to 5 Lack' <?php if($income=='3 to 5 Lack'){ echo "selected=selected";}?>>3 to 5 Lack</option>
-                  <option value='greater than 5 Lack' <?php if($income=='greater than 5 Lack'){ echo "selected=selected";}?>>Greater than 5 Lack</option>
-
-              </select>        
-              </div>        
+          <input type="radio" name="education_gap" id="education_gap" value="Yes" <?php if($education_gap=='Yes') { echo  "checked=checked";}?>  onclick="fnEducationGap('Yes');">Yes
+          <input type="radio" name="education_gap" id="education_gap" value="No" <?php if($education_gap=='No') { echo  "checked=checked";}?>  checked="checked" onclick="fnEducationGap('No');">No
+        </div>        
+      </div>
+      <div id='educationGapDiv' style="display:">
+      <div class="form-group">
+                <label class="col-sm-4 control-label">Reason<span class="error-text">*</span></label>
+                <div class="col-sm-4">
+                  <input type="name" class="form-control" placeholder="Reason" id="education_gap_reason" name="education_gap_reason" value="<?php echo $education_gap_reason;?>">
+                </div>               
       </div>
     </div>
+          <div class="form-group">
+        <label class="col-sm-4 control-label">Do you have a job offer in hand from campus?<span class="error-text">*</span></label>
+        <div class="col-sm-7">
+          <input type="radio" name="joboffer" id="joboffer" value="Yes" <?php if($education_gap=='Yes') { echo  "checked=checked";}?>  onclick="fnJobOffer('Yes');">Yes
+          <input type="radio" name="joboffer" id="joboffer" value="No" <?php if($education_gap=='No') { echo  "checked=checked";}?> onclick="fnJobOffer('No');">No
+        </div>        
+      </div>
 
+      <div id="jobofferDivYES" style="display:">
+      <div class="form-group">
+                <label class="col-sm-4 control-label">Company Name<span class="error-text">*</span></label>
+                <div class="col-sm-5">
+                  <input type="name" class="form-control" placeholder="Company NAme" id="joboffer_company_name" name="joboffer_company_name" value="<?php echo $joboffer_company_name;?>">
+                </div>               
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Joining Date<span class="error-text">*</span></label>
+                <div class="col-sm-5">
+                  <input type="name" class="form-control" placeholder="" id="joboffer_joining_date" name="joboffer_joining_date" value="<?php echo $joboffer_joining_date;?>">
+                </div>               
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">CTC<span class="error-text">*</span></label>
+                <div class="col-sm-5">
+                  <input type="name" class="form-control" placeholder="" id="joboffer_ctc" name="joboffer_ctc" value="<?php echo $joboffer_ctc;?>">
+                </div>               
+              </div>
+      </div>
+      <div id="jobofferDivNO" style="display:none">
+
+       <div class="form-group">
+        <label class="col-sm-4 control-label">Are you expecting a job ?<span class="error-text">*</span></label>
+        <div class="col-sm-4">
+          <input type="radio" name="expectingjob" id="expectingjob" value="Yes" onclick="fnExpectingJobOffer('Yes');">Yes
+          <input type="radio" name="expectingjob" id="expectingjob" value="No" checked="checked" onclick="fnExpectingJobOffer('No');">No
+        </div>        
+      </div>
+      </div>
+<div id="expectingJobOfferDivYes" style="display:none">
+<div class="form-group">
+                <label class="col-sm-4 control-label">Company Name<span class="error-text">*</span></label>
+                <div class="col-sm-4">
+                  <input type="name" class="form-control" placeholder="Company NAme" id="expecting_joboffer_company_name" name="expecting_joboffer_company_name" value="">
+                </div>               
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Joining Date<span class="error-text">*</span></label>
+                <div class="col-sm-4">
+                  <input type="name" class="form-control" placeholder="" id="expecting_joboffer_joining_date" name="expecting_joboffer_joining_date" value="">
+                </div>               
+              </div>
+</div>
+
+ 
+ 
+  </div>
+</div>
            <div class="form-horizontal">
            <div class="col-sm-12">
             <h3 class="brd-btm mar-b20">Councellor Review</h3>
