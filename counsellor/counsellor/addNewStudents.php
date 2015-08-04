@@ -83,10 +83,9 @@ if($_POST)
   $professor_name = $_POST['professor_name'];
   $keywords = $_POST['keywords'];
   $weeks_spare = $_POST['weeks_spare'];
-  $studenttype  = $_POST['studenttype'];
 
   mysql_query("Insert into tbl_rvstudent 
-    (studenttype,weeks_spare,friendsname, professor_name, keywords,name,phone,came_through,sslc_passoutyear,tenth_percentage,
+    (weeks_spare,friendsname, professor_name, keywords,name,phone,came_through,sslc_passoutyear,tenth_percentage,
       deg_passoutyear,deg_department,deg_othercoursename,
       email,hometown,pgdip_coursename,
       puc_passoutyear,puc_percentage,pg_passoutyear,
@@ -103,7 +102,7 @@ if($_POST)
       joboffer_ctc,expectingjob,expecting_joboffer_company_name,me_college_name,
       me_university_name,be_college_name,be_university_name)
 
-    Values ('$studenttype','$weeks_spare','$friendsname', '$professor_name', '$keywords','$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
+    Values ('$weeks_spare','$friendsname', '$professor_name', '$keywords','$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
       '$deg_passoutyear','$deg_department','$deg_othercoursename',
       '$email','$hometown','$pgdip_coursename',
       '$puc_passoutyear','$puc_percentage','$pg_passoutyear',
@@ -158,20 +157,17 @@ echo "<script>parent.location='studentDetails.php'</script>";
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
- <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-  <script src="../js/jquery-1.11.0.min.js"></script>
+ <script src="../js/jquery-1.11.0.min.js"></script>
 <script src="../js/jquery.validation.js"></script>
 <script src="../js/customised_validation.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   
   <script>
   $(function() {
-   $( "#datepicker" ).datepicker({ minDate: -00, maxDate: "+1M +10D" });
-   $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#datepicker" ).datepicker({ minDate: -00, maxDate: "+1M +10D" });
+    $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
   });
 
 function otherdegcoureseshideshow(id)
@@ -201,15 +197,13 @@ function otherpgcoureseshideshow(id)
 function fnothercourses(id)
 {
 	if(id=='Yes')
-  {
-    $('#othercoursesoptions').show();
-    $("#othercoursesQuestion").css("color", "red");
-  }
-  else
-  {
-    $('#othercoursesoptions').hide();
-    $("#othercoursesQuestion").css("color", "black");
-  }
+	{
+		$('#othercoursesoptions').show();
+	}
+	else
+	{
+		$('#othercoursesoptions').hide();
+	}
 }
 
  function onReviewStatus(id)
@@ -270,14 +264,11 @@ $('#backlogAttempDivME').hide();
  {
   if(value=='Yes')
   {
-    $('#jobOfferInHand').css("color","red");
     $('#jobofferDivYES').show();
     $('#jobofferDivNO').hide();
   }
   else
   {
-        $('#jobOfferInHand').css("color","black");
-
     $('#jobofferDivYES').hide();
     $('#jobofferDivNO').show();
   }
@@ -287,13 +278,10 @@ $('#backlogAttempDivME').hide();
  {
    if(value=='Yes')
    {
-    $('#expectingJobLabel').css("color","red");
  $('#expectingJobOfferDivYes').show();
    }
    else
    {
-        $('#expectingJobLabel').css("color","black");
-
  $('#expectingJobOfferDivYes').hide();
 
    }
@@ -326,37 +314,12 @@ function courses(course)
 		$('#embeddeddiv').show();
 	}
 }
-
-function fnPrimaryReason(id)
-{
-  if(id=='other Technical services exams')
-  {
-$("#primaryReasonLable").css("color", "red");
-  }
-  else
-  {
-    $("#primaryReasonLable").css("color", "black");
-  }
-}
-
-function fnIncomeOfFamily(id)
-{
-
-  if(id=='less than 3 Lack')
-  {
-$("#incomeFamilyLabel").css("color", "red");
-  }
-  else
-  {
-    $("#incomeFamilyLabel").css("color", "black");
-  }
-}
   </script>    
   </head>
 
   <body>
       <form action="" method="POST" id="academicProject">
-   <?php include('include/header.php');?>
+     <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
     
@@ -365,19 +328,19 @@ $("#incomeFamilyLabel").css("color", "red");
 <div class="row">
     <div class="form-horizontal col-sm-6">
       <div class="form-group">
-        <label class="col-sm-5 control-label">First Name </label>
+        <label class="col-sm-5 control-label">First Name <span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="First Name" id="name" name="name" value="<?php echo $firstName;?>">
         </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">Mobile</label>
+        <label class="col-sm-5 control-label">Mobile<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Mobile No" id="phone" name="phone" value="<?php echo $firstName;?>">
         </div>        
       </div>
       <div class="form-group">
-                <label class="col-sm-5 control-label">how did you come to know about RV-VLSI</label>
+                <label class="col-sm-5 control-label">how did you come to know about RV-VLSI<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                  <select class="form-control" id="came_through" name="came_through" onchange="rvdropdown(this.value)">
                        <option value="select">Please select</option>
@@ -395,29 +358,28 @@ $("#incomeFamilyLabel").css("color", "red");
           </div> 
           <div class="clearfix"></div>
           <div class="form-group" id="friendDiv" style="display:none">
-        <label class="col-sm-5 control-label">Friends Name</label>
+        <label class="col-sm-5 control-label">Friends Name<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Friends Name" id="friendsname" name="friendsname">
         </div>        
       </div>
            <div class="form-group" id="keywordsDiv" style="display:none">
-        <label class="col-sm-5 control-label">Key Words used to search</label>
+        <label class="col-sm-5 control-label">Key Words used to search<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Keywords" id="keywords" name="keywords">
         </div>        
       </div>
        <div class="form-group" id="ProfessorNameDiv" style='display:none'>
-        <label class="col-sm-5 control-label">Professor Name</label>
+        <label class="col-sm-5 control-label">Professor Name<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="Professor Name" id="professor_name" name="professor_name">
         </div>        
       </div>
        <h3 class="brd-btm mar-b20">10th Details</h3>
      <div class="form-group">
-        <label class="col-sm-5 control-label">Passed Out </label>
+        <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
         <div class="col-sm-7">
           <select class="form-control" id="sslc_passoutyear" name="sslc_passoutyear">
-<option value=''>Select</option>
               <?php for($i=0;$i<count($yeararray);$i++){?>
               <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($sslcpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
               <?php }?>
@@ -427,15 +389,15 @@ $("#incomeFamilyLabel").css("color", "red");
       </div> 
 
       <div class="form-group">
-        <label class="col-sm-5 control-label">Percentage</label>
+        <label class="col-sm-5 control-label">Percentage<span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Percentage" id="tenth_percentage" name="tenth_percentage" value="<?php echo $firstName;?>">
+          <input type="text" class="form-control" placeholder="First Name" id="tenth_percentage" name="tenth_percentage" value="<?php echo $firstName;?>">
         </div>        
       </div>
 
        <h3 class="brd-btm mar-b20">B.E / Degree Details</h3>
       <div class="form-group">
-                <label class="col-sm-5 control-label">Passed Out </label>
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                  <select class="form-control" id="deg_passoutyear" name="deg_passoutyear">
                       <?php for($i=0;$i<count($yeararray);$i++){?>
@@ -446,7 +408,7 @@ $("#incomeFamilyLabel").css("color", "red");
                 </div>        
               </div> 
                  <div class="form-group">
-            <label class="col-sm-5 control-label">Branch</label>
+            <label class="col-sm-5 control-label">Branch<span class="error-text">*</span></label>
             <div class="col-sm-7">
                 <select class="form-control" id="deg_department" name="deg_department" onchange="otherdegcoureseshideshow(this.value)">
                   <?php for($i=0;$i<count($departmentarray);$i++){?>
@@ -458,26 +420,26 @@ $("#incomeFamilyLabel").css("color", "red");
             </div>        
               </div> 
  <div class="form-group" id="degotherschoolcoursename" style='display:none'>
-                <label class="col-sm-5 control-label">Course Name </label>
+                <label class="col-sm-5 control-label">Course Name <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="Course Name" id="deg_othercoursename" name="deg_othercoursename" value="<?php echo $deg_othercoursename;?>">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">College Name</label>
+                <label class="col-sm-5 control-label">College Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="College Name" id="be_college_name" name="be_college_name" value="">
+                  <input type="name" class="form-control" placeholder="Course Name" id="be_college_name" name="be_college_name" value="">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">University Name </label>
+                <label class="col-sm-5 control-label">University Name <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="University Name" id="be_university_name" name="be_university_name" value="">
+                  <input type="name" class="form-control" placeholder="Course Name" id="be_university_name" name="be_university_name" value="">
                 </div>               
               </div>
               
                             <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks </label>
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="deg_percentagetype" id="deg_percentagetype" value="Percentage" checked="checked"> Percentage
@@ -489,7 +451,7 @@ $("#incomeFamilyLabel").css("color", "red");
                 </div>
               </div>
                  <div class="form-group">
-                <label class="col-sm-5 control-label">Seat Type</label>
+                <label class="col-sm-5 control-label">Seat Type<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="be_seatquota" id="be_seatquota" value="Merit" checked="checked"> Merit
@@ -500,7 +462,7 @@ $("#incomeFamilyLabel").css("color", "red");
                                     </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">Attempts in BE</label>
+                <label class="col-sm-5 control-label">Attempts in BE<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="be_attempt" id="be_attempt" value="Single" checked="checked" onclick="beAttempt('Single')"> Single Attempt
@@ -511,7 +473,7 @@ $("#incomeFamilyLabel").css("color", "red");
                                     </div>
               </div>
               <div class="form-group" id="backlogAttempDiv" style='display:none'>
-                <label class="col-sm-5 control-label">Subjects</label>
+                <label class="col-sm-5 control-label">Subjects<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="Subject1, Subject2..." id="be_subject" name="be_subject" value="">
                 </div>               
@@ -519,19 +481,19 @@ $("#incomeFamilyLabel").css("color", "red");
     </div>
     <div class="form-horizontal col-sm-6">
       <div class="form-group">
-        <label class="col-sm-5 control-label">Email</label>
+        <label class="col-sm-5 control-label">Email<span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Email" id="email" name="email" value="<?php echo $firstName;?>">
+          <input type="text" class="form-control" placeholder="First Name" id="email" name="email" value="<?php echo $firstName;?>">
         </div>        
       </div>
       <div class="form-group">
-        <label class="col-sm-5 control-label">Home Town </label>
+        <label class="col-sm-5 control-label">Home Town <span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Home Town" id="hometown" name="hometown" value="<?php echo $firstName;?>">
+          <input type="text" class="form-control" placeholder="First Name" id="hometown" name="hometown" value="<?php echo $firstName;?>">
         </div>        
       </div>
        <div class="form-group">
-                <label class="col-sm-5 control-label">Course Opted</label>
+                <label class="col-sm-5 control-label">Course Opted<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                    <select class="form-control" id="pgdip_coursename" name="pgdip_coursename" onchange="othercoureseshideshow(this.value)">
                         <?php for($i=0;$i<count($pgCoursesArray);$i++){?>
@@ -542,7 +504,7 @@ $("#incomeFamilyLabel").css("color", "red");
                 </div>        
               </div>  
 <div class="form-group">
-        <label class="col-sm-5 control-label">State </label>
+        <label class="col-sm-5 control-label">State <span class="error-text">*</span></label>
         <div class="col-sm-7">
           <select class="form-control" id="state" name="state">
               <option value="Karnataka">Karnataka</option>
@@ -574,21 +536,13 @@ $("#incomeFamilyLabel").css("color", "red");
 <option value="Uttarakhand">Uttarakhand</option>
 <option value="West Bengal">West Bengal</option>        
           </select>
-        </div>  
-         <div class="form-group">
-        <label class="col-sm-4 control-label">Are you fresher or experience?</label>
-        <div class="col-sm-5">
-                  <input type="radio" name="studenttype" id="studenttype" value='Fresher'>Fresher
-                  <input type="radio" name="studenttype" id="studenttype" value='Experience'>Experience
-              </div>        
-      </div>   
+        </div>     
                    <h3 class="brd-btm mar-b20">12th / PUC  Details / Diploma</h3>
 
       <div class="form-group">
-                <label class="col-sm-5 control-label">Passed Out </label>
+                <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <select class="form-control" id="puc_passoutyear" name="puc_passoutyear">
-<option value=''>Select</option>
                       <?php for($i=0;$i<count($yeararray);$i++){?>
                       <option value="<?php echo $yeararray[$i]['years'];?>" <?php if($pucpassoutyear==$yeararray[$i]['years']){ echo "selected=selected";}?>><?php echo $yeararray[$i]['years'];?></option>
                       <?php }?>
@@ -599,9 +553,9 @@ $("#incomeFamilyLabel").css("color", "red");
 
 
       <div class="form-group">
-        <label class="col-sm-5 control-label">Percentage</label>
+        <label class="col-sm-5 control-label">Percentage<span class="error-text">*</span></label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="Percentage" id="puc_percentage" name="puc_percentage" value="<?php echo $firstName;?>">
+          <input type="text" class="form-control" placeholder="First Name" id="puc_percentage" name="puc_percentage" value="<?php echo $firstName;?>">
         </div>        
       </div>
 
@@ -633,25 +587,25 @@ $("#incomeFamilyLabel").css("color", "red");
             </div>        
               </div> 
                <div class="form-group" id="pgotherschoolcoursename" style='display:none'>
-                <label class="col-sm-5 control-label">Course Name </label>
+                <label class="col-sm-5 control-label">Course Name <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="Course Name" id="pg_othercoursename" name="pg_othercoursename" value="<?php echo $pg_othercoursename;?>">
                 </div>               
               </div> 
                <div class="form-group">
-                <label class="col-sm-5 control-label">College Name</label>
+                <label class="col-sm-5 control-label">College Name<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="College Name" id="me_college_name" name="me_college_name" value="">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">University Name </label>
+                <label class="col-sm-5 control-label">University Name <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="University Name" id="me_university_name" name="me_university_name" value="">
                 </div>               
               </div>
                             <div class="form-group">
-                <label class="col-sm-5 control-label">Aggregate Marks </label>
+                <label class="col-sm-5 control-label">Aggregate Marks <span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="pg_percentagetype" id="pg_percentagetype" value="Percentage" checked="checked"> Percentage
@@ -663,7 +617,7 @@ $("#incomeFamilyLabel").css("color", "red");
                 </div>
               </div>
                 <div class="form-group">
-                <label class="col-sm-5 control-label">Seat Type</label>
+                <label class="col-sm-5 control-label">Seat Type<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="me_seatquota" id="me_seatquota" value="Merit" checked="checked"> Merit
@@ -674,7 +628,7 @@ $("#incomeFamilyLabel").css("color", "red");
                                     </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-5 control-label">Attempts in ME</label>
+                <label class="col-sm-5 control-label">Attempts in ME<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                     <label class="radio-inline">
                       <input type="radio" name="me_attempt" id="me_attempt" value="Single" checked="checked" onclick="meAttempt('Single')"> Single Attempt
@@ -685,7 +639,7 @@ $("#incomeFamilyLabel").css("color", "red");
                                     </div>
               </div>
               <div class="form-group" id="backlogAttempDivME" style='display:none'>
-                <label class="col-sm-5 control-label">Subjects</label>
+                <label class="col-sm-5 control-label">Subjects<span class="error-text">*</span></label>
                 <div class="col-sm-7">
                   <input type="name" class="form-control" placeholder="Subject1, Subject2..." id="me_subject" name="me_subject" value="">
                 </div>               
@@ -702,7 +656,7 @@ $("#incomeFamilyLabel").css("color", "red");
 
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="col-sm-4 control-label"><span id="othercoursesQuestion" style="color:black";>Have you taken any other skill development courses?</span></label>
+                <label class="col-sm-4 control-label">Have you taken any other skill development courses?<span class="error-text">*</span></label>
                 <div class="col-sm-7">
           <input type="radio" name="othercourses" id="othercourses" value="Yes" onclick="fnothercourses(this.value)">Yes
           <input type="radio" name="othercourses" id="othercourses" value="No" onclick="fnothercourses(this.value)">No
@@ -710,36 +664,36 @@ $("#incomeFamilyLabel").css("color", "red");
               </div> 
               <div id="othercoursesoptions" style="display:none">
        <div class="form-group">
-        <label class="col-sm-4 control-label">Course Name</label>
+        <label class="col-sm-4 control-label">Course Name<span class="error-text">*</span></label>
         <div class="col-sm-3">
           <input type="text" class="form-control" placeholder="Course Name" id="other_coursename" name="other_coursename">
         </div>        
       </div>
        <div class="form-group">
-        <label class="col-sm-4 control-label">Institute Name</label>
+        <label class="col-sm-4 control-label">Institute Name<span class="error-text">*</span></label>
         <div class="col-sm-3">
           <input type="text" class="form-control" placeholder="Institute Name" id="other_institutename" name="other_institutename">
         </div>        
       </div>
         <div class="form-group">
-        <label class="col-sm-4 control-label">Duration</label>
+        <label class="col-sm-4 control-label">Duration<span class="error-text">*</span></label>
         <div class="col-sm-3">
           <input type="text" class="form-control" placeholder="Duration" id="other_courseduration" name="other_courseduration">
         </div>        
       </div>
  </div>
       <div class="form-group">
-        <label class="col-sm-4 control-label"><span id="primaryReasonLable">Primary reason for taking the course?</span></label>
+        <label class="col-sm-4 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
         <div class="col-sm-8">
-                  <input type="radio" name="primary_reason" id="primary_reason" value="Job in core industry" onclick="fnPrimaryReason('Job in core industry')">Job in core industry 
-          <input type="radio" name="primary_reason" id="primary_reason" value="Highter studies India" onclick="fnPrimaryReason('Highter studies India')">Highter studies in India
-          <input type="radio" name="primary_reason" id="primary_reason" value="Higher studies Abroad" onclick="fnPrimaryReason('Higher studies Abroad')">Preparing for heigher studies Abroad
-          <input type="radio" name="primary_reason" id="primary_reason" value="other Technical services exams" onclick="fnPrimaryReason('other Technical services exams')">Preparing for other Technical exams
+                  <input type="radio" name="primary_reason" id="primary_reason" value="Job in core industry" >Job in core industry 
+          <input type="radio" name="primary_reason" id="primary_reason" value="Highter studies India" >Highter studies in India
+          <input type="radio" name="primary_reason" id="primary_reason" value="Higher studies Abroad" >Preparing for heigher studies Abroad
+          <input type="radio" name="primary_reason" id="primary_reason" value="other Technical services exams" >Preparing for other Technical exams
              
         </div>       
       </div>
       <div class="form-group">
-        <label class="col-sm-4 control-label">Do you know the domain you are interested in?</label>
+        <label class="col-sm-4 control-label">Do you know the domain you are interested in?<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="radio" name="interested_in" id="interested_in" value="VLSI" onclick="courses('vlsi')">VLSI
           <input type="radio" name="interested_in" id="interested_in" value="EMBEDDED" onclick="courses('embedded')">EMBEDDED
@@ -749,7 +703,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
       <div id='vlsidiv' style="display:none;">
      <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in Logic Design?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in Logic Design?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" value='Excellent'>Excellent
                   <input type="radio" name="vlsi_logic_design" id="vlsi_logic_design" value='Good'>Good
@@ -759,7 +713,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
 <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in Transistor theory?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in Transistor theory?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" value='Excellent'>Excellent
                   <input type="radio" name="vlsi_transistor_theory" id="vlsi_transistor_theory" value='Good'>Good
@@ -769,7 +723,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in network analysis?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in network analysis?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" value='Excellent'>Excellent
                   <input type="radio" name="vlsi_network_analysis" id="vlsi_network_analysis" value='Good'>Good
@@ -779,7 +733,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in HDL Progrmming using verilog?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in HDL Progrmming using verilog?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="vlsi_hdl" id="vlsi_hdl" value='Excellent'>Excellent
                   <input type="radio" name="vlsi_hdl" id="vlsi_hdl" value='Good'>Good
@@ -790,7 +744,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
       <div id='embeddeddiv' style='display:none'>
         <div class="form-group">
-        <label class="col-sm-4 control-label">Microcontroller / Microprocess Basics?</label>
+        <label class="col-sm-4 control-label">Microcontroller / Microprocess Basics?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" value='Excellent'>Excellent
                   <input type="radio" name="embedded_Microcontroller" id="embedded_Microcontroller" value='Good'>Good
@@ -799,7 +753,7 @@ $("#incomeFamilyLabel").css("color", "red");
               </div>        
       </div>
 <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in C?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in C?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="embedded_C" id="embedded_C" value='Excellent'>Excellent
                   <input type="radio" name="embedded_C" id="embedded_C" value='Good'>Good
@@ -809,7 +763,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
 <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in Linux?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in Linux?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="embedded_Linux" id="embedded_Linux" value='Excellent'>Excellent
                   <input type="radio" name="embedded_Linux" id="embedded_Linux" value='Good'>Good
@@ -818,7 +772,7 @@ $("#incomeFamilyLabel").css("color", "red");
               </div>        
       </div>
 <div class="form-group">
-        <label class="col-sm-4 control-label">How do you rate yourself in RTOS?</label>
+        <label class="col-sm-4 control-label">How do you rate yourself in RTOS?<span class="error-text">*</span></label>
         <div class="col-sm-5">
                   <input type="radio" name="embedded_RTOS" id="embedded_RTOS" value='Excellent'>Excellent
                   <input type="radio" name="embedded_RTOS" id="embedded_RTOS" value='Good'>Good
@@ -828,7 +782,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
     </div>
       <div class="form-group">
-        <label class="col-sm-4 control-label">How many weeks can you spare?</label>
+        <label class="col-sm-4 control-label">How many weeks can you spare?<span class="error-text">*</span></label>
         <div class="col-sm-7">
                   <input type="radio" name="weeks_spare" id="weeks_spare"  value='4'>4 Weeks
                   <input type="radio" name="weeks_spare" id="weeks_spare"  value='12'>12 Weeks
@@ -838,7 +792,7 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">Are you looking Weekday or Weekend Courses?</label>
+        <label class="col-sm-4 control-label">Are you looking Weekday or Weekend Courses?<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="radio" name="timeduration" id="timeduration" value="Monday to Friday">Monday to Friday
           <input type="radio" name="timeduration" id="timeduration" value="Weekend Part Time">Weekend Part Time
@@ -846,15 +800,15 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label"><span id="incomeFamilyLabel">Approximate income of Family?</span></label>
+        <label class="col-sm-4 control-label">Approximate income of Family?<span class="error-text">*</span></label>
         <div class="col-sm-7">
-                  <input type="radio" name="income" id="income"   value='less than 3 Lack' onclick="fnIncomeOfFamily(this.value)">Less than 3 Lack
-                  <input type="radio" name="income" id="income"   value='3 to 5 Lack' onclick="fnIncomeOfFamily(this.value)">3 to 5 Lack
-                  <input type="radio" name="income" id="income"   value='greater than 5 Lack' onclick="fnIncomeOfFamily(this.value)">Greater than 5 Lack
+                  <input type="radio" name="income" id="income"   value='less than 3 Lack'>Less than 3 Lack
+                  <input type="radio" name="income" id="income"   value='3 to 5 Lack'>3 to 5 Lack
+                  <input type="radio" name="income" id="income"   value='greater than 5 Lack'>Greater than 5 Lack
               </div>        
       </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Any gap in education</label>
+        <label class="col-sm-4 control-label">Any gap in education<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="radio" name="education_gap" id="education_gap" value="Yes" onclick="fnEducationGap('Yes');">Yes
           <input type="radio" name="education_gap" id="education_gap" value="No" checked="checked" onclick="fnEducationGap('No');">No
@@ -862,14 +816,14 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
       <div id='educationGapDiv' style="display:none">
       <div class="form-group">
-                <label class="col-sm-4 control-label">Reason</label>
+                <label class="col-sm-4 control-label">Reason<span class="error-text">*</span></label>
                 <div class="col-sm-4">
                   <input type="name" class="form-control" placeholder="Reason" id="education_gap_reason" name="education_gap_reason" value="">
                 </div>               
       </div>
     </div>
           <div class="form-group">
-        <label class="col-sm-4 control-label"><span id="jobOfferInHand">Do you have a job offer in hand from campus?</span></label>
+        <label class="col-sm-4 control-label">Do you have a job offer in hand from campus?<span class="error-text">*</span></label>
         <div class="col-sm-7">
           <input type="radio" name="joboffer" id="joboffer" value="Yes" onclick="fnJobOffer('Yes');">Yes
           <input type="radio" name="joboffer" id="joboffer" value="No" onclick="fnJobOffer('No');">No
@@ -878,19 +832,19 @@ $("#incomeFamilyLabel").css("color", "red");
 
       <div id="jobofferDivYES" style="display:none">
       <div class="form-group">
-                <label class="col-sm-4 control-label">Company Name</label>
+                <label class="col-sm-4 control-label">Company Name<span class="error-text">*</span></label>
                 <div class="col-sm-5">
                   <input type="name" class="form-control" placeholder="Company NAme" id="joboffer_company_name" name="joboffer_company_name" value="">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Joining Date</label>
+                <label class="col-sm-4 control-label">Joining Date<span class="error-text">*</span></label>
                 <div class="col-sm-5">
                   <input type="name" class="form-control" placeholder="" id="joboffer_joining_date" name="joboffer_joining_date" value="">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">CTC</label>
+                <label class="col-sm-4 control-label">CTC<span class="error-text">*</span></label>
                 <div class="col-sm-5">
                   <input type="name" class="form-control" placeholder="" id="joboffer_ctc" name="joboffer_ctc" value="">
                 </div>               
@@ -899,7 +853,7 @@ $("#incomeFamilyLabel").css("color", "red");
       <div id="jobofferDivNO" style="display:none">
 
        <div class="form-group">
-        <label class="col-sm-4 control-label"><span id="expectingJobLabel">Are you expecting a job ?</span></label>
+        <label class="col-sm-4 control-label">Are you expecting a job ?<span class="error-text">*</span></label>
         <div class="col-sm-4">
           <input type="radio" name="expectingjob" id="expectingjob" value="Yes" onclick="fnExpectingJobOffer('Yes');">Yes
           <input type="radio" name="expectingjob" id="expectingjob" value="No" checked="checked" onclick="fnExpectingJobOffer('No');">No
@@ -908,13 +862,13 @@ $("#incomeFamilyLabel").css("color", "red");
       </div>
 <div id="expectingJobOfferDivYes" style="display:none">
 <div class="form-group">
-                <label class="col-sm-4 control-label">Company Name</label>
+                <label class="col-sm-4 control-label">Company Name<span class="error-text">*</span></label>
                 <div class="col-sm-4">
                   <input type="name" class="form-control" placeholder="Company NAme" id="expecting_joboffer_company_name" name="expecting_joboffer_company_name" value="">
                 </div>               
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Joining Date</label>
+                <label class="col-sm-4 control-label">Joining Date<span class="error-text">*</span></label>
                 <div class="col-sm-4">
                   <input type="name" class="form-control" placeholder="" id="expecting_joboffer_joining_date" name="expecting_joboffer_joining_date" value="">
                 </div>               
@@ -931,13 +885,13 @@ $("#incomeFamilyLabel").css("color", "red");
 
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="col-sm-2 control-label">Councellor Comments</label>
+                <label class="col-sm-2 control-label">Councellor Comments<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <textarea class="form-control" rows="3"  placeholder="" id="councellor" name="councellor"></textarea>
                 </div>               
               </div> 
  <div class="form-group">
-            <label class="col-sm-2 control-label">Follow up action</label>
+            <label class="col-sm-2 control-label">Follow up action<span class="error-text">*</span></label>
             <div class="col-sm-5">
                 <select class="form-control" id="review_status" name="review_status" onchange="onReviewStatus(this.value)">
                   <?php for($i=0;$i<count($reviewStatusArray);$i++){?>
@@ -950,13 +904,13 @@ $("#incomeFamilyLabel").css("color", "red");
               </div> 
 <div class="form-group" id='reviewreason' style='display:none'>
                 <label class="col-sm-2 collor
-ntrol-label">Reason</label>
+ntrol-label">Reason<span class="error-text">*</span></label>
                 <div class="col-sm-10">
                  <input type="text" class="form-control" rows="3"  placeholder="" id="reason" name="reason"/>
                 </div>               
               </div> 
               <div class="form-group">
-            <label class="col-sm-2 control-label">Assign To</label>
+            <label class="col-sm-2 control-label">Assign To<span class="error-text">*</span></label>
             <div class="col-sm-5">
                 <select class="form-control" id="idcouncellor" name="idcouncellor">
                   <?php for($i=0;$i<count($councellorarray);$i++){?>
@@ -993,5 +947,4 @@ ntrol-label">Reason</label>
     <!-- Placed at the end of the document so the pages load faster -->
       </form>
   </body>
-
 </html>

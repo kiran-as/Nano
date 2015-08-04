@@ -84,8 +84,6 @@ $me_subject = $row['me_subject'];
       $keywords = $row['keywords'];   
 
       $weeks_spare = $row['weeks_spare']; 
-        $studenttype  = $row['studenttype'];
-
 }
 
 $councellorSql = mysql_query("Select a.* , b.*, c.*
@@ -179,13 +177,11 @@ $name = $_POST['name'];
  $friendsname = $_POST['friendsname'];
   $professor_name = $_POST['professor_name'];
   $keywords = $_POST['keywords'];
-    $studenttype  = $_POST['studenttype'];
-  $weeks_spare = $_POST['weeks_spare'];
 
 mysql_query("Delete from tbl_rvstudent where idrvstudent='$studentId'");
 
   mysql_query("Insert into tbl_rvstudent 
-    (weeks_spare,studenttype,idrvstudent, friendsname, professor_name, keywords,name,phone,came_through,sslc_passoutyear,tenth_percentage,
+    (idrvstudent, friendsname, professor_name, keywords,name,phone,came_through,sslc_passoutyear,tenth_percentage,
       deg_passoutyear,deg_department,deg_othercoursename,
       email,hometown,pgdip_coursename,
       puc_passoutyear,puc_percentage,pg_passoutyear,
@@ -202,7 +198,7 @@ mysql_query("Delete from tbl_rvstudent where idrvstudent='$studentId'");
       joboffer_ctc,expectingjob,expecting_joboffer_company_name,me_college_name,
       me_university_name,be_college_name,be_university_name)
 
-    Values ('$weeks_spare','$studenttype','$studentId','$friendsname', '$professor_name', '$keywords','$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
+    Values ('$studentId','$friendsname', '$professor_name', '$keywords','$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
       '$deg_passoutyear','$deg_department','$deg_othercoursename',
       '$email','$hometown','$pgdip_coursename',
       '$puc_passoutyear','$puc_percentage','$pg_passoutyear',
@@ -241,7 +237,6 @@ echo "<script>parent.location='studentDetails.php'</script>";
         exit;
 
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -298,7 +293,7 @@ $('#reviewreason').hide();
    {
      otherdegcoureseshideshow();
     otherpgcoureseshideshow();
-     fnothercourses('<?php echo $othercourses;?>');
+     fnothercourses();
    //  onReviewStatus('<?php echo $review_status;?>');
      beAttempt('<?php echo $be_attempt;?>');
      meAttempt('<?php echo $me_attempt;?>');
@@ -311,9 +306,9 @@ $('#reviewreason').hide();
    }
 
 
-function fnothercourses(id)
+function fnothercourses()
 {
-  alert(id);
+   var id = '<?php echo $othercourses;?>';
   if(id=='Yes')
   {
     $('#othercoursesoptions').show();
@@ -403,7 +398,7 @@ $('#backlogAttempDivME').hide();
 
  function fnJobOffer(value)
  {
- 
+  alert(value);
   if(value=='Yes')
   {
     $('#jobofferDivYES').show();
@@ -646,13 +641,7 @@ function courses(course)
                   </select>
                 </div>        
               </div>  
-  <div class="form-group">
-        <label class="col-sm-4 control-label">Student Type?</label>
-        <div class="col-sm-5">
-                  <input type="radio" name="studenttype" id="studenttype" value='Fresher' <?php if($studenttype=='Fresher'){ echo "checked=checked";}?>>Fresher
-                  <input type="radio" name="studenttype" id="studenttype" value='Experience' <?php if($studenttype=='Experience'){ echo "checked=checked";}?>>Experience
-              </div>        
-      </div>  
+
                    <h3 class="brd-btm mar-b20">12th / PUC  Details</h3>
 
       <div class="form-group">
@@ -770,8 +759,8 @@ function courses(course)
               <div class="form-group">
                 <label class="col-sm-4 control-label">Have you taken any other skill development courses?<span class="error-text">*</span></label>
                 <div class="col-sm-7">
-          <input type="radio" name="othercourses" id="othercourses" value="Yes" <?php if($othercourses=='Yes'){ echo "checked=checked";}?> onclick="fnothercourses(this.value)">Yes
-          <input type="radio" name="othercourses" id="othercourses" value="No" <?php if($othercourses=='No'){ echo "checked=checked";}?> onclick="fnothercourses(this.value)">No
+          <input type="radio" name="othercourses" id="othercourses" value="Yes" <?php if($othercourses=='Yes'){ echo "checked=checked";}?>onclick="fnothercourses(this.value)">Yes
+          <input type="radio" name="othercourses" id="othercourses" value="No" <?php if($othercourses=='No'){ echo "checked=checked";}?>onclick="fnothercourses(this.value)">No
                 </div>               
               </div> 
               <div id="othercoursesoptions" style="display:none">
@@ -797,7 +786,7 @@ function courses(course)
       <div class="form-group">
         <label class="col-sm-4 control-label">Primary reason for taking the course?<span class="error-text">*</span></label>
         <div class="col-sm-8">
-                  <input type="radio" name="primary_reason" id="primary_reason" <?php if($primary_reason=='Job in core industry') { echo  "checked=checked";}?>value="Job in core industry" >Job in core industry 
+                  <input type="radio" name="primary_reason" id="primary_reason" value="Job in core industry" >Job in core industry 
           <input type="radio" name="primary_reason" <?php if($primary_reason=='Highter studies India') { echo  "checked=checked";}?> id="primary_reason" value="Highter studies India" >Highter studies in India
           <input type="radio" name="primary_reason" <?php if($primary_reason=='Higher studies Abroad') { echo  "checked=checked";}?> id="primary_reason" value="Higher studies Abroad" >Preparing for heigher studies Abroad
           <input type="radio" name="primary_reason" <?php if($primary_reason=='other Technical services exams') { echo  "checked=checked";}?> id="primary_reason" value="other Technical services exams" >Preparing for other Technical exams

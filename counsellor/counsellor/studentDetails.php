@@ -3,7 +3,7 @@ include('../application/conn.php');
 include('include/resumeType.php');
 $councellorId = $_SESSION['idcouncellor'];
 error_reporting(-1);
-if($councellorId==100 || $councellorId==101)
+if($councellorId==2 || $councellorId==3)
 {
 $studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
@@ -29,7 +29,7 @@ while($row = mysql_fetch_assoc($studentSql))
     $studentArray[$i]['reviewby'] = $councellorArrayDetails[0]['name'];
     if($councellorArrayDetails[0]['created_date']=='')
     {
-//$studentArray[$i]['reviewon'] = date('Y-m-d');
+$studentArray[$i]['reviewon'] = date('Y-m-d');
     }
     else
     {
@@ -84,7 +84,7 @@ while($row = mysql_fetch_assoc($councellorSql))
 
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"order": [[ 4, "desc" ]]
+		"order": [[ 3, "desc" ]]
 	} );
 } );
 

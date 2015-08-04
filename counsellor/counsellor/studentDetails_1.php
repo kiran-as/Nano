@@ -3,20 +3,11 @@ include('../application/conn.php');
 include('include/resumeType.php');
 $councellorId = $_SESSION['idcouncellor'];
 error_reporting(-1);
-if($councellorId==100 || $councellorId==101)
-{
+
 $studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
-	 from tbl_rvstudent as a, tbl_pgdipcourses as b
-	 where a.pgdip_coursename=b.idpgdipcourses and idcouncellor=$councellorId 
-	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
-}
-else
-{
-	$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
 	 where a.pgdip_coursename=b.idpgdipcourses 
 	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
-}
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
@@ -27,15 +18,7 @@ while($row = mysql_fetch_assoc($studentSql))
     $studentArray[$i]['email'] = $row['email'];
     $studentArray[$i]['reviewname'] = $councellorArrayDetails[0]['reviewname'];
     $studentArray[$i]['reviewby'] = $councellorArrayDetails[0]['name'];
-    if($councellorArrayDetails[0]['created_date']=='')
-    {
-//$studentArray[$i]['reviewon'] = date('Y-m-d');
-    }
-    else
-    {
     $studentArray[$i]['reviewon'] = $councellorArrayDetails[0]['created_date'];    
-}
-    $studentArray[$i]['councelling_date'] = $councellorArrayDetails[0]['councelling_date'];     
     $studentArray[$i]['phone'] = $row['phone'];
     $studentArray[$i]['pgdip_coursename'] = $row['pgdip_coursename'];
     $studentArray[$i]['created_date'] = $row['created_date'];
@@ -69,8 +52,6 @@ while($row = mysql_fetch_assoc($councellorSql))
    $councellorArray[$i]['name'] = $row['firstname'].' '.$row['lastname'];
    $councellorArray[$i]['created_date'] = $row['created_date'];
    $councellorArray[$i]['review_status'] = $row['review_status'];
-      $councellorArray[$i]['councelling_date'] = $row['councelling_date'];
-
    return $councellorArray;
 }
 }
@@ -84,7 +65,7 @@ while($row = mysql_fetch_assoc($councellorSql))
 
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"order": [[ 4, "desc" ]]
+		"order": [[ 3, "desc" ]]
 	} );
 } );
 
@@ -110,24 +91,18 @@ $(document).ready(function() {
         <a href="addNewStudent.php" class="btn btn-primary pull-right" >+ ADD Student</a>                     
     </div>    
   
-			<table id="example" class="table " cellspacing="0" width="100%">
+			<table id="example" class="table table-striped" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Email</th>
 						<th>Mobile</th>
 						<th>Course Opted</th>
-							<th>Last Updated On</th>
-<th>Last Updated By</th>
-<th>Last Review</th>
-<th>Next Counselling date</th>
-
 						<th>Assigned To</th>
-						
-						
-						
-					
-						
+						<th>Latest Review</th>
+						<th>Latest Review By</th>
+						<th>Latest Revied On</th>
+						<th>Created Date</th>
 						<th>Edit</th>
 						 
 					</tr>
@@ -135,36 +110,17 @@ $(document).ready(function() {
 
 				<tbody>
 				<?php for($i=0;$i<count($studentArray);$i++){
-					$idstudent = $studentArray[$i]['idrvstudent'];
-					if($i%2==0)
-					{
-						$bgcolor="#e0e0e0";
-					}
-					else
-					{
-                    	$bgcolor = "white";
-                    }
-                    if($studentArray[$i]['councelling_date'] == date('Y-m-d'))
-                    {
-                    	$bgcolor = "#ff4c4c";
-                    }
-                    else if($studentArray[$i]['councelling_date'] < date('Y-m-d'))
-                    {
-                    	$bgcolor = "4cffa0";
-                    }
-					?>
-					<tr style="background-color:<?php echo $bgcolor;?>">
+					$idstudent = $studentArray[$i]['idrvstudent'];?>
+					<tr>
 						<td><?php echo $studentArray[$i]['name'];?></td>
 						<td><?php echo $studentArray[$i]['email'];?></td>
 						<td><?php echo $studentArray[$i]['phone'];?></td>
 						<td><?php echo $studentArray[$i]['pgdip_coursename'];?></td>
-												<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['reviewon']));?></td>          
-						<td><?php echo $studentArray[$i]['reviewby'];?></td>
-
-						<td><?php echo $studentArray[$i]['reviewname'];?></td>
-						<td><?php echo $studentArray[$i]['councelling_date'];?></td>
-
 						<td><?php echo $studentArray[$i]['assignedto'];?></td>
+						<td><?php echo $studentArray[$i]['reviewname'];?></td>
+						<td><?php echo $studentArray[$i]['reviewby'];?></td>
+						<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['reviewon']));?></td>          
+						<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['created_date']));?>
 
             <td><a href='editStudent.php?idstudent=<?php echo $idstudent;?>'>View/Edit Review</a></td>
 					</tr>

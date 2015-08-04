@@ -102,6 +102,53 @@ $headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
 $headers .= 'Cc: askiran123@gmail.com' . "\r\n";
 
 mail($to,$subject,$message,$headers);
+
+
+ $to = "vprasad@nanochipsolutions.com";
+$subject = "New Recruiter has been registered";
+
+$message = "
+<html>
+<body>
+<table>
+<tr>
+<td>Dear Admin,</td>
+</tr>
+<tr>
+<td>New Recruiter has been registered through the portal, below are the details please verify and approve it from the admin portal</td>
+</tr>
+<tr>
+<td>Recruiter Name - $userName</td>
+</tr>
+<tr>
+<td>Recruiter Company Name - $companyName</td>
+</tr>
+<tr>
+<td>Recruiter Designation - $designation</td>
+</tr>
+<tr>
+<td>Recruiter web Url - $url</td>
+</tr>
+<tr>
+<td>Recruiter Mobile Number - $mobile</td>
+</tr>
+
+</table>
+</body>
+</html>
+";
+
+// Always set content-type when sending HTML email
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+$headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
+$headers .= 'Cc: askiran123@gmail.com' . "\r\n";
+
+mail($to,$subject,$message,$headers);
+
+
     }
 }
 
