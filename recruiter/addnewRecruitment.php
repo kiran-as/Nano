@@ -5,6 +5,15 @@ include('../include/domainlist.php');
 include('../include/documentlist.php');
 include('../include/year.php');
 include('../include/domain_type.php');
+   $thankyouMessage=0;
+
+$fresherResumeCount=0;
+$fresherResume = mysql_query("Select * from tbl_student where 
+    deg_percentage !=''  and pg_percentage='0' and pgdip_percentage!='0' and phd_percentage='0'");
+while($row = mysql_fetch_assoc($fresherResume))
+{
+    $fresherResumeCount++;
+}
 
 $idrecruiter = $_SESSION['idrecruiter'];
 $requiterSql = mysql_query("Select * from tbl_recruiter where idrecruiter=$idrecruiter");
@@ -20,7 +29,19 @@ while($row = mysql_fetch_assoc($requiterSql))
 
 if($_POST)
 {
+
 	$experience_type = $_POST['experience_type'];
+	if($experience_type=='Graduate')
+	{
+          $thankyouMessage = '1';
+	}
+	else if ($experience_type=='Skilled')
+	{
+          $thankyouMessage = '2';
+	} else if ($experience_type=='Experience')
+	{
+          $thankyouMessage = '3';
+	} 
     $job_description = $_POST['jobDescription'];
     $job_title = $_POST['jobTitle'];
     $minqualification = $_POST['minqualification'];
@@ -39,7 +60,14 @@ if($_POST)
 
     
      $recruitementdate = date('Y-m-d');
+     if(empty($_POST['datepicker']))
+     {
+     	$interviewdate = date('Y-m-d', strtotime("+30 days"));
+     }
+     else
+     {
      $interviewdate = date('Y-m-d',strtotime($_POST['datepicker']));
+ }
      $noofopenings = $_POST['noofopenings'];
 
 
@@ -74,6 +102,8 @@ if($_POST)
     $domain_type = $_POST['domain_type'];
     $rvranking = $_POST['rvranking'];
     $jobcode = rand(000000,999999);
+    $years_of_Exp = $_POST['years_of_Exp'];
+    $exp_no_of_openings = $_POST['exp_no_of_openings'];
 
 /*                 echo "Insert into tbl_recruitement(resume_type,recruitementposition,job_description ,"
             . "job_title,min_qualification,discipline,idrecruiter,recruitementdate,
@@ -96,7 +126,7 @@ if($_POST)
             '$writtentestaptitude','$writtentesttechnical','$technicalinterview',
             '$generalhrinterview','$specificskill','$documentsrequired',
             '$duringinternship','$regularemployment','$degpassoutyearTo','$pgpassoutyearTo','$experience_type','$domain_type')";exit;                      
-    */mysql_query("Insert into tbl_recruitement(resume_type,recruitementposition,job_description ,"
+    */mysql_query("Insert into tbl_recruitement(exp_no_of_openings,years_of_Exp,resume_type,recruitementposition,job_description ,"
             . "job_title,min_qualification,discipline,idrecruiter,recruitementdate,
                 noofopening,interviewdate,
                 sslccutoff,sslcpassoutyear,puccutoff,pucpassoutyear,degcutoff,degpassoutyearFrom,
@@ -107,7 +137,7 @@ if($_POST)
                 generalhrinterview,specificskill,documentsrequired,
                 duringinternship,regularemployment,degpassoutyearTo,pgpassoutyearTo,experience_type,domain_type,rvranking,jobcode)
 
-             Values ('$resumetype','$job_title','$job_description',"
+             Values ('$exp_no_of_openings','$years_of_Exp','$resumetype','$job_title','$job_description',"
             . "'$job_title','$minqualification','$discipline','$idrecruiter','$recruitementdate'
             ,'$noofopenings','$interviewdate',
             '$sslccutoff','$sslcpassoutyear','$puccutoff','$pucpassoutyear','$degcutoff','$degpassoutyearFrom',
@@ -117,13 +147,9 @@ if($_POST)
             '$writtentestaptitude','$writtentesttechnical','$technicalinterview',
             '$generalhrinterview','$specificskill','$documentsrequired',
             '$duringinternship','$regularemployment','$degpassoutyearTo','$pgpassoutyearTo','$experience_type','$domain_type','$rvranking','$jobcode')");
-
-    header('Location:recruitementList.php');
-     print_r($_POST);
-    exit;
-
-     
+   
 }
+echo $thankyouMessage;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,9 +170,9 @@ if($_POST)
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+     <link rel="stylesheet" href="css/jquery-ui.css">
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-ui.js"></script>
   
   <script>
   $(function() {
@@ -180,31 +206,139 @@ if($_POST)
 
   function fnshowfreshertab(id)
   {
+      
+      $('#experiencetab').hide();
+       $('#freshertab').show();
+       $('#fresherResumeTab').hide();
+       $('#ExperienceDiv2').hide();
+	 $('#jodCode').val('');
+       $('#jobTitle').val('');
+       $('#SkillRequiredDiv').show();
      if(id=='1')
     {
+
        $('#experiencetab').show();
        $('#freshertab').hide();
+       $('#fresherResumeTab').hide();
+       $('#ExperienceDiv2').show();
+
+    }
+    
+ if(id=='0')
+    {
+    	 $('#jodCode').val('Freshers');
+       $('#jobTitle').val('Freshers');
+       $('#experiencetab').hide();
+       $('#freshertab').hide();
+       $('#fresherResumeTab').show();
+       $('#ExperienceDiv2').hide();
+$('#SkillRequiredDiv').hide();
+    }
+    
+
+    if(id==2)
+    {
+       //$("#job_title").attr('readonly', false);
+       $("#job_title").attr('disabled','disabled');
     }
     else
     {
- $('#experiencetab').hide();
-       $('#freshertab').show();   
-        }
+    	    $('#job_title').attr('readonly', true);
+  	
+    }
   }
 
+function fnMinimumQualification(mecutoff)
+{
+  $('#MECutOffDiv').show();
+  if(mecutoff=='BE')
+  {
+    $('#MECutOffDiv').hide();
+  }
+}
    function IsNumeric(e) {
             var keyCode = e.which ? e.which : e.keyCode
             var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
             document.getElementById("error").style.display = ret ? "none" : "inline";
             return ret;
         }
-  </script>
+</script>
+           <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  
+    <script type="text/javascript">
+
+     $(document).ready(function() {
+
+            $("#recruitementList").validate({
+                // Specify the validation rules
+                rules: {
+                    jobTitle: "required",
+                    exp_no_of_openings : "required",
+                    years_of_Exp:"required",
+                    noofopenings:"required",
+                    venue:"required"
+                },
+                // Specify the validation error messages
+                messages: {
+                    jobTitle: "<p class='error'>Please enter Job Title</p>",
+                    exp_no_of_openings: "<p class='error'>No of Openings</p>",
+                    years_of_Exp:"<p class='error'>Years of experience</p>",
+                    noofopenings:"<p class='error'>Enter no of Openings</p>",
+                    venue:"<p class='error'>Enter the Venue</p>"
+
+                }
+            });
+
+ });
+
+    </script>
+
   </head>
 
   <body>
-      <form action="" method="POST"> 
+      <form action="" method="POST" name="recruitementList" id="recruitementList"> 
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
+
+        <?php if($thankyouMessage==2) {?>
+    <div id="experiencetab" class="container mar-t20">
+    <div class="alert alert-success" role="alert">
+
+Thank you for submitting the request it is in process. Based on the inputs provided by you the search engine will screen the database for the best fit. This might take a moment please check your registered mailid for more updates on this.
+<br/>
+<a href="addnewRecruitment.php">Click here to add one more Job description</a>
+<br/>
+<a href='recruitementList.php'>Click to return to main page</a>
+
+
+
+
+
+</div>
+</div>
+<?php } else  if($thankyouMessage==1) {?>
+<div id="fresherResumeTab" class="container mar-t20">
+<div class="alert alert-info" role="alert">There are " <?php echo $fresherResumeCount;?>" resumes in our database that meet your criteria. Please click on Download Resumes tab to download."
+<br/>
+<a href="addnewRecruitment.php">Click here to add one more Job description</a>
+<br/>
+<a href='recruitementList.php'>Click to return to main page</a>
+</div>
+</div>
+<?php } else  if($thankyouMessage==3) {?>
+<div id="fresherResumeTab" class="container mar-t20">
+<div class="alert alert-danger" role="alert">
+Sorry, you have not subscribed to our service, Please contact us (+91-80-4078 8574) or email us : info@nanochipsolutions.com
+<br/>
+<a href="addnewRecruitment.php">Click here to add one more Job description</a>
+<br/>
+<a href='recruitementList.php'>Click to return to main page</a>
+</div>
+</div>
+<?php } else { ?>
+
     <div class="container mar-t30">
     <div class="row">
         <div class="form-horizontal">
@@ -240,29 +374,57 @@ if($_POST)
 
  <div class="form-group" >
               <label class="col-sm-4 control-label">Recruitement is for </label>
-              <div class="col-sm-2">
+              <div class="col-sm-8">
                       <label class="radio-inline">
-                        <input type="radio" name="experience_type" id="experience_type" value="Fresher" checked="checked" onclick="fnshowfreshertab(0)"> Fresher
+                        <input type="radio" name="experience_type" id="experience_type" value="Graduate" onclick="fnshowfreshertab(0)">Graduate Intern
                       </label>
                       <label class="radio-inline">
-                          <input type="radio" name="experience_type" id="experience_type" value="Experience" onclick="fnshowfreshertab(1)">Experience
+                          <input type="radio" name="experience_type" id="experience_type" value="Skilled"  checked="checked" onclick="fnshowfreshertab(2)">Skilled Graduate intern
+                      </label> 
+                      <label class="radio-inline">
+                          <input type="radio" name="experience_type" id="experience_type" value="Experience" onclick="fnshowfreshertab(1)">Experienced Professionals
                       </label>        
               </div> 
                </div>
-<div id="freshertab">
+<div id="ExperienceDiv2" style='display:none'>
+               <div class="form-group">
+              <label class="col-sm-2 control-label">Years of Experience</label>
+              <div class="col-sm-2">
+               <input  class="form-control" type="text" class="form-control"  id="years_of_Exp" placeholder="Years of Experience" name="years_of_Exp" />
+              </div>        
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">No of Openings</label>
+              <div class="col-sm-2">
+                <input  class="form-control" type="text" class="form-control" id="exp_no_of_openings" onkeypress="return IsNumeric(event);" maxlength="2"  placeholder="No of Openings" value="10" name="exp_no_of_openings" />
+              </div>        
+            </div>
+</div>
+
+
+               <div class="form-group">
+              <label class="col-sm-2 control-label">Job Code</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="1" id="jodCode" placeholder="Company Job Code, if not applicable please ignore" name="jobCode"></textarea>
+              </div>        
+            </div>
+
+
+
              <div class="form-group">
               <label class="col-sm-2 control-label">Job Title</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="1" id="jobTitle" placeholder="RTL Verification Engg" name="jobTitle"></textarea>
+                <textarea class="form-control"  rows="1" id="jobTitle" placeholder="RTL Verification Engg" name="jobTitle"></textarea>
               </div>        
             </div>
-            <div class="form-group">
+            <div class="form-group" id='SkillRequiredDiv'>
               <label class="col-sm-2 control-label">Skills Required</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="2" id="jobDescription" placeholder="Perl Scripting, SV Test Bench Creation....," name="jobDescription"></textarea>
+                <textarea class="form-control" rows="2"  id="jobDescription" placeholder="Perl Scripting, SV Test Bench Creation....," name="jobDescription"></textarea>
               </div>        
             </div>  
-            
+ <div id="freshertab">           
             <div class="form-group">
              <label class="col-sm-2 control-label">Domain Specialisation</label>
               
@@ -270,37 +432,15 @@ if($_POST)
                  <select class="form-control" id="domain_type" name="domain_type">
 <option value='0'>Not Applicable</option>
                       <?php for($i=0;$i<count($domain_typeArray);$i++){?>
-                      <option value="<?php echo $domain_typeArray[$i]['id'];?>">
-                      <?php echo $domain_typeArray[$i]['domain_name'];?></option>
+                      <option value="<?php echo $domain_typeArray[$i]['idresumetype'];?>">
+                      <?php echo $domain_typeArray[$i]['resumetypename'];?></option>
                       <?php }?>
                       
                   </select>
                 </div>  
-              <label class="col-sm-2 control-label">Min Qualification</label>
-              <div class="col-sm-4">
-                      <label class="radio-inline">
-                        <input type="radio" name="minqualification" id="minqualification" value="BE" checked=checked> BE
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="minqualification" id="minqualification" value="ME" >ME
-                      </label> 
-                       <label class="radio-inline">
-                          <input type="radio" name="minqualification" id="minqualification" value="BE/ME" >BE or ME
-                      </label>        
-              </div>          
+                       
             </div>
-            <!-- <div class="form-group">
-              <label class="col-sm-2 control-label">Select Discipline</label>
-              <div class="col-sm-10">
-              <?php for($i=0;$i<count($departmentarray);$i++){
-                if($departmentarray[$i]['iddepartment']!='999'){?>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" name="discipline" value="discipline[<?php echo $departmentarray[$i]['iddepartment'];?>]"> <?php echo $departmentarray[$i]['department'];?>
-                      </label>
-                    <?php }}?>
-                    
-              </div>          
-            </div> -->
+           
             <div class="form-group">
               <label class="col-sm-2 control-label">Written test/ Interview date</label>
               <div class="col-sm-2">
@@ -309,17 +449,36 @@ if($_POST)
            
               <label class="col-sm-2 control-label">No of Openings</label>
               <div class="col-sm-2">
-                  <input type='text' class="form-control" onkeypress="return IsNumeric(event);" maxlength="2" id="noofopenings" name="noofopenings" 
+                  <input type='text' class="form-control" onkeypress="return IsNumeric(event);" maxlength="2" id="noofopenings" name="noofopenings" value="10"
                         value="">
                 </div>          
             </div>
-          
+           <div class="form-group">
+              <label class="col-sm-2 control-label">Rv-Cutoff (%)</label>
+              <div class="col-sm-2">
+                    <input type='text' class="form-control" id="rvranking" name="rvranking" 
+                        value="60">
+              </div>  
+                    <label class="col-sm-2 control-label">Min Qualification</label>
+              <div class="col-sm-4">
+                      <label class="radio-inline">
+                        <input type="radio" name="minqualification" id="minqualification" value="BE"  onclick="fnMinimumQualification('BE')"> BE
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="minqualification" id="minqualification" value="ME" onclick="fnMinimumQualification('ME')">ME
+                      </label> 
+                       <label class="radio-inline">
+                          <input type="radio" name="minqualification" id="minqualification" value="BE/ME" onclick="fnMinimumQualification('BE/ME')" checked="checked">BE or ME
+                      </label>        
+              </div>      
+            </div>
            
-             <div class="form-group">
+           
+             <div class="form-group" id="MECutOffDiv">
               <label class="col-sm-2 control-label">ME Cut-off (%)</label>
               <div class="col-sm-2">
                     <input type='text' class="form-control" id="pgcutoff" name="pgcutoff" 
-                        value="">
+                        value="55">
               </div>  
               <label class="col-sm-2 control-label">ME Year of passing Between -</label>  
                <div class="col-sm-2">
@@ -409,27 +568,19 @@ if($_POST)
                   </select>
                 </div>           
             </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Rv-Ranking (%)</label>
-              <div class="col-sm-2">
-                    <input type='text' class="form-control" id="rvranking" name="rvranking" 
-                        value="55">
-              </div>  
-                         
-            </div>
            
          
             <div class="form-group">
-              <label class="col-sm-2 control-label">Suggested Reading(If any Specify)</label>
+              <label class="col-sm-2 control-label">Suggested Reading for written test/Interview (If any Specify)</label>
               <div class="col-sm-10">
                 <textarea class="form-control" rows="2" id="suggestedreading" Placeholder="Name of Text books to refer,.." name="suggestedreading"></textarea>
               </div>        
             </div> 
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Google link to test location</label>
+              <label class="col-sm-2 control-label">Google link to the test location or Type the address here</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="1" id="venue" name="venue"></textarea>
+                <textarea class="form-control" rows="1" id="venue" name="venue" Placeholder="Google link to the test location / Address"></textarea>
               </div>        
             </div> 
 
@@ -460,15 +611,9 @@ if($_POST)
             <div class="form-group">
               <label class="col-sm-4 control-label">what is the duration of internship?</label>
               <div class="col-sm-3">
-                      <label class="radio-inline">
-                        <input type="radio" name="internshipduration" id="internshipduration" value="3_Months" checked="checked"> 3 Months
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="internshipduration" id="internshipduration" value="6_Months" >6 Months
-                      </label>  
-                      <label class="radio-inline">
-                          <input type="radio" name="internshipduration" id="internshipduration" value="1_Year" >1 Year
-                      </label>       
+              <input type='text' class="form-control" id="internshipduration" name="internshipduration" 
+                        value="" Placeholder="[0-9 Months]">
+                         
               </div>          
             </div>
 
@@ -485,7 +630,7 @@ if($_POST)
               </div>
             </div>
             <div class="form-group">  
-               <label class="col-sm-4 control-label">Is hiring for Permanent ?</label>
+               <label class="col-sm-3 control-label">Is hiring for Permanent Position?</label>
               <div class="col-sm-2">
                       <label class="radio-inline">
                         <input type="radio" name="regularposition" id="regularposition" value="Yes" checked=checked> Yes
@@ -497,7 +642,7 @@ if($_POST)
             </div>
 
              <div class="form-group">
-              <label class="col-sm-4 control-label">Is there any service agreement bond?</label>
+              <label class="col-sm-3 control-label">Is there any service agreement bond?</label>
               <div class="col-sm-2">
                       <label class="radio-inline">
                         <input type="radio" name="agreementbond" id="agreementbond" value="Yes" onclick='agreementbonds(this.value);'> Yes
@@ -507,12 +652,18 @@ if($_POST)
                       </label>        
               </div> 
               <div id='agreementId' style='display:none'>
-              <label class="col-sm-2 control-label">No of Years</label>
+              <label class="col-sm-1 control-label">No of Years</label>
    
                <div class="col-sm-2">
                     <input type='text' class="form-control" id="agreementbondyears" name="agreementbondyears" 
                         value="">
               </div>  
+                 <label class="col-sm-2 control-label">Bond Breakage Amount</label>
+   
+               <div class="col-sm-2">
+                    <input type='text' class="form-control" id="bondBreakageAmount" name="bondBreakageAmount" 
+                        value="">
+              </div> 
               </div>       
             </div>             
 
@@ -520,50 +671,35 @@ if($_POST)
 
 
             <div class="form-group"> 
-               <label class="col-sm-4 control-label">Written test (Apptitude):</label>
+               <label class="col-sm-3 control-label">Written test (Apptitude):</label>
                   <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="writtentestaptitude" id="writtentestaptitude" value="Yes" checked="checked"> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="writtentestaptitude" id="writtentestaptitude" value="No" >No
-                      </label>        
+                  <input type='text' class="form-control" id="writtentestaptitude" name="writtentestaptitude" 
+                        value="30 Min">      
                   </div>
             </div>
             <div class="form-group"> 
-               <label class="col-sm-4 control-label">Written test (Technical):</label>
+               <label class="col-sm-3 control-label">Written test (Technical):</label>
                   <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="writtentesttechnical" id="writtentesttechnical" value="Yes" checked="checked"> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="writtentesttechnical" id="writtentesttechnical" value="No" >No
-                      </label>        
+                     <input type='text' class="form-control" id="writtentesttechnical" name="writtentesttechnical" 
+                        value="30 Min"> 
+                           
                   </div>
             </div>
              <div class="form-group"> 
-               <label class="col-sm-4 control-label">Technical interview</label>
+               <label class="col-sm-3 control-label">Technical interview</label>
                   <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="technicalinterview" id="technicalinterview" value="Yes" checked="checked"> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="technicalinterview" id="technicalinterview" value="No" >No
-                      </label>        
+                   <input type='text' class="form-control" id="technicalinterview" name="technicalinterview" 
+                        value="30 Min">       
                   </div>
             </div>
              <div class="form-group"> 
-               <label class="col-sm-4 control-label">General HR interview:</label>
+               <label class="col-sm-3 control-label">General HR interview:</label>
                   <div class="col-sm-2">
-                      <label class="radio-inline">
-                        <input type="radio" name="generalhrinterview" id="generalhrinterview" value="Yes" checked="checked"> Yes
-                      </label>
-                      <label class="radio-inline">
-                          <input type="radio" name="generalhrinterview" id="generalhrinterview" value="No" >No
-                      </label>        
+                   <input type='text' class="form-control" id="generalhrinterview" name="generalhrinterview" 
+                        value="30 Min">        
                   </div>
             </div>
-<div style='background-color:Gainsboro;' onmouseover="">
+<div style='background-color:Gainsboro;' onmouseover="" style="display:none">
             <div class="form-group" style="display:none">
               <label class="col-sm-2 control-label">Select Discipline</label>
               <div class="col-sm-10">
@@ -576,7 +712,7 @@ if($_POST)
                     
               </div>          
             </div>
-              <div class="form-group">
+              <div class="form-group" style="display:none">
               <label class="col-sm-2 control-label">Branch of Enggineering</label>
               <div class="col-sm-10">
               <?php for($i=0;$i<count($departmentarray);$i++){
@@ -606,7 +742,7 @@ if($_POST)
            
             <div class="form-group">
             <h3 class="brd-btm mar-b20" style="font-size:16px;font-style:bold;">COMPENSATION/COST TO COMPANY (CTC)(INFORMATION WILL BE TREATED AS CONFIDENTIAL)</h3>
-             <label class="col-sm-2 control-label">Monthly stipened during probation</label>
+             <label class="col-sm-2 control-label">Monthly stipened during probation /Internship</label>
               <div class="col-sm-2">
                     <input type='text' class="form-control" id="duringinternship" name="duringinternship" 
                         value="">
@@ -622,15 +758,18 @@ if($_POST)
 </div>
 
     </div>
-<div id="experiencetab" style="display:none">
-Sorry you have not subscribed for this service, Contact -Archana for
-details Email:archana@nanochipsolutions.com"
-</div>
+    </div>
+
     <div class="clearfix brd-top pad-t20">
         <button type="submit" class="btn btn-primary pull-right">SAVE</button>       
         <button type="submit" class="btn btn-default pull-right mar-r20">RESET</button>        
-    </div>     
-      </form>   
+    </div> 
+  
+    </div>
+    <?php }?>
+      </form>  
+
+
     <footer class="home-footer">
           <div class="container">            
             <p class="pad-t5 pad-xs-t20">Copyrights &copy; 2015 Nanochipsolutions</p>               

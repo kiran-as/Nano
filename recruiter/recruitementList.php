@@ -1,7 +1,7 @@
 <?php
 include('../application/conn.php');
 $idrecruiter = $_SESSION['idrecruiter'];
-$studentSql = mysql_query("Select a.*,b.* from tbl_recruitement as a ,tbl_recruiter as b 
+$studentSql = mysql_query("Select a.*,b.idrecruiter, b.company from tbl_recruitement as a ,tbl_recruiter as b 
 	                        where a.idrecruiter=b.idrecruiter and a.idrecruiter=$idrecruiter");
 $i=0;
 $recruitementArray = array();
@@ -14,7 +14,8 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['recruitementdate'] = $row['recruitementdate'];
     $recruitementArray[$i]['status'] = $row['status'];   
     $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
-    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];         
+    $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];   
+    $recruitementArray[$i]['experience_type'] = $row['experience_type'];
     $i++;
 }
 
@@ -49,7 +50,6 @@ function fnChangeApprove(approvestatus)
 			success: function(data, textStatus, jqXHR)
 			{
                 parent.location='recruitementList.php';
-                exit;
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{
@@ -72,7 +72,6 @@ function fnChangeApprove(approvestatus)
 			success: function(data, textStatus, jqXHR)
 			{
                 parent.location='recruitementList.php';
-                exit;
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{
@@ -100,18 +99,21 @@ function fnChangeApprove(approvestatus)
   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
+                    <p class="alert alert-success txtc font16-sm-reg  label-info"><a href="addnewRecruitment.php">Click here</a> or Click on Add New Position button to create the job description to shortlist the best resume according to your 
+job description.</p>
         <div class="clearfix brd-btm pad-b20" style="display:">
         <a href="addnewRecruitment.php" class="btn btn-primary pull-right" >+ ADD New Position</a>                     
     </div>    
   
+  <?php if(count($recruitementArray)>0) { ?>
 			<table id="example" class="table table-striped" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th>Job Position</th>
+					<th>Job Type</th>
+						<th>Job Title</th>
 						<th>Position Created Date</th>
 						<th>No of Openings</th>
 						<th>Interview Date</th>
-						<th>Search Resume</th>
 						<th>No of Resumes Tagged</th>
 						<th>Status</th>
 					</tr>
@@ -122,11 +124,11 @@ function fnChangeApprove(approvestatus)
 					$idrecruitement = $recruitementArray[$i]['idrecruitement'];
 					$approved = $recruitementArray[$i]['approved'];?>
 					<tr>
+					<td> <?php echo $recruitementArray[$i]['experience_type'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
 						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
 						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
-						<td><a href='advancedSearch.php?idrecruitement=<?php echo $idrecruitement;?>' target='_blank'>Search Resumes</a></td>
 
 						<?php 
 $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount 
@@ -149,6 +151,7 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 					
 				</tbody>
 			</table>
+			<?php } ?>
 </div>
 </body>
 

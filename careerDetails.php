@@ -17,6 +17,8 @@ if($_POST)
      $expectedsalary = str_replace("'","&#39;",$_POST['expectedsalary']);
      $expectedlocation = str_replace("'","&#39;",$_POST['expectedlocation']);
      $previousCmpExp = $_POST['previousCmpExp'];
+
+
      mysql_query("Update tbl_student set 
       current_salary='$currentsalary', 
       current_designation='$currentdesignation',
@@ -101,6 +103,7 @@ if($_POST)
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
+
     $career_objective = $row['career_objective'];
     $currentsalary = $row['current_salary'];
     $currentdesignation = $row['current_designation'];
@@ -345,7 +348,7 @@ function fnShowOldCompanyDetails(id)
         <div class="form-horizontal col-sm-6">
                    <h3 class="brd-btm mar-b20">Current Company Details</h3>
           <div class="form-group">
-          <label class="col-sm-5 control-label">Current Company<span class="error-text">*</span></label>
+          <label class="col-sm-5 control-label">Current Company Name<span class="error-text">*</span></label>
             <div class="col-sm-7">
               <input type="text" class="form-control" placeholder="Current Company" id="currentcompany" name="currentcompany" value="<?php echo $currentcompany;?>">
             </div>        
@@ -369,7 +372,7 @@ function fnShowOldCompanyDetails(id)
             </div>        
           </div>
           <div class="form-group">
-                    <label class="col-sm-5 control-label">Working From<span class="error-text">*</span></label>
+                    <label class="col-sm-5 control-label">Joining Month and Year<span class="error-text">*</span></label>
 
           <div class="col-sm-2">
                <select class="form-control" placeholder="From Year" style="width:84px;"id="currentcompanyfrommonth" name="currentcompanyfrommonth">
@@ -400,7 +403,7 @@ function fnShowOldCompanyDetails(id)
           </div>
         </div>
        <div class="form-horizontal col-sm-6">
-                  <h3 class="brd-btm mar-b20">Expected Company Details</h3>
+                  <h3 class="brd-btm mar-b20">Expected Compensation / Job Location</h3>
 <div class="form-group">
 
           <label class="col-sm-5 control-label">Prefered work Location<span class="error-text">*</span></label>
@@ -424,10 +427,10 @@ function fnShowOldCompanyDetails(id)
         </div>
       </div>
 
-      <h3 class="brd-btm mar-b20">Overview of Previous Company Details</h3>
+      <h3 class="brd-btm mar-b20">Summary of work experience</h3>
       <div class="form-group">
     <label class="radio-inline pad-l0">
-      Overview of previous company details if applicable?
+      List the company names and other details below, if applicable?
     </label>      
         <label class="radio-inline">
               <input type="radio" name="previousCmpExp" id="previousCmpExp" value="Yes" onclick="fnShowOldCompanyDetails(this.value)" <?php if($previousexp=='Yes'){ echo "checked=checked";};?>> Yes
@@ -525,7 +528,7 @@ function fnShowOldCompanyDetails(id)
 
  
   <div class="form-group">
-                    <h3 class="brd-btm mar-b20">Core Competancy</h3>
+                    <h3 class="brd-btm mar-b20">Core Competancy / Summary of Skills</h3>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
@@ -545,7 +548,7 @@ function fnShowOldCompanyDetails(id)
                      <span class='info-text' id='career_objective_countlabel'>Maximum 150 Chars (with spaces)
   </div>  
   <div class="form-group">
-    <label>Significant Achievement</label>
+    <label>Significant Achievements</label>
     (120 characters per line)
     <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="List IEEE publication or paper publications"  Maxlength="120"><?php echo $achievementsArray[0]['achievements'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  name="achievments[]" Placeholder="Any patents in your name"  Maxlength="120"><?php echo $achievementsArray[1]['achievements'];?></textarea>

@@ -1,28 +1,31 @@
 <?php
-include('application/conn.php');
+include('../application/conn.php');
 if($_POST)
 {
 
-   /* $email = $_POST['email'];
+    $idstudent=0;
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $studentSql = mysql_query("Select * from tbl_student where email='$email' and  password='$password'");
+ 
+    $studentSql = mysql_query("Select * from tbl_admin where email='$email' and  password='$password'");
     while($row = mysql_fetch_assoc($studentSql))
     {
-        $idstudent = $row['idstudent'];
-        $studentName = $row['firstname'].' - '.$row['lastname'];
+        $idstudent = $row['idadmin'];
+        $studentName = $row['username'];
     }
-    $_SESSION['idstudent'] = $idstudent;
-    $_SESSION['studentName'] = $studentName;
+    $_SESSION['idadmin'] = $idstudent;
+    $_SESSION['username'] = $studentName;
     if($idstudent=='0')
     {
         echo "<script>Please enter valid username and password</script>";
+        echo "<script>parent.location='index.php'</script>";
         exit;
     }
     else
-    {*/
+    {
         echo "<script>parent.location='dashboard.php'</script>";
         exit;
-   // }
+    }
 }
 
 ?>

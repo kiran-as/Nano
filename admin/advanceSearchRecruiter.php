@@ -12,23 +12,38 @@ if($idrecruitement>0)
   $requiterSql = mysql_query("Select * from tbl_recruitement where idrecruitement=$idrecruitement");
   while($row = mysql_fetch_assoc($requiterSql))
   {
-    $sslccutoff = $row['sslccutoff'];
-    $sslcpassoutyear = $row['sslcpassoutyear'];
-    $puccutoff = $row['puccutoff'];
-    $pucpassoutyear = $row['pucpassoutyear'];
-    $degcutoff = $row['degcutoff'];
-    $degpassoutyearFrom = $row['degpassoutyearFrom'];
-    $degpassoutyearTo = $row['degpassoutyearTo'];
-    $pgcutoff = $row['pgcutoff'];
-    $pgpassoutyearFrom = $row['pgpassoutyearFrom'];
-    $pgpassoutyearTo = $row['pgpassoutyearTo'];
-    $resume_type = $row['resume_type'];
-     $discipline = $row['discipline'];
-  }
+    $_SESSION['sslccutoff'] = $row['sslccutoff'];
+    $_SESSION['sslcpassoutyear'] = $row['sslcpassoutyear'];
+    $_SESSION['puccutoff'] = $row['puccutoff'];
+    $_SESSION['pucpassoutyear'] = $row['pucpassoutyear'];
+    $_SESSION['degcutoff'] = $row['degcutoff'];
+    $_SESSION['degpassoutyearFrom'] = $row['degpassoutyearFrom'];
+    $_SESSION['degpassoutyearTo'] = $row['degpassoutyearTo'];
+    $_SESSION['pgcutoff'] = $row['pgcutoff'];
+    $_SESSION['pgpassoutyearTo'] = $row['pgpassoutyearTo'];
+    $_SESSION['resume_type'] = $row['domain_type'];
+    $_SESSION['discipline']  = $row['discipline'];
+    $idrecruiter = $row['idrecruiter'];
+    $recruitmentPosition = $row['recruitementposition'];
+    $recruitementFor = $row['experience_type'];
+    $jobcode = $row['jobcode'];
+}
+}
+
+$studentSql = mysql_query("Select a.* from tbl_recruiter as a where  a.idrecruiter=$idrecruiter");
+while($row = mysql_fetch_assoc($studentSql))
+{
+
+    $userName = $row['usename'];
+    $company = $row['company'];
+    $email = $row['email'];
+$mobile = $row['mobile'];
+    $designation = $row['designation'];
 }
 error_reporting(-1);
 
-$studentSql = mysql_query("Select * from tbl_pgdipcourses");
+
+$studentSql = mysql_query("Select idpgdipcourses,pgdip_coursename from tbl_pgdipcourses");
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
@@ -66,16 +81,31 @@ if($_POST['recruitmentPosition']!='')
              mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
                 and idrecruitement='$idrecruitement'");
 
-            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
-                ('$idStudent','$idrecruitement')");
+           
+            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement,resume_shortlisted) Values 
+                ('$idStudent','$idrecruitement','Yes')");
         }
         echo "<script>alert('Candidates has been assigned to this job');</script>";
-         echo "<script>parent.location='advancedSearch.php'</script>";
+         echo "<script>parent.location='advanceSearchRecruiter.php?idrecruitement=$idrecruitement'</script>";
    exit;
         
     }
 if($_POST)
 {
+
+  $_SESSION['rvvlsi'] = $_POST['rvvlsi'];
+   $_SESSION['sslccutoff'] = $_POST['sslcPercentage'];
+    $_SESSION['sslcpassoutyear'] = $_POST['sslc_passoutyear'];
+    $_SESSION['puccutoff'] = $_POST['pucPercentage'];
+    $_SESSION['pucpassoutyear'] = $_POST['puc_passoutyear'];
+    $_SESSION['degcutoff'] = $_POST['degPercentage'];
+    $_SESSION['degpassoutyearFrom'] = $_POST['degpassoutyearFrom'];
+    $_SESSION['degpassoutyearTo'] = $_POST['degpassoutyearTo'];
+    $_SESSION['pgcutoff'] = $_POST['pgcutoff'];
+    $_SESSION['pgpassoutyearTo'] = $_POST['pgpassoutyearTo'];
+ $_SESSION['daterange'] = $_POST['daterange'];
+
+
     $idStudent=0;
     $idStudentSelected = 0;
     $sslcPercentage = $_POST['sslcPercentage'];
@@ -128,6 +158,7 @@ $updatedSql = " and date(updated_date)>='$updated_date'";
       }
     }
 
+
     for($i=0;$i<count($_POST['departments']);$i++)
     {
       if($i==0)
@@ -148,24 +179,12 @@ $updatedSql = " and date(updated_date)>='$updated_date'";
     {
         $departmentssql = "and deg_department in ($departments)";
     }
-/*echo "Select idstudent 
-                                from tbl_student 
-                                where sslc_percentage>='$sslcPercentage' and
-                                      puc_percentage>='$pucPercentage' and 
-                                      deg_percentage>='$degCgpa' and 
-                                      deg_percentagetype!='Percentage' and
-                                      pg_percentage>='$pgCgpa' and
-                                      pg_percentagetype!='Percentage' and
-                                      sslc_passoutyear>='$sslc_passoutyear'   and
-                                      puc_passoutyear>='$puc_passoutyear'    and
-                                      deg_passoutyear>='$deg_passoutyear'   and
-                                      pg_passoutyear>='$pg_passoutyear' $departmentssql
-                                      ";*/
+
 if(!empty($degPercentage))
 {
     $idStudentdeg = 0;
     $studentSql = mysql_query("Select idstudent from tbl_student where deg_percentage>$degPercentage
-       and deg_percentagetype=='Percentage'");
+       and deg_percentagetype='Percentage'");
       while($row = mysql_fetch_assoc($studentSql))
       {
              $idStudentdeg = $idStudentdeg.','.$row['idstudent'];
@@ -178,12 +197,29 @@ if(!empty($degPercentage))
              $idStudentdeg = $idStudentdeg.','.$row['idstudent'];
       }
 
+if($sslc_passoutyear==0)
+{
+	$sslcSql = "sslc_passoutyear>1990";
+}
+else
+{
+	$sslcSql = "sslc_passoutyear=$sslc_passoutyear";
+}
+if($puc_passoutyear==0)
+{
+	$pucSql = "puc_passoutyear>1990";
+}
+else
+{
+	$pucSql = "puc_passoutyear=$puc_passoutyear";
+}
+
   $studentSql = mysql_query("Select idstudent 
                                 from tbl_student 
                                 where sslc_percentage>='$sslcPercentage' and
                                       puc_percentage>='$pucPercentage' and 
-                                      sslc_passoutyear='$sslc_passoutyear'   and
-                                      puc_passoutyear='$puc_passoutyear'    and
+                                       $sslcSql   and
+                                      $pucSql   and
                                       deg_passoutyear>='$deg_passoutyear'   and
                                       deg_passoutyear <= '$deg_passoutyearTo' and
                                       pg_passoutyear>='$pg_passoutyear'  and 
@@ -196,8 +232,8 @@ else
                                 from tbl_student 
                                 where sslc_percentage>='$sslcPercentage' and
                                       puc_percentage>='$pucPercentage' and 
-                                      sslc_passoutyear='$sslc_passoutyear'   and
-                                      puc_passoutyear='$puc_passoutyear'    and
+                                       $sslcSql   and
+                                      $pucSql   and
                                       deg_passoutyear >='$deg_passoutyear'   and
                                       deg_passoutyear <= '$deg_passoutyearTo' and
                                       pg_passoutyear>='$pg_passoutyear'  and 
@@ -210,6 +246,7 @@ else
          $idStudent = $idStudent.','.$row['idstudent'];
   }
 
+ //
   if(empty($domainnames))
     {
       $domainNamesSql = ' ';
@@ -219,6 +256,7 @@ else
       $domainNamesSql = "and idresumetype in ($domainnames)";
     }
                      $idStudentSelected = 0;
+                  
   $studentSql = mysql_query("Select idstudent from tbl_studentresumekeywords
                      where idstudent in ($idStudent) and 
                      noofkeywords>0  $domainNamesSql group by idstudent");
@@ -267,7 +305,7 @@ while($row = mysql_fetch_assoc($studentSql))
 /*        echo "Select * from 
       tbl_student where ($sql) and idstudent in ($idStudentSelected) $andSql";
 */
-      $studentSql = mysql_query("Select * from 
+      $studentSql = mysql_query("Select idstudent,firstname,lastname,email,mobile,resumeid from 
       tbl_student where ($sql) and idstudent in ($idStudentSelected) $andSql");
 
     $i=0;
@@ -289,12 +327,12 @@ while($row = mysql_fetch_assoc($studentSql))
        
         if($_POST['rvvlsi']=='only')
         {
-              $studentSql = mysql_query("Select * from 
+              $studentSql = mysql_query("Select idstudent,firstname,lastname,email,mobile,resumeid from 
       tbl_student where idstudent in ($idStudentSelected) and rvvlsiid!=''");
         }
         else
         {
-              $studentSql = mysql_query("Select * from 
+              $studentSql = mysql_query("Select idstudent,firstname,lastname,email,mobile,resumeid from 
       tbl_student where idstudent in ($idStudentSelected)");
         }
 
@@ -316,6 +354,20 @@ while($row = mysql_fetch_assoc($studentSql))
   }
 }
 
+ $sslccutoff = $_SESSION['sslccutoff'];
+    $sslcpassoutyear = $_SESSION['sslcpassoutyear'];
+    $puccutoff = $_SESSION['puccutoff'];
+    $pucpassoutyear = $_SESSION['pucpassoutyear'];
+    $degcutoff = $_SESSION['degcutoff'];
+    $degpassoutyearFrom = $_SESSION['degpassoutyearFrom'];
+    $degpassoutyearTo = $_SESSION['degpassoutyearTo'];
+    $pgcutoff = $_SESSION['pgcutoff'];
+    $pgpassoutyearFrom = $_SESSION['pgpassoutyearFrom'];
+    $pgpassoutyearTo = $_SESSION['pgpassoutyearTo'];
+    $resume_type = $_SESSION['resume_type'];
+     $discipline = $_SESSION['discipline'];
+     $dateRange = $_SESSION['daterange'];
+     $rvvlsi = $_SESSION['rvvlsi'];
 
 
 
@@ -340,15 +392,77 @@ while($row = mysql_fetch_assoc($studentSql))
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  
+  <link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
+  <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
+  <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" language="javascript" class="init">
+
+$(document).ready(function() {
+  $('#example').dataTable( {
+    "order": [[ 3, "desc" ]]
+  } );
+} );
+  </script>
   </head>
 
   <body>
       <form action="" method="POST"> 
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
-    <div class="container mar-t30">
+    <div class="container">
+    <h4 class="text-center">Job Description</h4>
+    <div class="row">
+
+    <div class="form-horizontal">
+            <div class="form-group"> 
+                <label class="col-sm-2 control-label">Company Name: </label>
+                    <div class="col-sm-2">
+                    <label class="control-label"><?php echo $company;?></label>
+                </div>
+                          <label class="col-sm-2 control-label">Email:</label>
+                          <div class="col-sm-2">
+                    <label class="control-label"><?php echo $email;?></label>
+                          </div>
+
+
+                          <label class="col-sm-2 control-label">Mobile:</label>
+                          <div class="col-sm-2">
+                    <label class="control-label"><?php echo $mobile;?></label>
+                          </div>
+
+
+
+            </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-horizontal">
+            <div class="form-group"> 
+
+            <label class="col-sm-2 control-label">Recruitement For:</label>
+                          <div class="col-sm-2">
+                    <label class="control-label"><?php echo $recruitementFor;?></label>
+                          </div>
+                <label class="col-sm-2 control-label">Job Title: </label>
+                    <div class="col-sm-2">
+                    <label class="control-label"><?php echo $recruitmentPosition;?></label>
+                </div>
+                          
+
+
+                          <label class="col-sm-2 control-label">Job Code:</label>
+                          <div class="col-sm-2">
+                    <label class="control-label"><?php echo $jobcode;?></label>
+                          </div>
+
+
+
+            </div>
+    </div>
+    </div>
+        <div class="clearfix brd-top pad-t20">
+</div>
     <div class="row">
         <div class="form-horizontal">
             <div class="form-group">
@@ -374,8 +488,8 @@ while($row = mysql_fetch_assoc($studentSql))
                
                 <div class="col-sm-2">
                  <select class="form-control" name="rvvlsi" id="rvvlsi">
-                 <option value="only">Only RV-VLSI</option>
-                 <option value="all">All</option>
+                 <option value="only" <?php if($rvvlsi=='only'){echo "selected=selected";}?> >Only RV-VLSI</option>
+                 <option value="all" <?php if($rvvlsi=='all'){echo "selected=selected";}?> >All</option>
                  </select>
                 </div>         
             </div>
@@ -402,10 +516,10 @@ while($row = mysql_fetch_assoc($studentSql))
                
                 <div class="col-sm-2">
                  <select class="form-control" name="daterange" id="daterange">
-                 <option value="30">30 Days</option>
-                 <option value="60">60 Days</option>
-                  <option value="90">90 Days</option>
-                 <option value="100">Above 90 Days</option>
+                 <option value="30" <?php if($dateRange=='30'){echo "selected=selected";}?> >30 Days</option>
+                 <option value="60" <?php if($dateRange=='60'){echo "selected=selected";}?> >60 Days</option>
+                  <option value="90" <?php if($dateRange=='90'){echo "selected=selected";}?> >90 Days</option>
+                 <option value="100" <?php if($dateRange=='100'){echo "selected=selected";}?> >Above 90 Days</option>
                  </select>
                 </div> 
             </div>
@@ -470,15 +584,13 @@ while($row = mysql_fetch_assoc($studentSql))
                   </select>
                 </div>        
             </div>
-  
+          <?php if($recruitementFor!='Graduate') {?>
             <div class="form-group">
               <label class="col-sm-2 control-label">Select Domain</label>
               <div class="col-sm-10">
               <?php for($i=0;$i<count($resumetypearray);$i++){
                  $findme   = $resumetypearray[$i]['idresumetype'];
-                 $resume_type;
-                $pos =  strpos($resume_type, $findme);
-                 if($pos==false)
+                if($findme!=$resume_type)
                  {
                    $checked="";
                  }
@@ -490,7 +602,7 @@ while($row = mysql_fetch_assoc($studentSql))
                ?>
                     <label class="checkbox-inline">
                         <input type="checkbox" id='domainNames[]' name="domainNames[]" 
-                        value="domainNames[<?php echo $resumetypearray[$i]['idresumetype'];?>]"
+                        value="<?php echo $resumetypearray[$i]['idresumetype'];?>"
                         <?php echo $checked;?>
                        > <?php echo $resumetypearray[$i]['resumetypename'];?>
                       </label>
@@ -521,16 +633,37 @@ while($row = mysql_fetch_assoc($studentSql))
               </div>          
             </div>
 
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Custom Keyword</label>
+              <div class="col-sm-2">
+             <select class="form-control" name="flexiblefield" id="flexiblefield">
+                 <option value="With">With</option>
+                 <option value="Without">Without</option>
+                 </select>
+              </div>
+              <div class="col-sm-2">
+              <input type="name"  class="form-control" placeholder="Custom Keyword" name='searchBox' id='searchBox'>
+              </div>   
+              <div class="col-sm-6">
+              With (In the independent field will search for the pattern listed below along with all the search criteria selected by you or without the pattern 
+listed below plus the search criteria selected by you)
+              </div>       
+            </div>
+<?php } ?>
+
+
            
 
     </div>
 
-    <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">Search</button>       
+    <div class="clearfix brd-top pad-t20"> <div class="row">
+        <div class="col-sm-2 col-sm-offset-5"><button type="submit" class="btn btn-block btn-primary">Search</button> </div>
+        </div>
     </div> 
      <table id="example" class="table table-striped" cellspacing="0" width="100%">
         <thead>
           <tr>
+             <th>Select</th>
             <th>Name</th>
             <th>Email</th>
             <th>Mobile</th>
@@ -538,8 +671,8 @@ while($row = mysql_fetch_assoc($studentSql))
  <?php for($resumetype=0;$resumetype<count($resumeTypesArray);$resumetype++){?>
                         <th><?php echo $resumeTypesArray[$resumetype]['resumetypename'];?></th>
  <?php }?>
-   <th>Download Resume</th>
-            <th>Edit</th>
+   <th>View Resume</th>
+            <th>Download Resume</th>
           </tr>
         </thead>
 
@@ -547,7 +680,8 @@ while($row = mysql_fetch_assoc($studentSql))
         <?php for($i=0;$i<count($studentArray);$i++){
            $idstudent = $studentArray[$i]['idstudent'];?>
           <tr>
-            <td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'><?php echo $studentArray[$i]['studentname'];?></td>
+            <td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'></td>
+            <td><?php echo $studentArray[$i]['studentname'];?></td>
             <td><?php echo $studentArray[$i]['email'];?></td>
             <td><?php echo $studentArray[$i]['mobile'];?></td>
             <td><?php echo $studentArray[$i]['resumeid'];?></td>
@@ -572,6 +706,10 @@ while($row = mysql_fetch_assoc($studentSql))
                 <select id='recruitmentPosition' name='recruitmentPosition'>
                 <option value=''>Select</option>
                         <?php for($i=0;$i<count($recruitmentPositionArray);$i++){ 
+                             if($recruitmentPositionArray[$i]['idrecruitement'] !=$idrecruitement)
+                             {
+                               continue;
+                             }
                             $idrecruitementPosition = $recruitmentPositionArray[$i]['idrecruitement'];?>
 
                             <option value='<?php echo $idrecruitementPosition;?>'>
@@ -600,7 +738,6 @@ while($row = mysql_fetch_assoc($studentSql))
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="js/bootstrap.min.js"></script>
     
   </body>
 </html>

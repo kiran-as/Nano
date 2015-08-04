@@ -3,14 +3,18 @@ include('../application/conn.php');
 include('include/resumeType.php');
 error_reporting(-1);
 $idRecruitment = $_GET['idrecruitement'];
-$studentSql = mysql_query("Select a.*,b.*
+
+$studentSql = mysql_query("Select a.*,b.*,c.*
                           from tbl_student as a,
-                          tbl_recruitementresumes as b
+                          tbl_recruitementresumes as b,
+                          tbl_recruitement as c
                           where a.idstudent = b.idstudent and
+                          b.idrecruitement=c.idrecruitement and 
                           b.idrecruitement='$idRecruitment'");
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
+
     $studentArray[$i]['idstudent'] = $row['idstudent'];
     $studentArray[$i]['studentname'] = $row['firstname'].' - '.$row['lastname'];
         $studentArray[$i]['idstudent'] = $row['idstudent'];
@@ -20,8 +24,19 @@ while($row = mysql_fetch_assoc($studentSql))
     $studentArray[$i]['mobile'] = $row['mobile'];
 
     $studentArray[$i]['resumeid'] = $row['resumeid'];
+    $idrecruiter = $row['idrecruiter'];
 
     $i++;
+}
+$studentSql = mysql_query("Select a.* from tbl_recruiter as a where  a.idrecruiter=$idrecruiter");
+while($row = mysql_fetch_assoc($studentSql))
+{
+
+    $userName = $row['usename'];
+    $company = $row['company'];
+    $email = $row['email'];
+$mobile = $row['mobile'];
+    $designation = $row['designation'];
 }
 
 ?>
@@ -55,8 +70,18 @@ $(document).ready(function() {
   <?php include('../include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-        <div class="clearfix brd-btm pad-b20" style="display:none">
-        <a href="addCompanyProject.php" class="btn btn-primary pull-right" >+ ADD PROJECT</a>                     
+      <table class="table table-striped" cellspacing="0" width="80%">
+        <thead>
+          <tr>
+            <th>Company Name :<?php echo $company;?></th>
+            <th>User Name : <?php echo $userName;?></th>
+           </tr>
+           <tr>
+           <th>Mobile :<?php echo $mobile;?></th>
+            <th>Email : <?php echo $email;?></th>
+          </tr>
+        </thead>
+        </table>
     </div>    
   
 			<table id="example" class="table table-striped" cellspacing="0" width="100%">
@@ -89,8 +114,8 @@ $(document).ready(function() {
 
                          <td><?php echo $row['noofkeywords'];?></td>
                          <?php } ?>
-            <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
-            <td><a href='downloadResumeWithoutContact.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download Resume</a></td>
+            <td><a href='../viewResumeById.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
+            <td><a href='../downloadResumeById.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download Resume</a></td>
 
 					</tr>
 					<?php }?>

@@ -30,6 +30,19 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $addresslineone = $row['addresslineone']; 
     $addresslinetwo = $row['addresslinetwo'];
  $state = $row['state'];    
+
+    $currentsalary = $row['current_salary'];
+    $currentdesignation = $row['current_designation'];
+    $currentcompany = $row['current_company'];
+    $currentlocation = $row['current_location'];
+    $expectedsalary = $row['expected_salary'];
+    $expectedlocation = $row['expected_location'];
+    $expecteddesignation = $row['expected_designation'];   
+    $experience = $row['experience'];     
+    $previousexp = $row['previousexp']; 
+     $currentcompanyfromyear = getMonthName($row['currentcompanyfromyear']);
+     $currentcompanyfrommonth = $row['currentcompanyfrommonth'];    
+
 }
 
 
@@ -150,7 +163,7 @@ while($row = mysql_fetch_assoc($companySql))
     $companiesArray[$i]['companyname'] = $row['companyname'];
     $companiesArray[$i]['designation'] = $row['designation'];
     $companiesArray[$i]['frommonth'] = getMonthName($row['frommonth']);
-    $companiesArray[$i]['tomonth'] = $row['tomonth'];
+    $companiesArray[$i]['tomonth'] = getMonthName($row['tomonth']);
     $companiesArray[$i]['fromyear'] = $row['fromyear'];
     $companiesArray[$i]['toyear'] = $row['toyear'];
     $i++;
@@ -201,10 +214,10 @@ while($row = mysql_fetch_assoc($academicSql))
 }
 ////
 ////academic profiles///
+
 $companySql = mysql_query("Select * from tbl_companyproject where idstudent=$idstudent");
-$companyArraySql = array($companySql);
 $i=0;
-while($row = mysql_fetch_assoc($companyArraySql))
+while($row = mysql_fetch_assoc($companySql))
 {
     $companyArray[$i]['project_title'] = $row['project_title'];
     $companyArray[$i]['company_name'] = $row['company_name'];
@@ -212,8 +225,11 @@ while($row = mysql_fetch_assoc($companyArraySql))
     $companyArray[$i]['project_description'] = $row['project_description'];
     $companyArray[$i]['tools_used'] = $row['tools_used'];
     $companyArray[$i]['challenges'] = $row['challenges'];
+    $companyArray[$i]['designation'] = $row['designation'];
     $i++;
 }
+
+
 ///////
 $address = "";
 if($addressdoorno!=''){
@@ -286,7 +302,7 @@ $table.="<br/><table>
       }
 
 
-$table.="<br/>  <table width='100%' border='1'>
+$table.="<br/>  <table width='100%' border='1' style='border-collapse:collapse;'>
           <tr>
               <th colspan='5'>Education Details</th>
           </tr>
@@ -341,23 +357,28 @@ $table.="<br/>  <table width='100%' border='1'>
               <td>$sslcpassoutyear</td>
               <td>$sslcpercentage</td>                            
           </tr>
-
-
-
          </table>"; 
 
-
- if(count($companiesArray)>0) {
-
-$table.=" <br/> <table width='100%' border='1'>
+if($currentcompany!='')
+{
+$table.=" <br/> <table width='100%' border='1'  style='border-collapse:collapse;'>
 <tr>
-                 <td colspan='4' style='font-weight:bold' align='Center'>Experience Level</td>
+                 <td colspan='4' style='font-weight:bold' align='Center'>Experience Details</td>
             </tr>
             <tr>
             <td style='font-weight:bold'>Company Name</td>
             <td style='font-weight:bold'>Designation</td>
             <td style='font-weight:bold'>From </td>
             <td style='font-weight:bold'>To </td></tr>";
+
+          
+      
+$table.="<tr><td>$currentcompany</td>
+<td>$currentdesignation</td>
+<td>$currentcompanyfrommonth,$currentcompanyfromyear</td>
+<td>Till to date</td>
+</tr>";
+if(count($companiesArray)>0) {
 
              for($i=0;$i<count($companiesArray);$i++){
            $companyname = $companiesArray[$i]['companyname'];
@@ -374,9 +395,74 @@ $table.="<tr><td>$companyname</td>
 </tr>";
 }
   }
+
+}
+
+ 
             $table.="</table>";
 
- $table.=" <br/> <table width='100%' border='0'>";
+
+ $table.=" <br/> <table width='100%' border='0' style='border-collapse:collapse;'>";
+            $table.="<tr>
+                 <td style='font-weight:bold' align='Center'>Company Project Details</td>
+            </tr></table>";
+          for($i=0;$i<count($companyArray);$i++){
+           $project_title = $companyArray[$i]['project_title'];
+          $college_name = $companyArray[$i]['company_name'];
+          $time_duration = $companyArray[$i]['time_duration'];
+          $project_description = $companyArray[$i]['project_description'];
+          $tools_used = $companyArray[$i]['tools_used'];
+          $challenges = $companyArray[$i]['challenges'];
+$designation = $companyArray[$i]['designation'];
+          if(!empty($project_title))
+          {
+            $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
+            $table.="<tr>
+                 <td width='20%' style='font-weight:bold'>Project Title</td>
+                 <td width='80%'>$project_title</td>
+            </tr>";
+          }
+          if(!empty($college_name))
+          {
+            $table.="<tr>
+                 <td width='20%'  style='font-weight:bold'>Company Name</td>
+                 <td width='80%'>$college_name</td>
+            </tr>";
+          }
+          if(!empty($designation))
+          {
+            $table.="<tr>
+                 <td width='20%'  style='font-weight:bold'>Designation</td>
+                 <td width='80%'>$designation</td>
+            </tr>";
+          }
+          if(!empty($project_description))
+          {
+            $table.="<tr>
+                 <td width='20%'  style='font-weight:bold'>Project Description</td>
+                 <td width='80%'>$project_description</td>
+            </tr>";
+          }
+          if(!empty($tools_used))
+          {
+            $table.="<tr>
+                 <td width='20%' style='font-weight:bold'>Tools Used</td>
+                 <td width='80%'>$tools_used</td>
+            </tr>";
+          }
+          if(!empty($challenges))
+          {
+            $table.="<tr>
+                 <td width='20%' style='font-weight:bold'>Challenges</td>
+                 <td width='80%'>$challenges</td>
+            </tr>";
+          }
+          $table.="</table>"; 
+        }
+
+
+
+ $table.=" <br/> <table width='100%' border='0' style='border-collapse:collapse;'>";
             $table.="<tr>
                  <td style='font-weight:bold' align='Center'>Project Details</td>
             </tr></table>";
@@ -390,7 +476,7 @@ $table.="<tr><td>$companyname</td>
 
           if(!empty($project_title))
           {
-            $table.=" <br/> <table width='100%' border='1'>";
+            $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
             $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Title</td>
                  <td width='80%'>$project_title</td>
@@ -428,7 +514,7 @@ $table.="<tr><td>$companyname</td>
         }
 
 if($deg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1'>";
+  $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
   $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Name</td>
                  <td width='80%'>$deg_projectname</td>
@@ -454,7 +540,7 @@ if($deg_projectname!=''){
      } 
 
 if($pg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1'>";
+  $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
   $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Name</td>
                  <td width='80%'>$pg_projectname</td>
@@ -483,6 +569,8 @@ if($pg_projectname!=''){
 
 $mpdf=new mPDF();      
 $filename = $firstName.' '.$lastName;
+$mpdf->SetFooter('<div>Powered by Nanochip Solutions</div>');
+
 $mpdf->WriteHTML($table);
 $mpdf->Output($filename.'.pdf','D');
 

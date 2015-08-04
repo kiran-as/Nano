@@ -3,7 +3,7 @@ include('../application/conn.php');
 include('include/resumeType.php');
 error_reporting(-1);
 
-$studentSql = mysql_query("Select * from tbl_student");
+$studentSql = mysql_query("Select idstudent,firstname,lastname,email,mobile,resumeid,profilepic,updated_date from tbl_student");
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
@@ -17,6 +17,7 @@ while($row = mysql_fetch_assoc($studentSql))
 
     $studentArray[$i]['resumeid'] = $row['resumeid'];
   $studentArray[$i]['profilepic'] = $row['profilepic'];
+    $studentArray[$i]['updated_date'] = $row['updated_date'];
     $i++;
 }
 
@@ -174,7 +175,7 @@ $('.image-popup-vertical-fit').magnificPopup({
 
   <body >
   <form action='' method="POST">
-  <?php //include('../include/header.php');?>
+  <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:none">
@@ -185,7 +186,6 @@ $('.image-popup-vertical-fit').magnificPopup({
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>Mobile</th>
                         <th>ResumeId</th>
                         <th>Placement</th>
@@ -196,6 +196,8 @@ $('.image-popup-vertical-fit').magnificPopup({
  <?php }?>
             <th>View Resume</th>
             <th>Download Resume</th>
+            <th>Change Email/Password</th>
+            <th>Updated On</th>
                     </tr>
                 </thead>
 
@@ -207,7 +209,6 @@ $('.image-popup-vertical-fit').magnificPopup({
             <td><input type='checkbox' name='studentName[]' value='<?php echo $idstudent;?>'>
                         <a class="image-popup-vertical-fit" href='../img/profilepic/<?php echo $profilepic;?>'>
 <?php echo $studentArray[$i]['studentname'];?></a></td>
-                        <td><?php echo $studentArray[$i]['email'];?></td>
                         <td><?php echo $studentArray[$i]['mobile'];?></td>
                         <td><?php echo $studentArray[$i]['resumeid'];?></td>
                             <td><a class="simple-ajax-popup-align-top" href='placementiframe.php?idStudent=<?php echo $idstudent;?>'>
@@ -225,6 +226,8 @@ Placement Details</a></td>
                          <?php } ?>
             <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View</a></td>
             <td><a href='downloadResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download</a></td>
+            <td><a href='profileInformation.php?idstudent=<?php echo $idstudent;?>' >Change Password/Email</a></td>
+            <td><?php echo $studentArray[$i]['updated_date'];?></td>
 
                     </tr>
                     <?php }?>

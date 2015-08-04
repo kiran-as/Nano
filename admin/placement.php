@@ -2,7 +2,6 @@
 <?php
 include('../application/conn.php');
 
-include('include/sessioncheck.php');
 $idStudent = $_GET['idStudent'];
 
 $studentSql = mysql_query("Select firstname,lastname,email,mobile,resumeid from tbl_student where idstudent='$idStudent'");
@@ -18,7 +17,6 @@ while($row = mysql_fetch_assoc($studentSql))
     $mobile = $row['mobile'];
 
     $resumeid = $row['resumeid'];
-  $profilepic = $row['profilepic'];
    
 }
 
@@ -47,7 +45,6 @@ while($row = mysql_fetch_assoc($studentSql))
 
 if($_POST)
 {
- 
   for($i=0;$i<count($_POST['idrecruitementresumes']);$i++)
   {
     $idrecruitementresumes = $_POST['idrecruitementresumes'][$i];
@@ -71,7 +68,6 @@ if($_POST)
     third_round='$third_round',
     resume_shortlisted='$resume_shortlisted' 
     where idrecruitementresumes='$idrecruitementresumes'";
-    echo $updateSql;
     mysql_query($updateSql);
 
   }
@@ -133,7 +129,7 @@ exit;
             </div>
             </div>
             </div>
-            </form>
+          
     
     <div class="container mar-t10" style='background-color:white';>
     <table width='100%' border="1">
@@ -146,7 +142,7 @@ exit;
            <th>First round cleared</th>
             <th>Interview second round</th>
              <th>Placed</th>
-              <th>Review</th>
+              <th>Comments</th>
       </tr>
   <?php for($i=0;$i<count($recruitementDetails);$i++)
   { $idrecruitementresumes = $recruitementDetails[$i]['idrecruitementresumes'];

@@ -45,7 +45,7 @@ $(document).ready(function() {
   </head>
 
   <body>
-  <?php include('../include/header.php');?>
+  <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:">

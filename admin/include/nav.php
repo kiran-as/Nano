@@ -58,21 +58,31 @@ else
                <li class="<?php echo $studentListClass;?>">
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="List of all Resumes present in Database">
 
-               <a href="studentlist.php">Student List</a>
+               <a href="studentlist.php">Resumes in DB</a>
                </div>
                </li>
-               <li class="<?php echo $searchDomainStudentClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to shortlist the resume based on %, keywords etc">
-
-               <a href="advancedSearch.php">Search</a>
-                </div>
-               </li>
+              
                 <li class="<?php echo $recruitementListClass;?>">
                                   <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jobs posted by Recruiter is listed under this section">
+                 <?php if($_SESSION['idadmin']!=1) { ?>
+                <a href="recruitementList.php">Current Job Openings/ Assign Resumes</a>
+                 <?php } else { ?>
+               <a href="recruitementListSuperAdmin.php">Current Job Openings/ Assign Resumes</a>
 
-                <a href="recruitementList.php">Current Openings</a>
+                <?php } ?> 
                  </div>
                 </li>
+                      <li class="<?php echo $downloadExceClass;?>">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder in every page">
+              <?php if($_SESSION['idadmin']!=1){ ?>
+               <a href="recruiterActivation.php">Recruiter Activation</a>
+               <?php } else { ?>
+               <a href="recruiterList.php">Recruiter Activation</a>
+
+                <?php } ?> 
+                </div>
+               </li>
+
                <li class="<?php echo $processResumeClass;?>" style='display:none'>
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to search resumes for new keywords that have been added under the domain search">
 
@@ -89,7 +99,7 @@ else
                <li class="<?php echo $settingClass;?>">
                                  <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder">
 
-               <a href="settings.php">Settings</a>
+               <a href="settings.php">Resume Builder Settings</a>
                 </div>
                </li>
 

@@ -150,7 +150,7 @@ exit;
   </head>
 
   <body>
-   <?php include('../include/header.php');?>
+   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
       <form action="" method="POST" id="academicProject">
  

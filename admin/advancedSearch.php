@@ -296,19 +296,19 @@ while($row = mysql_fetch_assoc($studentSql))
 
 
 ?>
-	<link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
-	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
-	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" language="javascript" class="init">
+  <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
+  <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" language="javascript" class="init">
 
 $(document).ready(function() {
-	$('#example').dataTable( {
-		"order": [[ 3, "desc" ]]
-	} );
+  $('#example').dataTable( {
+    "order": [[ 3, "desc" ]]
+  } );
 } );
 
-	</script>
+  </script>
   <style>
   .searchbox{
 height: 34px;

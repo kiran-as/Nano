@@ -118,6 +118,7 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
   $deg_othercoursename = str_replace("'","&#39;",$_POST['deg_othercoursename']);   
   $pg_othercoursename = str_replace("'","&#39;",$_POST['pg_othercoursename']);   
    $ttp = $_POST['ttp'];
+   $updated_date = date('Y-m-d');
 /*echo "Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
@@ -198,6 +199,11 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                               ttp='$ttp'
 
                         where idstudent = '$idstudent'");
+if($rvvlsiid!='')
+{
+	mysql_query("Update tbl_student set resumeid = '$rvvlsiid'
+		 where idstudent = '$idstudent'"); 
+}
    echo "<script>parent.location='academicProjects.php'</script>";
    exit;
   
@@ -548,7 +554,7 @@ function otherpgcoureseshideshow(pgothercoursename)
               <div class="form-group" style="display:none">
                 <label class="col-sm-5 control-label">College <span class="error-text">*</span></label>
                 <div class="col-sm-7">
-                  <input type="name" class="form-control" placeholder="College Name" id="deg_schoolname" name="deg_schoolname" value="<?php echo $degschoolname;?>">
+                  <input type="name" class="form-control" placeholder="College Name" id="pg_schoolname" name="pg_schoolname" value="<?php echo $pgschoolname;?>">
                 </div>               
               </div>  
               <div class="form-group">

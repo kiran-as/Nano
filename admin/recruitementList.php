@@ -2,7 +2,7 @@
 include('../application/conn.php');
 error_reporting(-1);
 
-$studentSql = mysql_query("Select a.*,b.* from tbl_recruitement as a ,tbl_recruiter as b 
+$studentSql = mysql_query("Select a.*,b.idrecruiter from tbl_recruitement as a ,tbl_recruiter as b 
 	                        where a.idrecruiter=b.idrecruiter");
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
@@ -16,6 +16,8 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['status'] = $row['status'];
     $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
     $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];
+        $recruitementArray[$i]['idrecruiter'] = $row['idrecruiter'];
+
     $i++;
 }
 
@@ -83,6 +85,11 @@ function fnChangeApprove(approvestatus)
 		}
 	}
 }
+
+function fnalert()
+{
+	alert('You dont have permission to open/close the job listing');
+}
 </script>
 <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -98,7 +105,7 @@ function fnChangeApprove(approvestatus)
   </head>
 
   <body>
-  <?php include('../include/header.php');?>
+  <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:none">
@@ -111,26 +118,27 @@ function fnChangeApprove(approvestatus)
 						<th>Position</th>
 						<th>Posted On</th>
 						<th>Company</th>
-						<th>Recruiter Name</th>
 						<th>No of Openings</th>
 						<th style="width:100px">No of Resumes shortlisted</th>
-						<th>Tag Status</th>
-						
+						<th>Status</th>
 						<th>Interview Date</th>
 						<th>Candidates Shortlisted</th>
 						<th>Search Candidates</th>
+												<th>Job Description</th>
+
 					</tr>
 				</thead>
 
 				<tbody>
 				<?php for($i=0;$i<count($recruitementArray);$i++){
 					$idrecruitement = $recruitementArray[$i]['idrecruitement'];
-					$approved = $recruitementArray[$i]['approved'];?>
+					$idrecruiter = $recruitementArray[$i]['idrecruiter'];
+					$approved = $recruitementArray[$i]['approved'];
+					$status = $recruitementArray[$i]['status'];?>
 					<tr>
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
 						<td><?php echo $recruitementArray[$i]['company'];?></td>
-						<td><?php echo $recruitementArray[$i]['username'];?></td>
 						<td><?php echo $recruitementArray[$i]['noofopening'];?></td>
 						<?php 
 $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount 
@@ -141,17 +149,19 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 }
 ?>
 						<td><?php echo $totalResumesAttached;?></td>
-						<td><?php echo $recruitementArray[$i]['status'];?></td>
+						<td><a href="javascript:fnalert();"> <?php echo $recruitementArray[$i]['status'];?> </a></td>
 						
 						<td><?php echo $recruitementArray[$i]['interviewdate'];?></td>
 
-						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
+						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>" target="_blank">View Candidates</a></td>
 						 <?php if($recruitementArray[$i]['status']=='Close') { ?>
 						<td>Search Candidates</td>
                          <?php } else {?> 
                          						<td><a href="advanceSearchRecruiter.php?idrecruitement=<?php echo $idrecruitement;?>" target="_blank">Search Candidates</a></td>
 
                          <?php }?>
+                         						<td><a href="editRecruitment.php?idrecruitement=<?php echo $idrecruitement;?>&idrecruiter=<?php echo $idrecruiter;?>" target="_blank">View details entered by Recruiter</a></td>
+
 					</tr>
 					<?php }?>
 					

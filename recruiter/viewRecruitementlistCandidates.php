@@ -87,7 +87,7 @@ $(document).ready(function() {
   </head>
 
   <body>
-  <?php include('../include/header.php');?>
+  <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20" style="display:none">
@@ -119,8 +119,8 @@ $(document).ready(function() {
 
                          <td><?php echo $row['noofkeywords'];?></td>
                          <?php } ?>
-            <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
-            <td><a href='downloadResumeWithoutContact.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download Resume</a></td>
+            <td><a href='viewResumeById.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View Resume</a></td>
+            <td><a href='downloadResumeById.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download Resume</a></td>
             <td><input type='checkbox' class='studentforinterview' name='studentName[]' id="<?php echo $i.'-reasonarraycheckbox';?>" checked="checked" onchange="fnselectreason('<?php echo $i;?>')">
             <input type='text' placeholder="Please specify the Reason" class="form-control" name='reasonarray[]' value='' style='display:none' id="<?php echo $i.'-reasonarray';?>"></td>
 
@@ -129,7 +129,7 @@ $(document).ready(function() {
 
 				</tbody>
 			</table>
-      <table width="100%">
+      <table width="100%" style="display:none;">
        <tr>
          <td><label>Please type the matter to be sent to the shortlisted candidates</label><br/><textarea class="form-control mar-b15" rows="3" name="corecompetancy[]"></textarea></td>
        </tr>

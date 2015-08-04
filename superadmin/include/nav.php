@@ -2,8 +2,8 @@
        <nav class="container">
            <ul class="main-nav clearfix">
                <li class="active"><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="recruitementList.php">Recruitement List</a></li>
-                           <li><a href="studentlist.php">Student List</a></li>
+                <li><a href="recruitementList.php">Current Job Openings/ Assign Resumes</a></li>
+                <li><a href="recruiterList.php">Recruiter Activation</a></li>
 
            </ul>
        </nav>
