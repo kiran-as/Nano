@@ -133,52 +133,48 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
     <div class="row txtc">
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
-            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of resumes with BE and or ME qualifications and no experience, there resumes will have work experience section empty and no skill development courses">
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of students who have taken with BE and or ME qualifications only. No skill development courses taken by these candidates">
             <div class="font48"><?php echo $fresherResumeCount;?></div>
             <p class="font20">Freshers No skill devleopment</p>
             </div>
             </div>
         </div>  
-        <div class="col-sm-2 mar-b30">
+  <div class="col-sm-2 mar-b30">
            <div class="primary-box">
-                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of resumes with BE and or ME qualifications and no experience, there resumes will have work experience section empty with RV-VLSI courses">
-            <div class="font48"><?php echo $rvvlsiDesignCenterCount;?></div>
-            <p class="font20">RV-VLSI</p>
-            </div>
-            </div>
-        </div> 
-        <div class="col-sm-2 mar-b30">
-           <div class="primary-box">
-                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="This section represents">
-            <div class="font48"> <?php echo $experienceResumeCount;?></div>
-            <p class="font20">experience</p>
-            </div>
-            </div>
-        </div> 
-        <div class="col-sm-2 mar-b30">
-           <div class="primary-box">
-            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of resumes with BE and or ME qualifications and no experience, there resumes will have work experience section empty and non RV-VLSI Center">           
+            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of student who have taken skill development courses from other schools with BE and or ME qualifications, have no experience.">           
             <div class="font48"><?php echo $otherCenterCount;?></div>
             <p class="font20">Other Schools</p>
             </div>
             </div>
         </div> 
+
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
-            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
-            <div class="font48"><?php echo $BEResumeCount;?></div>
-            <p class="font20">B.E + Skill development</p>
+                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of student who have taken RV-VLSI courses with BE and or ME qualifications, have no experience.">
+            <div class="font48"><?php echo $rvvlsiDesignCenterCount;?></div>
+            <p class="font20">RV-VLSI + B.E</p>
             </div>
             </div>
         </div> 
+
+         <div class="primary-box">
+                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Represents the no of student who have taken RV-VLSI courses with BE and or ME qualifications, have no experience.">
+            <div class="font48"><?php echo $rvvlsiDesignCenterCount;?></div>
+            <p class="font20">RV-VLSI + M.E</p>
+            </div>
+            </div>
+        </div>
+
         <div class="col-sm-2 mar-b30">
            <div class="primary-box">
-            <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resume of Only Freshers">           
-            <div class="font48"><?php echo $MEResumeCount;?></div>
-            <p class="font20">M.E + Skill development</p>
+                       <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="This section represents candidates who have industry experience.">
+            <div class="font48"> <?php echo $experienceResumeCount;?></div>
+            <p class="font20">experience</p>
             </div>
             </div>
-        </div>                                                      
+        </div> 
+      
+                                                      
     </div> 
 
 
@@ -215,9 +211,7 @@ while($row = mysql_fetch_assoc($pgDiplomaCoursesSql))
       </tbody>
     </table>  
 
-    <div class="clearfix brd-top pad-t20">
-        <button type="submit" class="btn btn-primary pull-right">NEXT</button>                      
-    </div>                   
+                      
     </div> 
     
     <footer class="home-footer">

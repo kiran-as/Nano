@@ -47,7 +47,7 @@ function fnChangeApprove(approvestatus)
 			data : formData,
 			success: function(data, textStatus, jqXHR)
 			{
-                parent.location='recruiterList.php';
+                              parent.location='recruiterList.php';
 			},
 			error: function (jqXHR, textStatus, errorThrown)
 			{

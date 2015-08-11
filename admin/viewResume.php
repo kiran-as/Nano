@@ -325,7 +325,7 @@ $address
           }
              if($challenges!=''){
           $htmls.="<tr>
-              <td><span class='font-gray'>Challenges</span></td>                           
+              <td><span class='font-gray'>Challenges/ Solutions</span></td>                           
               <td>$challenges</td>                           
           </tr>";
           } 

@@ -1,5 +1,6 @@
 <?php
 include('../application/conn.php');
+echo $_SERVER['DOCUMENT_ROOT'];
 if($_POST)
 {
 

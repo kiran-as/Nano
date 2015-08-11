@@ -1,17 +1,45 @@
-<?php 
+<?php
+
 include('../application/conn.php');
+
+
+//$files = array('Basavaraj Shikarakhane.pdf', 'BIJESH AK.pdf');
+//$zipname = 'file.zip';
+//$zip = new ZipArchive;
+//$zip->open($zipname,
+//	ZipArchive::CREATE);
+//foreach ($files as $file) {
+//    $zip->addFile($file);
+//}
+//$zip->close();
+//header('Content-Type: application/zip');
+//header('Content-disposition: attachment; filename=' . $zipname);
+//header('Content-Length: ' . filesize($zipname));
+//readfile($zipname);
+//exit;
+//
+//$sourcefile = "/var/www/html/college/admin/Basavaraj Shikarakhane.pdf";
+//$dest = "/var/www/html/college/admin/ajax/Basavaraj Shikarakhane.pdf";
+//if (rename($sourcefile,
+//		$dest)) {
+//
+//    echo "The file " . $sourcefile . " has been moved to " . $dest;
+//}
+//else {
+//
+//    echo "Sorry, there was a problem moving " . $source . " to " . $dest;
+//}
+//exit;
 $idstudent = $_GET['idstudent'];
 //echo "Select * from tbl_resumekeywords where idresumetype=$idresumeTypes";
 $resumeKeywordsSql = mysql_query("Select * from tbl_resumekeywords ");
-while($row = mysql_fetch_assoc($resumeKeywordsSql))
-{
+while ($row = mysql_fetch_assoc($resumeKeywordsSql)) {
     $resumeKeyWordsArray[] = $row['keywords'];
 }
-    
+
 //echo "Select * from tbl_student where idstudent='$idstudent'";
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
-while($row = mysql_fetch_assoc($profileInformationSql))
-{
+while ($row = mysql_fetch_assoc($profileInformationSql)) {
     $firstName = $row['firstname'];
     $lastName = $row['lastname'];
     $mobileNumber = $row['mobile'];
@@ -23,45 +51,44 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $gender = $row['gender'];
     $nationality = $row['nationality'];
     $languages = $row['languages'];
-    $address = $row['address']; 
+    $address = $row['address'];
     $email = $row['email'];
-    $career_objective = $row['career_objective']; 
+    $career_objective = $row['career_objective'];
     $addressdoorno = $row['addressdoorno'];
-    $addresslineone = $row['addresslineone']; 
+    $addresslineone = $row['addresslineone'];
     $addresslinetwo = $row['addresslinetwo'];
- $state = $row['state'];    
+    $state = $row['state'];
 }
 
 
 ////Academic deeatils//
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
-while($row = mysql_fetch_assoc($profileInformationSql))
-{
+while ($row = mysql_fetch_assoc($profileInformationSql)) {
     $sslcpassoutyear = $row['sslc_passoutyear'];
     $sslcpercentagetype = $row['sslc_percentagetype'];
     $sslcpercentage = $row['sslc_percentage'];
     $sslcschoolname = $row['sslc_schoolname'];
-    
+
     $pucpassoutyear = $row['puc_passoutyear'];
     $pucpercentagetype = $row['puc_percentagetype'];
     $pucpercentage = $row['puc_percentage'];
     $pucschoolname = $row['puc_schoolname'];
-    
+
     $degpassoutyear = $row['deg_passoutyear'];
     $degpercentagetype = $row['deg_percentagetype'];
     $degpercentage = $row['deg_percentage'];
     $degschoolname = $row['deg_schoolname'];
     $degboard = $row['deg_university'];
     $degdepartment = departmentname($row['deg_department']);
-     
+
     $pgpassoutyear = $row['pg_passoutyear'];
     $pgpercentagetype = $row['pg_percentagetype'];
     $pgpercentage = $row['pg_percentage'];
     $pgschoolname = $row['pg_schoolname'];
     $pgboard = $row['pg_university'];
     $pgdepartment = departmentname($row['pg_department']);
-     
-     
+
+
     $pgdippassoutyear = $row['pgdip_passoutyear'];
     $pgdippercentagetype = $row['pgdip_percentagetype'];
     $pgdippercentage = $row['pgdip_percentage'];
@@ -71,81 +98,69 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $deg_othercoursename = $row['deg_othercoursename'];
     $pgdip_othercoursename = $row['pgdip_othercoursename'];
     $pg_othercoursename = $row['pg_othercoursename'];
-    if($degdepartment=='Others')
-    {
-      $degdepartment = $deg_othercoursename;
+    if ($degdepartment == 'Others') {
+	$degdepartment = $deg_othercoursename;
     }
 
-    if($pgdepartment=='Others')
-    {
-      $pgdepartment = $pg_othercoursename;
+    if ($pgdepartment == 'Others') {
+	$pgdepartment = $pg_othercoursename;
     }
 
-    if($pgdipcourse=='Others')
-    {
-      $pgdipcourse = $pgdip_othercoursename;
+    if ($pgdipcourse == 'Others') {
+	$pgdipcourse = $pgdip_othercoursename;
     }
 
 
-    if($pgdipschoolname=='1')
-    {
-      $pgdipschoolname = 'RV-VLSI Design Center';
+    if ($pgdipschoolname == '1') {
+	$pgdipschoolname = 'RV-VLSI Design Center';
     }
-    else
-    {
-      $pgdipschoolname = $row['pgdip_otherschools'];
+    else {
+	$pgdipschoolname = $row['pgdip_otherschools'];
     }
 
-     $deg_projectname = $row['deg_projectname'];
+    $deg_projectname = $row['deg_projectname'];
     $deg_projectdescription = $row['deg_projectdescription'];
     $deg_projecttools = $row['deg_projecttools'];
     $deg_projectchallenges = $row['deg_projectchallenges'];
-    
+
     $pg_projectname = $row['pg_projectname'];
     $pg_projectdescription = $row['pg_projectdescription'];
     $pg_projecttools = $row['pg_projecttools'];
     $pg_projectchallenges = $row['pg_projectchallenges'];
 }
-
-function departmentname($idDepartment)
+function departmentname ($idDepartment)
 {
-  $departmentSql = mysql_query("Select * from tbl_department where iddepartment=$idDepartment");
-  while($row = mysql_fetch_assoc($departmentSql))
-  {
-      $departmentName = $row['department'];
-  }
-  return $departmentName;
+    $departmentSql = mysql_query("Select * from tbl_department where iddepartment=$idDepartment");
+    while ($row = mysql_fetch_assoc($departmentSql)) {
+	$departmentName = $row['department'];
+    }
+    return $departmentName;
 }
 
-function pgDipCourse($idpgdipcourses)
+function pgDipCourse ($idpgdipcourses)
 {
-  $departmentSql = mysql_query("Select * from tbl_pgdipcourses where idpgdipcourses=$idpgdipcourses");
-  while($row = mysql_fetch_assoc($departmentSql))
-  {
-      $pgdip_coursename = $row['pgdip_coursename'];
-  }
-  return $pgdip_coursename;
+    $departmentSql = mysql_query("Select * from tbl_pgdipcourses where idpgdipcourses=$idpgdipcourses");
+    while ($row = mysql_fetch_assoc($departmentSql)) {
+	$pgdip_coursename = $row['pgdip_coursename'];
+    }
+    return $pgdip_coursename;
 }
+
 /////////////////$achievementSql = mysql_query("Select * from tbl_achievements where idstudent=$idstudent");
-
-
 ////academic profiles///
 $achievementSql = mysql_query("Select * from tbl_corecompetancy where idstudent=$idstudent");
 $achievementsArray = array();
-$i=0;
-while($row = mysql_fetch_assoc($achievementSql))
-{
+$i = 0;
+while ($row = mysql_fetch_assoc($achievementSql)) {
     $achievementsArray[$i]['achievements'] = $row['corecompetancy'];
     $i++;
 }
 ///////
-
 ////academic profiles///
 //echo "Select * from tbl_academicproject where idstudent=$idstudent";
 $academicSql = mysql_query("Select * from tbl_academicproject where idstudent=$idstudent");
-$i=0;
-while($row = mysql_fetch_assoc($academicSql))
-{
+$i = 0;
+while ($row = mysql_fetch_assoc($academicSql)) {
     $academicArray[$i]['project_title'] = $row['project_title'];
     $academicArray[$i]['college_name'] = $row['college_name'];
     $academicArray[$i]['time_duration'] = $row['time_duration'];
@@ -158,9 +173,8 @@ while($row = mysql_fetch_assoc($academicSql))
 ////academic profiles///
 $companySql = mysql_query("Select * from tbl_companyproject where idstudent=$idstudent");
 $companyArraySql = array($companySql);
-$i=0;
-while($row = mysql_fetch_assoc($companyArraySql))
-{
+$i = 0;
+while ($row = mysql_fetch_assoc($companyArraySql)) {
     $companyArray[$i]['project_title'] = $row['project_title'];
     $companyArray[$i]['company_name'] = $row['company_name'];
     $companyArray[$i]['time_duration'] = $row['time_duration'];
@@ -171,44 +185,43 @@ while($row = mysql_fetch_assoc($companyArraySql))
 }
 ///////
 $address = "";
-if($addressdoorno!=''){
- $address.= '#'.$addressdoorno."<br/>";
- }
- if($addresslineone!=''){
-  $address.= $addresslineone."<br/>";
- }
- if($addresslinetwo!=''){
- $address.= $addresslinetwo."<br/>";
- }
- if($city!=''){
- $address.=$city."<br/>";
- }
- if($state!=''){
-  if($pincode!=''){
- $address.= $state."-".$pincode."<br/>";
- }
- else
- {
- $address.=$state."<br/>";
+if ($addressdoorno != '') {
+    $address.= '#' . $addressdoorno . "<br/>";
 }
- }
+if ($addresslineone != '') {
+    $address.= $addresslineone . "<br/>";
+}
+if ($addresslinetwo != '') {
+    $address.= $addresslinetwo . "<br/>";
+}
+if ($city != '') {
+    $address.=$city . "<br/>";
+}
+if ($state != '') {
+    if ($pincode != '') {
+	$address.= $state . "-" . $pincode . "<br/>";
+    }
+    else {
+	$address.=$state . "<br/>";
+    }
+}
 
 /**/
-$table="<table width='100%'>
+$table = "<table width='100%'>
 
           <tr>
               <th align='left'>Profile Information</th>
           </tr>
           <tr>
               <td width='40%'><span style='font-weight:bold'>Name:</span> $firstName $lastName</td>
-              
+
               <td><span style='font-weight:bold'>Email:</span> $email</td>
           </tr>
           <tr>
                  <td valign='top' ><span style='font-weight:bold'>Phone:</span> $mobileNumber</td>
               <td><span style='font-weight:bold'>Address:</span> $address</td>
-           
-          </tr>      
+
+          </tr>
         </table>";
 $table.="<br/>  <table>
           <tr>
@@ -220,26 +233,25 @@ $table.="<br/>  <table>
           </ul>
         ";
 
-    
-if(count($achievementsArray)>0){
 
-$table.="<br/><table>
+if (count($achievementsArray) > 0) {
+
+    $table.="<br/><table>
           <tr>
               <th align='left'>Core Competancy</th>
           </tr>
           </table>
          <ul style='list-style-type:disc'>";
-              for($i=0;$i<count($achievementsArray);$i++){
-                
-                if(!empty($achievementsArray[$i]['achievements']))
-                {
-                  $achievementstitle = $achievementsArray[$i]['achievements'];
-                   
-                  $table.="<li>$achievementstitle</li>";
-                }
-              }
-              $table.="</ul>"; 
-      }
+    for ($i = 0; $i < count($achievementsArray); $i++) {
+
+	if (!empty($achievementsArray[$i]['achievements'])) {
+	    $achievementstitle = $achievementsArray[$i]['achievements'];
+
+	    $table.="<li>$achievementstitle</li>";
+	}
+    }
+    $table.="</ul>";
+}
 $table.="<br/>  <table width='100%' border='1'>
           <tr>
               <th colspan='5'>Education Details</th>
@@ -251,108 +263,102 @@ $table.="<br/>  <table width='100%' border='1'>
                <th width='10%'>Year of passing</th>
                <th width='15%'>Aggregate</th>
           </tr>";
-          if($pgdipschoolname!='')
-          {
-           $table.="<tr>
+if ($pgdipschoolname != '') {
+    $table.="<tr>
               <td>PG Diploma</td>
               <td>$pgdipcourse</td>
               <td>$pgdipschoolname</td>
               <td>$pgdippassoutyear</td>
-              <td>-</td>                            
+              <td>-</td>
           </tr>";
-           }
-  if($pgboard!='') {
-          $table.="<tr>
+}
+if ($pgboard != '') {
+    $table.="<tr>
               <td>Master Degree</td>
               <td>$pgdepartment</td>
               <td>$pgschoolname</td>
               <td>$pgpassoutyear</td>
-              <td>$pgpercentage</td>                            
+              <td>$pgpercentage</td>
           </tr>";
-           }
-         if($degschoolname!='') {
-          $table.="<tr>
+}
+if ($degschoolname != '') {
+    $table.="<tr>
               <td>Degree</td>
               <td>$degdepartment</td>
               <td>$degschoolname</td>
               <td>$degpassoutyear</td>
-              <td>$degpercentage</td>                            
+              <td>$degpercentage</td>
           </tr>";
-           }
-          if($pucschoolname!='') {
-           $table.="<tr>
+}
+if ($pucschoolname != '') {
+    $table.="<tr>
               <td>PUC</td>
               <td> - </td>
               <td>$pucschoolname</td>
               <td>$pucpassoutyear</td>
-              <td>$pucpercentage</td>                            
+              <td>$pucpercentage</td>
           </tr>";
-           }
-           $table.="<tr>
+}
+$table.="<tr>
               <td>SSLC</td>
               <td> - </td>
               <td>$sslcschoolname</td>
               <td>$sslcpassoutyear</td>
-              <td>$sslcpercentage</td>                            
+              <td>$sslcpercentage</td>
           </tr>
 
 
 
-         </table>";     
- $table.=" <br/> <table width='100%' border='0'>";
-            $table.="<tr>
+         </table>";
+$table.=" <br/> <table width='100%' border='0'>";
+$table.="<tr>
                  <td style='font-weight:bold' align='Center'>Project Details</td>
             </tr></table>";
-          for($i=0;$i<count($academicArray);$i++){
-           $project_title = $academicArray[$i]['project_title'];
-          $college_name = $academicArray[$i]['college_name'];
-          $time_duration = $academicArray[$i]['time_duration'];
-          $project_description = $academicArray[$i]['project_description'];
-          $tools_used = $academicArray[$i]['tools_used'];
-          $challenges = $academicArray[$i]['challenges'];
+for ($i = 0; $i < count($academicArray); $i++) {
+    $project_title = $academicArray[$i]['project_title'];
+    $college_name = $academicArray[$i]['college_name'];
+    $time_duration = $academicArray[$i]['time_duration'];
+    $project_description = $academicArray[$i]['project_description'];
+    $tools_used = $academicArray[$i]['tools_used'];
+    $challenges = $academicArray[$i]['challenges'];
 
-          if(!empty($project_title))
-          {
-            $table.=" <br/> <table width='100%' border='1'>";
-            $table.="<tr>
+    if (!empty($project_title)) {
+	$table.=" <br/> <table width='100%' border='1'>";
+	$table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Title</td>
                  <td width='80%'>$project_title</td>
             </tr>";
-          }
-          if(!empty($college_name))
-          {
-            $table.="<tr>
+    }
+    if (!empty($college_name)) {
+	$table.="<tr>
                  <td width='20%'  style='font-weight:bold'>Institue Name</td>
                  <td width='80%'>$college_name</td>
             </tr>";
-          }
-          if(!empty($project_description))
-          {
-            $table.="<tr>
+    }
+    if (!empty($project_description)) {
+	$table.="<tr>
                  <td width='20%'  style='font-weight:bold'>Project Description</td>
                  <td width='80%'>$project_description</td>
             </tr>";
-          }
-          if(!empty($tools_used))
-          {
-            $table.="<tr>
+    }
+    if (!empty($tools_used)) {
+	$table.="<tr>
                  <td width='20%' style='font-weight:bold'>Tools Used</td>
                  <td width='80%'>$tools_used</td>
             </tr>";
-          }
-          if(!empty($challenges))
-          {
-            $table.="<tr>
+    }
+    if (!empty($challenges)) {
+	$table.="<tr>
                  <td width='20%' style='font-weight:bold'>Challenges</td>
                  <td width='80%'>$challenges</td>
             </tr>";
-          }
-          $table.="</table>"; 
-        }
+    }
+    $table.="</table>";
+}
 
-if($deg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1'>";
-  $table.="<tr>
+if ($deg_projectname != '') {
+    $table.=" <br/> <table width='100%' border='1'>";
+    $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Name</td>
                  <td width='80%'>$deg_projectname</td>
             </tr>
@@ -372,13 +378,12 @@ if($deg_projectname!=''){
                  <td width='20%' style='font-weight:bold'>Tools</td>
                  <td width='80%'>$deg_projecttools</td>
             </tr>";
-               $table.="</table>"; 
+    $table.="</table>";
+}
 
-     } 
-
-if($pg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1'>";
-  $table.="<tr>
+if ($pg_projectname != '') {
+    $table.=" <br/> <table width='100%' border='1'>";
+    $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Project Name</td>
                  <td width='80%'>$pg_projectname</td>
             </tr>
@@ -398,16 +403,13 @@ if($pg_projectname!=''){
                  <td width='20%' style='font-weight:bold'>Tools</td>
                  <td width='80%'>$pg_projecttools</td>
             </tr>";
-               $table.="</table>"; 
+    $table.="</table>";
+}
 
-     } 
-                          
-  include("library/mpdf60/mpdf.php");/*MPDF library );*/
+include("library/mpdf60/mpdf.php"); /* MPDF library ); */
 
-$mpdf=new mPDF();      
-$filename = $firstName.' '.$lastName;
-$mpdf->WriteHTML($table);/*the above php variable is passed as the output parameter */
-$mpdf->Output($filename.'.pdf','D');
-
-
+$mpdf = new mPDF();
+$filename = $firstName . ' ' . $lastName;
+$mpdf->WriteHTML($table); /* the above php variable is passed as the output parameter */
+$mpdf->Output($filename . '.pdf', 'F');
 ?>

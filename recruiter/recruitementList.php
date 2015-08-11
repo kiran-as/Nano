@@ -16,6 +16,7 @@ while($row = mysql_fetch_assoc($studentSql))
     $recruitementArray[$i]['noofopening'] = $row['noofopening']; 
     $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];   
     $recruitementArray[$i]['experience_type'] = $row['experience_type'];
+    $recruitementArray[$i]['jobcode'] = $row['jobcode'];
     $i++;
 }
 
@@ -83,10 +84,10 @@ function fnChangeApprove(approvestatus)
 }
 </script>
 <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../css/main.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -109,6 +110,7 @@ job description.</p>
 			<table id="example" class="table table-striped" cellspacing="0" width="100%">
 				<thead>
 					<tr>
+					<th>Job Code</th>
 					<th>Job Type</th>
 						<th>Job Title</th>
 						<th>Position Created Date</th>
@@ -116,6 +118,7 @@ job description.</p>
 						<th>Interview Date</th>
 						<th>No of Resumes Tagged</th>
 						<th>Status</th>
+						<th>Over View</th>
 					</tr>
 				</thead>
 
@@ -124,6 +127,7 @@ job description.</p>
 					$idrecruitement = $recruitementArray[$i]['idrecruitement'];
 					$approved = $recruitementArray[$i]['approved'];?>
 					<tr>
+					<td><?php echo $recruitementArray[$i]['jobcode'];?></td>
 					<td> <?php echo $recruitementArray[$i]['experience_type'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementposition'];?></td>
 						<td><?php echo $recruitementArray[$i]['recruitementdate'];?></td>
@@ -144,8 +148,9 @@ while($row = mysql_fetch_assoc($countOfStudentForRecruitmentSql))
 						<td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement;?>">View Candidates</a></td>
 					    <?php } else {?>
                         <td>In-Process</td>
-                        <?php }?>					    	
- 
+                        <?php }?>		
+ 						<td><a href="downloadExce.php?idrecruitement=<?php echo $idrecruitement;?>">OVer view of Resmes</a></td>
+
 					</tr>
 					<?php }?>
 					

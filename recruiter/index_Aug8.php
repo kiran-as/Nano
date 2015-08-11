@@ -67,15 +67,13 @@ if($_POST['companyName'])
         $userName = $_POST['userName'];
         $mobile = $_POST['mobile'];
         $url = $_POST['url'];
-        $password = rand(11111111,99999999);
          $date = date('Y-m-d H:i:s');
          
          mysql_query("Insert into tbl_recruiter (designation,password,company,usename,email,mobile,web_url,registereddate)
-             values('$designation','$password','$companyName','$userName','$email','$mobile','$url','$date')");
+             values('$designation','12345','$companyName','$userName','$email','$mobile','$url','$date')");
          
    $thankyouMessage=1;   
-
-   $to = "$email";
+      $to = "$email";
 $subject = "Thanks for registering to Nanochip Solutions";
 
 $message = "
@@ -86,13 +84,7 @@ $message = "
 <td>Dear $userName,</td>
 </tr>
 <tr>
-<td>Thanks for registering with Nanochip Solutions. Your request is in process it takes about 24 hours to activate your account. <br/>
-Please check your email, for more updates. Please contact us at info@nanochipsolutions.com or call us at +91-80-4078 8574.</td>
-</tr>
-<tr>
-<td>Thank you,<br/>
-Recruitment Advisor <br/>
-Nanochip Solutions</td>
+<td>Thanks for registering with Nanochip Solutions. Your request is in process it takes about 24 hours to activate your account, Please check your email to activate your account. Please contact us at info@nanochipsolutions.com or call us at +91-80-4078 8574</td>
 </tr>
 </table>
 </body>
@@ -108,54 +100,8 @@ $headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
 $headers .= 'Cc: askiran123@gmail.com' . "\r\n";
 
 mail($to,$subject,$message,$headers);
-
-
- $to = "vprasad@nanochipsolutions.com";
-$subject = "New Recruiter has been registered";
-
-$message = "
-<html>
-<body>
-<table>
-<tr>
-<td>Dear Admin,</td>
-</tr>
-<tr>
-<td>New Recruiter has been registered through the portal, below are the details please verify and approve it from the admin portal</td>
-</tr>
-<tr>
-<td>Recruiter Name - $userName</td>
-</tr>
-<tr>
-<td>Recruiter Company Name - $companyName</td>
-</tr>
-<tr>
-<td>Recruiter Designation - $designation</td>
-</tr>
-<tr>
-<td>Recruiter web Url - $url</td>
-</tr>
-<tr>
-<td>Recruiter Mobile Number - $mobile</td>
-</tr>
-
-</table>
-</body>
-</html>
-";
-
-// Always set content-type when sending HTML email
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-// More headers
-$headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
-$headers .= 'Cc: askiran123@gmail.com' . "\r\n";
-
-mail($to,$subject,$message,$headers);
-
-
     }
+    
 }
 
 ?>
@@ -257,7 +203,7 @@ mail($to,$subject,$message,$headers);
                       <div role="tabpanel" class="tab-pane fade in active" id="register">
                           <div class="row pad-full hmar-10">
                           <?php if($thankyouMessage==1){?>
-                         <p class="col-sm-12 pad-b20">Thanks for registering with Nanochip Solutions. Your request is in process it takes about 24 hours to activate your account, Please check your email to activate your account. Please contact us at info@nanochipsolutions.com or call us at +91-80-4078 8574</p>                                 
+                         <p class="col-sm-12 pad-b20">Thanks for registering with Nanochip Solutions. Your request is in process it takes about 24 hours to activate your account, Please check your email to activate your account.</p>                                 
                            <?php } else { ?>
                            <form action="" method="POST" name="registrationForm" id="registrationForm">
                               <div class="clearfix">

@@ -83,10 +83,14 @@ else
                 </div>
                </li>
 
-               <li class="<?php echo $processResumeClass;?>" style='display:none'>
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to search resumes for new keywords that have been added under the domain search">
+               <li class="<?php echo $processResumeClass;?>">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click here to search resumes AFTER adding new keywords that have been added.">
+<?php if($_SESSION['idadmin']==1){ ?>
+               <a href="processResume.php">Refresh Database</a>
+<?php }else { ?>
+               <a href="refreshDB.php">Refresh Database</a>
 
-               <a href="processResume.php">Refresh Dashboard</a>
+                <?php } ?>
                 </div>
                </li>
 
@@ -104,9 +108,9 @@ else
                </li>
 
                <li class="<?php echo $downloadExceClass;?>">
-                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Default message setting text to appear in the Resume builder">
+                                 <div class="primary-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use this to create various reports for Recruiters and RV-VLSI internal use">
 
-               <a href="downloadExce.php">Create Excel</a>
+               <a href="downloadExce.php">Create Excel For Recruiters</a>
                 </div>
                </li>
            
