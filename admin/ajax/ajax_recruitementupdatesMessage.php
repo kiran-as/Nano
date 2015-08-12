@@ -42,6 +42,7 @@ if ($_POST['type'] == 'Approve') {
 	    $firstname = $row['firstname'];
 	    $email = $row['email'];
 	    $idstudent = $row['idstudent'];
+	    $rvvlsiid = $row['rvvlsiid'];
 
 	    //$to = "$email";
 	    $to = "askiran123@gmail.com";
@@ -158,6 +159,7 @@ function generate_resume ($idstudent, $jobcode)
 	$addresslineone = $row['addresslineone'];
 	$addresslinetwo = $row['addresslinetwo'];
 	$state = $row['state'];
+	$rvvlsiid = $row['rvvlsiid'];
     }
 
 
@@ -301,11 +303,7 @@ function generate_resume ($idstudent, $jobcode)
 
               <td><span style='font-weight:bold'>Email:</span> $email</td>
           </tr>
-          <tr>
-                 <td valign='top' ><span style='font-weight:bold'>Phone:</span> $mobileNumber</td>
-              <td><span style='font-weight:bold'>Address:</span> $address</td>
-
-          </tr>
+        
         </table>";
     $table.="<br/>  <table>
           <tr>
@@ -492,7 +490,7 @@ function generate_resume ($idstudent, $jobcode)
 
     include("../library/mpdf60/mpdf.php"); /* MPDF library ); */
     $mpdf = new mPDF();
-    $filename = $firstName;
+    $filename = $rvvlsiid;
     $mpdf->WriteHTML($table); /* the above php variable is passed as the output parameter */
     $mpdf->Output("/var/www/html/college/recruiter/$jobcode/" . $filename . '.pdf', 'F');
     chmod($filename . '.pdf', 0777);
