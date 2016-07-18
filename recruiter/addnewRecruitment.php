@@ -360,7 +360,7 @@ $internaljobcode = 'NANOCH' . rand(11111111,
 		    },
 		    // Specify the validation error messages
 		    messages: {
-			jobTitle: "<p class='error'>Please enter Job Title</p>",
+			jobTitle: "<p class='error-text'>Please enter Job Title</p>",
 			exp_no_of_openings: "<p class='error'>No of Openings</p>",
 			years_of_Exp: "<p class='error'>Years of experience</p>",
 			noofopenings: "<p class='error'>Enter no of Openings</p>",
@@ -475,14 +475,14 @@ $internaljobcode = 'NANOCH' . rand(11111111,
     			</div>
     			<div id="ExperienceDiv2" style='display:none'>
     			    <div class="form-group">
-    				<label class="col-sm-2 control-label">Years of Experience</label>
+    				<label class="col-sm-2 control-label">Years of Experience<span class="error-text">*</span></label>
     				<div class="col-sm-2">
     				    <input  class="form-control" type="text" class="form-control"  id="years_of_Exp" placeholder="Years of Experience" name="years_of_Exp" />
     				</div>
     			    </div>
 
     			    <div class="form-group">
-    				<label class="col-sm-2 control-label">No of Openings</label>
+    				<label class="col-sm-2 control-label">No of Openings<span class="error-text">*</span></label>
     				<div class="col-sm-2">
     				    <input  class="form-control" type="text" class="form-control" id="exp_no_of_openings" onkeypress="return IsNumeric(event);" maxlength="2"  placeholder="No of Openings" value="10" name="exp_no_of_openings" />
     				</div>
@@ -502,7 +502,7 @@ $internaljobcode = 'NANOCH' . rand(11111111,
 
 
     			<div class="form-group">
-    			    <label class="col-sm-2 control-label">Job Title</label>
+    			    <label class="col-sm-2 control-label">Job Title<span class="error-text">*</span></label>
     			    <div class="col-sm-10">
     				<textarea class="form-control"  rows="1" id="jobTitle" placeholder="Enter Job Title like RTL Verification Engg" name="jobTitle"></textarea>
     			    </div>
@@ -531,12 +531,8 @@ $internaljobcode = 'NANOCH' . rand(11111111,
     			    </div>
 
     			    <div class="form-group">
-    				<label class="col-sm-2 control-label">Written test/ Interview date</label>
-    				<div class="col-sm-2">
-    				    <input  class="form-control" type="text" name='datepicker' id="datepicker">
-    				</div>
 
-    				<label class="col-sm-2 control-label">No of Openings</label>
+    				<label class="col-sm-2 control-label">No of Openings<span class="error-text">*</span></label>
     				<div class="col-sm-2">
     				    <input type='text' class="form-control" onkeypress="return IsNumeric(event);" maxlength="2" id="noofopenings" name="noofopenings" value="10"
     					   value="">
@@ -667,7 +663,7 @@ $internaljobcode = 'NANOCH' . rand(11111111,
     			    </div>
 
     			    <div class="form-group">
-    				<label class="col-sm-2 control-label">Google link to the test location or Type the address here</label>
+    				<label class="col-sm-2 control-label">Google link to the test location or Type Address<span class="error-text">*</span></label>
     				<div class="col-sm-10">
     				    <textarea class="form-control" rows="1" id="venue" name="venue" Placeholder="Enter Google link to the test location / Address"></textarea>
     				</div>

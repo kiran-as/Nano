@@ -15,7 +15,13 @@ while($row = mysql_fetch_assoc($projectDetailsSql))
     $projectdescription = $row['project_description'];
     $tools = $row['tools_used'];
     $challenges = $row['challenges'];
+     $challenges1 = $row['challenges1'];
+      $challenges2 = $row['challenges2'];
+       $challenges3 = $row['challenges3'];
+        $challenges4 = $row['challenges4'];
+
 }
+
 if($_POST)
 {
  
@@ -27,10 +33,14 @@ if($_POST)
     $projectdescription = $_POST['projectdescription'];
     $tools = $_POST['tools'];
     $challenges = $_POST['challenges'];
+    $challenges1 = str_replace("'","&#39;",$_POST['challenges1']);
+$challenges2 = str_replace("'","&#39;",$_POST['challenges2']);
+$challenges3 = str_replace("'","&#39;",$_POST['challenges3']);
+$challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
     mysql_query("Update tbl_academicproject set project_title='$projecttitle',"
             . "college_name='$college',time_duration='$months',"
             . "team_size='$teamsize',project_description='$projectdescription',"
-            . "tools_used='$tools',role='$role',challenges='$challenges' "
+            . "tools_used='$tools',role='$role',challenges='$challenges',challenges1='$challenges1',challenges2='$challenges2',challenges3='$challenges3',challenges4='$challenges4' "
             . "where idacademicproject='$idacademicproject'");
 
     echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
@@ -144,7 +154,7 @@ if($_POST)
           </div> 
                   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Project Description</label>
+            <label class="col-sm-2 control-label">Project Deliverables</label>
             <div class="col-sm-10">
               <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')";><?php echo $projectdescription;?></textarea>
                            <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
@@ -162,11 +172,35 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;><?php echo $challenges;?></textarea>
-               <span class='info-text' id='challenges_countlabel'>Maximum 250 Chars (with spaces)            
+              <textarea class="form-control" rows="1" id="challenges" name="challenges" ><?php echo $challenges;?></textarea>
+               <span class='info-text' id='challenges_countlabel'>           
            
             </div>        
-          </div>          
+          </div>  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges1" name="challenges1"   value="<?php echo $challenges1;?>" />           
+            </div>        
+          </div>   
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges2" name="challenges2"   value="<?php echo $challenges2;?>" />           
+            </div>        
+          </div> 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges3" name="challenges3"   value="<?php echo $challenges3;?>" />           
+            </div>        
+          </div> 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges4" name="challenges4"   value="<?php echo $challenges4;?>" />           
+            </div>        
+          </div>       
       </div>
         
       </div>

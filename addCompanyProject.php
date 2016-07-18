@@ -2,27 +2,49 @@
 
 include("application/conn.php");
 $idstudent = $_SESSION['idstudent'];
+
+$projectDetailsSql = mysql_query("Select * from tbl_companyproject where idstudent='$idstudent' order by  idcompanyproject desc limit 0,1");
+while($row = mysql_fetch_assoc($projectDetailsSql))
+{
+ 
+    $company = $row['company_name'];
+    $client = $row['client'];
+    $designation = $row['designation'];
+    $end_date = $row['end_date'];
+
+}
+
 if($_POST)
 {
    
   
-    $projecttitle = $_POST['projecttitle'];
-    $designation = $_POST['designation'];
-    $company = $_POST['company'];
-    $months = $_POST['months'];
-    $role = $_POST['role'];
-    $teamsize = $_POST['teamsize'];
-    $projectdescription = $_POST['projectdescription'];
-    $tools = $_POST['tools'];
-    $challenges = $_POST['challenges'];
-     $designation = $_POST['designation'];
+    $projecttitle = str_replace("'","&#39;",$_POST['projecttitle']);
+    $designation = str_replace("'","&#39;",$_POST['designation']);
+    $company = str_replace("'","&#39;",$_POST['company']);
+    $months = str_replace("'","&#39;",$_POST['months']);
+    $role = str_replace("'","&#39;",$_POST['role']);
+    $teamsize = str_replace("'","&#39;",$_POST['teamsize']);
+    $projectdescription = str_replace("'","&#39;",$_POST['projectdescription']);
+    $tools = str_replace("'","&#39;",$_POST['tools']);
+    $challenges = str_replace("'","&#39;",$_POST['challenges']);
+    $challenges1 = str_replace("'","&#39;",$_POST['challenges1']);
+    $challenges2 = str_replace("'","&#39;",$_POST['challenges2']);
+    $challenges3 = str_replace("'","&#39;",$_POST['challenges3']);
+    $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
+    $challenges5 = str_replace("'","&#39;",$_POST['challenges5']);
+
+     $designation = str_replace("'","&#39;",$_POST['designation']);
     $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
     $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
+    $client = $_POST['client'];
 
     mysql_query("Insert into tbl_companyproject(designation,project_title,company_name ,"
             . "time_duration,role,team_size,tools_used,"
-            . "challenges,idstudent,start_date,end_date,project_description) Values ('$designation','$projecttitle','$company',"
-            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$start_date','$end_date','$projectdescription')");
+            . "challenges,idstudent,start_date,end_date,project_description,client,challenges1,challenges2,challenges3,challenges4) Values 
+    ('$designation','$projecttitle','$company',"
+            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent',
+            '$start_date','$end_date','$projectdescription','$client','$challenges1','$challenges2','$challenges3','$challenges4'
+            )");
     echo "<script>parent.location='companyProjects.php'</script>" ;
     exit;
 }
@@ -50,7 +72,8 @@ if($_POST)
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-   
+   <script src="js/customised_validation.js"></script>
+
    <script>
   $(function() {
     $( "#start_date" ).datepicker();
@@ -59,30 +82,60 @@ if($_POST)
   </script>
 <script>
  
- $(document).ready(function() {
-   $('#saveAndContinue').click(function() {
-                
-                $('#academicProject').submit();
-            });
+$(function () {
             $("#academicProject").validate({
                 // Specify the validation rules
+                onkeyup:false,
                 rules: {
                     start_date: "required",
                     company:"required",
                     projecttitle: "required",
                     role:"required",
                     end_date: "required",
-                    designation:"required",                                        
+                    designation:"required", 
+                    client:"required",
+                    projectdescription:{required:true,
+                           minlength:100,
+                           maxlength:250},
+                    tools:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges1:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges2:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                                                                
                 },
                 // Specify the validation error messages
                  // Specify the validation error messages
                 messages: {
-                    start_date: "<p class='error-class'>Please enter start Date</p>",
-                    projecttitle: "<p class='error-class'>Please enter Project Title </p>",
-                    role: "<p class='error-class'>Please enter Role</p>",
-                    end_date: "<p class='error-class'>Please enter End Date</p>",
-                    company: "<p class='error-class'>Please enter Company Name</p>",
-                    designation: "<p class='error-class'>Please enter Designation</p>"
+                    start_date: "Please enter start Date",
+                    projecttitle: "Please enter Project Title",
+                    role: "Please enter Role",
+                    end_date: "Please enter End Date",
+                    company: "Please enter Company Name",
+                    designation: "Please enter Designation",
+                    client :"Please enter Client Name",
+                    tools:{required:"Please enter Tools Used",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"PMaximum is 180 Character"},
+                    challenges:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"PMaximum is 180 Character"},
+                    challenges1:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"PMaximum is 180 Character"},
+                    challenges2:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"PMaximum is 180 Character"},
+                    projectdescription:{required:"Please enter Project Contribution",
+                           minlength:"Minimum is 120 Character",
+                           maxlength:"PMaximum is 255 Character"},                           
                 }
             });
  });
@@ -100,33 +153,40 @@ if($_POST)
         <div class="form-group">
             <label class="col-sm-4 control-label">Company Name <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter Company Name" id="company" name="company">
+              <input type="text" class="form-control" placeholder="Enter Company Name" id="company" name="company" value="<?php echo $company;?>">
             </div>        
           </div> 
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
+
+
+           <div class="form-group">
+            <label class="col-sm-4 control-label">Designation <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Start date of project" id="start_date" name="start_date">
+              <input type="text" class="form-control" placeholder="Enter your Designation" id="designation" name="designation" value="<?php echo $designation;?>">
             </div>        
-          </div> 
+          </div>  
+            
+        
+          
+          
          
                                                    
       </div>    
     </div> 
 
     <div class="form-horizontal col-sm-6">
-             <div class="form-group">
-            <label class="col-sm-4 control-label">Designation <span class="error-text">*</span></label>
+    <div class="form-group">
+            <label class="col-sm-4 control-label">Client Name<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter your Designation" id="designation" name="designation">
+              <input type="text" class="form-control" placeholder="Enter Client Name" id="client" name="client" value="<?php echo $client;?>">
             </div>        
           </div> 
-            <div class="form-group">
-            <label class="col-sm-4 control-label">End Date<span class="error-text">*</span></label>
+     <div class="form-group">
+            <label class="col-sm-4 control-label">Project Title<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="End date of the project" id="end_date" name="end_date">
+              <input type="text" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle" value="">
             </div>        
-          </div>  
+          </div> 
+           
                                                                               
      </div>      
     </div> 
@@ -134,21 +194,26 @@ if($_POST)
     <div class="form-horizontal col-sm-6">
       <div class="form-group">
           <div class="form-group">
-            <label class="col-sm-4 control-label">Project Title<span class="error-text">*</span></label>
+            <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
+              <input type="text" class="form-control" placeholder="Start date of project" id="start_date" name="start_date" value="<?php echo $end_date;?>">
             </div>        
           </div> 
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Your Contribution to the project<span class="error-text">*</span></label>
+          <div class="form-group" style="display:none">
+            <label class="col-sm-4 control-label">Project Description<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="List the key design aspect you worked on this project" id="role" name="role">            </div>        
+              <input type="text" class="form-control" placeholder="List the key design aspect you worked on this project" id="role" name="role">            </div>        
           </div>                                           
       </div>    
     </div> 
 
     <div class="form-horizontal col-sm-6">
-        
+            <div class="form-group">
+            <label class="col-sm-4 control-label">End Date<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="End date of the project" id="end_date" name="end_date">
+            </div>        
+          </div>  
               <div class="form-group">
             <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
             <div class="col-sm-3">
@@ -161,7 +226,8 @@ if($_POST)
                   <option value="6">6</option>
               </select>
             </div>                                 
-          </div>                                                                
+          </div> 
+                                                                      
      </div>      
     </div> 
     <div class="row">
@@ -169,23 +235,54 @@ if($_POST)
       <div class="form-horizontal">
          
           <div class="form-group">
-            <label class="col-sm-2 control-label">Project Description</label>
+            <label class="col-sm-2 control-label">Your Contribution to the project<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" Placeholder="Describe the unique feature of project" id="projectdescription" name="projectdescription"></textarea>
+              <textarea class="form-control" rows="2" Placeholder="Describe the unique feature of project" id="projectdescription" name="projectdescription"  onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')" ></textarea>
+              <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)
+
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-2 control-label">Tools Used</label>
+            <label class="col-sm-2 control-label">Tools Used<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" Placeholder="Specify the software and hardware boards used" id="tools" name="tools"></textarea>
+              <textarea class="form-control" rows="2" Placeholder="Specify the software and hardware boards used" id="tools" name="tools"  onkeyup="countCharbannertext(this,'tools_countlabel','150')" ></textarea>
+              <span class='info-text' id='tools_countlabel'>Maximum 150 Chars (with spaces)
+
             </div>        
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges"></textarea>
+              <textarea class="form-control" rows="1" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges0_countlabel','120')"></textarea>
+              <span class='info-text' id='challenges0_countlabel'>Maximum 150 Chars (with spaces)
+
             </div>        
-          </div>          
+          </div>  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" onkeyup="countCharbannertext(this,'challenges1_countlabel','120')">            
+               <span class='info-text' id='challenges1_countlabel'>Maximum 150 Chars (with spaces)
+
+              </div>        
+            </div>   
+<div class="form-group">
+            <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" onkeyup="countCharbannertext(this,'challenges2_countlabel','120')">            
+               <span class='info-text' id='challenges2_countlabel'>Maximum 150 Chars (with spaces)
+
+              </div>        
+            </div> 
+<div class="form-group">
+            <label class="col-sm-2 control-label">Roles and Responsibilities</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" onkeyup="countCharbannertext(this,'challenges3_countlabel','120')">            
+               <span class='info-text' id='challenges3_countlabel'>Maximum 150 Chars (with spaces)
+
+              </div>        
+            </div>                                        
+          </div>        
       </div>
         
       </div>

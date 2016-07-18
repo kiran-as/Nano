@@ -7,6 +7,7 @@ include('include/year.php');
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
+  $working_currently = $_POST['working_currently'];
      $currentcompanyfromyear = $_POST['currentcompanyfromyear'];
      $currentcompanyfrommonth = $_POST['currentcompanyfrommonth'];
      $currentdesignation = str_replace("'","&#39;",$_POST['currentdesignation']);
@@ -21,6 +22,7 @@ if($_POST)
 
      mysql_query("Update tbl_student set 
       current_salary='$currentsalary', 
+      working_currently='$working_currently',
       current_designation='$currentdesignation',
       current_company='$currentcompany',
       current_location='$currentlocation',
@@ -38,7 +40,7 @@ if($_POST)
     mysql_query("Delete from tbl_corecompetancy where idstudent='$idstudent'");
         mysql_query("Delete from tbl_companies where idstudent='$idstudent'");
 
-    $career_objective = $_POST['career_objective'];
+    $career_objective = str_replace("'","&#39;",$_POST['career_objective']);
     mysql_query("Update tbl_student set career_objective='$career_objective' where idstudent='$idstudent'");
 
     for($i=0;$i<3;$i++)
@@ -103,7 +105,10 @@ if($_POST)
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
-
+    if(empty($row['working_currently'])) {
+      $row['working_currently'] = 'No';
+    }
+    $working_currently = $row['working_currently'];
     $career_objective = $row['career_objective'];
     $currentsalary = $row['current_salary'];
     $currentdesignation = $row['current_designation'];
@@ -167,6 +172,13 @@ while($row = mysql_fetch_assoc($coreCompetancySql))
 <script type='text/JavaScript'>
  
  $(document).ready(function() {
+
+  var working_currently = "<?php echo $working_currently;?>";
+   if(working_currently=='No'){
+     $('#currentCompanyDivId').hide();
+  } else {
+     $('#currentCompanyDivId').show();
+  }
    var experience = "<?php echo $experience;?>";
    if(experience=='Fresher')
    {
@@ -333,6 +345,14 @@ function fnShowOldCompanyDetails(id)
     $('#previousCompanyDetailsId').show();
    }
 }
+
+function fnHideCurrentCompany(value){
+  if(value=='No'){
+     $('#currentCompanyDivId').hide();
+  } else {
+     $('#currentCompanyDivId').show();
+  }
+}
 </script>
   </head>
 
@@ -347,6 +367,18 @@ function fnShowOldCompanyDetails(id)
       <div class="row" id='experienceform'>
         <div class="form-horizontal col-sm-6">
                    <h3 class="brd-btm mar-b20">Current Company Details</h3>
+          <div class="form-group">
+                <label class="col-sm-5 control-label">Are you Currently working?<span class="error-text">*</span></label>
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="working_currently" id="working_currently" value="Yes" <?php if($working_currently=='Yes'){ echo "checked=checked";};?> onclick="fnHideCurrentCompany(this.value)";> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="working_currently" id="working_currently" value="No" <?php if($working_currently=='No'){ echo "checked=checked";};?> onclick="fnHideCurrentCompany(this.value)";> No
+                    </label>        
+                </div>
+              </div>
+              <div id="currentCompanyDivId" style="display:">
           <div class="form-group">
           <label class="col-sm-5 control-label">Current Company Name<span class="error-text">*</span></label>
             <div class="col-sm-7">
@@ -400,6 +432,7 @@ function fnShowOldCompanyDetails(id)
                       
                   </select>
              </div>
+          </div>
           </div>
         </div>
        <div class="form-horizontal col-sm-6">

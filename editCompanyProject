@@ -16,10 +16,17 @@ while($row = mysql_fetch_assoc($projectDetailsSql))
        $start_date = $row['start_date'];
     $end_date = $row['end_date'];
     $designation = $row['designation'];
+    $client = $row['client'];
+    $challenges1 = $row['challenges1'];
+    $challenges2 = $row['challenges2'];
+    $challenges3 = $row['challenges3'];
+    $challenges4 = $row['challenges4'];
+
 }
 if($_POST)
 {
  
+     $client = $_POST['client'];
     $projecttitle = $_POST['projecttitle'];
     $company = $_POST['company'];
     $months = $_POST['months'];
@@ -29,13 +36,18 @@ if($_POST)
     $tools = $_POST['tools'];
     $challenges = $_POST['challenges'];
      $designation = $_POST['designation'];
+    $challenges1 = $_POST['challenges1'];
+    $challenges2 = $_POST['challenges2'];
+    $challenges3 = $_POST['challenges3'];
+    $challenges4 = $_POST['challenges4'];
+    $challenges5 = $_POST['challenges5'];
 
        $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
     $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
     mysql_query("Update tbl_companyproject set project_title='$projecttitle',"
-            . "company_name='$company',time_duration='$months',"
+            . "company_name='$company',time_duration='$months',client='$client',"
             . "team_size='$teamsize',project_description='$projectdescription',"
-            . "tools_used='$tools',designation='$designation', role='$role',challenges='$challenges',start_date='$start_date',end_date='$end_date', "
+            . "tools_used='$tools',designation='$designation', role='$role',challenges='$challenges',challenges1='$challenges1',challenges2='$challenges2',challenges3='$challenges3',challenges4='$challenges4',start_date='$start_date',end_date='$end_date', "
             . "where idcompanyproject='$idcompanyproject'");
      
 }
@@ -181,6 +193,7 @@ if($_POST)
               <input type="name" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>">
             </div>        
           </div> 
+          
           <div class="form-group">
             <label class="col-sm-5 control-label">Team Size <span class="error-text">*</span></label>
             <div class="col-sm-3">
@@ -211,7 +224,31 @@ if($_POST)
             <div class="col-sm-6">
               <textarea class="form-control" rows="2" id="challenges" name="challenges"><?php echo $challenges;?></textarea>
             </div>        
-          </div>                                           
+          </div>   
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" value="<?php echo $challesges1;?>">            
+              </div>        
+            </div>   
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" value="<?php echo $challesges2;?>">            
+              </div>        
+            </div> 
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" value="<?php echo $challesges3;?>">            
+              </div>        
+            </div> 
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges4" name="challenges4" value="<?php echo $challesges4;?>">            
+              </div>        
+            </div>                                                   
     </div>    
     </div> 
     <div class="clearfix brd-top pad-t20">

@@ -14,7 +14,8 @@ $oldToYear = $_POST['oldToYear'];
 $oldFromYear = $_POST['oldFromYear'];
 $oldFromMonth = $_POST['oldFromMonth'];
 $oldToMonth = $_POST['oldToMonth'];
-if(!empty($oldCompanyName))
+if(($oldCompanyName !='') && ($oldDesignation !='') && ($oldFromMonth !='')
+  && ($oldToYear !='')  && ($oldFromYear !=''))
 {
 mysql_query("Insert into tbl_companies (companyname,designation,
     frommonth,tomonth,fromyear,

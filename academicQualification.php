@@ -66,9 +66,19 @@ $pgdip_othercoursename = $row['pgdip_othercoursename'];
 $deg_othercoursename = $row['deg_othercoursename'];   
 $pg_othercoursename = $row['pg_othercoursename']; 
  $ttp = $row['ttp'];
+ if($row['is_post_graduation']=='') {
+    $row['is_post_graduation']=='No';
+ }
+ $is_post_graduation = $row['is_post_graduation'];
+ if($row['is_phd']=='') {
+    $row['is_phd']=='No';
+ }
+ $is_phd = $row['is_phd'];
 }
 if($_POST)
 {
+    $is_post_graduation = $_POST['is_post_graduation'];
+    $is_phd = $_POST['is_phd'];
     $sslcpassoutyear = $_POST['sslc-passoutyear'];
     $sslcpercentagetype = $_POST['sslc-percentagetype'];
     $sslcpercentage = str_replace("'","&#39;",$_POST['sslc_percentage']);
@@ -154,7 +164,8 @@ $phd_state = str_replace("'","&#39;",$_POST['phd_state']);
                              phd_department = '$phddepartment'
                         where idstudent = '$idstudent'";
    exit;
-*/mysql_query("Update tbl_student set sslc_passoutyear = '$sslcpassoutyear', 
+*/mysql_query("Update tbl_student set is_phd='$is_phd',is_post_graduation='$is_post_graduation',
+                             sslc_passoutyear = '$sslcpassoutyear', 
                              sslc_percentagetype = '$sslcpercentagetype',
                              sslc_percentage = '$sslcpercentage',
                              sslc_schoolname = '$sslcschoolname',
@@ -311,6 +322,9 @@ function fnPgdipSchool(id)
  othercoureseshideshow("<?php echo $pgDipCoursename;?>");
  otherdegcoureseshideshow("<?php echo $degdepartment;?>");
  otherpgcoureseshideshow("<?php echo $pgdepartment;?>");
+
+ showPG("<?php echo $is_post_graduation;?>");
+ showPHD("<?php echo $is_phd;?>");
 }
 
 function othercoureseshideshow(othercoursename)
@@ -349,6 +363,23 @@ function otherpgcoureseshideshow(pgothercoursename)
     $('#pgotherschoolcoursename').hide();
   }
 }
+
+function showPG(id) {
+  if(id=='Yes') {
+    $('#pgdiv').show();
+  } else {
+    $('#pgdiv').hide();
+  }
+}
+
+function showPHD(id) {
+  if(id=='Yes') {
+    $('#phddiv').show();
+  } else {
+    $('#phddiv').hide();
+  }
+}
+
 </script>    
   </head>
 
@@ -399,7 +430,7 @@ function otherpgcoureseshideshow(pgothercoursename)
             </div>
             </div>
            <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Higher Secondary (Pre-University)</h3>
+           <h3 class="brd-btm mar-b20">Higher Secondary (Pre-University) / Diploma</h3>
             <div class="form-horizontal">
              <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -499,9 +530,15 @@ function otherpgcoureseshideshow(pgothercoursename)
               </div>                                           
             </div>
             </div>
+
            <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Post Graduation (ME / MTech)</h3>
-            <div class="form-horizontal">
+           <h3 class="brd-btm mar-b20">Post Graduation (ME / MTech) <label class="radio-inline">
+                      <input type="radio" name="is_post_graduation" id="is_post_graduation" value="Yes" onclick="showPG('Yes')" <?php if($is_post_graduation=='Yes'){ echo "checked=checked";};?>> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="is_post_graduation" id="is_post_graduation" value="No" onclick="showPG('No')" <?php if($is_post_graduation=='No'){ echo "checked=checked";};?>> No
+                    </label></h3>
+            <div class="form-horizontal" id="pgdiv">
               <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text"></span></label>
                 <div class="col-sm-7">
@@ -573,8 +610,13 @@ function otherpgcoureseshideshow(pgothercoursename)
             </div>
         
              <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Ph.D</h3>
-            <div class="form-horizontal">
+           <h3 class="brd-btm mar-b20">Ph.D <label class="radio-inline">
+                      <input type="radio" name="is_phd" id="is_phd" value="Yes" onclick="showPHD('Yes')" <?php if($is_phd=='Yes'){ echo "checked=checked";};?>> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="is_phd" id="is_phd" value="No" onclick="showPHD('No')" <?php if($is_phd=='No'){ echo "checked=checked";};?>> No
+                    </label></h3>
+            <div class="form-horizontal" id='phddiv'>
               <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text"></span></label>
                 <div class="col-sm-7">
@@ -635,7 +677,7 @@ function otherpgcoureseshideshow(pgothercoursename)
               </div>                                           
             </div>
                <div class="clearfix col-sm-6">
-           <h3 class="brd-btm mar-b20">Skill Development/ Vocational Training</h3>
+           <h3 class="brd-btm mar-b20">Certification / Vocational Training</h3>
                 <div class="form-horizontal">
                <div class="form-group">
                 <label class="col-sm-5 control-label">Select Institute<span class="error-text"></span></label>

@@ -15,10 +15,16 @@ while($row = mysql_fetch_assoc($projectDetailsSql))
        $start_date = $row['start_date'];
     $end_date = $row['end_date'];
     $designation = $row['designation'];
+        $client = $row['client'];
+    $challenges1 = $row['challenges1'];
+    $challenges2 = $row['challenges2'];
+    $challenges3 = $row['challenges3'];
+    $challenges4 = $row['challenges4'];
+
 }
 if($_POST)
 {
- 
+    $client = $_POST['client'];
     $projecttitle = $_POST['projecttitle'];
     $company = $_POST['company'];
     $months = $_POST['months'];
@@ -28,14 +34,18 @@ if($_POST)
     $tools = $_POST['tools'];
     $challenges = $_POST['challenges'];
      $designation = $_POST['designation'];
+    $challenges1 = $_POST['challenges1'];
+    $challenges2 = $_POST['challenges2'];
+    $challenges3 = $_POST['challenges3'];
+    $challenges4 = $_POST['challenges4'];
 
        $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
     $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
   
     mysql_query("Update tbl_companyproject set project_title='$projecttitle',"
-            . "company_name='$company',time_duration='$months',"
+            . "company_name='$company',time_duration='$months',client='$client',"
             . "team_size='$teamsize',project_description='$projectdescription',"
-            . "tools_used='$tools',designation='$designation', role='$role',challenges='$challenges',start_date='$start_date',end_date='$end_date' "
+            . "tools_used='$tools',designation='$designation', role='$role',challenges='$challenges',challenges1='$challenges1',challenges2='$challenges2',challenges3='$challenges3',challenges4='$challenges4',start_date='$start_date',end_date='$end_date' "
             . "where idcompanyproject='$idcompanyproject'");
        echo "<script>parent.location='companyProjects.php'</script>" ;
     exit;
@@ -133,19 +143,12 @@ if($_POST)
               <input type="name" class="form-control" placeholder="" id="designation" name="designation" value="<?php echo $designation;?>">
             </div>        
           </div> 
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
-            <div class="col-sm-3">
-               <select class="form-control" id="teamsize" name="teamsize">
-                  <option value="1" <?php if($teamsize=='1'){echo "selected=selected";}?>>1</option>
-                  <option value="2" <?php if($teamsize=='2'){echo "selected=selected";}?>>2</option>
-                  <option value="3" <?php if($teamsize=='3'){echo "selected=selected";}?>>3</option>
-                  <option value="4" <?php if($teamsize=='4'){echo "selected=selected";}?>>4</option>
-                  <option value="5" <?php if($teamsize=='5'){echo "selected=selected";}?>>5</option>
-                  <option value="6" <?php if($teamsize=='6'){echo "selected=selected";}?>>6</option>
-              </select> 
-            </div>                                 
-          </div>                                                                     
+             <div class="form-group">
+            <label class="col-sm-4 control-label">Client Name<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="name" class="form-control" placeholder="Enter Client Name" id="client" name="client" value="<?php echo $client;?>">
+            </div>        
+          </div>                                                                   
      </div>      
     </div> 
     <div class="row">
@@ -158,7 +161,7 @@ if($_POST)
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-4 control-label">Role<span class="error-text">*</span></label>
+            <label class="col-sm-4 control-label">Your Contribution to the project<span class="error-text">*</span></label>
             <div class="col-sm-8">
               <input type="name" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>"></div>        
           </div>                                           
@@ -172,7 +175,20 @@ if($_POST)
               <input type="name" class="form-control" placeholder="" id="end_date" name="end_date" value="<?php echo $end_date;?>">
             </div>        
           </div>  
-                                                                             
+           <div class="form-group">
+            <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
+            <div class="col-sm-3">
+               <select class="form-control" id="teamsize" name="teamsize">
+                  <option value="1" <?php if($teamsize=='1'){echo "selected=selected";}?>>1</option>
+                  <option value="2" <?php if($teamsize=='2'){echo "selected=selected";}?>>2</option>
+                  <option value="3" <?php if($teamsize=='3'){echo "selected=selected";}?>>3</option>
+                  <option value="4" <?php if($teamsize=='4'){echo "selected=selected";}?>>4</option>
+                  <option value="5" <?php if($teamsize=='5'){echo "selected=selected";}?>>5</option>
+                  <option value="6" <?php if($teamsize=='6'){echo "selected=selected";}?>>6</option>
+              </select> 
+            </div>                                 
+          </div>  
+                                                                            
      </div>      
     </div> 
     <div class="row">
@@ -194,9 +210,33 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" name="challenges"><?php echo $challenges;?></textarea>
+              <textarea class="form-control" rows="1" id="challenges" name="challenges"><?php echo $challenges;?></textarea>
             </div>        
-          </div>          
+          </div>  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" value="<?php echo $challenges1;?>">            
+              </div>        
+            </div>   
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" value="<?php echo $challenges2;?>">            
+              </div>        
+            </div> 
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" value="<?php echo $challenges3;?>">            
+              </div>        
+            </div> 
+<div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="name" class="form-control" placeholder="Challenges" id="challenges4" name="challenges4" value="<?php echo $challenges4;?>">            
+              </div>        
+            </div>                    
       </div>
         
       </div>

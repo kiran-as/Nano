@@ -67,7 +67,7 @@ if($_POST['companyName'])
         $userName = $_POST['userName'];
         $mobile = $_POST['mobile'];
         $url = $_POST['url'];
-        $password = rand(11111111,99999999);
+        $password = '123456';
          $date = date('Y-m-d H:i:s');
          
          mysql_query("Insert into tbl_recruiter (designation,password,company,usename,email,mobile,web_url,registereddate)
@@ -104,10 +104,77 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
-$headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
+$headers .= 'From: Nanochip Solutions <info@nanochipsolutions.com>' . "\r\n";
 $headers .= 'Cc: askiran123@gmail.com' . "\r\n";
 
-mail($to,$subject,$message,$headers);
+//mail($to,$subject,$message,$headers);
+
+require '../../email/PHPMailer-master/PHPMailerAutoload.php';
+
+//Create a new PHPMailer instance
+$mail = new PHPMailer;
+
+//Tell PHPMailer to use SMTP
+$mail->isSMTP();
+
+//Enable SMTP debugging
+// 0 = off (for production use)
+// 1 = client messages
+// 2 = client and server messages
+$mail->SMTPDebug = 0;
+
+//Ask for HTML-friendly debug output
+$mail->Debugoutput = 'html';
+
+//Set the hostname of the mail server
+$mail->Host = 'mail.nanochipsolutions.com';
+// use
+// $mail->Host = gethostbyname('smtp.gmail.com');
+// if your network does not support SMTP over IPv6
+
+//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+$mail->Port = 587;
+
+//Set the encryption system to use - ssl (deprecated) or tls
+$mail->SMTPSecure = 'tls';
+
+//Whether to use SMTP authentication
+$mail->SMTPAuth = true;
+
+//Username to use for SMTP authentication - use full email address for gmail
+$mail->Username = "test@nanochipsolutions.com";
+
+//Password to use for SMTP authentication
+$mail->Password = "kiran@123";
+
+//Set who the message is to be sent from
+$mail->setFrom('info@nanochipsolutions.com', 'Nanochip Solutions');
+
+//Set an alternative reply-to address
+//$mail->addReplyTo('askavi6@gmail.com', 'First Last');
+
+//Set who the message is to be sent to
+$mail->addAddress($to,'');
+$mail->AddCC('archana@rv-vlsi.com');
+//Set the subject line
+$mail->Subject = $subject;
+
+//Read an HTML message body from an external file, convert referenced images to embedded,
+//convert HTML into a basic plain-text alternative body
+$mail->msgHTML($message);
+
+//Replace the plain text body with one created manually
+//$mail->AltBody = 'This is a plain-text message body';
+
+//Attach an image file
+//$mail->addAttachment('images/phpmailer_mini.png');
+
+//send the message, check for errors
+if (!$mail->send()) {
+    //echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    //echo "Message sent!";
+}
 
 
  $to = "vprasad@nanochipsolutions.com";
@@ -143,17 +210,35 @@ $message = "
 </body>
 </html>
 ";
+//Set who the message is to be sent to
+$mail->addAddress($to,'');
+$mail->AddCC('askiran123@gmail.com');
+//Set the subject line
+$mail->Subject = $subject;
+//send the message, check for errors
 
+//Read an HTML message body from an external file, convert referenced images to embedded,
+//convert HTML into a basic plain-text alternative body
+$mail->msgHTML($message);
+
+if (!$mail->send()) {
+   // echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    // echo "Message sent!";
+}
+//Read an HTML message body from an external file, convert referenced images to embedded,
+//convert HTML into a basic plain-text alternative body
 // Always set content-type when sending HTML email
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-// More headers
-$headers .= 'From: Admin <info@nanochipsolutions.com>' . "\r\n";
-$headers .= 'Cc: askiran123@gmail.com' . "\r\n";
 
-mail($to,$subject,$message,$headers);
-
+    $Mobile = '9945298598';
+    //  $time = urlencode("Congragulations, your resume has been tagged for a job opening in ($companyname) stay tuned for more updates from ($companyname)");
+      $ch = curl_init();
+    //  $url = "http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=subhas&pass=subhas&senderid=NANOCH&dest_mobileno=$Mobile&message=$time&response=Y";
+      $url = "http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=subhas&pass=subhas&senderid=NANOCH&dest_mobileno=$Mobile&tempid=34924&F1=$userName&F2=$companyName&response=Y";
+      //set the url, number of POST vars, POST data
+        curl_setopt($ch, CURLOPT_URL, $url);
+ curl_exec($ch);
 
     }
 }

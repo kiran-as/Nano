@@ -1,70 +1,94 @@
 <?php
 include('../application/conn.php');
 include('include/resumeType.php');
+$councellorId = $_SESSION['idcouncellor'];
 error_reporting(-1);
-
-$studentSql = mysql_query("Select * from tbl_student where admission=1");
+if($councellorId==100 || $councellorId==101)
+{
+$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
+	 from tbl_rvstudent as a, tbl_pgdipcourses as b
+	 where a.pgdip_coursename=b.idpgdipcourses and idcouncellor=$councellorId 
+	 and a.idrvstudent  in (Select idstudent from tbl_rvstudentcouncellor where review_status=2)");
+}
+else
+{
+	$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
+	 from tbl_rvstudent as a, tbl_pgdipcourses as b
+	 where a.pgdip_coursename=b.idpgdipcourses 
+	 and a.idrvstudent  in (Select idstudent from tbl_rvstudentcouncellor where review_status=2)");
+}
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
 {
-    $studentArray[$i]['idstudent'] = $row['idstudent'];
-    $studentArray[$i]['studentname'] = $row['firstname'].' - '.$row['lastname'];
-    $studentArray[$i]['idstudent'] = $row['idstudent'];
+    $studentArray[$i]['idrvstudent'] = $row['idrvstudent'];
+    $studentArray[$i]['assignedto'] = getCouncellorName($row['idcouncellor']);
+    $studentArray[$i]['name'] = $row['name'];
+    $councellorArrayDetails = getDetailsOfLastReview($row['idrvstudent']);
     $studentArray[$i]['email'] = $row['email'];
-    $studentArray[$i]['mobile'] = $row['mobile'];
-    $studentArray[$i]['resumeid'] = $row['resumeid'];
+    $studentArray[$i]['reviewname'] = $councellorArrayDetails[0]['reviewname'];
+    $studentArray[$i]['reviewby'] = $councellorArrayDetails[0]['name'];
+    if($councellorArrayDetails[0]['created_date']=='')
+    {
+//$studentArray[$i]['reviewon'] = date('Y-m-d');
+    }
+    else
+    {
+    $studentArray[$i]['reviewon'] = $councellorArrayDetails[0]['created_date'];    
+}
+    $studentArray[$i]['councelling_date'] = $councellorArrayDetails[0]['councelling_date'];     
+    $studentArray[$i]['phone'] = $row['phone'];
+    $studentArray[$i]['pgdip_coursename'] = $row['pgdip_coursename'];
+    $studentArray[$i]['created_date'] = $row['created_date'];
     $i++;
 }
 
-$recruitementSql = mysql_query("Select a.*,b.* 
-                              from tbl_recruitement as a, tbl_recruiter as b
-                              where a.idrecruiter=b.idrecruiter and a.status='Open'");
-$resume=0;
-while($row = mysql_fetch_assoc($recruitementSql))
+function getCouncellorName($id)
 {
-    $recruitmentPositionArray[$resume]['idrecruitement'] = $row['idrecruitement'];
-    $recruitmentPositionArray[$resume]['recruitementposition'] = $row['company'].'-'.$row['usename'];
-    $resume++;
+	 $councellorSql = mysql_query("Select a.* 
+                              from tbl_councellor as a
+                              where a.idcouncellor = $id");
+$i=0;
+while($row = mysql_fetch_assoc($councellorSql))
+{
+   $councellorName = $row['firstname'].' '.$row['lastname'];
+   return $councellorName;
 }
 
-if($_POST)
+}
+function getDetailsOfLastReview($id)
 {
-  //print_R($_POST);
-  //exit;
-   if($_POST['recruitmentPosition']!='')
-    {
-        for($i=0;$i<count($_POST['studentName']);$i++)
-        {
-            $idStudent = $_POST['studentName'][$i];
-            $idrecruitement = $_POST['recruitmentPosition'];
-             mysql_query("Delete from tbl_recruitementresumes where idstudent='$idStudent'
-                and idrecruitement='$idrecruitement'");
+   $councellorSql = mysql_query("Select a.* , b.*, c.*
+                              from tbl_rvstudentcouncellor as a, tbl_councellor as b, tbl_reviewstatus as c
+                              where a.councellor_id = b.idcouncellor 
+                              and a.review_status = c.idreviewstatus
+                              and a.idstudent=$id order by idrvstudentcouncellor desc limit 0,1 ");
+$i=0;
+while($row = mysql_fetch_assoc($councellorSql))
+{
+   $councellorArray[$i]['reviewname'] = $row['reviewname'];  
+   $councellorArray[$i]['name'] = $row['firstname'].' '.$row['lastname'];
+   $councellorArray[$i]['created_date'] = $row['created_date'];
+   $councellorArray[$i]['review_status'] = $row['review_status'];
+      $councellorArray[$i]['councelling_date'] = $row['councelling_date'];
 
-            mysql_query("Insert into tbl_recruitementresumes (idstudent,idrecruitement) Values 
-                ('$idStudent','$idrecruitement')");
-        }
-    }
+   return $councellorArray;
+}
 }
 
 ?>
-    <link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
 
-    <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" language="javascript" class="init">
+	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="tablegrid/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" class="init">
 
 $(document).ready(function() {
-    
-    $('#example').dataTable({
-       "order": [[ 3, "desc" ]],
-                "fnDrawCallback": function() {
-                    $('[data-toggle="tooltip"]').tooltip()
-            }
-    } );
-
+	$('#example').dataTable( {
+		"order": [[ 4, "desc" ]]
+	} );
 } );
 
-    </script>
+	</script>
 <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -79,43 +103,76 @@ $(document).ready(function() {
   </head>
 
   <body>
-  <form action='' method="POST">
   <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
-     <div class="container mar-t30">
+    <div class="container mar-t30">
         <div class="clearfix brd-btm pad-b20">
-        <a href="addAdmission.php" class="btn btn-primary pull-right" >+ ADD Student</a>                     
-    </div>     
+        <a href="addNewStudent.php" class="btn btn-primary pull-right" >+ ADD Student</a>                     
+    </div>    
   
-            <table id="example" class="table table-striped" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>ResumeId</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
+			<table id="example" class="table " cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Mobile</th>
+						<th>Course Opted</th>
+							<th>Last Updated On</th>
+<th>Last Updated By</th>
+<th>Last Review</th>
+<th>Next Counselling date</th>
 
-                <tbody>
-                <?php for($i=0;$i<count($studentArray);$i++){
-                    $idstudent = $studentArray[$i]['idstudent'];?>
-                    <tr>
-                        <td><?php echo $studentArray[$i]['studentname'];?></td>
-                        <td><?php echo $studentArray[$i]['email'];?></td>
-                        <td><?php echo $studentArray[$i]['mobile'];?></td>
-                        <td><?php echo $studentArray[$i]['resumeid'];?></td>
-                        
-            <td><a href='addAdmission.php?idstudent=<?php echo $idstudent;?>'>View</a></td>
+						<th>Assigned To</th>
+						
+						
+						
+					
+						
+						<th>Edit</th>
+						 
+					</tr>
+				</thead>
 
-                    </tr>
-                    <?php }?>
-                    
-                </tbody>
-            </table>
+				<tbody>
+				<?php for($i=0;$i<count($studentArray);$i++){
+					$idstudent = $studentArray[$i]['idrvstudent'];
+					if($i%2==0)
+					{
+						$bgcolor="#e0e0e0";
+					}
+					else
+					{
+                    	$bgcolor = "white";
+                    }
+                    if($studentArray[$i]['councelling_date'] == date('Y-m-d'))
+                    {
+                    	$bgcolor = "#ff4c4c";
+                    }
+                    else if($studentArray[$i]['councelling_date'] < date('Y-m-d'))
+                    {
+                    	$bgcolor = "4cffa0";
+                    }
+					?>
+					<tr style="background-color:<?php echo $bgcolor;?>">
+						<td><?php echo $studentArray[$i]['name'];?></td>
+						<td><?php echo $studentArray[$i]['email'];?></td>
+						<td><?php echo $studentArray[$i]['phone'];?></td>
+						<td><?php echo $studentArray[$i]['pgdip_coursename'];?></td>
+												<td><?php echo date('d-M-Y H:i:s',strtotime($studentArray[$i]['reviewon']));?></td>          
+						<td><?php echo $studentArray[$i]['reviewby'];?></td>
+
+						<td><?php echo $studentArray[$i]['reviewname'];?></td>
+						<td><?php echo $studentArray[$i]['councelling_date'];?></td>
+
+						<td><?php echo $studentArray[$i]['assignedto'];?></td>
+
+            <td><a href='editStudent.php?idstudent=<?php echo $idstudent;?>'>View/Edit Review</a></td>
+					</tr>
+					<?php }?>
+					
+				</tbody>
+			</table>
 </div>
-</form>
 </body>
 
-            
+			

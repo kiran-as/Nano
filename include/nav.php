@@ -38,7 +38,7 @@ else
                <li class="<?php echo $profileInformationClass;?>"><a href="profileInformation.php">Personal Information</a></li>
                <li class="<?php echo $academicQualificationClass;?>"><a href="academicQualification.php">academic qualification</a></li>
                <li class="<?php echo $academicProjectsClass;?>"><a href="academicProjects.php">BE/MTech. projects</a></li>
-                <li class="<?php echo $rvvlsiOrOtherProjectsClass;?>"><a href="rvvlsiOrOtherProjects.php">RV-VLSI / Other Institute</a></li>
+                <li class="<?php echo $rvvlsiOrOtherProjectsClass;?>"><a href="rvvlsiOrOtherProjects.php">Domain Specific Projects</a></li>
                <li class="<?php echo $companyProjectsClass;?>"><a href="companyProjects.php">work experience</a></li>
                <li class="<?php echo $careerDetailsClass;?>"><a href="careerDetails.php">other details</a></li>
            </ul>

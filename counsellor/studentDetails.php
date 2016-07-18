@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include('../application/conn.php');
 include('include/resumeType.php');
 $councellorId = $_SESSION['idcouncellor'];
@@ -8,14 +9,14 @@ if($councellorId==100 || $councellorId==101)
 $studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
 	 where a.pgdip_coursename=b.idpgdipcourses and idcouncellor=$councellorId 
-	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
+	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status in  (2,3))");
 }
 else
 {
 	$studentSql = mysql_query("Select a.idrvstudent,a.idcouncellor, a.name,a.email,a.phone,b.pgdip_coursename,a.created_date
 	 from tbl_rvstudent as a, tbl_pgdipcourses as b
 	 where a.pgdip_coursename=b.idpgdipcourses 
-	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status=3)");
+	 and a.idrvstudent not in (Select idstudent from tbl_rvstudentcouncellor where review_status in  (2,3))");
 }
 $i=0;
 while($row = mysql_fetch_assoc($studentSql))
@@ -88,6 +89,27 @@ $(document).ready(function() {
 	} );
 } );
 
+function fndelete(id){
+	var cnf = confirm('Do you really want to delete the data');
+	if(cnf==true)
+	{
+		formData='idstudent='+id;   
+			$.ajax({
+			url : "deletestudent.php",
+			type: "POST",
+			data : formData,
+			success: function(data, textStatus, jqXHR)
+			{
+                parent.location='studentDetails.php';
+			},
+			error: function (jqXHR, textStatus, errorThrown)
+			{
+		  
+			}
+		   });
+	}
+}
+
 	</script>
 <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -129,6 +151,7 @@ $(document).ready(function() {
 					
 						
 						<th>Edit</th>
+						<th>Delete</th>
 						 
 					</tr>
 				</thead>
@@ -167,6 +190,7 @@ $(document).ready(function() {
 						<td><?php echo $studentArray[$i]['assignedto'];?></td>
 
             <td><a href='editStudent.php?idstudent=<?php echo $idstudent;?>'>View/Edit Review</a></td>
+            <td><a href='#' onclick="fndelete(<?php echo $idstudent;?>);">Delete</a></td>
 					</tr>
 					<?php }?>
 					

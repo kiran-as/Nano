@@ -40,8 +40,8 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $expecteddesignation = $row['expected_designation'];   
     $experience = $row['experience'];     
     $previousexp = $row['previousexp']; 
-     $currentcompanyfromyear = getMonthName($row['currentcompanyfromyear']);
-     $currentcompanyfrommonth = $row['currentcompanyfrommonth'];    
+     $currentcompanyfromyear = $row['currentcompanyfromyear'];
+     $currentcompanyfrommonth = getMonthName($row['currentcompanyfrommonth']);    
 
 }
 
@@ -50,6 +50,7 @@ while($row = mysql_fetch_assoc($profileInformationSql))
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent=$idstudent");
 while($row = mysql_fetch_assoc($profileInformationSql))
 {
+   $working_currently = $row['working_currently'];
     $sslcpassoutyear = $row['sslc_passoutyear'];
     $sslcpercentagetype = $row['sslc_percentagetype'];
     $sslcpercentage = $row['sslc_percentage'];
@@ -63,12 +64,24 @@ while($row = mysql_fetch_assoc($profileInformationSql))
     $degpassoutyear = $row['deg_passoutyear'];
     $degpercentagetype = $row['deg_percentagetype'];
     $degpercentage = $row['deg_percentage'];
+
+     if($degpercentage=='percentage') {
+       $degpercentage = '%';
+    } else {
+      $degpercentage = 'CGPA';
+    }
+
     $degschoolname = $row['deg_schoolname'];
     $degboard = $row['deg_university'];
     $degdepartment = departmentname($row['deg_department']);
      
     $pgpassoutyear = $row['pg_passoutyear'];
     $pgpercentagetype = $row['pg_percentagetype'];
+    if($pgpercentagetype=='percentage') {
+       $pgpercentagetype = '%';
+    } else {
+      $pgpercentagetype = 'CGPA';
+    }
     $pgpercentage = $row['pg_percentage'];
     $pgschoolname = $row['pg_schoolname'];
     $pgboard = $row['pg_university'];
@@ -210,6 +223,12 @@ while($row = mysql_fetch_assoc($academicSql))
     $academicArray[$i]['project_description'] = $row['project_description'];
     $academicArray[$i]['tools_used'] = $row['tools_used'];
     $academicArray[$i]['challenges'] = $row['challenges'];
+    $academicArray[$i]['challenges1'] = $row['challenges1'];
+    $academicArray[$i]['challenges2'] = $row['challenges2'];
+    $academicArray[$i]['challenges3'] = $row['challenges3'];
+    $academicArray[$i]['challenges4'] = $row['challenges4'];
+    $academicArray[$i]['role'] = $row['role'];
+
     $i++;
 }
 ////
@@ -226,6 +245,14 @@ while($row = mysql_fetch_assoc($companySql))
     $companyArray[$i]['tools_used'] = $row['tools_used'];
     $companyArray[$i]['challenges'] = $row['challenges'];
     $companyArray[$i]['designation'] = $row['designation'];
+    $companyArray[$i]['challenges1'] = $row['challenges1'];
+    $companyArray[$i]['challenges2'] = $row['challenges2'];
+    $companyArray[$i]['challenges3'] = $row['challenges3'];
+    $companyArray[$i]['challenges4'] = $row['challenges4'];
+    $companyArray[$i]['client'] = $row['client'];
+    $companyArray[$i]['start_date'] = date('M-Y',strtotime($row['start_date']));
+    $companyArray[$i]['end_date'] =date('M-Y',strtotime($row['end_date']));
+
     $i++;
 }
 
@@ -254,22 +281,38 @@ if($addressdoorno!=''){
 }
  }
 
-/**/
+//$table = "<table width='100%'><tr><td>&nbsp;</td><td align='left' width='40%'>$firstName $lastName <br/> Address: $address <br/>Email:$email <br/> Phone: $mobileNumber</td></tr></table>";
+
+//$tableobjective = "<table width='100%'><tr><td width='20%'+>Objective</td><td align='left'>$career_objective</td></tr></table>";
+
+
 $table="<table width='100%'>
 
+       
           <tr>
-              <th align='left'>Profile Information</th>
+              <th align='left' colspan='2'>Profile Information</th>
           </tr>
-          <tr>
-              <td width='40%'><span style='font-weight:bold'>Name:</span> $firstName $lastName</td>
-              
-              <td><span style='font-weight:bold'>Email:</span> $email</td>
+           <tr>
+              <td colspan='2'>&nbsp;</td>
           </tr>
+         
           <tr>
-                 <td valign='top' ><span style='font-weight:bold'>Phone:</span> $mobileNumber</td>
-              <td><span style='font-weight:bold'>Address:</span> $address</td>
-           
-          </tr>      
+              <td width='12%' align='right'  style='font-weight:bold'> Name : </td>
+              <td>$firstName $lastName</td>
+           </tr>
+            <tr>
+              <td width='12%' align='right'  style='font-weight:bold'> Email : </td>
+              <td>$email</td>
+           </tr>
+            <tr>
+              <td width='12%' align='right'  style='font-weight:bold'> Phone : </td>
+              <td>$mobileNumber</td>
+           </tr>
+            <tr>
+              <td width='12%' align='right'  style='font-weight:bold' valign='top'> Address : </td>
+              <td>$address</td>
+           </tr>
+               
         </table>";
 $table.="<br/>  <table>
           <tr>
@@ -295,13 +338,13 @@ $table.="<br/><table>
                 {
                   $achievementstitle = $achievementsArray[$i]['achievements'];
                    
-                  $table.="<li>$achievementstitle</li>";
+                  $table.="<li style='margin: 0 0 5px 0;'>$achievementstitle</li>";
                 }
               }
               $table.="</ul>"; 
       }
-
-
+ $table .= "<pagebreak />";
+/*
 $table.="<br/>  <table width='100%' border='1' style='border-collapse:collapse;'>
           <tr>
               <th colspan='5'>Education Details</th>
@@ -359,7 +402,7 @@ $table.="<br/>  <table width='100%' border='1' style='border-collapse:collapse;'
           </tr>
          </table>"; 
 
-if($currentcompany!='')
+if($working_currently=='Yes')
 {
 $table.=" <br/> <table width='100%' border='1'  style='border-collapse:collapse;'>
 <tr>
@@ -378,93 +421,164 @@ $table.="<tr><td>$currentcompany</td>
 <td>$currentcompanyfrommonth,$currentcompanyfromyear</td>
 <td>Till to date</td>
 </tr>";
+}
 if(count($companiesArray)>0) {
 
-             for($i=0;$i<count($companiesArray);$i++){
-           $companyname = $companiesArray[$i]['companyname'];
-          $designation = $companiesArray[$i]['designation'];
-          $frommonth = $companiesArray[$i]['frommonth'];
-          $tomonth = $companiesArray[$i]['tomonth'];
-          $fromyear = $companiesArray[$i]['fromyear'];
-          $toyear = $companiesArray[$i]['toyear'];
-      
-$table.="<tr><td>$companyname</td>
-<td>$designation</td>
-<td>$frommonth,$fromyear</td>
-<td>$tomonth, $toyear</td>
-</tr>";
+if($working_currently!='Yes')
+{
+  $table.=" <br/> <table width='100%' border='1'  style='border-collapse:collapse;'>
+  <tr>
+                   <td colspan='4' style='font-weight:bold' align='Center'>Experience Details</td>
+              </tr>
+              <tr>
+              <td style='font-weight:bold'>Company Name</td>
+              <td style='font-weight:bold'>Designation</td>
+              <td style='font-weight:bold'>From </td>
+              <td style='font-weight:bold'>To </td></tr>";
+
 }
+             for($i=0;$i<count($companiesArray);$i++){
+                $companyname = $companiesArray[$i]['companyname'];
+                $designation = $companiesArray[$i]['designation'];
+                $frommonth = $companiesArray[$i]['frommonth'];
+                $tomonth = $companiesArray[$i]['tomonth'];
+                $fromyear = $companiesArray[$i]['fromyear'];
+                $toyear = $companiesArray[$i]['toyear'];
+                if($companyname=='') {
+                  continue;
+                }
+            
+                $table.="<tr><td>$companyname</td>
+                <td>$designation</td>
+                <td>$frommonth,$fromyear</td>
+                <td>$tomonth, $toyear</td>
+                </tr>";
+            }
   }
 
-}
-
  
-            $table.="</table>";
+            $table.="</table>";*/
+            $projectcount = 0;
+ if(count($companyArray)>0) { 
 
-
- $table.=" <br/> <table width='100%' border='0' style='border-collapse:collapse;'>";
+ $table.="<table width='100%'>";
             $table.="<tr>
                  <td style='font-weight:bold' align='Center'>Company Project Details</td>
-            </tr></table>";
+            </tr>
+            </table>";
+
           for($i=0;$i<count($companyArray);$i++){
-           $project_title = $companyArray[$i]['project_title'];
-          $college_name = $companyArray[$i]['company_name'];
+           $project_title = ucfirst($companyArray[$i]['project_title']);
+          $college_name = ucfirst($companyArray[$i]['company_name']);
           $time_duration = $companyArray[$i]['time_duration'];
           $project_description = $companyArray[$i]['project_description'];
           $tools_used = $companyArray[$i]['tools_used'];
           $challenges = $companyArray[$i]['challenges'];
-$designation = $companyArray[$i]['designation'];
+          $challenges1 = $companyArray[$i]['challenges1'];
+          $challenges2 = $companyArray[$i]['challenges2'];
+          $challenges3 = $companyArray[$i]['challenges3'];
+          $challenges4 = $companyArray[$i]['challenges4'];
+$designation = ucfirst($companyArray[$i]['designation']);
+$client = ucfirst($companyArray[$i]['client']);
+$start_date = $companyArray[$i]['start_date'];
+$end_date = $companyArray[$i]['end_date'];
+       if($challenges) {
+           $challenges = $companyArray[$i]['challenges'];
+       }
           if(!empty($project_title))
           {
-            $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
+            $table.="<table width='100%'>";
             $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Project Title</td>
-                 <td width='80%'>$project_title</td>
+                 <td align='left' >$college_name</td>
+                 <td align='right'>Client: $client</td>
             </tr>";
           }
-          if(!empty($college_name))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Company Name</td>
-                 <td width='80%'>$college_name</td>
+         $table.="<tr>
+                 <td align='left' >$designation</td>
+                 <td align='right'>$start_date to $end_date</td>
             </tr>";
-          }
-          if(!empty($designation))
-          {
+
+         // Project title
             $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Designation</td>
-                 <td width='80%'>$designation</td>
+                 <td align='left' colspan='2'>$project_title</td>
             </tr>";
-          }
-          if(!empty($project_description))
+          
+
+            $table.="<tr>
+                        <td colspan='2'>
+                        <span  style='font-weight:bold;font-color:blue;'>Description</span>
+                       </td>
+                       </tr>
+                       </table>";
+
+            $table.="<ul style='list-style-type:disc' valign='top'>
+                         <li>$project_description</li>
+                </ul>
+               ";
+
+             $table.="<table valign='top'><tr>
+                        <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
+                </td>
+                </tr></table>";
+                  $table.="<ul style='list-style-type:disc'>
+                         <li>$tools_used</li>
+                </ul>
+               ";
+        /* if(!empty($project_description))
           {
             $table.="<tr>
                  <td width='20%'  style='font-weight:bold'>Project Description</td>
                  <td width='80%'>$project_description</td>
             </tr>";
           }
-          if(!empty($tools_used))
+         /*  if(!empty($tools_used))
           {
             $table.="<tr>
                  <td width='20%' style='font-weight:bold'>Tools Used</td>
                  <td width='80%'>$tools_used</td>
             </tr>";
-          }
+          }*/
           if(!empty($challenges))
           {
             $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Challenges</td>
-                 <td width='80%'>$challenges</td>
+                        <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Challenges</span>
+                 <ul style='list-style-type:disc'>";
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges</li>";
+              if(!empty($challenges1)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges1</li>";
+
+              }
+              if(!empty($challenges2)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges2</li>";
+                
+              }
+              if(!empty($challenges3)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges3</li>";
+                
+              }
+              
+
+            $table.="</ul></td>
             </tr>";
           }
           $table.="</table>"; 
+
+          if($i%2==0) {
+
+            $table.="<hr/>";
+          }
+          $projectcount = $i;
+          if($projectcount==1 || $projectcount==3 || $projectcount==5 || $projectcount==7 || $projectcount==9) {
+             $table .= "<pagebreak />";
+          }
         }
+  }
 
 
 
  $table.=" <br/> <table width='100%' border='0' style='border-collapse:collapse;'>";
             $table.="<tr>
-                 <td style='font-weight:bold' align='Center'>Project Details</td>
+                 <td style='font-weight:bold' align='Center'>Domain Specific Project</td>
             </tr></table>";
           for($i=0;$i<count($academicArray);$i++){
            $project_title = $academicArray[$i]['project_title'];
@@ -473,106 +587,177 @@ $designation = $companyArray[$i]['designation'];
           $project_description = $academicArray[$i]['project_description'];
           $tools_used = $academicArray[$i]['tools_used'];
           $challenges = $academicArray[$i]['challenges'];
+          $challenges1 = $academicArray[$i]['challenges1'];
+          $challenges2 = $academicArray[$i]['challenges2'];
+          $challenges3 = $academicArray[$i]['challenges3'];
+          $challenges4 = $academicArray[$i]['challenges4'];
+          $role = $academicArray[$i]['role'];
 
-          if(!empty($project_title))
-          {
-            $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
+         $table.="<table width='100%'>";
             $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Project Title</td>
-                 <td width='80%'>$project_title</td>
+                 <td align='left' >$college_name</td>
+                 <td align='right'></td>
             </tr>";
-          }
-          if(!empty($college_name))
-          {
+           $table.="<tr>
+                 <td align='left' colspan='2'>$project_title</td>
+            </tr>";
+          
+
             $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Institue Name</td>
-                 <td width='80%'>$college_name</td>
-            </tr>";
-          }
-          if(!empty($project_description))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Project Description</td>
-                 <td width='80%'>$project_description</td>
-            </tr>";
-          }
-          if(!empty($tools_used))
-          {
-            $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Tools Used</td>
-                 <td width='80%'>$tools_used</td>
-            </tr>";
-          }
+                        <td colspan='2'>
+                        <span  style='font-weight:bold;font-color:blue;'>Description</span>
+                       </td>
+                       </tr>
+                       </table>";
+
+            $table.="<ul style='list-style-type:disc' valign='top'>
+                         <li>$role</li>
+                </ul>
+               ";
+
+             $table.="<table valign='top'><tr>
+                        <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
+                </td>
+                </tr></table>";
+                  $table.="<ul style='list-style-type:disc'>
+                         <li>$tools_used</li>
+                </ul>
+               ";
           if(!empty($challenges))
           {
             $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Challenges</td>
-                 <td width='80%'>$challenges</td>
+                        <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Challenges</span>
+                 <ul style='list-style-type:disc'>";
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges</li>";
+              if(!empty($challenges1)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges1</li>";
+
+              }
+              if(!empty($challenges2)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges2</li>";
+                
+              }
+              if(!empty($challenges3)) {
+              $table.=" <li  style='margin: 0 0 2px 0;'>$challenges3</li>";
+                
+              }
+            $table.="</ul></td>
             </tr>";
           }
           $table.="</table>"; 
+
+          if($i%2==0) {
+
+            $table.="<hr/>";
+          }
+          $projectcount = $projectcount+1;
+          if($projectcount==1 || $projectcount==3 || $projectcount==5 || $projectcount==7 || $projectcount==9 || $projectcount==11|| $projectcount==13|| $projectcount==15) {
+             $table .= "<pagebreak />";
+          }
         }
 
-if($deg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
-  $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Project Name</td>
-                 <td width='80%'>$deg_projectname</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Institute Name</td>
-                 <td width='80%'>$degschoolname</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Project Description</td>
-                 <td width='80%'>$deg_projectdescription</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Challenges</td>
-                 <td width='80%'>$deg_projectchallenges</td>
-            </tr>
-             <tr>
-                 <td width='20%' style='font-weight:bold'>Tools</td>
-                 <td width='80%'>$deg_projecttools</td>
-            </tr>";
-               $table.="</table>"; 
+$table.="<table width='100%'>
+          <tr>
+              <th colspan='2'>Education Details</th>
+          </tr> ";
+            if($pgdipschoolname!='')
+          {
+           $table.="<tr>
+              <td><span   style='font-weight:bold'>PG Diploma</span>
+                   in <span style='font-weight:bold'>$pgdipcourse</span></td>
+                   <td align='right'><span   style='font-weight:bold'>$pgdippassoutyear</span></td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$pgdipschoolname</span></td>                       
+               </tr><tr>
+              <td> &nbsp;</td>
+              </tr>";
+           }
 
+           if($pgboard!='')
+          {
+           $table.="<tr>
+              <td><span   style='font-weight:bold'>Master Degree </span>
+                   in <span style='font-weight:bold'>$pgdepartment</span></td>
+                   <td align='right'><span   style='font-weight:bold'>$pgpassoutyear</span></td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$pgschoolname, , with $pgpercentage $pgpercentagetype</td>                       
+               </tr>
+               <tr><td>&nbsp;</td>
+               </tr>";
+           }
+           if($degschoolname!='')
+          {
+           $table.="<tr>
+              <td><span   style='font-weight:bold'>Bachelor Degree </span>
+                   in <span style='font-weight:bold'>$degdepartment</span></td>
+                   <td align='right'><span   style='font-weight:bold'>$degpassoutyear</span></td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$degschoolname, with $degpercentage $degpercentagetype</td>                       
+               </tr>
+               <tr><td>&nbsp;</td>
+               </tr>";
+           }
+
+           if($pucschoolname!='')
+          {
+           $table.="<tr>
+              <td><span   style='font-weight:bold'>PUC / 12th </span>
+                   in <span style='font-weight:bold'></span></td>
+                   <td align='right'><span   style='font-weight:bold'>$pucpassoutyear</span></td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$pucschoolname, with $pucpercentage %</td>                       
+               </tr>
+               <tr><td>&nbsp;</td>
+               </tr>";
+           }
+          
+           
+           $table.="<tr>
+              <td><span   style='font-weight:bold'>SSLC</span>
+                   in <span style='font-weight:bold'></span></td>
+                   <td align='right'><span   style='font-weight:bold'>$sslcpassoutyear</span></td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$sslcschoolname, with $sslcpercentage %</td>                       
+               </tr>";
+        
+
+          
+          $table.="</table>";       
+/*
+if($pucschoolname!='') {
+           $table.="<tr>
+              <td>PUC</td>
+              <td> - </td>
+              <td>$pucschoolname</td>
+              <td>$pucpassoutyear</td>
+              <td>$pucpercentage</td>                            
+          </tr>";
+           }
+           $table.="<tr>
+              <td>SSLC</td>
+              <td> - </td>
+              <td>$sslcschoolname</td>
+              <td>$sslcpassoutyear</td>
+              <td>$sslcpercentage</td>                            
+          </tr>
      } 
-
-if($pg_projectname!=''){ 
-  $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
-  $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Project Name</td>
-                 <td width='80%'>$pg_projectname</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Institute Name</td>
-                 <td width='80%'>$pgschoolname</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Project Description</td>
-                 <td width='80%'>$pg_projectdescription</td>
-            </tr>
-            <tr>
-                 <td width='20%' style='font-weight:bold'>Challenges</td>
-                 <td width='80%'>$pg_projectchallenges</td>
-            </tr>
-             <tr>
-                 <td width='20%' style='font-weight:bold'>Tools</td>
-                 <td width='80%'>$pg_projecttools</td>
-            </tr>";
-               $table.="</table>"; 
-
-     } 
-                         
-  include("admin/library/mpdf60/mpdf.php");
+            */  
+  include("admin2/library/mpdf60/mpdf.php");
 
 $mpdf=new mPDF();      
 $filename = $firstName.' '.$lastName;
+$mpdf->SetHeader('<div>Powered by Nanochip Solutions</div>');
+
 $mpdf->SetFooter('<div>Powered by Nanochip Solutions</div>');
 
-$mpdf->WriteHTML($table);
+$mpdf->WriteHTML($table.$newtable);
 $mpdf->Output($filename.'.pdf','D');
 
 
+//echo ;
 ?>

@@ -17,105 +17,59 @@ while ($row = mysql_fetch_assoc($studentSql)) {
     $recruitementArray[$i]['interviewdate'] = $row['interviewdate'];
     $recruitementArray[$i]['experience_type'] = $row['experience_type'];
     $recruitementArray[$i]['jobcode'] = $row['jobcode'];
+        $recruitementArray[$i]['excelfilename'] = $row['excelfilename'];
+    $companyName  = $row['company'];
     $i++;
 }
 
-if ($_POST['excelId']) {
-    $idrecruitement = $_POST['excelId'];
-    $studentSql = mysql_query("Select a.*
-			       from tbl_recruitement as a
-                               where a.idrecruitement=$idrecruitement");
-    $i = 0;
-    $recruitementArray = array();
-    while ($row = mysql_fetch_assoc($studentSql)) {
-	$recruitementposition = $row['recruitementposition'];
-	$jobcode = $row['jobcode'];
-    }
-
-    $studentSql = "Select a.*,b.department from tbl_student as a, tbl_department as b
-                  where a.deg_department=b.iddepartment and a. idstudent in
-
-     (Select idstudent from tbl_recruitementresumes where idrecruitement in ($idrecruitement)) ";
-
-    $result = mysql_query($studentSql);
-
-    header('Content-Type: application/vnd.ms-excel'); //define header info for browser
-    header('Content-Disposition: attachment; filename=' . $recruitementposition . '-' . $jobcode . '-' . date('Ymd') . '.xls');
-    header('Pragma: no-cache');
-    header('Expires: 0');
-
-
-    echo "SSLC PASSOUT YEAR" . "\t" .
-    "SSLC PERCENTAGE" . "\t" .
-    "SSLC SCHOOL NAME" . "\t" .
-    "PUC PASSOUT YEAR" . "\t" .
-    "PUC PERCENTAGE" . "\t" .
-    "PUC SCHOOL NAME" . "\t" .
-    "DEGREE PASSOUT YEAR" . "\t" .
-    "DEGREE SCHOOL NAME" . "\t" .
-    "DEGREE PERCENTAGE" . "\t" .
-    "DEGREE DEPARTMENT" . "\t" .
-    "RV-VLSIID" . "\t" .
-    "DEGREE UNIVERSITY" . "\t";
-
-    print("\n");
-
-    while ($imp = mysql_fetch_array($result)) {
-	$schollarray = explode(',', $imp['sslc_schoolname']);
-	$imp[sslc_schoolname] = $schollarray[0];
-
-	$pucarray = explode(',', $imp['puc_schoolname']);
-	$imp[puc_schoolname] = $pucarray[0];
-
-
-	$output = str_replace("\t", "t", trim(stripslashes($imp[sslc_passoutyear]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[sslc_percentage]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[sslc_schoolname]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[puc_passoutyear]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[puc_percentage]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[puc_schoolname]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[deg_passoutyear]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[deg_schoolname]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[deg_percentage]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[department]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[rvvlsiid]))) . "\t" .
-		str_replace("\t", "t", trim(stripslashes($imp[deg_university]))) . "\t";
-
-	$output = preg_replace("/\r\n|\n\r|\n|\r/", ' ', $output);
-	print(trim($output)) . "\t\n";
-    }
-    exit;
-}
-
 if ($_POST['downloadzipId']) {
-    $jobcode = 'NANOCH41588873';
-    var_dump(chmod($jobcode, 0777));
 
-    $files = array();
     $i = 0;
     $idrecruitement = $_POST['downloadzipId'];
-    $studentSql = mysql_query(" Select rvvlsiid from tbl_student where idstudent in
+    $studentSql = mysql_query(" Select rvvlsiid,mobile from tbl_student where idstudent in
 	           (select idstudent from tbl_recruitementresumes where idrecruitement=$idrecruitement)");
     while ($row = mysql_fetch_assoc($studentSql)) {
-	$files[$i] = 'NANOCH41588873/' . $row['rvvlsiid'] . '.pdf';
+	$files['files'][$i] = $row['rvvlsiid'] . '.pdf';
+
+	$Mobile = '9538130954';
+	  //  $time = urlencode("Congragulations, your resume has been tagged for a job opening in ($companyname) stay tuned for more updates from ($companyname)");
+	    $ch = curl_init();
+	  //  $url = "http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=subhas&pass=subhas&senderid=NANOCH&dest_mobileno=$Mobile&message=$time&response=Y";
+	    $url = "http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=subhas&pass=subhas&senderid=NANOCH&dest_mobileno=$Mobile&tempid=34762&F1=$companyName&F2=$companyname&response=Y";
+	    //set the url, number of POST vars, POST data
+	      curl_setopt($ch, CURLOPT_URL, $url);
+ curl_exec($ch);
+
 	$i++;
     }
 
-    //$files = array('NANOCH41588873/1ADPDB250101.pdf');
-    $zipname = 'file.zip';
-    $zip = new ZipArchive;
-    $zip->open($zipname, ZipArchive::CREATE);
-    foreach ($files as $file) {
-	$zip->addFile($file);
+
+    $file_folder = $_POST['jobcode'] . '/'; //
+    // Checking files are selected
+    $zip = new ZipArchive(); // Load zip library
+    $zip_name = $_POST['jobcode'] . ".zip"; // Zip name
+    if ($zip->open($zip_name,
+		    ZIPARCHIVE::CREATE) !== TRUE) {
+	// Opening zip file to load files
+	$error .= "* Sorry ZIP creation failed at this time";
+    }
+
+    //$file = '1ADPDB250101.pdf';
+    foreach ($files['files'] as $file) {
+
+	$zip->addFile($file_folder . $file); // Adding files into zip
     }
     $zip->close();
-    header('Content-Type: application/zip');
-    header('Content-disposition: attachment; filename=' . $zipname);
-    header('Content-Length: ' . filesize($zipname));
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    // readfile($zipname);
-    exit;
+    if (file_exists($zip_name)) {
+// push to download the zip
+	header('Content-type: application/zip');
+	header('Content-Disposition: attachment; filename="' . $zip_name . '"');
+	readfile($zip_name);
+// remove zip file is exists in temp path
+	unlink($zip_name);
+	exit;
+    }
+    
 }
 ?>
 <link rel="stylesheet" type="text/css" href="tablegrid/css/jquery.dataTables.css">
@@ -193,12 +147,13 @@ if ($_POST['downloadzipId']) {
 <![endif]-->
 </head>
 <script type="text/javascript">
-    function downloadZipFile(idRecruitement)
+    function downloadZipFile(idRecruitement, jobCode)
     {
 	cnfStatus = confirm('Do you really want to download Resumes?');
 	if (cnfStatus == true)
 	{
 	    $('#downloadzipId').val(idRecruitement);
+	    $('#jobcode').val(jobCode);
 	    $('#excelId').val('');
 	    document.downloadForm.submit();
 	}
@@ -232,13 +187,10 @@ if ($_POST['downloadzipId']) {
     		    <th>Job Code</th>
     		    <th>Job Type</th>
     		    <th>Job Title</th>
-    		    <th>Position Created Date</th>
     		    <th>No of Openings</th>
-    		    <th>Interview Date</th>
     		    <th>No of Resumes Tagged</th>
-    		    <th>Status</th>
-    		    <th>Over View</th>
-    		    <th>Download Zip File</th>
+    		    <th>Candidate Summary</th>
+    		    <th>Resumes</th>
     		</tr>
     	    </thead>
 
@@ -247,14 +199,14 @@ if ($_POST['downloadzipId']) {
 		    for ($i = 0; $i < count($recruitementArray); $i++) {
 			$idrecruitement = $recruitementArray[$i]['idrecruitement'];
 			$approved = $recruitementArray[$i]['approved'];
+			$jobCode = $recruitementArray[$i]['jobcode'];
+			$excelfilename = $recruitementArray[$i]['excelfilename'];
 			?>
 			<tr>
 			    <td><?php echo $recruitementArray[$i]['jobcode']; ?></td>
 			    <td> <?php echo $recruitementArray[$i]['experience_type']; ?></td>
 			    <td><?php echo $recruitementArray[$i]['recruitementposition']; ?></td>
-			    <td><?php echo $recruitementArray[$i]['recruitementdate']; ?></td>
 			    <td><?php echo $recruitementArray[$i]['noofopening']; ?></td>
-			    <td><?php echo $recruitementArray[$i]['interviewdate']; ?></td>
 
 			    <?php
 			    $countOfStudentForRecruitmentSql = mysql_query("Select count(idrecruitementresumes) as totalcount
@@ -266,15 +218,18 @@ if ($_POST['downloadzipId']) {
 			    <td><?php echo $totalResumesAttached; ?></td>
 
 			    <?php if ($recruitementArray[$i]['status'] == 'Close') { ?>
-	    		    <td><a href="viewRecruitementlistCandidates.php?idrecruitement=<?php echo $idrecruitement; ?>">View Candidates</a></td>
+			    <td><a href="<?php echo $jobCode;?>/<?php echo $excelfilename;?>" target='_blank'>Download</a></td>
+			    <td><a href="javascript:downloadZipFile('<?php echo $idrecruitement; ?>','<?php echo $recruitementArray[$i]['jobcode']; ?>')">Download</a></td>
+
 				<?php
 			    }
 			    else {
 				?>
 	    		    <td>In-Process</td>
+	    		    	    		    <td>In-Process</td>
+	    		    <td>In-Process</td>
+
 			    <?php } ?>
-			    <td><a href='javascript:downloadExcelId(<?php echo $idrecruitement; ?>)'>Resume Summary in Excel</a></td>
-			    <td><a href='javascript:downloadZipFile(<?php echo $idrecruitement; ?>)'>Download of Resumes</a></td>
 			</tr>
 		    <?php } ?>
 
@@ -283,8 +238,9 @@ if ($_POST['downloadzipId']) {
 	<?php } ?>
     </div>
     <form action="" method="POST" name='downloadForm' id='downloadForm'>
-	<input type='text' id='downloadzipId' name='downloadzipId' value='' />
-	<input type='text' id='excelId' name='excelId' value='' />
+	<input type='hidden' id='downloadzipId' name='downloadzipId' value='' />
+	<input type='hidden' id='excelId' name='excelId' value='' />
+	<input type='hidden' id='jobcode' name='jobcode' value='' />
     </form>
 </body>
 

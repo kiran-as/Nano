@@ -12,11 +12,16 @@ if($_POST)
     $projectdescription = str_replace("'","&#39;",$_POST['projectdescription']);
     $tools = str_replace("'","&#39;",$_POST['tools']);
     $challenges = str_replace("'","&#39;",$_POST['challenges']);
+$challenges1 = str_replace("'","&#39;",$_POST['challenges1']);
+$challenges2 = str_replace("'","&#39;",$_POST['challenges2']);
+$challenges3 = str_replace("'","&#39;",$_POST['challenges3']);
+$challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
+
 
     mysql_query("Insert into tbl_academicproject(project_title,college_name ,"
             . "time_duration,role,team_size,tools_used,"
-            . "challenges,idstudent) Values ('$projecttitle','$college',"
-            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent')");
+            . "challenges,idstudent,challenges1,challenges2,challenges3,challenges4) Values ('$projecttitle','$college',"
+            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$challenges1','$challenges2','$challenges3','$challenges4')");
    echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
         exit;   
 }
@@ -126,7 +131,7 @@ if($_POST)
           </div> 
                   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Project Description</label>
+            <label class="col-sm-2 control-label">Project Deliverables</label>
             <div class="col-sm-10">
               <textarea class="form-control" Placeholder="Describe the project functionality and its features" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')"  ;></textarea>
                <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
@@ -142,8 +147,31 @@ if($_POST)
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" id="challenges" Placeholder="List the major challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges_countlabel','250')"  ;></textarea>
-               <span class='info-text' id='challenges_countlabel'>Maximum 250 Chars (with spaces)            
+              <textarea class="form-control" rows="1" id="challenges" Placeholder="List the major challenges you faced while executing the project one by one" name="challenges"></textarea>
+            </div>        
+          </div> 
+           <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges1"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges1"   value="" />           
+            </div>        
+          </div>   
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges2"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges2"   value="" />           
+            </div>        
+          </div> 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges3"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges3"   value="" />           
+            </div>        
+          </div> 
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="challenges4"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges4"   value="" />           
             </div>        
           </div>          
       </div>

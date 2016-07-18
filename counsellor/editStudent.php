@@ -9,8 +9,8 @@ include('../include/councellor.php');
 $studentId = $student_id = $studentId = $_GET['idstudent'];
 $councellorId = $_SESSION['idcouncellor'];
 
-$studentdetails = mysql_query(("Select * from tbl_rvstudent
-                  where idrvstudent=$studentId"));
+$studentdetails = mysql_query(("Select a.*, b.reviewname from tbl_rvstudent as a, tbl_reviewstatus as b 
+                  where a.idrvstudent=$studentId and a.enquiry_from=b.idreviewstatus"));
 while($row = mysql_fetch_assoc($studentdetails))
 {
   $name = $row['name'];
@@ -31,6 +31,7 @@ while($row = mysql_fetch_assoc($studentdetails))
   $pg_othercoursename = $row['pg_othercoursename'];
   $councellor = $row['councellor'];
   $review_status = $row['review_status'];
+  $twelth_details = $row['twelth_details'];
 
   $othercourses = $row['othercourses'];
   $other_coursename = $row['other_coursename'];
@@ -85,7 +86,8 @@ $me_subject = $row['me_subject'];
 
       $weeks_spare = $row['weeks_spare']; 
         $studenttype  = $row['studenttype'];
-
+        $enquiry_from = $row['enquiry_from'];
+ $reviewname = $row['reviewname'];        
 }
 
 $councellorSql = mysql_query("Select a.* , b.*, c.*
@@ -108,6 +110,7 @@ if($_POST)
 {
 
 $name = $_POST['name'];
+$twelth_details = $_POST['twelth_details'];
   $phone = $_POST['phone'];
   $came_through = $_POST['came_through'];
   $sslc_passoutyear = $_POST['sslc_passoutyear'];
@@ -181,6 +184,7 @@ $name = $_POST['name'];
   $keywords = $_POST['keywords'];
     $studenttype  = $_POST['studenttype'];
   $weeks_spare = $_POST['weeks_spare'];
+  $enquiry_from = $_POST['enquiry_from'];
 
 mysql_query("Delete from tbl_rvstudent where idrvstudent='$studentId'");
 
@@ -200,7 +204,7 @@ mysql_query("Delete from tbl_rvstudent where idrvstudent='$studentId'");
       embedded_RTOS,embedded_Microcontroller,education_gap,
       education_gap_reason,joboffer_company_name,joboffer_joining_date,
       joboffer_ctc,expectingjob,expecting_joboffer_company_name,me_college_name,
-      me_university_name,be_college_name,be_university_name)
+      me_university_name,be_college_name,be_university_name,twelth_details,enquiry_from)
 
     Values ('$weeks_spare','$studenttype','$studentId','$friendsname', '$professor_name', '$keywords','$name','$phone','$came_through','$sslc_passoutyear','$tenth_percentage',
       '$deg_passoutyear','$deg_department','$deg_othercoursename',
@@ -217,7 +221,7 @@ mysql_query("Delete from tbl_rvstudent where idrvstudent='$studentId'");
       '$embedded_RTOS','$embedded_Microcontroller','$education_gap',
       '$education_gap_reason','$joboffer_company_name','$joboffer_joining_date',
       '$joboffer_ctc','$expectingjob','$expecting_joboffer_company_name','$me_college_name',
-      '$me_university_name','$be_college_name','$be_university_name')");
+      '$me_university_name','$be_college_name','$be_university_name','$twelth_details','$enquiry_from')");
 
 
    $assignCouncellor = $_POST['idcouncellor'];
@@ -465,7 +469,7 @@ function courses(course)
      <?php include('include/header.php');?>
     <?php include('include/nav.php');?>
     <div class="container mar-t30">
-    
+    <input type="hidden" name="enquiry_from" id="enquiry_from" value="<?php echo $enquiry_from;?>" />
     <div class="container mar-t10">
      <h3 class="brd-btm mar-b20">Student Details</h3>
 <div class="row">
@@ -653,7 +657,11 @@ function courses(course)
                   <input type="radio" name="studenttype" id="studenttype" value='Experience' <?php if($studenttype=='Experience'){ echo "checked=checked";}?>>Experience
               </div>        
       </div>  
-                   <h3 class="brd-btm mar-b20">12th / PUC  Details</h3>
+                   <h3 class="brd-btm mar-b20">
+<input type="radio" name="twelth_details" id="twelth_details" value="PUC"  <?php if($twelth_details=='PUC'){ echo "checked=checked";}?>> PUC  Details       
+<input type="radio" name="twelth_details" id="twelth_details" value="12th" <?php if($twelth_details=='12th'){ echo "checked=checked";}?>> 12th
+<input type="radio" name="twelth_details" id="twelth_details" value="Diploma" <?php if($twelth_details=='Diploma'){ echo "checked=checked";}?> > Diploma
+        </h3>
 
       <div class="form-group">
                 <label class="col-sm-5 control-label">Passed Out <span class="error-text">*</span></label>
@@ -1012,10 +1020,11 @@ function courses(course)
               </div> 
               <div class="form-group">
                   <label class="col-sm-2 control-label"><?php echo $councellorArray[$i]['name'].' Review';?> Status<span class="error-text">*</span></label>
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                       <input type="name" class="form-control"  value="<?php echo $councellorArray[$i]['reviewname'];?>">
 
-                  </div>                        At <?php echo date('d-M-Y H:i:s',strtotime($councellorArray[$i]['created_date']));?>
+                  </div> At <?php echo date('d-M-Y H:i:s',strtotime($councellorArray[$i]['created_date']));?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enquiry From : <?php echo $reviewname;?>
       
               </div>
              
@@ -1031,15 +1040,17 @@ function courses(course)
               </div> 
  <div class="form-group">
             <label class="col-sm-2 control-label">Review Status<span class="error-text">*</span></label>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <select class="form-control"  id="review_status" name="review_status"  onchange="onReviewStatus(this.value)">
-                  <?php for($i=0;$i<count($reviewStatusArray);$i++){?>
+                  <?php for($i=0;$i<count($reviewStatusArray);$i++){
+                     if($reviewStatusArray[$i]['idreviewstatus']<'1000'){?>
                   <option value="<?php echo $reviewStatusArray[$i]['idreviewstatus'];?>"
                           <?php if($reviewStatusArray==$reviewStatusArray[$i]['idreviewstatus']){ echo "selected=selected";};?>><?php echo $reviewStatusArray[$i]['reviewname'];?></option>
-                  <?php }?>
+                  <?php }}?>
 
               </select>
-            </div>        
+            </div>  
+                 
               </div> 
 <div class="form-group" id='reviewreason' style='display:none'>
                 <label class="col-sm-2 control-label">Reason<span class="error-text">*</span></label>
