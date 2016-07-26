@@ -19,6 +19,16 @@ while($row = mysql_fetch_assoc($studentSql))
     $resumeid = $row['resumeid'];
    
 }
+$offCampusSql = mysql_query("Select * from tbl_recruiter");
+$i=0;
+while($row = mysql_fetch_assoc($offCampusSql))
+{
+    $offCampusarray[$i]['idrecruiter'] = $row['idrecruiter'];
+    $offCampusarray[$i]['company'] = $row['company'];    
+    $i++;
+}
+
+
 
 $studentSql = mysql_query("Select a.idrecruitementresumes,b.recruitementposition,b.recruitementdate,c.company,a.*
         from tbl_recruitementresumes as a, tbl_recruitement as b, tbl_recruiter as c
@@ -42,8 +52,32 @@ while($row = mysql_fetch_assoc($studentSql))
      $i++;
 }
 
+if($_POST['company']){
 
-if($_POST)
+   $idrecruiter = $_POST['company'];
+   $date = $_POST['datepicker'];
+   $jobposition = $_POST['jobposition'];
+   $comments = "OffCampus ".$_POST['comments'];
+   $datepicker = date('Y-m-d',strtotime($_POST['datepicker']));
+   $sql = mysql_query("Insert into tbl_recruitement 
+    (recruitementposition,idrecruiter,recruitementdate) values 
+           ('$jobposition','$idrecruiter','$datepicker')");
+   $lastId = mysql_insert_id();
+   
+   $recrutimetresumes = "Insert into tbl_recruitementresumes
+   (review,idrecruitement,idstudent,third_round,interviewdate) values 
+   ('$comments','$lastId','$idStudent','Yes','$datepicker')";
+
+  mysql_query($recrutimetresumes);
+   $placed = 'Yes';
+       $updateSql = "Update tbl_student set placed='$placed' 
+        where idstudent='$idStudent'";
+        mysql_query($updateSql);
+  
+echo "<script>parent.location='studentlist.php'</script>";
+exit;
+}
+if($_POST['idrecruitementresumes'])
 {
   for($i=0;$i<count($_POST['idrecruitementresumes']);$i++)
   {
@@ -93,11 +127,40 @@ exit;
 
     <!-- Custom styles for this template -->
     <link href="../css/main.css" rel="stylesheet">
-  
-  </head>
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
+  </head>
+   <script>
+
+    $(function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "2015:2020"
+    });
+  });
+
+    function fnshowData(id) {
+      if(id=='Process') {
+         $('#academicProject').show();
+         $('#newRecruiter').hide();
+      } else {
+        $('#academicProject').hide();
+        $('#newRecruiter').show();
+      }
+    }
+    </script>
   <body >
- 
+  <table>
+        <tr>
+          <td><input type='radio' name="campus" id="campus" value="Process" onclick="fnshowData(this.value)" checked="checked">Process
+              <input type='radio' name="campus" id="campus" value="OffCampus" onclick="fnshowData(this.value)">OffCampus
+          </td>
+        </tr>
+     </table>
       <form action="" method="POST" id="academicProject">
  <div class="container mar-t30">
     <div class="row">
@@ -132,6 +195,7 @@ exit;
           
     
     <div class="container mar-t10" style='background-color:white';>
+    
     <table width='100%' border="1">
       <tr>
          <th>Company Name</th>
@@ -179,12 +243,43 @@ exit;
    
    </table>                
             <div class="clearfix brd-top pad-t20">
+
                 <button type="submit" id="saveAndContinue" class="btn btn-primary pull-right">Save & Continue</button>       
             </div> 
             </div>                   
      </div>
+ </form>
 
-   
-      </form>
+ <form name="newRecruiter" id="newRecruiter" method="POST" style="display:none;">
+   <table border="1" width="100%">
+       <tr>
+           <td width="50%">Company</td>
+           <td> 
+                <select class="form-control" id="company" name="company">
+                  <option value="">Select</option>
+                  <?php for($i=0;$i<count($offCampusarray);$i++){?>
+                  <option value="<?php echo $offCampusarray[$i]['idrecruiter'];?>"><?php echo $offCampusarray[$i]['company'];?></option>
+                  <?php }?>
+
+              </select>
+            </td>
+            </tr>
+          <tr>
+            <td> Interview or Joining Date </td>
+            <td>        <input type="text" class="form-control" placeholder="Interview Date" id="datepicker" name="datepicker" value=""></td>
+          </tr>
+          <tr>
+             <td>Job Position</td>
+             <td><input type="text" class="form-control" placeholder="Job Position" id="jobposition" name="jobposition" value=""></td>
+          </tr>
+          <tr>
+             <td>Comments</td>
+             <td><input type="text" class="form-control" placeholder="Comments" id="comments" name="comments" value=""></td>
+          </tr>
+          <tr>
+             <td colspan="2"><input type="submit" name="save" id="save" class="btn btn-primary pull-right"></td>
+          </tr>
+      </table>
+     </form>
   </body>
 </html>

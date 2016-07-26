@@ -133,6 +133,7 @@ Placement Details
                          <?php } ?>
             <td><a href='viewResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>View</a></td>
             <td><a href='downloadResume.php?idstudent=<?php echo $idstudent;?>' target='_blank'>Download</a></td>
+
                     </tr>
                     <?php }?>
                     

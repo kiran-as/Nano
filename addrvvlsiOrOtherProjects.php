@@ -18,9 +18,9 @@ $challenges3 = str_replace("'","&#39;",$_POST['challenges3']);
 $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
 
 
-    mysql_query("Insert into tbl_academicproject(project_title,college_name ,"
+    mysql_query("Insert into tbl_academicproject(project_title,college_name,project_description,"
             . "time_duration,role,team_size,tools_used,"
-            . "challenges,idstudent,challenges1,challenges2,challenges3,challenges4) Values ('$projecttitle','$college',"
+            . "challenges,idstudent,challenges1,challenges2,challenges3,challenges4) Values ('$projecttitle','$college','$projectdescription',"
             . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$challenges1','$challenges2','$challenges3','$challenges4')");
    echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
         exit;   
@@ -59,15 +59,42 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
                     projecttitle: "required",
                     months: "required",
                     college: "required",
-                    role: "required", 
+                    projectdescription:{required:true,
+                           minlength:100,
+                           maxlength:250}, 
+                    tools:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges1:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges2:{required:true,
+                           minlength:10,
+                           maxlength:180}
                 },
                 // Specify the validation error messages
                 messages: {
                     projecttitle: "Please enter Project Name",
                     months: "Please enter no of Months",
                     college: "Please enter the place",
-                    role: "Please enter your Deliverables",
-                   
+                    projectdescription:{required:"Please enter Project Contribution",
+                           minlength:"Minimum is 120 Character",
+                           maxlength:"PMaximum is 255 Character"},                           
+                    tools:{required:"Please enter Tools Used",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges1:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges2:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"}                   
                 }
             });
  });
@@ -85,13 +112,13 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
         <div class="form-group">
             <label class="col-sm-4 control-label">Project Title <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
+              <input type="text" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
             <div class="col-sm-4">
-              <input type="name" class="form-control" placeholder="Enter project duration" id="months" name="months">
+              <input type="text" class="form-control" placeholder="Enter project duration" id="months" name="months">
             </div>        
           </div>                                           
     </div>    
@@ -101,7 +128,7 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
           <div class="form-group">
             <label class="col-sm-4 control-label">Done At<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="Enter the institute name / Industry name" id="college" name="college">
+              <input type="text" class="form-control" placeholder="Enter the institute name / Industry name" id="college" name="college">
             </div>        
           </div>  
           <div class="form-group">
@@ -122,16 +149,16 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
     <div class="row">
       <div class="col-xs-12">
       <div class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Your Contribution to the project <span class="error-text">*</span></label>
+          <div class="form-group" style='display:none;'>
+            <label class="col-sm-2 control-label">Your Contribution to the project </label>
             <div class="col-sm-10">
-              <input type="name" class="form-control" placeholder="List the key design aspects you worked on for the project" id="role" name="role" onkeyup="countCharbannertext(this,'role_countlabel','150')"  ;>
-               <span class='info-text' id='role_countlabel'>Maximum 150 Chars (with spaces)
+              <input type="text" class="form-control" placeholder="List the key design aspects you worked on for the project" id="role" name="role" onkeyup="countCharbannertext(this,'role_countlabel','180')"  ;>
+               <span class='info-text' id='role_countlabel'>Maximum 180 Chars (with spaces)
             </div>        
           </div> 
                   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Project Deliverables</label>
+            <label class="col-sm-2 control-label">Project Deliverables<span class="error-text">*</span></label>
             <div class="col-sm-10">
               <textarea class="form-control" Placeholder="Describe the project functionality and its features" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')"  ;></textarea>
                <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
@@ -144,36 +171,37 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
                <span class='info-text' id='tools_countlabel'>Maximum 250 Chars (with spaces)            
             </div>        
           </div>
+ <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Challenges" id="challenges" name="challenges" onkeyup="countCharbannertext(this,'challenges0_countlabel','180')">                          
+                 <span class='info-text' id='challenges0_countlabel'>Maximum 180 Chars (with spaces)
+            </div>        
+          </div>  
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="1" id="challenges" Placeholder="List the major challenges you faced while executing the project one by one" name="challenges"></textarea>
-            </div>        
-          </div> 
-           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges1"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges1"   value="" />           
-            </div>        
-          </div>   
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" onkeyup="countCharbannertext(this,'challenges1_countlabel','180')">            
+               <span class='info-text' id='challenges1_countlabel'>Maximum 180 Chars (with spaces)
+
+              </div>        
+            </div>   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges2"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges2"   value="" />           
-            </div>        
-          </div> 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" onkeyup="countCharbannertext(this,'challenges2_countlabel','180')">            
+               <span class='info-text' id='challenges2_countlabel'>Maximum 180 Chars (with spaces)
+
+              </div>        
+            </div> 
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Challenges </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges3"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges3"   value="" />           
-            </div>        
-          </div> 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges4"  Placeholder="List the major challenges you faced while executing the project one by one" name="challenges4"   value="" />           
-            </div>        
-          </div>          
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" onkeyup="countCharbannertext(this,'challenges3_countlabel','180')">            
+               <span class='info-text' id='challenges3_countlabel'>Maximum 180 Chars (with spaces)
+
+              </div>        
+            </div>           
       </div>
         
       </div>

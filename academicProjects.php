@@ -135,8 +135,8 @@ exit;
               <div class="form-group">
                 <label class="col-sm-2 control-label">Project Deliverables<span class="error-text">*</span></label>
                 <div class="col-sm-10">
-                 <textarea class="form-control" rows="3"  placeholder="Describe the unique features of your project" id="deg_projectdescription" name="deg_projectdescription" onkeyup="countCharbannertext(this,'deg_projectdescription_countlabel','150')";><?php echo $deg_projectdescription;?></textarea>
-                 <span class='info-text' id='deg_projectdescription_countlabel'>Maximum 150 Chars (with spaces)
+                 <textarea class="form-control" rows="3"  placeholder="Describe the unique features of your project" id="deg_projectdescription" name="deg_projectdescription" onkeyup="countCharbannertext(this,'deg_projectdescription_countlabel','250')";><?php echo $deg_projectdescription;?></textarea>
+                 <span class='info-text' id='deg_projectdescription_countlabel'>Maximum 250 Chars (with spaces)
 
                 </div>               
               </div> 
@@ -144,8 +144,8 @@ exit;
               <div class="form-group">
                 <label class="col-sm-2 control-label">Software / Hardware Used<span class="error-text">*</span></label>
                 <div class="col-sm-10">
-                 <textarea class="form-control" rows="3"  placeholder="Specify the software names and Hardware boards used" id="deg_projecttools" name="deg_projecttools" onkeyup="countCharbannertext(this,'deg_projecttools_countlabel','150')";><?php echo $deg_projecttools;?></textarea>
-                  <span class='info-text' id='deg_projecttools_countlabel'>Maximum 150 Chars (with spaces)
+                 <textarea class="form-control" rows="3"  placeholder="Specify the software names and Hardware boards used" id="deg_projecttools" name="deg_projecttools" onkeyup="countCharbannertext(this,'deg_projecttools_countlabel','250')";><?php echo $deg_projecttools;?></textarea>
+                  <span class='info-text' id='deg_projecttools_countlabel'>Maximum 250 Chars (with spaces)
 
                 </div>               
               </div>                           

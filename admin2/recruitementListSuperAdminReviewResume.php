@@ -197,7 +197,6 @@ if ($_POST['downloadzipId']) {
     {
         var idrecruitement = $('#rejecteResume').val();
         var rejectreason = $('#rejectreason').val();
-        alert('Email has been sent to the  Archana Mam');
         formData = 'idrecruitement=' + idrecruitement + '&type=Approve&Status=Reject'+'&rejectreason='+rejectreason;
 		$.ajax({
 		    url: "ajax/ajax_recruitementupdatesMessage.php",
@@ -205,7 +204,7 @@ if ($_POST['downloadzipId']) {
 		    data: formData,
 		    success: function (data, textStatus, jqXHR)
 		    {
-             
+                    alert('Email has been sent to the Recruiter, and Archana Mam');
                 
 			  parent.location = 'recruitementListSuperAdmin.php';
 
@@ -224,8 +223,6 @@ if ($_POST['downloadzipId']) {
         cnfStatus = confirm('Do you really want Recruitement position to be closed. And now the recruiter can be able to download the resumes.');
         if (cnfStatus == true)
         {
-
-        alert('Email has been sent to the Recruiter, Students and Archana Mam');            
         formData = 'idrecruitement=' + idrecruitement + '&type=Approve&Status=Close';
         $.ajax({
             url: "ajax/ajax_recruitementupdatesMessage.php",
@@ -234,7 +231,7 @@ if ($_POST['downloadzipId']) {
             success: function (data, textStatus, jqXHR)
             {
                 
-                  
+                    alert('Email has been sent to the Recruiter, Students and Archana Mam');
                   parent.location = 'recruitementListSuperAdmin.php';
 
 

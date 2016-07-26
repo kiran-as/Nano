@@ -36,7 +36,7 @@ if($_POST)
      $designation = str_replace("'","&#39;",$_POST['designation']);
     $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
     $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
-    $client = $_POST['client'];
+    $client = str_replace("'","&#39;",$_POST['client']);
 
     mysql_query("Insert into tbl_companyproject(designation,project_title,company_name ,"
             . "time_duration,role,team_size,tools_used,"
@@ -85,7 +85,6 @@ if($_POST)
 $(function () {
             $("#academicProject").validate({
                 // Specify the validation rules
-                onkeyup:false,
                 rules: {
                     start_date: "required",
                     company:"required",
@@ -123,19 +122,19 @@ $(function () {
                     client :"Please enter Client Name",
                     tools:{required:"Please enter Tools Used",
                            minlength:"Minimum is 10 Character",
-                           maxlength:"PMaximum is 180 Character"},
+                           maxlength:"Maximum is 180 Character"},
                     challenges:{required:"Please enter Challenge",
                            minlength:"Minimum is 10 Character",
-                           maxlength:"PMaximum is 180 Character"},
+                           maxlength:"Maximum is 180 Character"},
                     challenges1:{required:"Please enter Challenge",
                            minlength:"Minimum is 10 Character",
-                           maxlength:"PMaximum is 180 Character"},
+                           maxlength:"Maximum is 180 Character"},
                     challenges2:{required:"Please enter Challenge",
                            minlength:"Minimum is 10 Character",
-                           maxlength:"PMaximum is 180 Character"},
+                           maxlength:"Maximum is 180 Character"},
                     projectdescription:{required:"Please enter Project Contribution",
                            minlength:"Minimum is 120 Character",
-                           maxlength:"PMaximum is 255 Character"},                           
+                           maxlength:"Maximum is 255 Character"},                           
                 }
             });
  });
@@ -245,40 +244,39 @@ $(function () {
           <div class="form-group">
             <label class="col-sm-2 control-label">Tools Used<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="2" Placeholder="Specify the software and hardware boards used" id="tools" name="tools"  onkeyup="countCharbannertext(this,'tools_countlabel','150')" ></textarea>
-              <span class='info-text' id='tools_countlabel'>Maximum 150 Chars (with spaces)
+              <textarea class="form-control" rows="2" Placeholder="Specify the software and hardware boards used" id="tools" name="tools"  onkeyup="countCharbannertext(this,'tools_countlabel','180')" ></textarea>
+              <span class='info-text' id='tools_countlabel'>Maximum 180 Chars (with spaces)
 
             </div>        
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="1" id="challenges" Placeholder="List the challenges you faced while executing the project" name="challenges" onkeyup="countCharbannertext(this,'challenges0_countlabel','120')"></textarea>
-              <span class='info-text' id='challenges0_countlabel'>Maximum 150 Chars (with spaces)
-
+                <input type="text" class="form-control" placeholder="Challenges" id="challenges" name="challenges" onkeyup="countCharbannertext(this,'challenges0_countlabel','180')">                          
+                 <span class='info-text' id='challenges0_countlabel'>Maximum 180 Chars (with spaces)
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" onkeyup="countCharbannertext(this,'challenges1_countlabel','120')">            
-               <span class='info-text' id='challenges1_countlabel'>Maximum 150 Chars (with spaces)
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" onkeyup="countCharbannertext(this,'challenges1_countlabel','180')">            
+               <span class='info-text' id='challenges1_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div>   
 <div class="form-group">
             <label class="col-sm-2 control-label">Roles and Responsibilities<span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" onkeyup="countCharbannertext(this,'challenges2_countlabel','120')">            
-               <span class='info-text' id='challenges2_countlabel'>Maximum 150 Chars (with spaces)
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" onkeyup="countCharbannertext(this,'challenges2_countlabel','180')">            
+               <span class='info-text' id='challenges2_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div> 
 <div class="form-group">
             <label class="col-sm-2 control-label">Roles and Responsibilities</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" onkeyup="countCharbannertext(this,'challenges3_countlabel','120')">            
-               <span class='info-text' id='challenges3_countlabel'>Maximum 150 Chars (with spaces)
+              <input type="text" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" onkeyup="countCharbannertext(this,'challenges3_countlabel','180')">            
+               <span class='info-text' id='challenges3_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div>                                        

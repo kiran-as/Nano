@@ -562,7 +562,7 @@ function fnHideCurrentCompany(value){
  
   <div class="form-group">
                     <h3 class="brd-btm mar-b20">Core Competancy / Summary of Skills</h3>
-    <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+ <!--    <input type="text" class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 150 Characters" maxlength="150" name="corecompetancy[]" onkeyup="countCharbannertext(this,'corecompetancy0_countlabel','250')" value="<?php echo $corecompetancyArray[0]['corecompetancy'];?>" />
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
@@ -572,13 +572,85 @@ function fnHideCurrentCompany(value){
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[7]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[8]['corecompetancy'];?></textarea>
     <textarea  class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 120 Characters" maxlength="120" name="corecompetancy[]" ><?php echo $corecompetancyArray[9]['corecompetancy'];?></textarea>
-  
+   -->
   </div>  
  
-  <div class="form-group brd-btm pad-b20">
-    <label>Career Objective</label>
-    <textarea  class="form-control" rows="3" id="career_objective" name="career_objective" Placeholder="Describe the career objective" onkeyup="countCharbannertext(this,'career_objective_countlabel','150')"  ;><?php echo $career_objective;?></textarea>
-                     <span class='info-text' id='career_objective_countlabel'>Maximum 150 Chars (with spaces)
+ <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy0_countlabel','170')" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy0_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+ <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy1_countlabel','170')" ><?php echo $corecompetancyArray[1]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy1_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+     <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy2_countlabel','170')" ><?php echo $corecompetancyArray[2]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy2_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+     <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy3_countlabel','170')" ><?php echo $corecompetancyArray[3]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy3_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+       <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy4_countlabel','170')" ><?php echo $corecompetancyArray[4]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy4_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+       <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy5_countlabel','170')" ><?php echo $corecompetancyArray[5]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy5_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+       <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy6_countlabel','170')" ><?php echo $corecompetancyArray[6]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy6_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+       <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy7_countlabel','170')" ><?php echo $corecompetancyArray[7]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy7_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+       <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy8_countlabel','170')" ><?php echo $corecompetancyArray[8]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy8_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+    <div class="form-group">
+  <div class="col-sm-12">
+    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy9_countlabel','170')" ><?php echo $corecompetancyArray[9]['corecompetancy'];?></textarea>
+      <span class='info-text' id='corecompetancy9_countlabel'>Maximum 170 Chars (with spaces)
+
+    </div>        
+  </div>
+
+   
+  <div class="form-group">
+    <label><br/>Career Objective</label>
+    <textarea  class="form-control" rows="3" id="career_objective" name="career_objective" Placeholder="Describe the career objective" onkeyup="countCharbannertext(this,'career_objective_countlabel','250')"  ;><?php echo $career_objective;?></textarea>
+                     <span class='info-text' id='career_objective_countlabel'>Maximum 250 Chars (with spaces)
   </div>  
   <div class="form-group">
     <label>Significant Achievements</label>

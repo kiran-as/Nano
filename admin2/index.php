@@ -31,7 +31,7 @@ if($_POST)
     }
     else
     {
-        echo "<script>parent.location='dashboard.php'</script>";
+        echo "<script>parent.location='recruiterList.php'</script>";
         exit;
     }
 }

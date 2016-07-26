@@ -487,7 +487,7 @@ Upload Excel</a></td>
                     <th>JOB CODE</th>
                     <th style='width:25%'>POSITION</th>
                     <th>COMPANY</th>
-                    <th>CANDIDATES</th>
+                    <th>JOB DESCRIPTION</th>
                     <th>RESUMES</th>
                     <th>ACTIONS</th>                    
                 </tr>

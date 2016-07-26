@@ -81,19 +81,46 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
                     projecttitle: "required",
                     months: "required",
                     college: "required",
-                    role: "required", 
+                    projectdescription:{required:true,
+                           minlength:100,
+                           maxlength:250}, 
+                    tools:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges1:{required:true,
+                           minlength:10,
+                           maxlength:180},
+                    challenges2:{required:true,
+                           minlength:10,
+                           maxlength:180}
                 },
                 // Specify the validation error messages
                 messages: {
                     projecttitle: "Please enter Project Name",
                     months: "Please enter no of Months",
                     college: "Please enter the place",
-                    role: "Please enter your Deliverables",
-                   
+                    projectdescription:{required:"Please enter Project Contribution",
+                           minlength:"Minimum is 120 Character",
+                           maxlength:"PMaximum is 255 Character"},                           
+                    tools:{required:"Please enter Tools Used",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges1:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"},
+                    challenges2:{required:"Please enter Challenge",
+                           minlength:"Minimum is 10 Character",
+                           maxlength:"Maximum is 180 Character"}                   
                 }
             });
  });
-  </script>  
+  </script>   
   </head>
 
   <body>
@@ -107,13 +134,13 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
         <div class="form-group">
             <label class="col-sm-4 control-label">Project Title <span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="projecttitle" name="projecttitle" value="<?php echo $projecttitle;?>">
+              <input type="text" class="form-control" placeholder="" id="projecttitle" name="projecttitle" value="<?php echo $projecttitle;?>">
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
             <div class="col-sm-3">
-              <input type="name" class="form-control" placeholder="" id="months" name="months" value="<?php echo $months;?>">
+              <input type="text" class="form-control" placeholder="" id="months" name="months" value="<?php echo $months;?>">
             </div>        
           </div>                                           
     </div>    
@@ -123,7 +150,7 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
           <div class="form-group">
             <label class="col-sm-4 control-label">Done At<span class="error-text">*</span></label>
             <div class="col-sm-8">
-              <input type="name" class="form-control" placeholder="" id="college" name="college" value="<?php echo $college;?>">
+              <input type="text" class="form-control" placeholder="" id="college" name="college" value="<?php echo $college;?>">
             </div>        
           </div>  
           <div class="form-group">
@@ -144,17 +171,17 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
     <div class="row">
       <div class="col-xs-12">
       <div class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Your Deliverables <span class="error-text">*</span></label>
+          <div class="form-group" style='display:none;'>
+            <label class="col-sm-2 control-label">Your Deliverables </label>
             <div class="col-sm-10">
-              <input type="name" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>" onkeyup="countCharbannertext(this,'role_countlabel','150')";>
-                           <span class='info-text' id='role_countlabel'>Maximum 150 Chars (with spaces)
+              <input type="text" class="form-control" placeholder="" id="role" name="role" value="<?php echo $role;?>" onkeyup="countCharbannertext(this,'role_countlabel','180')";>
+                           <span class='info-text' id='role_countlabel'>Maximum 180 Chars (with spaces)
 
             </div>        
           </div> 
                   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Project Deliverables</label>
+            <label class="col-sm-2 control-label">Project Deliverables<span class="error-text">*</span></label>
             <div class="col-sm-10">
               <textarea class="form-control" rows="2" id="projectdescription" name="projectdescription" onkeyup="countCharbannertext(this,'projectdescription_countlabel','250')";><?php echo $projectdescription;?></textarea>
                            <span class='info-text' id='projectdescription_countlabel'>Maximum 250 Chars (with spaces)            
@@ -170,35 +197,43 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
             </div>        
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Challenges Faced <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="1" id="challenges" name="challenges" ><?php echo $challenges;?></textarea>
-               <span class='info-text' id='challenges_countlabel'>           
+              <textarea class="form-control" rows="1" id="challenges" name="challenges"  onkeyup="countCharbannertext(this,'challenges0_countlabel','180')";><?php echo $challenges;?></textarea>
+                 <span class='info-text' id='challenges0_countlabel'>Maximum 180 Chars (with spaces)
            
             </div>        
           </div>  
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Challenges Faced <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges1" name="challenges1"   value="<?php echo $challenges1;?>" />           
+              <input type="text" class="form-control" id="challenges1" name="challenges1"   value="<?php echo $challenges1;?>"  onkeyup="countCharbannertext(this,'challenges1_countlabel','180')";/>           
+                 <span class='info-text' id='challenges1_countlabel'>Maximum 180 Chars (with spaces)
+
             </div>        
           </div>   
           <div class="form-group">
-            <label class="col-sm-2 control-label">Challenges Faced</label>
+            <label class="col-sm-2 control-label">Challenges Faced <span class="error-text">*</span></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges2" name="challenges2"   value="<?php echo $challenges2;?>" />           
+              <input type="text" class="form-control" id="challenges2" name="challenges2"   value="<?php echo $challenges2;?>"  onkeyup="countCharbannertext(this,'challenges2_countlabel','180')";/>           
+                 <span class='info-text' id='challenges2_countlabel'>Maximum 180 Chars (with spaces)
+
             </div>        
           </div> 
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges3" name="challenges3"   value="<?php echo $challenges3;?>" />           
+              <input type="text" class="form-control" id="challenges3" name="challenges3"   value="<?php echo $challenges3;?>"  onkeyup="countCharbannertext(this,'challenges3_countlabel','180')";/>           
+                 <span class='info-text' id='challenges3_countlabel'>Maximum 180 Chars (with spaces)
+
             </div>        
           </div> 
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges Faced</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="challenges4" name="challenges4"   value="<?php echo $challenges4;?>" />           
+              <input type="text" class="form-control" id="challenges4" name="challenges4"   value="<?php echo $challenges4;?>"  onkeyup="countCharbannertext(this,'challenges4_countlabel','180')";/>           
+                 <span class='info-text' id='challenges4_countlabel'>Maximum 180 Chars (with spaces)
+
             </div>        
           </div>       
       </div>

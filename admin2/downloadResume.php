@@ -159,8 +159,9 @@ while($row = mysql_fetch_assoc($academicSql))
 ///////
 ////academic profiles///
 $companySql = mysql_query("Select * from tbl_companyproject where idstudent=$idstudent");
+$companyArraySql = array($companySql);
 $i=0;
-while($row = mysql_fetch_assoc($companySql))
+while($row = mysql_fetch_assoc($companyArraySql))
 {
     $companyArray[$i]['project_title'] = $row['project_title'];
     $companyArray[$i]['company_name'] = $row['company_name'];
@@ -168,10 +169,6 @@ while($row = mysql_fetch_assoc($companySql))
     $companyArray[$i]['project_description'] = $row['project_description'];
     $companyArray[$i]['tools_used'] = $row['tools_used'];
     $companyArray[$i]['challenges'] = $row['challenges'];
-    $companyArray[$i]['designation'] = $row['designation'];
-    $companyArray[$i]['client'] = $row['client'];
-    $companyArray[$i]['start_date'] = $row['start_date'];
-    $companyArray[$i]['end_date'] = $row['end_date'];    
     $i++;
 }
 ///////
@@ -303,112 +300,8 @@ $table.="<br/>  <table width='100%' border='1'>
 
 
 
-         </table>"; 
-
-             if(count($companyArray)>0) { 
-
- $table.=" <br/> <table width='100%' border='0' style='border-collapse:collapse;'>";
-            $table.="<tr>
-                 <td style='font-weight:bold' align='Center'>Company Project Details</td>
-            </tr></table>";
- } 
-          for($i=0;$i<count($companyArray);$i++){
-           $project_title = $companyArray[$i]['project_title'];
-          $college_name = $companyArray[$i]['company_name'];
-          $time_duration = $companyArray[$i]['time_duration'];
-          $project_description = $companyArray[$i]['project_description'];
-          $tools_used = $companyArray[$i]['tools_used'];
-          $challenges = $companyArray[$i]['challenges'];
-          $challenges1 = $companyArray[$i]['challenges1'];
-          $challenges2 = $companyArray[$i]['challenges2'];
-          $challenges3 = $companyArray[$i]['challenges3'];
-          $challenges4 = $companyArray[$i]['challenges4'];
-$designation = $companyArray[$i]['designation'];
-
-$clientname = $companyArray[$i]['client'];
-$start_date = date('M, Y',strtotime($companyArray[$i]['start_date']));
-$end_date = date('M, Y',strtotime($companyArray[$i]['end_date']));
-       if($challenges) {
-           $challenges = $companyArray[$i]['challenges'];
-       }
-          if(!empty($project_title))
-          {
-            $table.=" <br/> <table width='100%' border='1' style='border-collapse:collapse;'>";
-            $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Project Title</td>
-                 <td width='80%'>$project_title</td>
-            </tr>";
-          }
-          if(!empty($college_name))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Company Name</td>
-                 <td width='80%'>$college_name</td>
-            </tr>";
-          }
-          if(!empty($clientname))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Client</td>
-                 <td width='80%'>$clientname</td>
-            </tr>";
-          }
-          if(!empty($designation))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Designation</td>
-                 <td width='80%'>$designation</td>
-            </tr>";
-          }
-          if(!empty($start_date))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Duration</td>
-                 <td width='80%'>$start_date - $end_date</td>
-            </tr>";
-          }
-          if(!empty($project_description))
-          {
-            $table.="<tr>
-                 <td width='20%'  style='font-weight:bold'>Project Description</td>
-                 <td width='80%'>$project_description</td>
-            </tr>";
-          }
-          if(!empty($tools_used))
-          {
-            $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Tools Used</td>
-                 <td width='80%'>$tools_used</td>
-            </tr>";
-          }
-          if(!empty($challenges))
-          {
-            $table.="<tr>
-                 <td width='20%' style='font-weight:bold'>Challenges</td>
-                 <td width='80%'>
-                 <ul style='list-style-type:disc'>";
-              $table.=" <li>$challenges</li>";
-              if(!empty($challenges1)) {
-              $table.=" <li>$challenges1</li>";
-
-              }
-              if(!empty($challenges2)) {
-              $table.=" <li>$challenges2</li>";
-                
-              }
-              if(!empty($challenges3)) {
-              $table.=" <li>$challenges3</li>";
-                
-              }
-              if(!empty($challenges4)) {
-              $table.=" <li>$challenges4</li>";
-              }
-            $table.="</ul></td>
-            </tr>";
-          }
-          $table.="</table>"; 
-        }
- $table.=" <br/> <table width='100%' border='1'>";
+         </table>";     
+ $table.=" <br/> <table width='100%' border='0'>";
             $table.="<tr>
                  <td style='font-weight:bold' align='Center'>Project Details</td>
             </tr></table>";
