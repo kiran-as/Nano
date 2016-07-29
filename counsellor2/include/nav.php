@@ -42,7 +42,8 @@ if($urlname[1]=='downloadExce.php') {
                 <li class="<?php echo $advancePayment;?>"><a href="advancePayment.php">Advance Payment</a></li>
                 <li class="<?php echo $seatperbatch;?>"><a href="seatperbatch.php">Seats Per Batch</a></li>
                 <li class="<?php echo $global;?>"><a href="global.php">Global Search</a></li>
-                <li class="<?php echo $downloadExce;?>"><a href="downloadExce.php">General Report</a></li>
+                <li class="<?php echo $downloadExce;?>"><a href="downloadExce.php">Report</a></li>
+                <li class="<?php echo $downloadExce;?>"><a href="saleReport.php">Sales Report</a></li>
 
            </ul>
        </nav>

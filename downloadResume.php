@@ -298,19 +298,19 @@ $table="<table width='100%'>
           </tr>
          
           <tr>
-              <td width='12%' align='right'  style='font-weight:bold'> Name : </td>
+              <td width='12%' align='right'  style='font-weight:bold'></td>
               <td>$firstName $lastName</td>
            </tr>
             <tr>
-              <td width='12%' align='right'  style='font-weight:bold'> Email : </td>
+              <td width='12%' align='right'  style='font-weight:bold'></td>
               <td>$email</td>
            </tr>
             <tr>
-              <td width='12%' align='right'  style='font-weight:bold'> Phone : </td>
+              <td width='12%' align='right'  style='font-weight:bold'></td>
               <td>$mobileNumber</td>
            </tr>
             <tr>
-              <td width='12%' align='right'  style='font-weight:bold' valign='top'> Address : </td>
+              <td width='12%' align='right'  style='font-weight:bold' valign='top'></td>
               <td>$address</td>
            </tr>
                
@@ -320,7 +320,7 @@ $table.="<table width='100%'>
               <th align='left' style='color:#1e88e5'>Career Objective</th>
           </tr>
           </table>
-          <ul style='list-style-type:disc'>
+          <ul style='list-style-type: none;'>
               <li>$career_objective</li>
           </ul>
         ";
@@ -422,7 +422,7 @@ $table.="<table width='100%'>
 $table .= "<pagebreak />";
  $table.="<table width='100%'>";
             $table.="<tr>
-                 <td style='font-weight:bold;color:#1e88e5;' align='left'>Company Project Details</td>
+                 <td style='font-weight:bold;color:#1e88e5;' align='left'>Projects worked on</td>
             </tr>
             </table>";
 
@@ -459,7 +459,7 @@ $end_date = $companyArray[$i]['end_date'];
 
          // Project title
             $table.="<tr>
-                 <td align='left' colspan='2'>$project_title</td>
+                 <td align='left' colspan='2' style='font-weight:bold;'>$project_title</td>
             </tr>";
           
 
@@ -470,7 +470,7 @@ $end_date = $companyArray[$i]['end_date'];
                        </tr>
                        </table>";
 
-            $table.="<ul style='list-style-type:disc' valign='top'>
+            $table.="<ul style='list-style-type: none;' valign='top'>
                          <li>$project_description</li>
                 </ul>
                ";
@@ -479,7 +479,7 @@ $end_date = $companyArray[$i]['end_date'];
                         <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
                 </td>
                 </tr></table>";
-                  $table.="<ul style='list-style-type:disc'>
+                  $table.="<ul style='list-style-type:none'>
                          <li>$tools_used</li>
                 </ul>
                ";
@@ -547,7 +547,7 @@ $end_date = $companyArray[$i]['end_date'];
                  <td align='right'></td>
             </tr>";
            $table.="<tr>
-                 <td align='left' colspan='2'>$project_title</td>
+                 <td align='left' colspan='2' style='font-weight:bold;'>$project_title</td>
             </tr>";
           
 
@@ -558,7 +558,7 @@ $end_date = $companyArray[$i]['end_date'];
                        </tr>
                        </table>";
 
-            $table.="<ul style='list-style-type:disc' valign='top'>
+            $table.="<ul style='list-style-type:none' valign='top'>
                          <li>$project_description</li>
                 </ul>
                ";
@@ -567,7 +567,7 @@ $end_date = $companyArray[$i]['end_date'];
                         <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
                 </td>
                 </tr></table>";
-                  $table.="<ul style='list-style-type:disc'>
+                  $table.="<ul style='list-style-type:none'>
                          <li>$tools_used</li>
                 </ul>
                ";
@@ -614,7 +614,7 @@ $end_date = $companyArray[$i]['end_date'];
     $projectcount = $projectcount+1;
   $table.=" <table width='100%' border='0' style='border-collapse:collapse;'>";
             $table.="<tr>
-                 <td style='font-weight:bold;color:#1e88e5;' align='Center'>B.E / B.Tech Academic Project</td>
+                 <td style='font-weight:bold;color:#1e88e5;' align='left'>B.E / B.Tech Academic Project</td>
             </tr></table>";
 $table.="<table width='100%'>";
             $table.="<tr>
@@ -622,7 +622,7 @@ $table.="<table width='100%'>";
                  <td align='right'></td>
             </tr>";
            $table.="<tr>
-                 <td align='left' colspan='2'>$deg_projectname</td>
+                 <td align='left' colspan='2' style='font-weight:bold;'>$deg_projectname</td>
             </tr>";
           
 
@@ -633,7 +633,7 @@ $table.="<table width='100%'>";
                        </tr>
                        </table>";
 
-            $table.="<ul style='list-style-type:disc' valign='top'>
+            $table.="<ul style='list-style-type:none;' valign='top'>
                          <li>$deg_projectdescription</li>
                 </ul>
                ";
@@ -642,7 +642,7 @@ $table.="<table width='100%'>";
                         <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
                 </td>
                 </tr></table>";
-                  $table.="<ul style='list-style-type:disc'>
+                  $table.="<ul style='list-style-type:none'>
                          <li>$deg_projecttools</li>
                 </ul>
                ";
@@ -667,7 +667,7 @@ $table.="<table width='100%'>";
 
   $table.=" <table width='100%' border='0' style='border-collapse:collapse;'>";
             $table.="<tr>
-                 <td style='font-weight:bold;color:#1e88e5;' align='Center'>M.E / M.Tech Academic Project</td>
+                 <td style='font-weight:bold;color:#1e88e5;' align='left'>M.E / M.Tech Academic Project</td>
             </tr></table>";
 $table.="<table width='100%'>";
             $table.="<tr>
@@ -675,7 +675,7 @@ $table.="<table width='100%'>";
                  <td align='right'></td>
             </tr>";
            $table.="<tr>
-                 <td align='left' colspan='2'>$pg_projectname</td>
+                 <td align='left' colspan='2' style='font-weight:bold;'>$pg_projectname</td>
             </tr>";
           
 
@@ -686,7 +686,7 @@ $table.="<table width='100%'>";
                        </tr>
                        </table>";
 
-            $table.="<ul style='list-style-type:disc' valign='top'>
+            $table.="<ul style='list-style-type:none' valign='top'>
                          <li>$pg_projectdescription</li>
                 </ul>
                ";
@@ -695,7 +695,7 @@ $table.="<table width='100%'>";
                         <td colspan='2'><span  style='font-weight:bold;font-color:blue;'>Tools</span>
                 </td>
                 </tr></table>";
-                  $table.="<ul style='list-style-type:disc'>
+                  $table.="<ul style='list-style-type:none'>
                          <li>$pg_projecttools</li>
                 </ul>
                ";
