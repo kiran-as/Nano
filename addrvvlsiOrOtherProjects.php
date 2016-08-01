@@ -17,11 +17,13 @@ $challenges2 = str_replace("'","&#39;",$_POST['challenges2']);
 $challenges3 = str_replace("'","&#39;",$_POST['challenges3']);
 $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
 
-
+    $designation = str_replace("'","&#39;",$_POST['designation']);
+    $start_date = date('Y-m-d',  strtotime($_POST['start_date']));
+    $end_date = date('Y-m-d',  strtotime($_POST['end_date']));
     mysql_query("Insert into tbl_academicproject(project_title,college_name,project_description,"
             . "time_duration,role,team_size,tools_used,"
-            . "challenges,idstudent,challenges1,challenges2,challenges3,challenges4) Values ('$projecttitle','$college','$projectdescription',"
-            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$challenges1','$challenges2','$challenges3','$challenges4')");
+            . "challenges,idstudent,challenges1,challenges2,challenges3,challenges4,start_date,end_date,designation) Values ('$projecttitle','$college','$projectdescription',"
+            . "'$months','$role','$teamsize','$tools','$challenges','$idstudent','$challenges1','$challenges2','$challenges3','$challenges4','$start_date','$end_date','$designation')");
    echo "<script>parent.location='rvvlsiOrOtherProjects.php'</script>";
         exit;   
 }
@@ -48,6 +50,18 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
  <script src="js/jquery-1.11.0.min.js"></script>
 <script src="js/jquery.validation.js"></script>
 <script src="js/customised_validation.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+   <script src="js/customised_validation.js"></script>
+
+   <script>
+  $(function() {
+    $( "#start_date" ).datepicker();
+    $( "#end_date" ).datepicker();
+  });
+  </script>
  <script>
  $(document).ready(function() {
 
@@ -59,6 +73,9 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
                     projecttitle: "required",
                     months: "required",
                     college: "required",
+                    end_date: "required",
+                    designation:"required",
+                    start_date:"required",
                     projectdescription:{required:true,
                            minlength:100,
                            maxlength:250}, 
@@ -80,6 +97,9 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
                     projecttitle: "Please enter Project Name",
                     months: "Please enter no of Months",
                     college: "Please enter the place",
+                    end_date: "Please Enter End Date",
+                    designation:"Please Enter Designation",
+                    start_date:"Please Enter Start Date",
                     projectdescription:{required:"Please enter Project Contribution",
                            minlength:"Minimum is 120 Character",
                            maxlength:"PMaximum is 255 Character"},                           
@@ -115,10 +135,10 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
               <input type="text" class="form-control" placeholder="Enter Project Title" id="projecttitle" name="projecttitle">
             </div>        
           </div>  
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Duration(in months) <span class="error-text">*</span></label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" placeholder="Enter project duration" id="months" name="months">
+           <div class="form-group">
+            <label class="col-sm-4 control-label">Start Date <span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="Start date of project" id="start_date" name="start_date" value="">
             </div>        
           </div>                                           
     </div>    
@@ -130,7 +150,43 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
             <div class="col-sm-8">
               <input type="text" class="form-control" placeholder="Enter the institute name / Industry name" id="college" name="college">
             </div>        
+          </div> 
+          <div class="form-group">
+            <label class="col-sm-4 control-label">End Date <span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="End date of project" id="end_date" name="end_date" value="">
+            </div>        
           </div>  
+         <!--  <div class="form-group">
+            <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
+            <div class="col-sm-3">
+              <select class="form-control" id="teamsize" name="teamsize">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+              </select>
+            </div>                                 
+          </div>     -->                                                                 
+    </div>  
+
+
+
+    </div> 
+    <div class="row">
+            <div class="form-horizontal col-sm-6">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Designation<span class="error-text">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="Designation" id="designation" name="designation" value="Graduate Trainee Enggineer">
+            </div>        
+          </div> 
+                                                                          
+    </div>
+    <div class="form-horizontal col-sm-6">
+
           <div class="form-group">
             <label class="col-sm-4 control-label">Team Size <span class="error-text">*</span></label>
             <div class="col-sm-3">
@@ -144,8 +200,8 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
               </select>
             </div>                                 
           </div>                                                                     
-    </div>          
-    </div> 
+    </div>
+    </div>
     <div class="row">
       <div class="col-xs-12">
       <div class="form-horizontal">
@@ -175,14 +231,14 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
             <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" placeholder="Challenges" id="challenges" name="challenges" onkeyup="countCharbannertext(this,'challenges0_countlabel','180')">                          
-                 <span class='info-text' id='challenges0_countlabel'>Maximum 180 Chars (with spaces)
+                 <span class='info-text'>(Ideally recommended to have more than 100 Chars)&nbsp;&nbsp;&nbsp;</span><span class='info-text' id='challenges0_countlabel'>Maximum 180 Chars (with spaces)
             </div>        
           </div>  
           <div class="form-group">
             <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="Challenges" id="challenges1" name="challenges1" onkeyup="countCharbannertext(this,'challenges1_countlabel','180')">            
-               <span class='info-text' id='challenges1_countlabel'>Maximum 180 Chars (with spaces)
+               <span class='info-text'>(Ideally recommended to have more than 100 Chars)&nbsp;&nbsp;&nbsp;</span><span class='info-text' id='challenges1_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div>   
@@ -190,7 +246,7 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
             <label class="col-sm-2 control-label">Challenges <span class="error-text">*</span></label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="Challenges" id="challenges2" name="challenges2" onkeyup="countCharbannertext(this,'challenges2_countlabel','180')">            
-               <span class='info-text' id='challenges2_countlabel'>Maximum 180 Chars (with spaces)
+               <span class='info-text'>(Ideally recommended to have more than 100 Chars)&nbsp;&nbsp;&nbsp;</span><span class='info-text' id='challenges2_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div> 
@@ -198,7 +254,7 @@ $challenges4 = str_replace("'","&#39;",$_POST['challenges4']);
             <label class="col-sm-2 control-label">Challenges </label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="Challenges" id="challenges3" name="challenges3" onkeyup="countCharbannertext(this,'challenges3_countlabel','180')">            
-               <span class='info-text' id='challenges3_countlabel'>Maximum 180 Chars (with spaces)
+               <span class='info-text'>(Ideally recommended to have more than 100 Chars)&nbsp;&nbsp;&nbsp;</span><span class='info-text' id='challenges3_countlabel'>Maximum 180 Chars (with spaces)
 
               </div>        
             </div>           

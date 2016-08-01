@@ -1,6 +1,7 @@
 <?php
 include('application/conn.php');
 $idstudent = $_SESSION['idstudent'];
+$success =2;
 //echo "Select * from tbl_student where idstudent='$idstudent'";
 $profileInformationSql = mysql_query("Select * from tbl_student where idstudent='$idstudent'");
 while($row = mysql_fetch_assoc($profileInformationSql))
@@ -131,6 +132,10 @@ while($row = mysql_fetch_assoc($academicSql))
     $academicArray[$i]['project_description'] = $row['project_description'];
     $academicArray[$i]['tools_used'] = $row['tools_used'];
     $academicArray[$i]['challenges'] = $row['challenges'];
+    $academicArray[$i]['challenges1'] = $row['challenges1'];
+    $academicArray[$i]['challenges2'] = $row['challenges2'];
+    $academicArray[$i]['challenges3'] = $row['challenges3'];
+    $academicArray[$i]['challenges4'] = $row['challenges4'];
     $i++;
 }
 ///////
@@ -146,6 +151,10 @@ while($row = mysql_fetch_assoc($companyArraySql))
     $companyArray[$i]['project_description'] = $row['project_description'];
     $companyArray[$i]['tools_used'] = $row['tools_used'];
     $companyArray[$i]['challenges'] = $row['challenges'];
+    $companyArray[$i]['challenges1'] = $row['challenges1'];
+    $companyArray[$i]['challenges2'] = $row['challenges2'];
+    $companyArray[$i]['challenges3'] = $row['challenges3'];
+    $companyArray[$i]['challenges4'] = $row['challenges4'];    
     $i++;
 }
 
@@ -203,282 +212,109 @@ while($row = mysql_fetch_assoc($companyArraySql))
     </header> <!--/Header Ends-->   
      <?php include('include/nav.php');?>
     <div class="container mar-t30">
-    <p class="font16-sm brd-btm">Personal Information</p>
+<table width="100%">
+    <!-- Career objective message -->
     <div class="row">
-      <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Name :</span><?php echo $firstName.' '.$lastName;?></label>
-      </div>
-      <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Email :</span><?php echo $email;?></label>
-      </div> 
-      <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Phone Number :</span> <?php echo $mobileNumber;?></label>
-      </div> 
-      <div class="col-sm-3">
-        <label class="control-label"><span class="font-gray">Address :</span> 
- <?php 
- if($addressdoorno!=''){
- echo '#'.$addressdoorno."<br/>";
- }
- if($addresslineone!=''){
- echo $addresslineone."<br/>";
- }
- if($addresslinetwo!=''){
- echo $addresslinetwo."<br/>";
- }
- if($city!=''){
- echo $city."<br/>";
- }
- if($state!=''){
-  if($pincode!=''){
- echo $state."-".$pincode."<br/>";
- }
- else
- {
- echo $state."<br/>";
-}
- }
- 
- ?>
+      <?php if(empty($career_objective)) { ?>
+     <tr><td> <hr/>
+     <?php $success=1;?>
+       Career objective is missing which is the most important in the resume to get shortlisted. Please click on the "OTHER DETAILS" tab and fill the career objective.
+     </td></tr>
+      <?php } else if(strlen($career_objective)<92) {?>
+<tr><td><hr/>
+<?php $success=1;?>
+       Add more details on the Career objective this will improve the chances of resume getting shortlisted.  Please click on the "OTHER DETAILS" tab and fill the career objective.
+    </td></tr>
+      <?php }?>
+     </div>
+    <!-- end of career objective messages-->
 
-</label>
-      </div>                 
-    </div> 
-    <p class="font16-sm brd-btm">Profile Summary</p>
-    <p><?php echo $career_objective;?></p>   
-    <p class="font16-sm brd-btm pad-t10">Core Competancy</p>
-<ul class="content-list">
-    <?php if($achievementsArray[0]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[0]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[1]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[1]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[2]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[2]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[3]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[3]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[4]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[4]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[6]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[6]['achievements'];?></li>
-    <?php }?>
-            <?php if($achievementsArray[5]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[5]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[7]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[7]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[8]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[8]['achievements'];?></li>
-    <?php }?>
-    <?php if($achievementsArray[9]['achievements']!=''){?>
-    <li><?php echo $achievementsArray[9]['achievements'];?></li>
-    <?php }?>            
-</ul>                             
-<p class="font16-sm brd-btm pad-t10">Educational Details</p>
-   <table class="table table-bordered">
-      <thead>
-          <tr>
-              <th>Degree</th>
-              <th>Discipline</th>
-              <th>College/School</th>
-              <th>Year Of Passing</th>
-              <th>Aggregate</th>
-          </tr>
-      </thead>
-      <tbody>
-          <?php if($pgdipschoolname!='')
-          {?>
-         <tr>
-              <td>PG Diploma</td>
-              <td><?php echo $pgdipcourse;?></td>
-              <td><?php echo $pgdipschoolname;?></td>
-              <td><?php echo $pgdippassoutyear;?></td>
-              <td><?php echo $pgdippercentage;?></td>                            
-          </tr>
-          <?php }?>
-          
-          <?php if($pgboard!='') {?>
-          <tr>
-              <td>Master Degree</td>
-              <td><?php echo $pgdepartment;?></td>
-              <td><?php echo $pgschoolname;?></td>
-              <td><?php echo $pgpassoutyear;?></td>
-              <td><?php echo $pgpercentage;?></td>                            
-          </tr>
-          <?php }?>
-          <?php if($degschoolname!='') {?>
-          <tr>
-              <td>Degree</td>
-              <td><?php echo $degdepartment;?></td>
-              <td><?php echo $degschoolname;?></td>
-              <td><?php echo $degpassoutyear;?></td>
-              <td><?php echo $degpercentage;?></td>                            
-          </tr>
-          <?php }?>
-           <?php if($pucschoolname!='') {?>
-          <tr>
-              <td>PUC</td>
-              <td> - </td>
-              <td><?php echo $pucschoolname;?></td>
-              <td><?php echo $pucpassoutyear;?></td>
-              <td><?php echo $pucpercentage;?></td>                            
-          </tr>
-          <?php }?>
-          <tr>
-              <td>SSLC</td>
-              <td> - </td>
-              <td><?php echo $sslcschoolname;?></td>
-              <td><?php echo $sslcpassoutyear;?></td>
-              <td><?php echo $sslcpercentage;?></td>                            
-          </tr>
-      </tbody>
-       
-   </table>  
-  <p class='font16-sm brd-btm pad-t10'>Project Details</p>
-      <?php for($i=0;$i<count($academicArray);$i++){
+    <!-- Career objective message -->
+    <div class="row">
+      <?php if(empty($achievementsArray)) { ?>
+     <tr><td><hr/>
+     <?php $success=1;?>
+       Ideally it is recommended to have atleast 7 or more core competancies in your resume. Please click on the "OTHER DETAILS" tab and fill the Core competancy.
+     </td></tr>
+      <?php } else if(count($achievementsArray)<7) {?>
+    <tr><td><hr/>
+    <?php $success=1;?>
+      Ideally it is recommended to have atleast 7 or more core competancies in your resume. Please click on the "OTHER DETAILS" tab and fill the Core competancy.
+     </td></tr>
+      <?php }?>
+     </div>
+    <!-- end of career objective messages-->
+
+    <!-- Company Project message -->
+    <div class="row">
+     <?php 
+      for($i=0;$i<count($academicArray);$i++){
            $project_title = $academicArray[$i]['project_title'];
-    $college_name = $academicArray[$i]['college_name'];
-    $time_duration = $academicArray[$i]['time_duration'];
-    $project_description = $academicArray[$i]['project_description'];
-    $tools_used = $academicArray[$i]['tools_used'];
-    $challenges = $academicArray[$i]['challenges'];?>
-          <table class='table table-bordered'>
-      <tbody>
-          <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'> <?php  echo $project_title;?></td>                           
-          </tr>  
-          <tr>
-              <td><span class='font-gray'>Institute Name</span></td>                           
-              <td><?php  echo $college_name;?></td>                           
-          </tr>  
-          <?php if($project_description!=''){?>
-          <tr>
-              <td><span class='font-gray'>Project Description</span></td>                           
-              <td><?php  echo $project_description;?></td>                           
-          </tr> 
+          $college_name = $academicArray[$i]['college_name'];
+          $time_duration = $academicArray[$i]['time_duration'];
+          $project_description = $academicArray[$i]['project_description'];
+          $tools_used = $academicArray[$i]['tools_used'];
+          $challenges = $academicArray[$i]['challenges'];
+          $challenges1 = $academicArray[$i]['challenges1'];
+          $challenges2 = $academicArray[$i]['challenges2'];
+          $challenges3 = $academicArray[$i]['challenges3'];
+          $challenges4 = $academicArray[$i]['challenges4'];
+          if(empty($challenges4)) {?>
+         
           <?php }?>
 
-           <?php if($challenges!=''){?>
-          <tr>
-              <td><span class='font-gray'>Challenges</span></td>                           
-              <td><?php  echo $challenges;?></td>                           
-          </tr> 
+         <?php if((count($challenges1)<91) && (count($challenges2)<91)) {?>
+          <tr><td><hr/>
+          <?php $success=1;?>
+           Ideally it is recommended to add more details on the first two challenges for the project "<?php echo $project_title;?>"
+         </td></tr>
           <?php }?>
 
-           <?php if($tools_used!=''){?>
-          <tr>
-              <td><span class='font-gray'>Tools</span></td>                           
-              <td><?php  echo $tools_used;?></td>                           
-          </tr> 
           <?php }?>
-      </tbody>
-       
-   </table>
-     <?php } ?>
+     </div>
+    <!-- end of Company Project messages-->
 
-
- <?php if($pg_projectname!=''){ ?>
-<table class='table table-bordered'>
-      <tbody>
-          <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'><?php  echo $pg_projectname;?></td>                           
-          </tr>  
-          <tr>
-              <td><span class='font-gray'>Institute Name</span></td>                           
-              <td><?php  echo $pgschoolname;?></td>                           
-          </tr>
-           <tr>
-              <td><span class='font-gray'>Project Description</span></td>                           
-              <td><?php  echo $pg_projectdescription;?></td>                           
-          </tr>
-          <tr>
-              <td><span class='font-gray'>Challenges</span></td>                           
-              <td><?php  echo $pg_projectchallenges;?></td>                           
-          </tr>
-          
-           <tr>
-              <td><span class='font-gray'>Tools</span></td>                           
-              <td><?php  echo $pg_projecttools;?></td>                           
-          </tr>
-    </tbody>
-    </table>
-         <?php  } 
-
-?>
- <?php if($deg_projectname!=''){ ?>
-<table class='table table-bordered'>
-      <tbody>
-          <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'><?php  echo $deg_projectname;?></td>                           
-          </tr>  
-          <tr>
-              <td><span class='font-gray'>Institute Name</span></td>                           
-              <td><?php  echo $degschoolname;?></td>                           
-          </tr>
-           <tr>
-              <td><span class='font-gray'>Project Description</span></td>                           
-              <td><?php  echo $deg_projectdescription;?></td>                           
-          </tr>
-          <tr>
-              <td><span class='font-gray'>Challenges</span></td>                           
-              <td><?php  echo $deg_projectchallenges;?></td>                           
-          </tr>
-          
-           <tr>
-              <td><span class='font-gray'>Tools</span></td>                           
-              <td><?php  echo $deg_projecttools;?></td>                           
-          </tr>
-    </tbody>
-    </table>
-         <?php  } 
-
-?>
-
-      <?php for($i=0;$i<count($companyArray);$i++){
+      <!-- Company Project message -->
+    <div class="row">
+     <?php 
+      for($i=0;$i<count($companyArray);$i++){
            $project_title = $companyArray[$i]['project_title'];
-    $college_name = $companyArray[$i]['company_name'];
-    $time_duration = $companyArray[$i]['time_duration'];
-    $project_description = $companyArray[$i]['project_description'];
-    $tools_used = $companyArray[$i]['tools_used'];
-    $challenges = $companyArray[$i]['challenges'];
-    $idcompanyproject = $companyArray[$i]['idcompanyproject'];?>
-          <table class='table table-bordered'>
-      <tbody>
-          <tr>
-              <td width='15%'><span class='font-gray'>Project Name</span></td>                           
-              <td width='70%'> <?php  echo $project_title;?></td>                           
-          </tr>  
-          <tr>
-              <td><span class='font-gray'>Company Name</span></td>                           
-              <td><?php  echo $college_name;?></td>                           
-          </tr>  
-          <tr>
-              <td><span class='font-gray'>Project Description</span></td>                           
-              <td><?php  echo $project_description;?></td>                           
-          </tr> 
-          <tr>
-              <td><span class='font-gray'>Challenges</span></td>                           
-              <td><?php  echo $challenges;?></td>                           
-          </tr> 
-          <tr>
-              <td><span class='font-gray'>Tools</span></td>                           
-              <td><?php  echo $tools_used;?></td>                           
-          </tr> 
-      </tbody>
-       
-   </table>
+          $college_name = $companyArray[$i]['college_name'];
+          $time_duration = $companyArray[$i]['time_duration'];
+          $project_description = $companyArray[$i]['project_description'];
+          $tools_used = $companyArray[$i]['tools_used'];
+          $challenges = $companyArray[$i]['challenges'];
+          $challenges1 = $companyArray[$i]['challenges1'];
+          $challenges2 = $companyArray[$i]['challenges2'];
+          $challenges3 = $companyArray[$i]['challenges3'];
+          $challenges4 = $companyArray[$i]['challenges4'];
+          if(empty($challenges4)) {?>
+         
+          <?php }?>
+
+         <?php if((count($challenges1)<91) && (count($challenges2)<91)) {?>
+          <tr><td><hr/>
+          <?php $success=1;?>
+           Ideally it is recommended to add more details on the first two challenges for the project "<?php echo $project_title;?>"
+         </td></tr>
+          <?php }?>
+
+          <?php }?>
+     </div>
+
+     <?php if($success==1) {?>
+     <tr><td><hr/>
+           Force download to see the resume <a href="downloadResume.php">Click here to download</a>
+           </td></tr>
+     <?php } else { ?>
+      <tr><td><hr/>
+          Congrates!!! Your resumes has high chances for getting shortlisted. <a href="downloadResume.php">Click here to download</a>
+         </td></tr>
+
      <?php } ?>
-    
-      
-    </div> 
+</table>
+     </div>
+     </form> 
 
     <div class="clearfix brd-top pad-t20">
     <a href="processResume.php" class="btn btn-primary pull-right">Submit Resume</a>

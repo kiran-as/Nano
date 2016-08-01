@@ -1,0 +1,183 @@
+/*-->
+CUSTOM FONTS
+<--*/
+
+@font-face {
+    font-family: 'opensanslight';
+    src: url('../fonts/opensans-light-webfont.eot');
+    src: url('../fonts/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-light-webfont.woff2') format('woff2'),
+         url('../fonts/opensans-light-webfont.woff') format('woff'),
+         url('../fonts/opensans-light-webfont.ttf') format('truetype'),
+         url('../fonts/opensans-light-webfont.svg#opensanslight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'opensansregular';
+    src: url('../fonts/OpenSans-Regular.eot');
+    src: url('../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),         
+         url('../fonts/OpenSans-Regular.woff') format('woff'),
+         url('../fonts/OpenSans-Regular.ttf') format('truetype'),
+         url('../fonts/OpenSans-Regular.svg#opensansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'opensanssemibold';
+    src: url('../fonts/opensans-semibold-webfont.eot');
+    src: url('../fonts/opensans-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/opensans-semibold-webfont.woff') format('woff'),
+         url('../fonts/opensans-semibold-webfont.ttf') format('truetype'),
+         url('../fonts/opensans-semibold-webfont.svg#opensanssemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'opensansbold';
+    src: url('../fonts/opensans-bold-webfont.eot');
+    src: url('../fonts/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-bold-webfont.woff2') format('woff2'),
+         url('../fonts/opensans-bold-webfont.woff') format('woff'),
+         url('../fonts/opensans-bold-webfont.ttf') format('truetype'),
+         url('../fonts/opensans-bold-webfont.svg#opensansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+body{font-family: 'opensansregular'; font-size: 14px; color: #333333;}
+ul{ list-style: none; margin: 0px; padding: 0px;}
+a{ color: #2dabef;}
+
+.container{max-width: 1180px;}
+.main-header.navbar {margin-bottom: 0px;background-color: #fff;padding-top: 15px;padding-bottom: 15px;border-bottom: 0px none;}
+.main-header .navbar-brand{background: url(../img/nano_logo.png) no-repeat left top transparent;text-indent: -9999px;display: block;width: 215px;height: 70px;}
+.main-header .navbar-nav>li>a {color: #000;font-size: 16px; background: none; position: relative;}
+.main-header .navbar-nav>li>a:hover, .main-header .navbar-nav>li>a:focus {background: none; color: #00a2fa;}
+.main-header .navbar-nav>li.active>a {font-family: 'opensanssemibold'; color: #00a2fa;}
+.main-header .btn.btn.btn {background-color: #4caf50;border-color: #4caf50;color: #fff;margin-top: 5px;font-size: 16px;}
+.main-header .btn:hover, .main-header .btn:focus, .main-header .btn:active{ background-color: #439a47; border-color: #439a47; color: #fff;}
+
+.banner-wrapper { background: url(../img/banner_bg.png) no-repeat center top transparent; background-size: cover; min-height: 545px;}
+.banner-wrapper .carousel{ min-height: 445px;}
+.banner-title {font-family: 'opensanslight'; color: #fff; line-height: 60px;}
+.banner-title span {font-family: 'opensansbold';}
+.banner-wrapper .btn-outline-inverse { border-color: #fff; color: #fff; font-family: 'opensanssemibold'; padding: 15px 25px;
+        transition: all 0.15s ease;
+        -webkit-transition: all 0.15s ease;
+        -moz-transition: all 0.15s ease;
+        -ms-transition: all 0.15s ease;
+        -o-transition: all 0.15s ease;
+        font-size: 22px;
+        text-transform: uppercase;
+        }
+.btn-outline-inverse:active, .btn-outline-inverse:focus, .btn-outline-inverse:hover { color: #00a2fa; text-shadow: none;    background-color: #fff; border-color: #fff;
+}
+.priamary-title { font-family: 'opensanslight';}
+
+.pad-t20 { padding-top: 20px;}
+.pad-t10 { padding-top: 10px;}
+.pad-t30 { padding-top: 30px;}
+.pad-b20 { padding-bottom :20px;}
+.pad-b50 { padding-bottom :50px;}
+.pad-full { padding: 20px 20px 5px 20px;}
+.hmar-10 { margin-left: -10px; margin-right: -10px;}
+.hpad-10 { padding-left: 10px; padding-right: 10px;}
+.hmar-0 { margin-left: 0px; margin-right: 0px;}
+.hpad-0 { padding-left: 0px; padding-right: 0px;}
+.mar-t7 { margin-top: 7px;}
+.pad-b5 { padding-bottom: 5px;}
+.blue-title18 { font-size: 18px; color: #2dabef;}
+
+.carousel-indicators li { width: 20px;
+        transition: all 0.15s ease;
+        -webkit-transition: all 0.15s ease;
+        -moz-transition: all 0.15s ease;
+        -ms-transition: all 0.15s ease;
+        -o-transition: all 0.15s ease;}
+.carousel-indicators.carousel-indicators li + li { margin-left: 10px;}
+.inner-wrapper { min-height: 130px; color: #fff;}
+.inner-wrapper h1 { font-family: 'opensanssemibold';}
+.inner-content { padding-top: 50px;}
+.inner-content p{padding-bottom: 20px;}
+.inner-content ol, .inner-content ul { padding-bottom: 10px;}
+.inner-content ol li, .inner-content ul li { padding-bottom: 10px;}
+.callout { color: #fff; padding: 50px 10px; margin-top: 5px; margin-bottom: 30px;}
+.callout.one { background-color: #00a2fa;}
+.callout.two { background-color: #4caf50;}
+.callout.three { background-color: #c72055;}
+.callout h4 { text-transform: uppercase; font-family: 'opensanssemibold';}
+.callout .btn { background-color: #fff; text-transform: uppercase; padding: 10px 30px; font-size: 16px; font-family: 'opensanssemibold'; min-width: 180px;}
+.callout.two .btn { color:#4caf50; }
+.callout.three .btn { color:#c72055; }
+.callout .btn:hover { color: #333;}
+
+.footer-wrapper { background-color: #4d5565; color: #a6aab2; padding-top: 10px; padding-bottom: 10px;}
+
+@media screen and (min-width: 1200px){
+    .main-header .navbar-nav>li{ padding-left: 20px; padding-right: 20px;}
+}
+
+@media screen and (min-width: 768px){
+    .main-header.navbar>.container .navbar-brand{margin-left: 0px;}
+    .main-header .navbar-nav{ margin-top: 10px;}    
+    .main-header .navbar-nav>li>a {padding-left: 0px;padding-right: 0px;}
+    .main-header .navbar-nav>li.active>a:after { position: absolute; content: ''; width: 100%; height: 1px; bottom: 5px; left: 0px; display: block; background-color: #00a2fa;}
+    .banner-wrapper { padding-top: 130px;}
+    .banner-wrapper .btn-outline-inverse {margin-top: 40px;}
+    .banner-rhs-img { margin-top: 30px;}
+    .priamary-title { font-size: 48px;}
+    .welcome-block {padding-top: 50px; padding-bottom: 40px;}
+    .welcome-block p {font-size: 16px; padding-top: 30px; line-height: 24px;}
+    
+    .inner-wrapper { padding-top: 25px;}
+    
+    .footer-wrapper ul { padding-top: 30px; padding-bottom: 10px;}
+    .footer-wrapper ul li { padding-bottom: 10px;}
+    .footer-wrapper ul li a { color: #a6aab2; font-size: 16px;}
+    .footer-wrapper ul li a:hover { text-decoration: none; color: #fff;}
+    
+    .footer-wrapper p { border-top: 1px solid #5f6675; padding-top: 30px; margin-top: 20px;}
+    
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .main-header .navbar-nav>li{ padding-left: 10px; padding-right: 10px;}
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 991px){ 
+    .main-header .navbar-nav>li{ padding-left: 5px; padding-right: 5px;}
+    .main-header .navbar-nav>li>a, .main-header .btn.btn.btn{font-size: 14px;}
+    .banner-wrapper {padding-top: 60px;}
+}
+@media screen and (max-width: 767px){
+    .main-header .navbar-brand {margin-left: 15px;}
+    .navbar-toggle { border-color: #00a2fa; margin-top: 20px;}
+    .navbar-toggle .icon-bar { background-color:#00a2fa; }
+    .nav>li { border-top: 1px solid #f1f1f1;}
+    .main-header .btn.btn.btn { margin-left: 15px; margin-top: 20px;}
+    .banner-title {font-size: 30px; line-height: 50px;}
+    .banner-wrapper .btn-outline-inverse { width: 100%; margin-top: 20px;}
+    .banner-wrapper { padding-top: 30px; min-height: 475px;}
+    .welcome-block { padding-top: 30px; padding-bottom: 20px;}
+    .priamary-title {font-size: 28px;}
+    .welcome-block p{padding-top: 15px;}
+    .inner-wrapper {min-height: inherit;padding-top: 5px;padding-bottom: 15px;}
+    .inner-wrapper h1 { font-size: 24px;}
+    .inner-content { padding-top: 30px;}
+    .inner-content p { padding-bottom: 5px;}
+    .callout h4 { padding-top: 10px;}
+    .footer-wrapper { padding-top: 30px;}
+}

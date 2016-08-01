@@ -1,0 +1,2 @@
+[05-Oct-2014 13:23:49 America/New_York] PHP Warning:  mysql_query() [<a href='function.mysql-query'>function.mysql-query</a>]: Access denied for user 'nanoscom'@'localhost' (using password: NO) in /home/nanoscom/public_html/rvvlsidemo/contactformmailer.php on line 22
+[05-Oct-2014 13:23:49 America/New_York] PHP Warning:  mysql_query() [<a href='function.mysql-query'>function.mysql-query</a>]: A link to the server could not be established in /home/nanoscom/public_html/rvvlsidemo/contactformmailer.php on line 22

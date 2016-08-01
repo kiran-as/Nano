@@ -1,0 +1,54 @@
+/* Styles for scrolling layers  
+	 Specify width and height in hold and wn, and in clip for wn */
+div#hold	{
+	position:relative;
+	overflow:hidden;
+	width:144px;
+	height:95px;
+	z-index:30;
+	left: 0;
+	top: 0;
+	}
+div#wn	{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:145px;
+	height:95px;
+	clip:rect(0px,145px,90px,0px);
+	overflow:hidden;
+	z-index:1;
+	}
+div#lyr1	{
+	position:absolute;
+	visibility:hidden;
+	left:0px;
+	top:0px;
+	z-index:1;
+	vertical-align: middle;
+	}
+  
+/* table containing images. adjust according to your images' sizes and numbers */
+table#t1 {
+
+}
+table#t1 td {
+	width:50px;
+	vertical-align:middle;
+	text-align:center
+}  
+a img { border:none }
+
+table.main {
+	width:150px;
+	margin:auto;
+	background-color:#FFFBD8
+  }
+td.arrows a {
+}
+td.spacer {
+
+}
+td.footer {
+	text-align:center
+}  

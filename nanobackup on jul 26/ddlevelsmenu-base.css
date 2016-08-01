@@ -1,0 +1,406 @@
+/* ######### Drop Down ULs CSS ######### */
+
+.ddsubmenustyle, .ddsubmenustyle ul{ /*topmost and sub ULs, respectively*/
+	font-family: Arial, Helvetica, sans-serif, Tahoma;
+	font-size: 12px;
+	color: #000000;
+	line-height: 12px;
+	margin: 0px 0px 0px 11px;
+	padding: 0;
+	position: absolute;
+	list-style-type: none;
+	
+	visibility: hidden;
+	z-index: 1000;
+	width:200px;
+	background-color:#ffffff;
+}
+
+.ddsubmenustyle li a{
+	display: block; /*width of menu (not including side paddings)*/
+	color: #000000;
+
+	text-decoration: none;
+	padding: 4px 5px;
+/*border: 1px solid #bbf140;*/
+	height:18px;
+	border-bottom:1px solid #254f09;
+	border-left:1px solid #254f09;
+	border-right:1px solid #254f09;
+	/*opacity: 0.8;*/
+	}
+	.ddsubmenustyle li .border_top
+	{
+		display: block; /*width of menu (not including side paddings)*/
+	color: #000000;
+
+	text-decoration: none;
+	padding: 4px 5px;
+/*border: 1px solid #bbf140;*/
+	height:18px;
+	border-top:1px solid #254f09;
+	}
+
+* html .ddsubmenustyle li{ /*IE6 CSS hack*/
+display: inline-block;
+margin:0px;
+padding:0px;
+line-height:18px;
+background-color: #fff;
+
+
+/*width of menu (include side paddings of LI A*/
+}
+* html .ddsubmenustyle li a{ /*IE6 CSS hack*/
+display: inline-block;
+
+margin:0px;
+padding:0px;
+line-height:18px;
+background-color: #fff;
+height:18px;
+padding: 4px 5px;
+
+/*width of menu (include side paddings of LI A*/
+}
+
+.ddsubmenustyle li a:hover{
+	color: #ffffff;
+	text-decoration: none;
+	background-color:#026634;
+	
+
+/*	opacity: 0.8;*/
+	
+}
+
+
+/* ######### Neutral CSS  ######### */
+
+.downarrowpointer{ /*CSS for "down" arrow image added to top menu items*/
+padding-left: 4px;
+border: 0;
+}
+
+.rightarrowpointer{ /*CSS for "right" arrow image added to drop down menu items*/
+position: absolute;
+padding-top: 3px;
+left: 100px;
+border: 0;
+}
+
+.ddiframeshim{
+position: absolute;
+z-index: 500;
+background: transparent;
+border-width: 0;
+width: 0;
+height: 0;
+display: block;
+}
+
+
+/* ######### Neutral CSS  ######### */
+
+.downarrowpointer{ /*CSS for "down" arrow image added to top menu items*/
+padding-left: 4px;
+border: 0;
+}
+
+.rightarrowpointer{ /*CSS for "right" arrow image added to drop down menu items*/
+position: absolute;
+padding-top: 3px;
+left: 100px;
+border: 0;
+}
+
+.ddiframeshim{
+position: absolute;
+z-index: 500;
+background: transparent;
+border-width: 0;
+width: 0;
+height: 0;
+display: block;
+}
+
+/* ######### Marker List Vertical Menu ######### */
+
+
+
+/* ######### Matt Black Strip Main Menu Bar CSS ######### */
+
+.mattblackmenu
+{
+	padding: 0;
+	font: 12px arial;
+	list-style-type: none;
+	overflow: hidden;
+	width: 735px;
+	float:left;
+	padding-bottom: 0px;
+
+}
+.mattblackmenu ul{
+padding: 0;
+margin: 0;
+list-style-type: none;
+overflow: hidden;
+width: 100%;
+}
+.mattblackmenu li{
+	margin: 0;
+	list-style: none;
+	float: right;
+	height:30px;
+	display:block;
+	line-height:30px;
+}
+
+.mattblackmenu li a{
+	margin: 0px;
+	color: #000000;
+	text-align: left;
+	text-decoration: none;
+	padding:0px 10px 0px 10px;
+	display: block;
+	height:30px;
+	float:left;
+	font-size:13px;
+	font-weight:bold;
+	
+	}
+
+
+.mattblackmenu li a:hover
+{
+	display:block;
+
+/*			background-image:url(images/menu_bg.jpg);
+	background-repeat:no-repeat;*/
+	text-align:center;
+	color:#026634;
+	margin:0px;
+	font-weight:bold;
+	padding:0px 10px 0px 10px;
+	
+}
+.mattblackmenu li a.selected
+{
+	display:block;
+
+/*	background-image:url(images/menu_bg.jpg);
+	background-repeat:no-repeat;*/
+	text-align:center;
+	color:#026634;
+	margin:0px;
+	font-weight:bold;
+	padding:0px 10px 0px 10px;
+}
+#newlink
+{
+display:block;
+color:#58595b;
+
+	padding:0px;
+}
+#newlink:hover
+{
+display:block;
+	color: #1f90c8;
+
+	padding:0px;
+}
+
+
+.glossymenu{
+	margin: 5px 0;
+	padding: 0;
+	width: 228px;
+	border-bottom-width: 0;
+	float:left;
+}
+
+.glossymenu a.menuitem{
+
+font-family: Arial, Helvetica, sans-serif, Tahoma;
+font-size:12px;
+color: white;
+display: block;
+position: relative; /*To help in the anchoring of the ".statusicon" icon image*/
+width: auto;
+padding: 1px 0px 0px 0px;
+padding-left: 10px;
+text-decoration: none;
+border-bottom:1px solid #4299a1;
+border-top:1px solid #4299a1;
+height:25px;
+line-height:25px;
+}
+
+
+.glossymenu a.menuitem:visited, .glossymenu .menuitem:active{
+color: white;
+}
+
+.glossymenu a.menuitem .statusicon{ /*CSS for icon image that gets dynamically added to headers*/
+position: absolute;
+top: 5px;
+right: 5px;
+border: none;
+}
+
+.glossymenu a.menuitem:hover{
+	background-image: url(images/rightmenu_bg_actv.jpg);
+	background-repeat:repeat-x;
+	background-position:center;
+	padding-top: 1px;
+}
+
+.glossymenu div.submenu{ /*DIV that contains each sub menu*/
+}
+
+.glossymenu div.submenu ul{ /*UL of each sub menu*/
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+.glossymenu div.submenu ul li{
+height:20px;
+}
+
+.glossymenu div.submenu ul li a{
+display: block;
+/*font: normal 11px Arial, Helvetica, sans-serif;*/
+font-family: Arial, Helvetica, sans-serif, Tahoma;
+font-size:12px;
+color: #ffffff;
+text-decoration: none;
+padding: 2px 0;
+padding-left:40px;
+}
+
+.glossymenu div.submenu ul li a:hover{
+	color: #d4d3d3;
+	text-decoration:none;
+}
+
+
+
+.chromestyle{
+	text-decoration: none;
+	height: 30px;
+	background-image: url(../images/nav_bg.gif);
+	background-position: top;
+	width: 700px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	float: left;
+}
+.float_left {
+	float: left;
+}
+
+
+.chromestyle:after{ /*Add margin between menu and rest of content in Firefox*/
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.chromestyle ul{
+	text-align: center;
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+	border: 0px none #BBB;
+	margin: 0;
+	background-image: url(../images/l1.gif);
+	padding: 0px;
+	float: left;
+	display:block;
+	height:30px;
+}
+
+.chromestyle ul li{
+	display:block;
+	margin: 0px;
+	float: left;
+	background-image: url(../images/bg_a.gif);
+	background-repeat: no-repeat;
+	background-position: right top;
+	padding-top:8px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	height:22px;
+	
+}
+
+.chromestyle ul li a{
+	
+	color: #3e7677;
+	text-decoration: none;
+	border-right-color: #DADADA;
+	font-family: Arial, Helvetica, sans-serif, Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	border-top-color: #DADADA;
+	border-bottom-color: #FFFFFF;
+	margin: 0;
+	padding-right: 8px;
+	padding-left: 8px;
+	padding-bottom:8px;
+	height: 14px;
+	width: 80px;
+	padding-top:8px;
+	overflow:visible;
+	margin-bottom:8px;
+	
+}
+.chromestyle ul li a.width2{
+	width:150px;
+}
+
+.chromestyle ul li a.selected
+{
+color:#FFFFFF;
+background-image:url(images/menumid.jpg);
+
+}
+#marquee {
+	height: 60px;
+	padding-top: 10px;
+	width: 970px;
+	padding-right: 15px;
+	padding-left: 15px;
+	background-image:url(../images/marquee_bg.jpg);
+	margin-top: 35px;
+		}
+		
+#marquee img{
+	border:none;
+}
+
+
+.chromestyle ul li a:hover{
+	background-image:url(images/menumid.jpg);
+	color:#CCCCCC;
+}
+
+.chromestyle ul li a[rel]:after{ /*HTML to indicate drop down link*/
+content: "";
+/*content: " " url(downimage.gif); /*uncomment this line to use an image instead*/
+}
+
+

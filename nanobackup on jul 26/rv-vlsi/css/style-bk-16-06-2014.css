@@ -1,0 +1,535 @@
+/*--- ---*/
+@font-face {
+    font-family: 'robotomedium';
+    src: url('../font/roboto-medium-webfont.eot');
+    src: url('../font/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/roboto-medium-webfont.woff') format('woff'),
+         url('../font/roboto-medium-webfont.ttf') format('truetype'),
+         url('../font/roboto-medium-webfont.svg#robotomedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'robotolight';
+    src: url('../font/roboto-light-webfont.eot');
+    src: url('../font/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/roboto-light-webfont.woff') format('woff'),
+         url('../font/roboto-light-webfont.ttf') format('truetype'),
+         url('../font/roboto-light-webfont.svg#robotolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('../font/roboto-bold-webfont.eot');
+    src: url('../font/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/roboto-bold-webfont.woff') format('woff'),
+         url('../font/roboto-bold-webfont.ttf') format('truetype'),
+         url('../font/roboto-bold-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../font/roboto-regular-webfont.eot');
+    src: url('../font/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/roboto-regular-webfont.woff') format('woff'),
+         url('../font/roboto-regular-webfont.ttf') format('truetype'),
+         url('../font/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotolight_italic';
+    src: url('../font/roboto-lightitalic-webfont.eot');
+    src: url('../font/roboto-lightitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/roboto-lightitalic-webfont.woff') format('woff'),
+         url('../font/roboto-lightitalic-webfont.ttf') format('truetype'),
+         url('../font/roboto-lightitalic-webfont.svg#robotolight_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body{margin:0 auto !important;}
+
+/*-----header------*/
+.nvgtn{width:100%;height:90px;vertical-align:middle;border-top: 5px solid #008a8f;display:table;background:#fff;position:fixed;}
+.inner-nvgtn{width:1000px;margin:0 auto;}
+.lft-nvgtn{float:left;}
+.rgt-nvgtn{float:right;width:300px;}
+.socials{display: table-cell; vertical-align: middle; height: 106px; padding: 40px 0 0 15px; float: right;}
+.lft-nvgtn img{vertical-align: middle;}
+.logo1{padding: 10px 20px; border-right: 1px solid #ccc;}
+.logo2{padding: 10px 20px; border-right: 1px solid #ccc;}
+#cssmenu{cursor: pointer; width: 110px; float: left; position: absolute; height: 106px; padding: 36px 0px 0 17px; border-right: 1px solid #ccc; border-left: 1px solid #ccc;}
+#cssmenu ul.visible li{width: 225px;background: #f78dad;border-bottom:1px solid #ccc;font-family:'robotoregular';font-size:14px;padding: 8px;}
+#cssmenu ul.visible li a{text-decoration:none;color:#fff;}
+.active-cyc{text-decoration:none;}
+.menu-title{text-decoration:none;font-family:'robotoregular';font-size:14px;color:#8c8f92;}
+.sel-menu-img{vertical-align: middle;}
+
+.lftsde-mnuslider ul li{padding:10px;background:#f78dad;margin:0 0 1px 0px;}
+.lftsde-mnuslider ul li a{text-decoration:none;color:#fff;font-family: 'robotoregular'; font-size: 12px;}
+/*-----slides-------*/
+.lftsde-mnuslider{position:fixed;left:0;top:25%;}
+
+.slide1{background:url(../images/1-bg.jpg);background-size:100% 100%;padding: 0 0 50px 0px;}
+
+.slide2{
+	background:#ffffff !important;
+	background-size:100% 100%;
+}
+.slide3{
+	background:#ebfffc !important;
+	
+}
+.slide4{
+	background:#ffffff !important;
+	
+}
+.slide5{
+	background:#feecf1 !important;
+	
+}
+.slide6{
+	background:#ffffff !important;
+	
+}
+.slide7{
+	background:#ebfffc !important;
+
+}
+.slide8{
+	background:#ffffff !important;
+	
+}
+
+/*------- reduce navigation to smaller --------*/
+.smaller.nvgtn{height:50px;z-index: 1;}
+
+.smaller .logo1{width:100px;vertical-align: middle;padding: 0 20px;}
+.smaller .logo2{width:100px;vertical-align: middle;padding: 0 20px;}
+.smaller .socials{height:60px;padding: 18px 0px 18px 0px;}
+.smaller #cssmenu a.active-cyc{height:60px;}
+.smaller #cssmenu{cursor: pointer;width:110px;height:60px;padding: 15px 12px 15px 15px;}
+
+.bld-co{font-family:'robotobold';}
+.co-tile{color:#014593;font-family:'robotobold';}
+.july-mnth{font-family:'robotobold';color:#f86592;}
+.wh-we-r{width:1000px;margin:0 auto;display: table;}
+
+.rbt-lght-title{font-family:'robotolight';font-size:36px;padding: 15px 0; border-bottom: 2px solid #f3f4f5; margin: 0 0 50px 0px;}
+/*-------Social Media-------*/
+.scial-fb{background:url(../images/social.png) no-repeat 5px 0;display: block;width:35px;height:32px;float:left;}
+.scial-tw{background:url(../images/social.png) no-repeat -30px 0;display: block;width:35px;height:32px;float:left;}
+.scial-t{background:url(../images/social.png) no-repeat -62px 0px;display: block;width:35px;height:32px;float:left;}
+.scial-pr{background:url(../images/social.png) no-repeat -93px 0;display: block;width:35px;height:32px;float:left;}
+.scial-yt{background:url(../images/social.png) no-repeat -127px 0;display: block;width:35px;height:32px;float:left;}
+
+/*----------Menu Hide/Show------------*/
+#cssmenu ul.sub-nav {display: none;width: 225px;margin: 0 0 0 -75px;text-align: center;font-family: 'robotoregular';font-size: 14px;}
+#cssmenu ul.sub-nav a {text-decoration:none;color:#fff;}
+#cssmenu ul.sub-nav li {background: #f78dad;padding:10px;border-bottom:1px solid #fff;}
+
+/*----------Home Page-------------*/
+.rgt-cntn-hme{text-align:right;width: 62%; padding: 55px 0 0 0px;line-height: 16px;}
+.nme-light{font-family:'robotolight';font-size:20px;}
+.desgntn{font-family:'robotolight';font-size:12px;}
+.cmpny{font-family:'robotobold';font-size:12px;}
+.positin{font-family:'robotolight';font-size:10px;}
+.yrs{font-family:'robotolight';font-size:12px;color:#f6799f;text-transform:uppercase;}
+.mre-lnk{font-family:'robotolight';font-size:10px;color:#014495;text-decoration:none;}
+.rgt-cntn-scndhme{text-align:right;width: 50%; padding: 20px 0 0 0px;}
+.nme-medium{font-family:'robotomedium';font-size:22px;color:#e20130;}
+.centry-yrs{font-family:'robotobold';font-size:74px;color:#e20130;}
+.cmpny-ps{font-family:'robotoregular';font-size:48px;color:#014593;}
+.crs-offring{font-family:'robotolight';font-size:12px;color:#;width:50%;text-align:right;line-height: 18px;}
+.new-btch{text-transform:uppercase;font-family:'robotomedium';font-size:30px;color:#014593;text-align:right;width: 36.5% !important;margin:15px 0 15px 13.5%;border-top:5px double #ccc;border-bottom:5px double #ccc;padding:5px 0px;}
+.chfe{vertical-align: middle;font-family:'robotolight';font-size:12px;color:#014593;text-decoration:none;color:#f86592;}
+.vlsi{color:#014593;}
+
+
+/*------------Who We Are Page----------*/
+.left-div{width:314px;height:200px;float:left;padding:30px;text-align:right;}
+.inner-whwer-lft{width:665px;float:left;}
+.inner-whwer-rgt{width:335px;float:right;}
+.frst-lft-wwa{background:#f6799f;}
+.secd-rgt-wwa{background:#01dfba;}
+.third-lft-wwa{background:#01cba9;}
+.frth-rgt-wwa{background:#f78dad;padding: 58px 30px;}
+.cntnt-aatp{font-family:'robotomedium';font-size:26px;color:#fff;line-height:25px;}
+.sub-cntnt-aatp{font-family:'robotolight';font-size:14px;color:#fff;line-height:18px;padding:20px 0px;}
+.contnt-innr-rgt{font-family: 'robotolight'; font-size: 20px; line-height: 30px;}
+.contnt-innr-rgt-btm{font-family: 'robotolight'; font-size: 15px; line-height: 26px;padding: 30px 0px;}
+.cntnt-aatp-lft{font-family:'robotoregular';font-size:83px;color:#fff;float:left;vertical-align:middle;}
+.cntnt-aatp-rgt{font-family:'robotoregular';font-size:12px;color:#fff;float:left;vertical-align:middle;text-align: left; border-top: 5px solid #fff; margin: 14px 0 0 -7px; padding: 4px 0 0 7px;}
+.dowld-proscts{opacity:0.8;border: 2px solid #f78dad; padding: 16px 15px 15px 15px; color: #f78dad; font-family: 'robotoregular'; font-size: 15px; text-decoration: none; border-radius: 5px;}
+.dowld-proscts:hover{opacity:1;}
+.dowld-img{vertical-align: middle; margin: -5px 15px 0px -13px;}
+
+
+/*------------Program Offering------------*/
+.wosp-tle{font-family:'robotoregular';font-size:24px;padding: 0 0 25px 0px;}
+.lft-po{width:488px;float:left;}
+.rgt-po{width:512px;float:left;}
+.chk-elgblty{opacity:0.7;padding:10px 25px;border:2px solid #01cba9;color:#01cba9;text-decoration:none;border-radius:5px;font-family: 'robotoregular';font-size: 15px;}
+.chk-elgblty:hover{opacity:1;}
+.clear{clear:both;}
+.elgblty td{font-family:'robotolight';font-size:15px;line-height:33px;}
+.lft-po img{padding:0 0 35px 0px;}
+.dels li{background: url(../images/ul-1.png) no-repeat;
+background-position: 0 11px;
+font-family: 'robotolight';
+font-size: 15px;
+line-height: 35px;
+padding: 0 0 0 28px;}
+
+.curse li{background: url(../images/ul.png) no-repeat;
+background-position: 0 11px;
+font-family: 'robotolight';
+font-size: 15px;
+line-height: 35px;
+padding: 0 0 0 28px;}
+
+/*----------Free Workshop on VLSI Careers-----------*/
+.lft-fw{width:535px;float:left;}
+.rgt-fw{width:465px;float:right;}
+.name-cndtd{padding:25px 0 0 0px;font-family:'robotomedium';font-size:14px;}
+.design-desm{font-family:'robotolight';font-size:11px;padding:0px 0 20px 0px;}
+.design-cntnt{font-family:'robotolight';font-size:15px;line-height:20px;}
+.design-cntnt-vwp{font-family:'robotolight';font-size:15px;line-height:26px;}
+.design-vwp{font-family:'robotolight';font-size:11px;color:#014495;font-style:italic;padding:10px 0px;}
+.join-fw{opacity:0.8;text-decoration:none;padding:10px 85px;border:2px solid #f6799f;color:#f6799f;font-family:'robotomedium';font-size:18px;border-radius:5px;}
+.join-fw:hover{opacity:1;}
+.like-stsgu{opacity:0.8;text-decoration: none; padding: 10px 60px; color: #fff; font-family: 'robotoregular'; font-size: 18px; border-radius: 5px; background: #204385 url(../images/like.png) no-repeat; background-position: 20px 7px;}
+.like-stsgu:hover{opacity:1;}
+.alnk-lutsgu{margin:15px 0 0 0px;}
+.design-date{padding: 45px 0 0 0px; font-family: 'robotolight'; font-size: 15px;}
+.design-venue{padding:15px 0 55px 0px; font-family: 'robotolight'; font-size: 15px;}
+.dte-clr{font-family:'robotomedium';font-size:18px;color:#f6799f;}
+
+/*-----------Testimonials Page------------*/
+.lft-tm{width:524px;float:left;}
+.rgt-tm{width:476px;float:right;}
+
+
+/*---------------Enquiry for Registration Page------------------*/
+.enq-reg-inpt{margin: 0 0 20px 0px;width: 485px; padding:15px; background: #f3f4f5; border: 1px solid #ccc; outline: 0; border-radius: 5px;}
+.enq-nw{opacity:0.7;font-family: 'robotomedium'; font-size: 18px; padding: 15px 95px; background: #fff; border: 2px solid #01cba9; color: #01cba9; outline: 0;}
+.enq-nw:hover{opacity:1;}
+.vert-top{vertical-align: top; padding: 15px 0 0 0px;}
+.dowld-form{opacity:0.7;float: right; font-family: 'robotolight'; font-size: 14px; text-decoration: none; color: #f6799f; padding: 15px 0 0 0px;}
+.dowld-form:hover{opacity:1;}
+.dwnld-imf-frm{vertical-align:middle;margin:0 15px 0 0px;}
+
+/*-----------Gallery Page------------*/
+.cntnt-fr-gallry{padding:0 0 30px 0px;}
+.gal-imgs{margin:0 5px 5px 0px;}
+.lst-img{margin:0 0 5px 0px !important;}
+
+
+/*-----------Contact Us Page-------------*/
+.lft-cu{float:left;width:345px;padding: 0;}
+.rgt-cu{float:right;width:645px;}
+.cntct-us{float:right;}
+.adress-cu{font-family:'robotolight';font-size:18px;line-height:26px;}
+.address-img{vertical-align:middle;}
+.cntnt-adrscu{vertical-align:middle;color:#555555;}
+.top-padingcu td{padding:45px 0 10px 0px;}
+.top-padingcu-l td{padding:0px 0 10px 0px;}
+.mailto-lnlk{text-decoration:none;color:#6c6c6c;}
+
+/*--------------Footer---------------*/
+.footer-main{width:100%;background:#008a8f;}
+.footer-inner{width:1000px;margin:0 auto;color:#7bc8cb;font-family:'robotolight';font-size:14px;text-align:center;padding:35px 0px;}
+
+@media only screen and (max-width: 1023px) and (min-width: 575px)
+{
+.rgt-cntn-hme { text-align: right; width: 62%; padding: 20px 0 0 0px; line-height: 16px; }
+.nvgtn { width: 100%; height:65px; vertical-align: middle; border-top: 5px solid #008a8f; display: table; background: #fff; position: fixed; }
+.lft-nvgtn { float: left;width: 25%; }
+.socials { height: 65px; padding: 18px 0px 18px 0px; }
+.logo1 { padding: 0 0px 0px 0px !important;width: 35px !important;}
+.logo2 { padding: 0 0px 0px 0px !important;width: 50px !important;}
+
+.inner-nvgtn { width: 100% !important; margin: 0 auto; }
+#cssmenu {margin-left: 0;height: 65px;padding:13px 0px 0 5px !important; position: relative; width: 85px !important;}
+.lft-nvgtn img { vertical-align: middle;width: 65px !important;}
+.socials {display: table-cell; vertical-align: middle; height: 35px; padding:20px 0 20px 0px; float: left; position: absolute; top: 0; right: 0;}
+.smaller .logo1{width:50px;}
+.smaller .logo2{width:50px;}
+.smaller .rgt-nvgtn{width:285px;}
+.smaller .socials { height: 65px; padding:20px 0px 20px 0px; }
+.smaller #cssmenu { cursor: pointer; width: 85px; height: 65px; padding: 0px 0px 0px 5px; }
+
+/*-----Home Page---------*/
+.centry-yrs { font-family: 'robotobold'; font-size: 35px; color: #e20130; }
+.nme-medium { font-family: 'robotomedium'; font-size: 18px; color: #e20130; }
+.cmpny-ps { font-family: 'robotoregular'; font-size: 22px; color: #014593; }
+.new-btch { text-transform: uppercase; font-family: 'robotomedium'; font-size: 12px; color: #014593; text-align: right; width: 36.5% !important; margin: 15px 0 15px 13.5%; border-top: 5px double #ccc; border-bottom: 5px double #ccc; padding: 5px 0px; }
+.nme-light { font-family: 'robotolight'; font-size: 20px; }
+.chfe { vertical-align: middle; font-family: 'robotolight'; font-size: 12px; color: #014593; text-decoration: none; color: #f86592; }
+
+}
+@media only screen and (max-width: 574px) and (min-width: 420px)
+{
+.nvgtn { width: 100%; height:40px; vertical-align: middle; border-top: 5px solid #008a8f; display: table; background: #fff; position: fixed; }
+.lft-nvgtn { float: left;width: 25%; }
+.socials { height: 40px; padding: 18px 0px 18px 0px; }
+.logo1 { padding: 0 0px 0px 0px !important;}
+.logo2 { padding: 0 0px 0px 0px !important;}
+
+.inner-nvgtn { width: 100% !important; margin: 0 auto; }
+#cssmenu {margin-left: 0;height: 35px;padding: 0px 0px 0 5px !important; position: relative; width: 85px !important;}
+.lft-nvgtn img { vertical-align: middle;width: 35px !important;}
+.socials {display: table-cell; vertical-align: middle; height: 35px; padding: 5px 0 0 0px; float: left; position: absolute; top: 0; right: 0;}
+.smaller .logo1{width:50px;}
+.smaller .logo2{width:50px;}
+.smaller .rgt-nvgtn{width:285px;}
+.smaller .socials { height: 40px; padding: 5px 0px 5px 0px; }
+.smaller #cssmenu { cursor: pointer; width: 85px; height: 33px; padding: 0px 0px 0px 5px; }
+/*-----Home Page---------*/
+.centry-yrs { font-family: 'robotobold'; font-size: 30px; color: #e20130; }
+.nme-medium { font-family: 'robotomedium'; font-size: 16px; color: #e20130; }
+.cmpny-ps { font-family: 'robotoregular'; font-size: 18px; color: #014593; }
+.new-btch { text-transform: uppercase; font-family: 'robotomedium'; font-size: 11px; color: #014593; text-align: right; width: 36.5% !important; margin: 15px 0 15px 13.5%; border-top: 5px double #ccc; border-bottom: 5px double #ccc; padding: 5px 0px; }
+.nme-light { font-family: 'robotolight'; font-size: 16px; }
+.chfe { vertical-align: middle; font-family: 'robotolight'; font-size: 10px; color: #014593; text-decoration: none; color: #f86592; }
+}
+
+@media only screen and (max-width: 419px) and (min-width: 200px)
+{
+.nvgtn { width: 100%; height:40px; vertical-align: middle; border-top: 5px solid #008a8f; display: table; background: #fff; position: fixed; }
+.lft-nvgtn {width: 100% !important; margin: 0 auto; text-align: center;}
+.socials { height: 40px; padding: 18px 0px 18px 0px; }
+.logo1 { padding: 0 0px 0px 0px !important;width:15% !important;}
+.logo2 { padding: 0 0px 0px 0px !important;width: 15% !important;}
+
+.inner-nvgtn { width: 100% !important; margin: 0 auto; }
+#cssmenu {margin-left: 0;height: 35px;padding: 0px 0px 0 5px !important; position: relative; width: 85px !important;float:none;margin:0 auto;}
+.lft-nvgtn img { vertical-align: middle; width: 30%; }
+.socials {display: table; vertical-align: middle; height: 35px; padding: 5px 0 0 0px; float: none !important; position: relative; margin: 0 auto;}
+.smaller .logo1{width:50px;}
+.smaller .logo2{width:65px;}
+.smaller .rgt-nvgtn{width: 100% !important;}
+.smaller .socials { height: 40px; padding: 5px 0px 5px 0px; }
+.smaller #cssmenu { cursor: pointer; width: 85px; height: 33px; padding: 0px 0px 0px 5px;float:none;margin:0 auto; }
+.rgt-nvgtn { float:right; width: 100% !important; }
+#cssmenu ul.visible li { width: 225px; background: #f78dad; border-bottom: 1px solid #ccc; font-family: 'robotoregular'; font-size: 14px; padding: 8px; position: relative; z-index: 1; }
+
+/*-----Home Page---------*/
+.centry-yrs { font-family: 'robotobold'; font-size: 30px; color: #e20130; }
+.nme-medium { font-family: 'robotomedium'; font-size: 16px; color: #e20130; }
+.cmpny-ps { font-family: 'robotoregular'; font-size: 18px; color: #014593; }
+.new-btch { text-transform: uppercase; font-family: 'robotomedium'; font-size: 11px; color: #014593; text-align: right; width: 36.5% !important; margin: 15px 0 15px 13.5%; border-top: 5px double #ccc; border-bottom: 5px double #ccc; padding: 5px 0px; }
+.nme-light { font-family: 'robotolight'; font-size: 16px; }
+.chfe { vertical-align: middle; font-family: 'robotolight'; font-size: 10px; color: #014593; text-decoration: none; color: #f86592; }
+
+}
+
+
+
+
+/*----------------Testimonial slider-----------------*/
+.bx-wrapper {
+	position: relative;
+	margin: 0 auto 60px;
+	padding: 0;
+	*zoom: 1;
+	text-align: center;
+	font-family: 'robotolight_italic';
+	font-size:16px;
+	line-height:25px;
+	color:#945c6b;
+}
+
+.bx-wrapper img {
+	max-width: 100%;
+	display: block;
+}
+
+/** THEME
+===================================*/
+
+.bx-wrapper .bx-viewport {
+	
+	
+	
+	/*fix other elements on the page moving (on Chrome)*/
+	-webkit-transform: translatez(0);
+	-moz-transform: translatez(0);
+    	-ms-transform: translatez(0);
+    	-o-transform: translatez(0);
+    	transform: translatez(0);
+}
+
+.bx-wrapper .bx-pager,
+.bx-wrapper .bx-controls-auto {
+	position: absolute;
+	bottom: -30px;
+	width: 100%;
+}
+
+/* LOADER */
+
+.bx-wrapper .bx-loading {
+	min-height: 50px;
+	background: url(images/bx_loader.gif) center center no-repeat #fff;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2000;
+}
+
+/* PAGER */
+
+.bx-wrapper .bx-pager {
+	text-align: center;
+	font-size: .85em;
+	font-family: Arial;
+	font-weight: bold;
+	color: #666;
+	padding-top: 20px;
+}
+
+.bx-wrapper .bx-pager .bx-pager-item,
+.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+	display: inline-block;
+	*zoom: 1;
+	*display: inline;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a {
+	
+	text-indent: -9999px;
+	display: block;
+	width: 15px;
+	height: 15px;
+	margin: 0 5px;
+	outline: 0;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 20px;
+background: #fff;
+border: 2px solid #f9a2bd;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover{background:#f6799f;border:2px solid #faacc4;}
+.bx-wrapper .bx-pager.bx-default-pager a.active {
+	background: #b30b3e;
+}
+
+/* DIRECTION CONTROLS (NEXT / PREV) */
+
+.bx-wrapper .bx-prev {
+	left: 10px;
+	background: url(images/controls.png) no-repeat 0 -32px;
+}
+
+.bx-wrapper .bx-next {
+	right: 10px;
+	background: url(images/controls.png) no-repeat -43px -32px;
+}
+
+.bx-wrapper .bx-prev:hover {
+	background-position: 0 0;
+}
+
+.bx-wrapper .bx-next:hover {
+	background-position: -43px 0;
+}
+
+.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 50%;
+	margin-top: -16px;
+	outline: 0;
+	width: 32px;
+	height: 32px;
+	text-indent: -9999px;
+	z-index: 9999;
+}
+
+.bx-wrapper .bx-controls-direction a.disabled {
+	display: none;
+}
+
+/* AUTO CONTROLS (START / STOP) */
+
+.bx-wrapper .bx-controls-auto {
+	text-align: center;
+}
+
+.bx-wrapper .bx-controls-auto .bx-start {
+	display: block;
+	text-indent: -9999px;
+	width: 10px;
+	height: 11px;
+	outline: 0;
+	background: url(images/controls.png) -86px -11px no-repeat;
+	margin: 0 3px;
+}
+
+.bx-wrapper .bx-controls-auto .bx-start:hover,
+.bx-wrapper .bx-controls-auto .bx-start.active {
+	background-position: -86px 0;
+}
+
+.bx-wrapper .bx-controls-auto .bx-stop {
+	display: block;
+	text-indent: -9999px;
+	width: 9px;
+	height: 11px;
+	outline: 0;
+	background: url(images/controls.png) -86px -44px no-repeat;
+	margin: 0 3px;
+}
+
+.bx-wrapper .bx-controls-auto .bx-stop:hover,
+.bx-wrapper .bx-controls-auto .bx-stop.active {
+	background-position: -86px -33px;
+}
+
+/* PAGER WITH AUTO-CONTROLS HYBRID LAYOUT */
+
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager {
+	text-align: left;
+	width: 80%;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto {
+	right: 0;
+	width: 35px;
+}
+
+/* IMAGE CAPTIONS */
+
+.bx-wrapper .bx-caption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: #666\9;
+	background: rgba(80, 80, 80, 0.75);
+	width: 100%;
+}
+
+.bx-wrapper .bx-caption span {
+	color: #fff;
+	font-family: Arial;
+	display: block;
+	font-size: .85em;
+	padding: 10px;
+}
+/*----------------End Testimonial slider-----------------*/

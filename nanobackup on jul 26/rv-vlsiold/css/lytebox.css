@@ -1,0 +1,15 @@
+#lbOverlay { position: fixed; top: 0; left: 0; z-index: 99998; width: 100%;  }
+	#lbOverlay.grey { background-color: #000000; }
+body
+{
+background-color:#FFFFFF;
+}
+.popupheader td {
+    border-bottom: 1px solid #666666;
+    font-weight: bold;
+}
+#lbMain { position: absolute; left: 0; width: 100%; z-index: 99999; text-align: center; line-height: 0; }
+#lbMain a img { border: none; }
+#lbOuterContainer { position: relative; background-color: #fff; margin: 0 auto; }
+#lbImageContainer, #lbIframeContainer { padding: 5px;border:0px;}
+	

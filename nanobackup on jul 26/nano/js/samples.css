@@ -1,0 +1,16 @@
+@charset "UTF-8";
+body, input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.test_title{
+color:#954F4F;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight:bold;
+font-size:12px;
+}
+.faqtxt{
+	color:#000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+}

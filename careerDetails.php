@@ -7,6 +7,8 @@ include('include/year.php');
 $idstudent = $_SESSION['idstudent'];
 if($_POST)
 {
+
+
   $working_currently = $_POST['working_currently'];
      $currentcompanyfromyear = $_POST['currentcompanyfromyear'];
      $currentcompanyfrommonth = $_POST['currentcompanyfrommonth'];
@@ -459,7 +461,7 @@ function fnHideCurrentCompany(value){
           
         </div>
       </div>
-
+<!--
       <h3 class="brd-btm mar-b20">Summary of work experience</h3>
       <div class="form-group">
     <label class="radio-inline pad-l0">
@@ -559,7 +561,7 @@ function fnHideCurrentCompany(value){
    </div>
    </div>
 
- 
+ -->
   <div class="form-group">
                     <h3 class="brd-btm mar-b20">Core Competancy / Summary of Skills</h3>
  <!--    <input type="text" class="form-control mar-b15" rows="1"  Placeholder="List your core competancy in a single line within 150 Characters" maxlength="150" name="corecompetancy[]" onkeyup="countCharbannertext(this,'corecompetancy0_countlabel','250')" value="<?php echo $corecompetancyArray[0]['corecompetancy'];?>" />
@@ -577,7 +579,7 @@ function fnHideCurrentCompany(value){
  
  <div class="form-group">
   <div class="col-sm-12">
-    <textarea  class="form-control" rows="1"  Placeholder="List your core competancy in a single line within 170 Characters" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy0_countlabel','170')" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
+    <textarea  class="form-control" rows="1"  Placeholder="Eg Proficiency in AutoCAD Electrical, Solid Edge Package" maxlength="170" name="corecompetancy[]"  onkeyup="countCharbannertext(this,'corecompetancy0_countlabel','170')" ><?php echo $corecompetancyArray[0]['corecompetancy'];?></textarea>
       <span class='info-text' id='corecompetancy0_countlabel'>Maximum 170 Chars (with spaces)
 
     </div>        

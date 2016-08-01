@@ -1,0 +1,1 @@
+<table width="100%" cellpadding="2" cellspacing="2" border="0" style="border-bottom:1px solid #666666;margin-bottom:5px;"><tr><td><a href="index.php"><img src="../images/Nanologo.jpg"   border="0" /></a></td><td align="right"><a href="logout.php">Logout</a></td></tr></table>

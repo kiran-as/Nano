@@ -1,0 +1,23 @@
+Custom pie chart is a class to generate your own pie chart. Easy to use and very simple. You don't need to configure very much. Just set a canvas area, set a value and description for an each pie slice, of course you should add other slices as you like. This pie chart will calculate and generate automatically for you. If need it you can also change the font style, color background and font color. This pie chart could be bind with your data for present a static data such as vooting, data visitor, and other purpose.
+
+Example:
+
+<html>
+
+<head>
+<title>Custom Pie Chart</title>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1" height="295">
+  <tr>
+    <td width="100%" height="295">
+    <p align="center"><img src=pieChart.class.php></td>
+  </tr>
+</table>
+
+
+</body>
+
+</html>

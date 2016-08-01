@@ -228,6 +228,9 @@ while($row = mysql_fetch_assoc($academicSql))
     $academicArray[$i]['challenges2'] = $row['challenges2'];
     $academicArray[$i]['challenges3'] = $row['challenges3'];
     $academicArray[$i]['challenges4'] = $row['challenges4'];
+    $academicArray[$i]['start_date'] = date('M-Y',strtotime($row['start_date']));
+    $academicArray[$i]['end_date'] =date('M-Y',strtotime($row['end_date']));
+    $academicArray[$i]['designation'] = $row['designation'];    
     $academicArray[$i]['role'] = $row['role'];
 
     $i++;
@@ -540,12 +543,21 @@ $end_date = $companyArray[$i]['end_date'];
           $challenges3 = $academicArray[$i]['challenges3'];
           $challenges4 = $academicArray[$i]['challenges4'];
           $role = $academicArray[$i]['role'];
+$designation = ucfirst($academicArray[$i]['designation']);
+$client = ucfirst($academicArray[$i]['client']);
+$start_date = $academicArray[$i]['start_date'];
+$end_date = $academicArray[$i]['end_date'];          
 
          $table.="<table width='100%'>";
             $table.="<tr>
                  <td align='left' >$college_name</td>
                  <td align='right'></td>
             </tr>";
+             $table.="<tr>
+                 <td align='left'  style='font-style:Italic;'>$designation</td>
+                 <td align='right'>$start_date to $end_date</td>
+            </tr>";
+            
            $table.="<tr>
                  <td align='left' colspan='2' style='font-weight:bold;'>$project_title</td>
             </tr>";
